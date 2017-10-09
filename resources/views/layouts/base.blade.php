@@ -9,7 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>
-      {{ config('app.name', 'KYC') }} - @yield('title')
+      {{ config('app.name', 'Mojave') }} - @yield('title')
     </title>
 
     <meta name="description" content="@yield('description')">
