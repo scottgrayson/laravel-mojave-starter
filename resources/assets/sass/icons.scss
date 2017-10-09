@@ -1,0 +1,57 @@
+.noti-badge {
+  position: relative;
+  top: -15px;
+  left: 18px;
+  margin-left: -18px;
+}
+.noti svg {
+  width: 32px !important;
+  height: 32px !important;
+}
+.svg {
+  height: 1rem;
+  width: 1rem;
+  vertical-align: top;
+}
+
+.svg.s3 {
+  stroke-width: 3;
+}
+.svg.s4 {
+  stroke-width: 4;
+}
+
+.svg.inherit {
+  vertical-align: inherit;
+}
+
+.svg.lg {
+  height: 1.25rem;
+  width: 1.25rem;
+}
+
+.svg.sm {
+  height: .8rem;
+  width: .8rem;
+}
+
+.btn-icon svg {
+  height: 1.25rem;
+  width: 1.25rem;
+  vertical-align: middle;
+}
+
+.btn-icon {
+  padding-left: 4px;
+  padding-right: 4px;
+  //icons tend to have more space below
+  padding-top: 2px;
+  padding-bottom: 2px;
+  cursor: pointer;
+  background-color: transparent;
+  color: theme-color("dark");
+}
+
+.btn-icon:hover {
+  color: darken(theme-color("dark"), 7.5%);
+}

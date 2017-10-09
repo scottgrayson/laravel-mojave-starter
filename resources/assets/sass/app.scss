@@ -1,0 +1,38 @@
+// Bootstrap
+@import "~bootstrap/scss/functions";
+@import "bootstrap.variables";
+@import "~bootstrap/scss/bootstrap";
+
+// Other Vendor
+@import "~select2/dist/css/select2";
+
+//@import "stepper";
+@import "nav";
+@import "footer";
+@import "sidebar";
+@import "notifications";
+@import "icons";
+
+// padding for fixed nav
+body {
+  padding-top: 3.5rem;
+}
+
+// form errors
+ul.invalid-feedback {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+label.required:after {
+  content: " *";
+}
+
+.utc-to-local {
+  display: none;
+}
+
+.btn {
+  cursor: pointer;
+}

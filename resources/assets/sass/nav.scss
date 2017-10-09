@@ -1,0 +1,10 @@
+.navbar-bordered.navbar-light {
+  border-bottom: 1px solid lighten(theme-color("secondary"), 25%);
+}
+
+@include media-breakpoint-up(md) {
+  .dropdown-menu-md-right {
+    right: 0;
+    left: auto;
+  }
+}

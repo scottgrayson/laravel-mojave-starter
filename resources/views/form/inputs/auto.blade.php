@@ -1,0 +1,82 @@
+@php
+  // Guess Type and Attributes
+
+  $groupClass = '';
+  $labelClass = '';
+  $inputClass = '';
+  $options = [];
+  $label = $name;
+  $relation = '';
+
+  if (in_array($name, ['description', 'message'])) {
+    $type = 'textarea';
+  } elseif (in_array($name, ['email', 'password'])) {
+    $type = $type ?: $name;
+  } elseif ($rule = preg_grep('/in:/', $rules)) {
+    $options = collect(explode(',', str_ireplace('in:', '', array_shift($rule))))
+      ->mapWithKeys(function ($o) {
+        return [$o => title_case(str_replace('_', ' ', $o))];
+      })
+      ->toArray();
+    $type = 'select';
+  } elseif (preg_match('/^(.*)_ids?$/', $name)) {
+    $relation = '\\App\\'.studly_case(preg_replace('/_ids?/', '', $name));
+    $label = title_case(preg_replace('/_id/', '', $name));
+    if (preg_grep('/array/', $rules)) {
+      $attributes['multiple'] = 'multiple';
+    }
+    $type = 'relation';
+  } elseif (in_array('file', $rules) || in_array('image', $rules)) {
+    $inputClass .= 'form-control-file';
+    $type = 'file';
+  } elseif (in_array('boolean', $rules)) {
+    $groupClass .= 'form-check';
+    $labelClass .= 'form-check-label';
+    $inputClass .= 'form-check-input';
+    $type = 'check';
+  }
+
+  //defaults
+  $type = $type ?: 'text';
+  $groupClass = $groupClass ?: 'form-group';
+  $inputClass = $inputClass ?: 'form-control';
+
+  // add error class
+  if ($errors->has($name)) {
+    $inputClass .= ' is-invalid ';
+  }
+
+  // check if required
+  if (in_array('required', $rules)) {
+    $labelClass .= 'required ';
+    $attributes = array_merge($attributes, ['required' => true]);
+  }
+
+  // Render Field
+
+  echo "<div class=$groupClass>";
+  echo Form::label($label, null, ['class' => $labelClass]);
+
+  if ($type === 'password' || $name === 'password_confirmation') {
+    // passwords dont have a value argument
+    echo Form::password($name, array_merge(['class' => $inputClass], $attributes));
+  } elseif ($type === 'relation') {
+    echo Form::relation($name, null, $relation, array_merge(['class' => $inputClass], $attributes), $item);
+  } elseif ($type === 'select') {
+    // select has a different arg signature
+    echo Form::select($name, $options, null, array_merge(['class' => $inputClass], $attributes));
+  } elseif ($type === 'file') {
+    // files dont have value
+    echo Form::file($name, array_merge(['class' => $inputClass], $attributes));
+  } else {
+    echo Form::$type($name, $value, array_merge(['class' => $inputClass], $attributes));
+  }
+
+  // render errors
+  if ($errors->has($name)) {
+    echo Html::ul($errors->get($name), ['class' => 'invalid-feedback']);
+  }
+
+  // close form-group
+  echo '</div>';
+@endphp
