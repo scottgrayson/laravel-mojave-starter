@@ -8,7 +8,7 @@
 
     <div class="row">
       <div class="col-md-8 ml-md-auto mr-md-auto">
-        Home
+        Welcome {{ auth()->user()->name }}
       </div>
     </div>
 
