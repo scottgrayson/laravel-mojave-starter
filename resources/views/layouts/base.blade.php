@@ -28,7 +28,7 @@
     ])
 
     <script>
-      window.Portal = <?php echo json_encode([
+      window.app = <?php echo json_encode([
         'csrfToken' => csrf_token(),
         'pusherKey' => config('services.pusher.auth_key'),
       ]); ?>;

@@ -1,10 +1,17 @@
-@extends('layouts.guest')
+@extends('layouts.app')
 
 @section('content')
 
-  <div class="text-center">
-    <h1>Welcome to {{ config('app.name') }}</h1>
-    <a class="btn btn-primary" href="/login">Login</a>
-  </div>
+  @component('components.focused')
+    <div class="text-center">
+      <h1>{{ config('app.name') }}</h1>
+
+      <br>
+
+      <a class="btn btn-primary" href="/register">
+        Sign Up
+      </a>
+    </div>
+  @endcomponent
 
 @endsection
