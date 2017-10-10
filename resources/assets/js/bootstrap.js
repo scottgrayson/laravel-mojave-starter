@@ -45,6 +45,6 @@ window.Pusher = require('pusher-js');
 
 window.Echo = new Echo({
   broadcaster: 'pusher',
-  key: Portal.pusherKey,
+  key: app.pusherKey,
   cluster: 'us2'
 });

@@ -9,7 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>
-      {{ config('app.name', 'Mojave') }} - @yield('title')
+      {{ config('app.name', "Miss Betty's Day Camp") }} - @yield('title')
     </title>
 
     <meta name="description" content="@yield('description')">
@@ -28,7 +28,7 @@
     ])
 
     <script>
-      window.Portal = <?php echo json_encode([
+      window.app = <?php echo json_encode([
         'csrfToken' => csrf_token(),
         'pusherKey' => config('services.pusher.auth_key'),
       ]); ?>;
