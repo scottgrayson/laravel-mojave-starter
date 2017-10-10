@@ -31,18 +31,8 @@ class ReorderMenuTest extends TestCase
         $res = $this->get(route('admin.menu-item-order.index'));
         $res->assertStatus(200);
 
-        //need to send through all menu items for proper order
         $res = $this->post(route('admin.menu-item-order.store'), [
-            'order' => [$child2->id, $child1->id]
-        ]);
-
-        //$this->feedback($res);
-
-        $res->assertRedirect(route('admin.menu-item-order.index'))
-            ->assertSessionHasErrors();
-
-        $res = $this->post(route('admin.menu-item-order.store'), [
-            'order' => [$parent->id, $child2->id, $child1->id]
+            'order' => $parent->id . ',' . $child2->id . ',' . $child1->id
         ]);
 
         $res->assertRedirect(route('admin.menu-item-order.index'));

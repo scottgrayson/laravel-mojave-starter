@@ -1,11 +1,11 @@
 @extends('layouts.admin')
 
 @section('content')
-  {{--{!! Form::open(['route' => 'admin.menu-item-order.store']) !!}--}}
+  {!! Form::open(['id' => 'orderform', 'route' => 'admin.menu-item-order.store']) !!}
 
-  {{--<button class="btn btn-primary" onclick="saveOrder(event)">--}}
-    {{--Save Order--}}
-  {{--</button>--}}
+  <button class="btn btn-primary" onclick="saveOrder(event)">
+    Save Order
+  </button>
 
   @include('partials.list', ['ulclass' => 'orderable', 'item' => $items])
 
@@ -13,9 +13,9 @@
     Save Order
   </button>
 
-  {{--<input hidden name="order" id="orderString"/>--}}
+  <input hidden name="order" id="orderString"/>
 
-  {{--{!! Form::close() !!}--}}
+  {!! Form::close() !!}
 @endsection
 
 @section('scripts')
@@ -39,8 +39,9 @@ function saveOrder (e) {
 
   console.log(order)
 
-  // document.getElementById('orderString').value = order
+  document.getElementById('orderString').value = order
 
+  document.getElementById('orderform').submit()
 }
   </script>
 @endsection

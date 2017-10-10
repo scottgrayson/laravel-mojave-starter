@@ -18,11 +18,14 @@ class MenuItemOrderController extends Controller
     {
         $menuLength = MenuItem::count();
 
-        $request->validate([
-            'order' => "required|array|size:$menuLength",
-        ]);
+        if (!request('order')) {
+            flash('Error while updating menu order.');
+            return redirect(route("admin.menu-item-order.index"));
+        }
 
-        $order = array_flip(request('order'));
+        $orderArray = explode(',', request('order'));
+
+        $order = array_flip($orderArray);
 
         // TODO would be more efficient to do delete than reinsert
         // but is that safe? Would users load a page with 0 menu items
