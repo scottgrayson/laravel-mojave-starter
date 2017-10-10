@@ -5,6 +5,7 @@
   $labelClass = '';
   $inputClass = '';
   $options = [];
+  $model = isset($model) ? $model : get_class($item);
   $label = $name;
   $relation = '';
 
@@ -21,6 +22,9 @@
     $type = 'select';
   } elseif (preg_match('/^(.*)_ids?$/', $name)) {
     $relation = '\\App\\'.studly_case(preg_replace('/_ids?/', '', $name));
+    if ($relation === '\\App\\Parent') {
+      $relation = $model;
+    }
     $label = title_case(preg_replace('/_id/', '', $name));
     if (preg_grep('/array/', $rules)) {
       $attributes['multiple'] = 'multiple';
@@ -33,7 +37,7 @@
     $groupClass .= 'form-check';
     $labelClass .= 'form-check-label';
     $inputClass .= 'form-check-input';
-    $type = 'check';
+    $type = 'checkbox';
   }
 
   //defaults
@@ -65,6 +69,8 @@
   } elseif ($type === 'select') {
     // select has a different arg signature
     echo Form::select($name, $options, null, array_merge(['class' => $inputClass], $attributes));
+  } elseif ($type === 'checkbox') {
+    echo Form::checkbox($name, 1);
   } elseif ($type === 'file') {
     // files dont have value
     echo Form::file($name, array_merge(['class' => $inputClass], $attributes));

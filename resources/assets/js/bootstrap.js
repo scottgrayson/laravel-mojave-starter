@@ -13,6 +13,9 @@ require('bootstrap')
 
 window.select2 = require('select2')
 
+import Sortable from 'sortablejs'
+window.Sortable = Sortable
+
 import Moment from 'moment'
 window.moment = Moment
 

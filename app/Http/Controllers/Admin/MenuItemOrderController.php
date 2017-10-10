@@ -10,7 +10,8 @@ class MenuItemOrderController extends Controller
 {
     public function index()
     {
-        return MenuItem::getTree();
+        return view('admin.crud.order')
+            ->with('items', MenuItem::getTree());
     }
 
     public function store(Request $request)

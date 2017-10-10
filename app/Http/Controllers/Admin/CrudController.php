@@ -18,10 +18,10 @@ class CrudController extends Controller
 
     public function __construct()
     {
-        $this->table = $this->table ?: str_replace('-', '_', $this->slug) ?: snake_case(str_plural($model));
-        $this->slug = $this->slug ?: str_slug($this->table) ?: snake_case(str_plural($model));
+        $this->table = $this->table ?: str_replace('-', '_', $this->slug);
+        $this->slug = $this->slug ?: str_slug($this->table);
         $this->singular = $this->singular ?: str_singular($this->slug);
-        $this->plural = $this->plural ?: $this->slug;
+        $this->plural = isset($this->plural) ? $this->plural : $this->slug;
 
         // crud index columns
         $dbCols = collect(\Schema::getColumnListing($this->table));
@@ -135,6 +135,7 @@ class CrudController extends Controller
         return view(
             'admin.crud.index', [
             'cols' => $this->cols,
+            'model' => $this->model,
             'items' => $items,
             ]
         );
@@ -150,6 +151,7 @@ class CrudController extends Controller
         return view(
             'admin.crud.create', [
             'slug' => $this->slug,
+            'model' => $this->model,
             'fields' => $this->fields,
             ]
         );
@@ -191,6 +193,7 @@ class CrudController extends Controller
         return view(
             'admin.crud.show', [
             'item' => $item,
+            'model' => $this->model,
             ]
         );
     }
@@ -207,6 +210,7 @@ class CrudController extends Controller
         return view(
             'admin.crud.edit', [
             'item' => $item,
+            'model' => $this->model,
             'slug' => $this->slug,
             'fields' => $this->fields,
             ]
