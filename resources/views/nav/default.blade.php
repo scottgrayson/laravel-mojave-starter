@@ -1,3 +1,16 @@
+@php
+  // TODO replace with admin managed menu
+  if (auth()->check()) {
+    $navItems = [
+      ['name' => 'home', 'href' => '/home'],
+    ];
+  } else {
+    $navItems = [
+      ['name' => 'home', 'href' => '/'],
+    ];
+  }
+@endphp
+
 <nav class="navbar navbar-expand-md navbar-light bg-light navbar-bordered fixed-top">
   <div class="container">
     <a class="navbar-brand" href="/home">
@@ -7,24 +20,15 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
+      {{-- NAV LEFT --}}
       <ul class="mr-auto navbar-nav">
-        @include('nav.nav-item', ['name' => 'home'])
-        @if (auth()->user()->hasRole('admin'))
-          @include('nav.nav-item', ['name' => 'admin'])
-        @endif
+        @foreach ($navItems as $link)
+          @include('nav.nav-item', ['name' => $link['name'], 'path' => $link['href']])
+        @endforeach
       </ul>
 
-      @include('nav.notifications', ['notifications' => auth()->user()->unreadNotifications])
-
-      <a class="btn btn-outline-secondary" href="{{ url('/logout') }}"
-        onclick="event.preventDefault();
-        document.getElementById('logout-form').submit();">
-        Logout
-      </a>
-
-      <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-        {{ csrf_field() }}
-      </form>
+      {{-- NAV RIGHT --}}
+      @include('nav.nav-right')
     </div>
   </div>
 </nav>
