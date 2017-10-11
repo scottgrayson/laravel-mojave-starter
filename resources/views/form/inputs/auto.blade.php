@@ -60,8 +60,10 @@
 
   // Render Field
 
-  echo "<div class=$groupClass>";
-  echo Form::label($label, null, ['class' => $labelClass]);
+  echo '<div class="'.$groupClass.'">';
+  if ($type !== 'checkbox') {
+    echo Form::label($label, null, ['class' => $labelClass]);
+  }
 
   if ($type === 'password' || $name === 'password_confirmation') {
     // passwords dont have a value argument
@@ -72,10 +74,13 @@
     // select has a different arg signature
     echo Form::select($name, $options, null, array_merge(['class' => $inputClass], $attributes));
   } elseif ($type === 'checkbox') {
-    echo Form::checkbox($name, 1);
+    echo '<label class="form-check-label">';
+    echo Form::checkbox($name, 1, null, array_merge(['class' => $inputClass], $attributes));
+    echo $label;
+    echo '</label>';
   } elseif ($type === 'file') {
     // files dont have value
-    echo Form::file($name, array_merge(['class' => $inputClass], $attributes));
+    echo Form::file($name, array_merge(['class' => $inputclass], $attributes));
   } else {
     echo Form::$type($name, $value, array_merge(['class' => $inputClass], $attributes));
   }

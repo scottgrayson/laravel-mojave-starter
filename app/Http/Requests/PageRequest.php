@@ -13,8 +13,8 @@ class PageRequest extends FormRequest
             'title' => 'required',
             'layout' => 'required',
             'uri' => 'required',
-            'content' => 'nullable',
             'published' => 'boolean',
+            'content' => 'nullable',
         ];
     }
 }
