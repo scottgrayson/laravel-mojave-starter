@@ -34,6 +34,15 @@ class BladeServiceProvider extends ServiceProvider
             'item' => null,
             ]
         );
+
+        \Form::component(
+            'editor', 'form.inputs.editor', [
+            'name',
+            'value' => null,
+            'attributes' => [],
+            'item' => null,
+            ]
+        );
     }
 
     /**

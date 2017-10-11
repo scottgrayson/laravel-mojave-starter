@@ -11,6 +11,8 @@
 
   if (in_array($name, ['description', 'message'])) {
     $type = 'textarea';
+  } elseif (in_array($name, ['content'])) {
+    $type = 'editor';
   } elseif (in_array($name, ['email', 'password'])) {
     $type = $type ?: $name;
   } elseif ($rule = preg_grep('/in:/', $rules)) {

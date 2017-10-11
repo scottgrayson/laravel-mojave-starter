@@ -14,4 +14,10 @@ class Page extends Model
 
         return $model;
     }
+
+    public function getHtmlAttribute()
+    {
+        $PD = new \Parsedown();
+        return $PD->text($this->content);
+    }
 }

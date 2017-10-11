@@ -1,6 +1,6 @@
 @extends('layouts.'.$page->layout)
 
 @section('content')
-  {!! $page->content !!}
+  {!! $page->html !!}
 @endsection
 
