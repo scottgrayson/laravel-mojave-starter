@@ -16,5 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call(FileSeeder::class);
         $this->call(ImageSeeder::class);
         $this->call(NotificationSeeder::class);
+        $this->call(MenuItemSeeder::class);
+        //$this->call(PageSeeder::class);
     }
 }

@@ -1,10 +1,10 @@
 @php
-  $path = isset($path) ? $path : $name;
-  $active = request()->is($path.'*');
+  $href = isset($href) ? $href : $name;
+  $active = request()->is($href.'*');
 @endphp
 
 <li class="nav-item {{ $active ? 'active' : '' }}">
-  <a class="nav-link {{ $active ? 'active' : '' }}" href="/{{$path}}">
+  <a class="nav-link {{ $active ? 'active' : '' }}" href="{{$href}}">
     {{ title_case($name) }}
     @if ($active)
       <span class="sr-only">(current)</span>

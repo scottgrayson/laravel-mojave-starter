@@ -17,13 +17,10 @@ class CreateMenuItemsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('label');
-            $table->string('type')->nullable();
             $table->string('link')->nullable();
             $table->integer('page_id')->unsigned()->nullable();
             $table->integer('parent_id')->unsigned()->nullable();
-            $table->integer('lft')->unsigned()->nullable();
-            $table->integer('rgt')->unsigned()->nullable();
-            $table->integer('depth')->unsigned()->nullable();
+            $table->integer('order')->unsigned()->default(0);
             $table->boolean('target_blank')->default(0);
             $table->timestamps();
             $table->softDeletes();

@@ -27,10 +27,18 @@
         </span>
       @endif
     </div>
-    <a href="{{ '/' . request()->path() . '/create' }}"
-      class="ml-auto btn btn-primary">
-      New
-    </a>
+    <div class="ml-auto">
+      @if ($orderable)
+        <a href="{{ '/' . request()->path() . '/order' }}"
+          class="btn btn-secondary">
+          Reorder
+        </a>
+      @endif
+      <a href="{{ '/' . request()->path() . '/create' }}"
+        class="btn btn-primary">
+        New
+      </a>
+    </div>
   </div>
 
   <div class="collapse mb-2" id="filters">
@@ -52,27 +60,27 @@
               @if(strpos($c, '_id') === false)
                 @php
                   $order = request('sort') === $c ? request('order') : '';
-                  $nextOrder = $order === 'asc' ? 'desc' : 'asc';
-                  $sortLink = '/' . request()->path() . '?' . http_build_query(array_merge(
-                    request()->query(),
-                    ['sort' => $c, 'order' => $nextOrder]
-                  ));
-                @endphp
-                <a class="d-inline-flex align-items-center text-black" href="{{ $sortLink }}">
-                  {{ title_case(str_replace('_', ' ', preg_replace('/(_id)|(_at)$/', '', $c))) }}
-                  @if($order === 'asc')
-                    @svg('arrow-bottom', 'ml-1 sm s4')
-                  @elseif($order === 'desc')
-                    @svg('arrow-top', 'ml-1 sm s4')
-                  @endif
-                </a>
-              @else
-                {{ title_case(str_replace('_', ' ', preg_replace('/(_id)|(_at)$/', '', $c))) }}
-              @endif
-            </th>
-          @endforeach
-          <th>Actions</th>
-        </tr>
+          $nextOrder = $order === 'asc' ? 'desc' : 'asc';
+          $sortLink = '/' . request()->path() . '?' . http_build_query(array_merge(
+            request()->query(),
+            ['sort' => $c, 'order' => $nextOrder]
+          ));
+        @endphp
+        <a class="d-inline-flex align-items-center text-black" href="{{ $sortLink }}">
+          {{ title_case(str_replace('_', ' ', preg_replace('/(_id)|(_at)$/', '', $c))) }}
+          @if($order === 'asc')
+            @svg('arrow-bottom', 'ml-1 sm s4')
+          @elseif($order === 'desc')
+            @svg('arrow-top', 'ml-1 sm s4')
+          @endif
+        </a>
+      @else
+        {{ title_case(str_replace('_', ' ', preg_replace('/(_id)|(_at)$/', '', $c))) }}
+      @endif
+    </th>
+  @endforeach
+  <th>Actions</th>
+</tr>
       </thead>
 
       <tbody>

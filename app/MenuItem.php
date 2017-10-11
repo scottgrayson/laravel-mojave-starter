@@ -12,12 +12,19 @@ class MenuItem extends Model
     public function children()
     {
         return $this->hasMany(MenuItem::class, 'parent_id')
-            ->orderBy('lft');
+            ->orderBy('order');
     }
 
     public function page()
     {
         return $this->belongsTo(Page::class, 'page_id');
+    }
+
+    public static function childrenOf($name)
+    {
+        $menu = static::where('name', $name)->first();
+
+        return $menu ? $menu->children : collect([]);
     }
 
     /**
@@ -26,7 +33,7 @@ class MenuItem extends Model
      */
     public static function getTree()
     {
-        $menu = self::orderBy('lft')->get();
+        $menu = self::orderBy('order')->get();
 
         if ($menu->count()) {
             foreach ($menu as $k => $menu_item) {
@@ -48,22 +55,14 @@ class MenuItem extends Model
         return $menu;
     }
 
-    public function url()
+    public function getHrefAttribute()
     {
-        switch ($this->type) {
-            case 'external_link':
-                return $this->link;
-                break;
-
-            case 'internal_link':
-                return is_null($this->link) ? '#' : url($this->link);
-                break;
-
-            default: //page_link
-                if ($this->page) {
-                    return url($this->page->slug);
-                }
-                break;
+        if ($this->page) {
+            return $this->page->slug;
+        } else if (!$this->link) {
+            return '#';
         }
+
+        return $this->link;
     }
 }

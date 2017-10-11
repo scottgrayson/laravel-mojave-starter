@@ -31,12 +31,12 @@ class MenuTest extends TestCase
 
         $child1 = factory(MenuItem::class)->create([
             'parent_id' => $parent->id,
-            'lft' => 4,
+            'order' => 4,
         ]);
 
         $child2 = factory(MenuItem::class)->create([
             'parent_id' => $parent->id,
-            'lft' => 1,
+            'order' => 1,
         ]);
 
         $this->assertEquals(

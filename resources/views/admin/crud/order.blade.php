@@ -1,17 +1,22 @@
 @extends('layouts.admin')
 
 @section('content')
-  {!! Form::open(['id' => 'orderform', 'route' => 'admin.menu-item-order.store']) !!}
+  {!! Form::open(['id' => 'orderform', 'route' => "admin.$slug.reorder"]) !!}
 
-  <button class="btn btn-primary" onclick="saveOrder(event)">
-    Save Order
-  </button>
+  <div class="d-flex">
+    <h4> Drag and drop to reorder</h4>
+    <button class="ml-auto btn btn-primary" onclick="saveOrder(event)">
+      Save Order
+    </button>
+  </div>
 
-  @include('partials.list', ['ulclass' => 'orderable', 'item' => $items])
+  @include('partials.orderable-list', ['ulclass' => 'orderable', 'item' => $items, 'slug' => $slug])
 
-  <button class="btn btn-primary" onclick="saveOrder(event)">
-    Save Order
-  </button>
+  <div class="d-flex">
+    <button class="ml-auto btn btn-primary" onclick="saveOrder(event)">
+      Save Order
+    </button>
+  </div>
 
   <input hidden name="order" id="orderString"/>
 

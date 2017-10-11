@@ -15,6 +15,7 @@ class CrudController extends Controller
     protected $formRequest;
     protected $cols;
     protected $relations;
+    protected $orderable;
 
     public function __construct()
     {
@@ -136,6 +137,7 @@ class CrudController extends Controller
             'admin.crud.index', [
             'cols' => $this->cols,
             'model' => $this->model,
+            'orderable' => $this->orderable,
             'items' => $items,
             ]
         );
@@ -256,5 +258,42 @@ class CrudController extends Controller
         flash($this->singular . ' deleted.');
 
         return redirect(route("admin.$this->slug.index"));
+    }
+
+
+    public function order()
+    {
+        return view('admin.crud.order', [
+            'items' => $this->model::getTree(),
+            'slug' => $this->slug,
+        ]);
+    }
+
+    public function reorder(Request $request)
+    {
+        if (!request('order')) {
+            flash("Error while updating $this->singular order.");
+            return redirect(route("admin.$this->slug.order"));
+        }
+
+        $orderArray = explode(',', request('order'));
+
+        $order = array_flip($orderArray);
+
+        // TODO would be more efficient to do delete than reinsert
+        // but is that safe? Would users load a page with 0 menu items
+
+        foreach ($this->model::all() as $i) {
+            if (isset($order[$i->id])) {
+                $i->update(['order' => $order[$i->id]]);
+            } else {
+                flash("Error while updating $this->singular order.");
+                return redirect(route("admin.$this->slug.order"));
+            }
+        };
+
+        flash("$this->singular order updated.");
+
+        return redirect(route("admin.$this->slug.order"));
     }
 }
