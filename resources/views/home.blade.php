@@ -7,7 +7,7 @@
   @endphp
 
   @if ($page)
-    {!! $page->content !!}
+    {!! $page->html !!}
   @else
     @component('components.focused')
       Welcome {{ auth()->check() ? auth()->user()->name : 'to' . config('app.name') }}
