@@ -52,6 +52,15 @@ class MenuItemSeeder extends Seeder
     {
         return [
             [
+                'name' => 'admin top',
+                'children' => [
+                    [
+                        'name' => 'view site',
+                        'link' => '/',
+                    ],
+                ],
+            ],
+            [
                 'name' => 'admin sidebar',
                 'children' => [
                     [

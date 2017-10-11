@@ -5,7 +5,9 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
     <ul class="navbar-nav mr-auto">
-      @include('nav.nav-item', ['l' => [ 'label' => 'view site', 'href' => '/']])
+      @foreach(\App\MenuItem::childrenOf('admin top') as $item)
+        @include('nav.nav-item', ['l' => $item])
+      @endforeach
     </ul>
 
     <a class="btn btn-outline-secondary" href="{{ url('/logout') }}"
