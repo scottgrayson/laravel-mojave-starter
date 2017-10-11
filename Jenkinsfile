@@ -23,7 +23,7 @@ pipeline {
     stage('npm_install') {
       steps {
         // Run any static asset building, if needed
-        sh "npm install"
+        sh "yarn"
       }
     }
     stage('npm_run_dev') {
@@ -41,15 +41,15 @@ pipeline {
         sh "npm run lint || true"
       }
     }
-    // stage('dusk') {
-    //   steps {
-    //     sh "./tests/headlessDusk.sh"
-    //   }
-    // }
+    stage('dusk') {
+      steps {
+        sh "./tests/headlessDusk.sh"
+      }
+    }
     stage('phpcs') {
       steps {
         withEnv(["PATH=/var/lib/jenkins/.composer/vendor/bin:$PATH"]) {
-          sh "phpcs --report=summary --extensions=php --ignore='/bootstrap/*,/database/*,/public/*,/node_modules/*,/resources/*,/storage/*,*/tests/*,/vendor/*,envoy.blade.php,app/PageTemplates.php' ./ || true"
+          sh "phpcs --report=summary --extensions=php --ignore='/bootstrap/*,/database/*,/public/*,/node_modules/*,/resources/*,/storage/*,*/tests/*,/vendor/*,envoy.blade.php,app/PageTemplates.php' ./"
         }
       }
     }
