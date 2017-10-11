@@ -10,6 +10,12 @@
     </button>
   </div>
 
+  <p class="text-muted">
+    Menu items cannot be dragged across menus.
+    <br>
+    To do this, click edit and change the "parent" menu item.
+  </p>
+
   @include('partials.orderable-list', ['ulclass' => 'orderable', 'item' => $items, 'slug' => $slug])
 
   <div class="d-flex">
