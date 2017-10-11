@@ -10,7 +10,7 @@
       {{-- NAV LEFT --}}
       <ul class="mr-auto navbar-nav">
         @foreach(\App\MenuItem::childrenOf('top') as $link)
-          @include('nav.nav-item', ['name' => $link['name'], 'href' => $link['href']])
+          @include('nav.nav-item', ['l' => $link])
         @endforeach
       </ul>
 

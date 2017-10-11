@@ -5,7 +5,7 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
     <ul class="navbar-nav mr-auto">
-      @include('nav.nav-item', ['name' => 'view site', 'href' => '/'])
+      @include('nav.nav-item', ['l' => [ 'label' => 'view site', 'href' => '/']])
     </ul>
 
     <a class="btn btn-outline-secondary" href="{{ url('/logout') }}"
