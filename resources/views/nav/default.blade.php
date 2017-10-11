@@ -7,9 +7,16 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
+
       {{-- NAV LEFT --}}
-      <ul class="mr-auto navbar-nav">
-        @foreach(\App\MenuItem::childrenOf('top') as $link)
+      <ul class="mr-auto navbar-nav d-md-none">
+        @foreach(\App\MenuItem::childrenOf('nav collapsed') as $link)
+          @include('nav.nav-item', ['l' => $link])
+        @endforeach
+      </ul>
+
+      <ul class="mr-auto navbar-nav d-none d-md-flex">
+        @foreach(\App\MenuItem::childrenOf('nav') as $link)
           @include('nav.nav-item', ['l' => $link])
         @endforeach
       </ul>

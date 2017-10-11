@@ -97,7 +97,7 @@ class MenuItemSeeder extends Seeder
                 ],
             ],
             [
-                'name' => 'top',
+                'name' => 'nav',
                 'children' => [
                     [
                         'name' => 'home',
@@ -127,6 +127,20 @@ class MenuItemSeeder extends Seeder
                             [ 'name' => 'events' ],
                         ],
                     ],
+                    [ 'name' => 'enroll' ],
+                    [ 'name' => 'calendar' ],
+                    $this->pageItem('contact'),
+                ],
+            ],
+            [
+                'name' => 'nav collapsed',
+                'children' => [
+                    [
+                        'name' => 'home',
+                        'link' => '/',
+                    ],
+                    [ 'name' => 'about' ],
+                    [ 'name' => 'activities' ],
                     [ 'name' => 'enroll' ],
                     [ 'name' => 'calendar' ],
                     $this->pageItem('contact'),
