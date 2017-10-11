@@ -42,8 +42,7 @@
     "extra": {
         "laravel": {
             "dont-discover": [
-                "rollbar/rollbar-laravel",
-                "laravel/dusk"
+                "rollbar/rollbar-laravel"
             ]
         }
     },
