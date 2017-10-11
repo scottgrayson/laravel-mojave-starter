@@ -17,6 +17,10 @@ class CreatePagesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('title');
+            $table->string('layout');
+            $table->string('slug');
+            $table->text('content');
+            $table->boolean('published')->default(0);
             $table->timestamps();
         });
     }
