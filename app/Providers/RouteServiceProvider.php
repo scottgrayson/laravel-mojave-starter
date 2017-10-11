@@ -41,7 +41,7 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapAdminRoutes();
 
-        //
+        $this->mapPagesRoutes();
     }
 
     /**
@@ -85,5 +85,17 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('api')
             ->namespace($this->namespace)
             ->group(base_path('routes/api.php'));
+    }
+
+    // Catch all pages route. Must be last
+    public function mapPagesRoutes()
+    {
+        Route::group([
+            'middleware' => 'web',
+            'namespace' => $this->namespace,
+        ], function ($router) {
+            Route::get('{page}/{subs?}', ['uses' => 'PageController@index'])
+                ->where(['page' => '^((?!admin).)*$', 'subs' => '.*']);
+        });
     }
 }
