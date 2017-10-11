@@ -40,8 +40,12 @@ class MenuItemSeeder extends Seeder
 
     protected function pageItem($name)
     {
-        //get page by name.
-        //return menu item array with page id
+        $page = Page::where('name', $name)->first();
+
+        return [
+            'page_id' => $page->id,
+            'name' => $page->name,
+        ];
     }
 
     protected function menus()
@@ -86,7 +90,10 @@ class MenuItemSeeder extends Seeder
             [
                 'name' => 'top',
                 'children' => [
-                    [ 'name' => 'home' ],
+                    [
+                        'name' => 'home',
+                        'link' => '/',
+                    ],
                     [
                         'name' => 'about',
                         'children' => [
@@ -113,14 +120,14 @@ class MenuItemSeeder extends Seeder
                     ],
                     [ 'name' => 'enroll' ],
                     [ 'name' => 'calendar' ],
-                    [ 'name' => 'contact' ],
+                    $this->pageItem('contact'),
                 ],
             ],
             [
                 'name' => 'footer',
                 'children' => [
-                    [ 'name' => 'about' ],
-                    [ 'name' => 'contact' ],
+                    $this->pageItem('about'),
+                    $this->pageItem('contact'),
                     [ 'name' => 'newsletter' ],
                 ],
             ],

@@ -93,6 +93,12 @@
             @endforeach
             <td>
               <div class="d-flex">
+                @if ($i->uri)
+                  <a target="_blank" rel="noopener norefferer" href="{{ $i->uri }}"
+                    class="btn btn-icon">
+                    @svg('eye')
+                  </a>
+                @endif
                 <a href="{{ '/' . request()->path() . '/' . $i->id . '/edit' }}"
                   class="btn btn-icon">
                   @svg('edit')

@@ -12,7 +12,7 @@ class PageRequest extends FormRequest
             'name' => 'required',
             'title' => 'required',
             'layout' => 'required',
-            'slug' => 'unique:pages,slug'.($id ? ','.$id : ''),
+            'uri' => 'unique:pages,uri'.($id ? ','.$id : ''),
             'content' => 'nullable',
             'published' => 'boolean',
         ];

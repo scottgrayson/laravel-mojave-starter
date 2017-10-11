@@ -9,7 +9,7 @@ class PageController extends Controller
 {
     public function index(Request $request, $uri)
     {
-        $page = Page::findBySlug($uri);
+        $page = Page::findByURI($uri);
 
         if (!$page) {
             abort(404);

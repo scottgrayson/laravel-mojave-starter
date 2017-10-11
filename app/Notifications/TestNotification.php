@@ -35,7 +35,7 @@ class TestNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            'url' => route('welcome'),
+            'url' => route('home'),
             'title' => 'Check it out.',
         ];
     }

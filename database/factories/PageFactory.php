@@ -7,7 +7,7 @@ $factory->define(App\Page::class, function (Faker $faker) {
         'name' => $faker->word,
         'title' => $faker->word,
         'layout' => 'app',
-        'slug' => $faker->word,
+        'uri' => '/'.$faker->word,
         'content' => $faker->paragraph,
     ];
 });

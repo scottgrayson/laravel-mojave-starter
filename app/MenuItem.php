@@ -58,7 +58,7 @@ class MenuItem extends Model
     public function getHrefAttribute()
     {
         if ($this->page) {
-            return $this->page->slug;
+            return $this->page->uri;
         } else if (!$this->link) {
             return '#';
         }

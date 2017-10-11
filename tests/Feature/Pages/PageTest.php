@@ -14,7 +14,7 @@ class PageTest extends TestCase
             'published' => 1,
         ]);
 
-        $this->get($page->slug)
+        $this->get($page->uri)
             ->assertStatus(200);
     }
 
@@ -24,7 +24,7 @@ class PageTest extends TestCase
             'published' => 0,
         ]);
 
-        $this->get($page->slug)
+        $this->get($page->uri)
             ->assertStatus(404);
 
         $this->createAdminRole();
@@ -33,7 +33,7 @@ class PageTest extends TestCase
 
         $this->be($admin);
 
-        $this->get($page->slug)
+        $this->get($page->uri)
             ->assertStatus(200);
     }
 }

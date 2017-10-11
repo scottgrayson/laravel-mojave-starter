@@ -1,16 +1,3 @@
-@php
-  // TODO replace with admin managed menu
-  if (auth()->check()) {
-    $navItems = [
-      ['name' => 'home', 'href' => '/home'],
-    ];
-  } else {
-    $navItems = [
-      ['name' => 'home', 'href' => '/'],
-    ];
-  }
-@endphp
-
 <nav class="navbar navbar-expand-md navbar-light bg-light navbar-bordered fixed-top">
   <div class="container">
     <a class="navbar-brand" href="/home">
@@ -22,8 +9,8 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
       {{-- NAV LEFT --}}
       <ul class="mr-auto navbar-nav">
-        @foreach ($navItems as $link)
-          @include('nav.nav-item', ['name' => $link['name'], 'path' => $link['href']])
+        @foreach(\App\MenuItem::childrenOf('top') as $link)
+          @include('nav.nav-item', ['name' => $link['name'], 'href' => $link['href']])
         @endforeach
       </ul>
 

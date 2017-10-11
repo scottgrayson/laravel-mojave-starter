@@ -2,8 +2,16 @@
 
 @section('content')
 
-  @component('components.focused')
-    Welcome {{ auth()->user()->name }}
-  @endcomponent
+  @php
+    $page = \App\Page::where('published', 1)->where('uri', '/')->first();
+  @endphp
+
+  @if ($page)
+    {!! $page->content !!}
+  @else
+    @component('components.focused')
+      Welcome {{ auth()->check() ? auth()->user()->name : 'to' . config('app.name') }}
+    @endcomponent
+  @endif
 
 @endsection
