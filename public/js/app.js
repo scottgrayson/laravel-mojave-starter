@@ -43006,6 +43006,7 @@ window.Vue = __webpack_require__(285);
 __webpack_require__(286);
 
 Vue.component('vue-socket', __webpack_require__(287));
+Vue.component('meta-editor', __webpack_require__(297));
 
 var app = new Vue({
   el: '#app'
@@ -81889,6 +81890,302 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 292 */,
+/* 293 */,
+/* 294 */,
+/* 295 */,
+/* 296 */,
+/* 297 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(288)
+/* script */
+var __vue_script__ = __webpack_require__(298)
+/* template */
+var __vue_template__ = __webpack_require__(299)
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/meta-editor.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] meta-editor.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-6c8bc9e9", Component.options)
+  } else {
+    hotAPI.reload("data-v-6c8bc9e9", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 298 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['name', 'existing'],
+
+  data: function data() {
+    return {
+      meta: [],
+      newKey: '',
+      newValue: ''
+    };
+  },
+
+
+  computed: {
+    value: function value() {
+      return JSON.stringify(this.meta);
+    }
+  },
+
+  created: function created() {
+    this.meta = JSON.parse(this.existing);
+  },
+
+
+  methods: {
+    append: function append() {
+      this.meta = this.meta.concat([{
+        key: this.newKey,
+        value: this.newValue
+      }]);
+      this.newValue = '';
+      this.newKey = '';
+      document.getElementById('meta-key').focus();
+    },
+    remove: function remove(m) {
+      this.meta = this.meta.filter(function (i) {
+        return i !== m;
+      });
+    }
+  }
+
+});
+
+/***/ }),
+/* 299 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("input", {
+      attrs: { hidden: "", name: _vm.name },
+      domProps: { value: _vm.value }
+    }),
+    _vm._v(" "),
+    _vm.meta && _vm.meta.length
+      ? _c("table", { staticClass: "table table-sm" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c(
+            "tbody",
+            _vm._l(_vm.meta, function(m) {
+              return _c("tr", { key: "m.key" }, [
+                _c("td", [
+                  _vm._v("\n          " + _vm._s(m.key) + "\n        ")
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _vm._v("\n          " + _vm._s(m.value) + "\n        ")
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-right" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-icon",
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          _vm.remove(m)
+                        }
+                      }
+                    },
+                    [_vm._v("\n            X\n          ")]
+                  )
+                ])
+              ])
+            })
+          )
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _c(
+      "form",
+      {
+        staticClass: "row",
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
+            _vm.append($event)
+          }
+        }
+      },
+      [
+        _c("div", { staticClass: "col-4" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.newKey,
+                expression: "newKey"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { id: "meta-key", type: "text", placeholder: "key" },
+            domProps: { value: _vm.newKey },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.newKey = $event.target.value
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.newValue,
+                expression: "newValue"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", placeholder: "value" },
+            domProps: { value: _vm.newValue },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.newValue = $event.target.value
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _vm._m(1)
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Key")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Value")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-right" }, [_vm._v("Remove")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-2" }, [
+      _c("button", { staticClass: "btn btn-secondary" }, [
+        _vm._v("\n        Add\n      ")
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-6c8bc9e9", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

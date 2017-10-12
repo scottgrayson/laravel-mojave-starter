@@ -14,6 +14,7 @@ class PageRequest extends FormRequest
             'layout' => 'required',
             'uri' => 'required',
             'published' => 'boolean',
+            'meta' => 'nullable',
             'content' => 'nullable',
         ];
     }

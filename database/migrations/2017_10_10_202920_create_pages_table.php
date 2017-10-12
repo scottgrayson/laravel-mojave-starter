@@ -19,7 +19,8 @@ class CreatePagesTable extends Migration
             $table->string('title');
             $table->string('layout');
             $table->string('uri');
-            $table->text('content');
+            $table->text('meta')->nullable();
+            $table->text('content')->nullable();
             $table->boolean('published')->default(0);
             $table->timestamps();
         });
