@@ -10,19 +10,21 @@
 
       {{-- NAV LEFT --}}
       <ul class="mr-auto navbar-nav d-md-none">
-        @foreach(\App\MenuItem::childrenOf('nav collapsed') as $link)
-          @include('nav.nav-item', ['l' => $link])
-        @endforeach
+        @foreach(\App\MenuItem::childrenOf('nav collapsed ' . (auth()->check() ? 'user' : 'guest')) as $link)
+            @include('nav.nav-item', ['l' => $link])
+          @endforeach
       </ul>
 
       <ul class="mr-auto navbar-nav d-none d-md-flex">
-        @foreach(\App\MenuItem::childrenOf('nav') as $link)
+        @foreach(\App\MenuItem::childrenOf('nav left') as $link)
           @include('nav.nav-item', ['l' => $link])
         @endforeach
       </ul>
 
       {{-- NAV RIGHT --}}
-      @include('nav.nav-right')
+      <ul class="navbar-nav d-none d-md-flex">
+        @include('nav.nav-right')
+      </ul>
     </div>
   </div>
 </nav>

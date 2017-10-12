@@ -28,14 +28,14 @@ class ReorderMenuTest extends TestCase
             [ $child1->id, $child2->id ]
         );
 
-        $res = $this->get(route('admin.menu-item-order.index'));
+        $res = $this->get(route('admin.menu-items.order'));
         $res->assertStatus(200);
 
-        $res = $this->post(route('admin.menu-item-order.store'), [
+        $res = $this->post(route('admin.menu-items.reorder'), [
             'order' => $parent->id . ',' . $child2->id . ',' . $child1->id
         ]);
 
-        $res->assertRedirect(route('admin.menu-item-order.index'));
+        $res->assertRedirect(route('admin.menu-items.order'));
 
         $this->assertEquals(
             $parent->children()->pluck('id')->toArray(),

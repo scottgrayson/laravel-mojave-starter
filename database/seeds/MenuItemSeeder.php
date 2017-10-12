@@ -25,7 +25,7 @@ class MenuItemSeeder extends Seeder
         $menuItem = MenuItem::create([
             'name' => strtolower($i['name']),
             'label' => isset($i['label']) ? $i['label'] : title_case($i['name']),
-            'link' => isset($i['link']) ? $i['link'] : str_slug($i['name']),
+            'link' => isset($i['link']) ? $i['link'] : '/'.str_slug($i['name']),
             'target_blank' => isset($i['target_blank']) ? $i['target_blank'] : 0,
             'parent_id' => $parent_id,
             'page_id' => isset($i['page_id']) ? $i['page_id'] : null,
@@ -90,14 +90,31 @@ class MenuItemSeeder extends Seeder
                 ],
             ],
             [
-                'name' => 'user dropdown',
+                'name' => 'nav right guest',
                 'children' => [
-                    [ 'name' => 'settings' ],
-                    [ 'name' => 'campers' ],
+                    [ 'name' => 'register' ],
+                    [
+                        'name' => 'login button',
+                        'link' => '/login',
+                    ],
                 ],
             ],
             [
-                'name' => 'nav',
+                'name' => 'nav right user',
+                'children' => [
+                    [ 'name' => 'notifications dropdown' ],
+                    [
+                        'name' => 'user dropdown',
+                        'children' => [
+                            [ 'name' => 'settings' ],
+                            [ 'name' => 'campers' ],
+                            [ 'name' => 'logout' ],
+                        ],
+                    ],
+                ],
+            ],
+            [
+                'name' => 'nav left',
                 'children' => [
                     [
                         'name' => 'home',
@@ -133,7 +150,7 @@ class MenuItemSeeder extends Seeder
                 ],
             ],
             [
-                'name' => 'nav collapsed',
+                'name' => 'nav collapsed guest',
                 'children' => [
                     [
                         'name' => 'home',
@@ -144,6 +161,23 @@ class MenuItemSeeder extends Seeder
                     [ 'name' => 'enroll' ],
                     [ 'name' => 'calendar' ],
                     $this->pageItem('contact'),
+                ],
+            ],
+            [
+                'name' => 'nav collapsed user',
+                'children' => [
+                    [
+                        'name' => 'home',
+                        'link' => '/',
+                    ],
+                    [ 'name' => 'about' ],
+                    [ 'name' => 'activities' ],
+                    [ 'name' => 'enroll' ],
+                    [ 'name' => 'calendar' ],
+                    $this->pageItem('contact'),
+                    [ 'name' => 'my account' ],
+                    [ 'name' => 'notifications' ],
+                    [ 'name' => 'logout' ],
                 ],
             ],
             [

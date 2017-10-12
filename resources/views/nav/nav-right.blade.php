@@ -1,21 +1,26 @@
 @if (auth()->check())
 
-  @include('nav.notifications', ['notifications' => auth()->user()->unreadNotifications])
+  @foreach(\App\MenuItem::childrenOf('nav right user') as $item)
+    @if ($item->name === 'notifications dropdown')
+      @include('nav.notifications', ['notifications' => auth()->user()->unreadNotifications])
+    @else
+      @include('nav.nav-item', ['l' => $item])
+    @endif
+  @endforeach
 
-  <a class="btn btn-outline-secondary" href="{{ url('/logout') }}"
-    onclick="event.preventDefault();
-    document.getElementById('logout-form').submit();">
-    Logout
-  </a>
-
-  <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-    {{ csrf_field() }}
-  </form>
+  {{--
+  --}}
 
 @else
 
-  <a class="btn btn-outline-secondary" href="{{ url('/login') }}">
-    Login
-  </a>
+  @foreach(\App\MenuItem::childrenOf('nav right guest') as $item)
+    @if ($item->name === 'login button')
+      <a class="btn btn-outline-secondary" href="{{ url('/login') }}">
+        Login
+      </a>
+    @else
+      @include('nav.nav-item', ['l' => $item])
+    @endif
+  @endforeach
 
 @endif
