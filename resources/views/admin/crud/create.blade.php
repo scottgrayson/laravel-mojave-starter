@@ -14,7 +14,7 @@
     @if (View::exists('form.inputs.'.$slug.'.'.$name))
       @include('form.inputs.'.$slug.'.'.$name)
     @else
-      {{ Form::bs($name, null, null, [], $rules) }}
+      {{ Form::bs($name, null, null, [], $rules, $model) }}
     @endif
   @endforeach
 
