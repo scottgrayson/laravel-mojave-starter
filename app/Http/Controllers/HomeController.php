@@ -6,16 +6,7 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function welcome()
-    {
-        if (auth()->check()) {
-            return redirect(route('home'));
-        }
-
-        return view('welcome');
-    }
-
-    public function home()
+    public function index()
     {
         return view('home');
     }

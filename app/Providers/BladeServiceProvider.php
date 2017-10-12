@@ -20,6 +20,7 @@ class BladeServiceProvider extends ServiceProvider
             'value' => null,
             'attributes' => [],
             'rules' => [],
+            'model' => null,
             'item' => null,
             ]
         );
@@ -29,6 +30,15 @@ class BladeServiceProvider extends ServiceProvider
             'name',
             'value' => null,
             'relation' => null,
+            'attributes' => [],
+            'item' => null,
+            ]
+        );
+
+        \Form::component(
+            'editor', 'form.inputs.editor', [
+            'name',
+            'value' => null,
             'attributes' => [],
             'item' => null,
             ]

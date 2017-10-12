@@ -26,6 +26,9 @@
         "moment": "^2.18.1",
         "popper.js": "^1.12.5",
         "pusher-js": "^4.1.0",
-        "select2": "^4.0.3"
+        "select2": "^4.0.3",
+        "simplemde": "^1.11.2",
+        "sortablejs": "^1.6.1",
+        "vue-simplemde": "^0.4.4"
     }
 }

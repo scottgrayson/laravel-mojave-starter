@@ -13,12 +13,10 @@
 
 Auth::routes();
 
-Route::get('/', 'HomeController@welcome')->name('welcome');
+Route::get('/', 'HomeController@index')->name('home');
 
 Route::middleware('auth')->group(
     function () {
-        Route::get('home', 'HomeController@home')->name('home');
-
         Route::get('notifications/mark-read', 'NotificationController@markAllRead');
 
         Route::resource(

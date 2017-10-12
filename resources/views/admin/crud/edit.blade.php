@@ -9,7 +9,7 @@
     echo Form::model($item, ['files' => $acceptFiles, 'method' => 'PUT', 'route' => ["admin.$slug.update", $item->id]]);
 
     foreach ($fields as $name => $rules) {
-      echo Form::bs($name, null, null, [], $rules, $item);
+      echo Form::bs($name, null, null, [], $rules, $model, $item);
     }
 
     echo Form::submit('Update', ['class' => 'btn btn-primary']);
