@@ -7,20 +7,21 @@
     "require": {
         "php": ">=7.0.0",
         "fideloper/proxy": "~3.3",
-        "jenssegers/rollbar": "^1.5",
         "laracasts/flash": "^3.0",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.5",
         "league/flysystem-aws-s3-v3": "^1.0",
-        "pusher/pusher-php-server": "~2.6",
         "nothingworks/blade-svg": "^0.2.2",
+        "pusher/pusher-php-server": "~2.6",
+        "rollbar/rollbar-laravel": "^2.2",
         "spatie/laravel-permission": "^2.5"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.0",
         "filp/whoops": "~2.0",
         "fzaninotto/faker": "~1.4",
+        "laravel/dusk": "^2.0",
         "mockery/mockery": "0.9.*",
         "phpunit/phpunit": "~6.0"
     },
@@ -41,7 +42,7 @@
     "extra": {
         "laravel": {
             "dont-discover": [
-                "jenssegers/rollbar"
+                "rollbar/rollbar-laravel"
             ]
         }
     },
@@ -57,6 +58,8 @@
             "@php artisan package:discover"
         ]
     },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "config": {
         "preferred-install": "dist",
         "sort-packages": true,
