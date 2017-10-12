@@ -52,7 +52,7 @@ class Controller extends BaseController
         );
     }
 
-    protected function getFieldsFromRules($request) 
+    protected function getFieldsFromRules($request)
     {
         return collect(($request)->rules())
             ->mapWithKeys(
@@ -63,6 +63,5 @@ class Controller extends BaseController
                     return [$name => $rules];
                 }
             );
-
     }
 }

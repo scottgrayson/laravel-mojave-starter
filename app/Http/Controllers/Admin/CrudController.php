@@ -30,7 +30,8 @@ class CrudController extends Controller
         $this->cols = $dbCols->filter(
             function ($c) {
                 return !in_array(
-                    $c, [
+                    $c,
+                    [
                     'path',
                     'bucket',
                     'message',
@@ -58,7 +59,8 @@ class CrudController extends Controller
                 ->filter(
                     function ($c) {
                         return !in_array(
-                            $c, [
+                            $c,
+                            [
                             'file',
                             'description',
                             'remember_token',
@@ -76,7 +78,6 @@ class CrudController extends Controller
                     }
                 );
         }
-
     }
 
     /**
@@ -110,7 +111,8 @@ class CrudController extends Controller
                         if (in_array(camel_case($k), $relations)) {
                             $class = '\\App\\'.studly_case($k);
                             $q->whereHas(
-                                camel_case($k), function ($q) use ($class, $v) {
+                                camel_case($k),
+                                function ($q) use ($class, $v) {
                                     $q->where($class::label(), 'ilike', $v.'%');
                                 }
                             );
@@ -133,7 +135,8 @@ class CrudController extends Controller
         $items->appends(request()->all());
 
         return view(
-            'admin.crud.index', [
+            'admin.crud.index',
+            [
             'cols' => $this->cols,
             'items' => $items,
             ]
@@ -148,7 +151,8 @@ class CrudController extends Controller
     public function create()
     {
         return view(
-            'admin.crud.create', [
+            'admin.crud.create',
+            [
             'slug' => $this->slug,
             'fields' => $this->fields,
             ]
@@ -189,7 +193,8 @@ class CrudController extends Controller
         $item = $this->model::findOrFail($id);
 
         return view(
-            'admin.crud.show', [
+            'admin.crud.show',
+            [
             'item' => $item,
             ]
         );
@@ -205,7 +210,8 @@ class CrudController extends Controller
         $item = $this->model::findOrFail($id);
 
         return view(
-            'admin.crud.edit', [
+            'admin.crud.edit',
+            [
             'item' => $item,
             'slug' => $this->slug,
             'fields' => $this->fields,

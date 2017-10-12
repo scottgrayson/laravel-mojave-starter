@@ -49,5 +49,4 @@ class UserController extends CrudController
                 ]
             );
     }
-
 }

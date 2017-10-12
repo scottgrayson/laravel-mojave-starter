@@ -13,7 +13,7 @@ class File extends Model
      * create new \App\File from a file already on s3
      * optionally provide a name instead name from s3
      */
-    public static function createFromStoragePath($filepath, $name = null) 
+    public static function createFromStoragePath($filepath, $name = null)
     {
         return static::create(
             [

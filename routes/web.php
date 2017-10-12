@@ -22,7 +22,9 @@ Route::middleware('auth')->group(
         Route::get('notifications/mark-read', 'NotificationController@markAllRead');
 
         Route::resource(
-            'notifications', 'NotificationController', [
+            'notifications',
+            'NotificationController',
+            [
             'only' => ['index', 'show'],
             ]
         );
