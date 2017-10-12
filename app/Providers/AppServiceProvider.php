@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use Laravel\Dusk\DuskServiceProvider;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

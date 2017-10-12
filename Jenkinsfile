@@ -41,11 +41,11 @@ pipeline {
         sh "npm run lint || true"
       }
     }
-    stage('dusk') {
-      steps {
-        sh "./tests/headlessDusk.sh"
-      }
-    }
+    // stage('dusk') {
+    //   steps {
+    //     sh "./tests/headlessDusk.sh"
+    //   }
+    // }
     stage('phpcs') {
       steps {
         withEnv(["PATH=/var/lib/jenkins/.composer/vendor/bin:$PATH"]) {
