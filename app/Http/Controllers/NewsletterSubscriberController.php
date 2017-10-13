@@ -30,10 +30,10 @@ class NewsletterSubscriberController extends Controller
         );
     }
 
-    public function store(NewsletterSubscriberRequest $request, $id)
+    public function store(NewsletterSubscriberRequest $request)
     {
         $email = request('email');
-        $sub = NewsletterSubscriber::where('email', $email);
+        $sub = NewsletterSubscriber::where('email', $email)->count();
 
         if ($sub) {
             flash('You are already subscribed to ' . config('app.name') . ' newsletter.');
@@ -74,6 +74,8 @@ class NewsletterSubscriberController extends Controller
             flash("Could not find newsletter subscription for $email")->error();
             return redirect()->back();
         }
+
+        $sub->delete();
 
         flash('Unsubscribed from ' . config('app.name') . ' newsletter.')->success();
 

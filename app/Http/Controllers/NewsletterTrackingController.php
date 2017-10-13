@@ -29,7 +29,6 @@ class NewsletterTrackingController extends Controller
 
     public function open($id)
     {
-        \Log::error('open');
         try {
             NewsletterOpen::create([
                 'newsletter_id' => $id,
