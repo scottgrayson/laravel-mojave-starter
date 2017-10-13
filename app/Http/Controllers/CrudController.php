@@ -42,6 +42,12 @@ class CrudController extends Controller
             function ($c) {
                 return !in_array(
                     $c, [
+                        'layout',
+                        'content',
+                        'meta_title',
+                        'meta_description',
+                        'meta_tags',
+                        'order',
                         'path',
                         'bucket',
                         'message',
