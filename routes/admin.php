@@ -2,7 +2,7 @@
 
 Route::get('/', 'DashboardController@dashboard')->name('dashboard');
 
-Route::resource('users', 'UserController');
+Route::resource('users', 'UserController', ['except' => ['show']]);
 Route::resource('images', 'ImageController');
 Route::resource('files', 'FileController');
 Route::resource('pages', 'PageController');
@@ -17,7 +17,6 @@ Route::resource('menu-items', 'MenuItemController');
 // Newsletter
 Route::post('newsletters/{newsletter}/send', 'NewsletterController@send')->name('newsletter.send');
 Route::post('newsletters/{newsletter}/preview', 'NewsletterController@preview')->name('newsletter.preview');
-Route::get('newsletters/{newsletter}/statistics', 'NewsletterController@statistics')->name('newsletter.statistics');
 
 Route::resource('newsletter-subscribers', 'NewsletterSubscriberController');
 Route::resource('newsletters', 'NewsletterController');

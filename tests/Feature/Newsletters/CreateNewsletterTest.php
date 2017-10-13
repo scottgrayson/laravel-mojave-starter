@@ -16,7 +16,7 @@ class CreateNewsletterTest extends TestCase
     public function testTrackingLinks()
     {
         $newsletter = Newsletter::create([
-            'title' => 'Newsletter 1',
+            'subject' => 'Newsletter 1',
             'body' => '
             Some content
             <a href="https://www.indieonthemove.com/availabilities/bands"></a>

@@ -18,7 +18,7 @@ class PreviewNewsletterText extends TestCase
         Mail::fake();
 
         $newsletter = Newsletter::create([
-            'title' => 'Newsletter 1',
+            'subject' => 'Newsletter 1',
             'body' => 'Here is the content',
         ]);
 

@@ -83,12 +83,19 @@ class NewsletterController extends CrudController
         return redirect()->back();
     }
 
-    public function statistics($id)
+    public function show($id)
     {
-        $this->data['entry'] = $this->crud->getEntry($id);
-        $this->data['crud'] = $this->crud;
-        $this->data['title'] = 'Statistics '.$this->crud->entity_name;
+        $item = \App\Newsletter::with('links')->findOrFail($id);
 
-        return view('admin.newsletter.statistics', $this->data);
+        $openCount = $item->opens()->count();
+        $openCountUnique = $item->opens()->distinct('ip_address')->count();
+        $subscriberCount = \App\NewsletterSubscriber::count();
+
+        return view('admin.newsletter.statistics', [
+            'item' => $item,
+            'opens' => $openCount,
+            'uniqueOpens' => $openCountUnique,
+            'subscriberCount' => $subscriberCount,
+        ]);
     }
 }

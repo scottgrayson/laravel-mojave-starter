@@ -29,7 +29,7 @@ class Newsletter extends Mailable
     public function build()
     {
         return $this->markdown('emails.newsletter')
-            ->subject($this->newsletter->title)
+            ->subject($this->newsletter->subject)
             ->with('newsletter', $this->newsletter)
             ->with('data', $this->data);
     }

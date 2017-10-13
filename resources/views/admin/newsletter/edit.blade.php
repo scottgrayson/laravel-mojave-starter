@@ -1,17 +1,17 @@
 @extends('layouts.admin')
 
 @section('content')
-@if($item->sent_at)
-  <div class="d-flex justify-content-between">
-    <div>
-      <h4>Newsletter Sent</h4>
+  @if($item->sent_at)
+    <div class="d-flex justify-content-between">
+      <div>
+        <h4>Newsletter Sent</h4>
 
+      </div>
+      <a href="{{ route('admin.newsletter.statistics', $item->id) }}"
+        class="btn btn-secondary">
+        Statistics
+      </a>
     </div>
-    <a href="{{ route('admin.newsletter.statistics', $item->id) }}"
-      class="btn btn-secondary">
-      Statistics
-    </a>
-  </div>
   @endif
 
   @include('crud.edit', [

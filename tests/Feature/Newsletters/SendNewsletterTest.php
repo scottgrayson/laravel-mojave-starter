@@ -21,10 +21,7 @@ class SendNewsletterText extends TestCase
             'email' => 'newsletter@test.com'
         ]);
 
-        $newsletter = Newsletter::create([
-            'title' => 'Newsletter 1',
-            'body' => 'Here is the content',
-        ]);
+        $newsletter = Newsletter::create();
 
         $this->get("/admin/newsletter/{$newsletter->id}/send")
             ->assertStatus(302);
