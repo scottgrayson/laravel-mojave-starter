@@ -35,14 +35,6 @@ class CreateNewslettersTables extends Migration
             $table->softDeletes();
         });
 
-        Schema::create('newsletter_templates', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('title', 100);
-            $table->text('body');
-            $table->timestamps();
-            $table->softDeletes();
-        });
-
         Schema::create('newsletter_opens', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('newsletter_id')
@@ -84,7 +76,6 @@ class CreateNewslettersTables extends Migration
 
         Schema::dropIfExists('newsletters');
         Schema::dropIfExists('newsletter_urls');
-        Schema::dropIfExists('newsletter_templates');
         Schema::dropIfExists('newsletter_opens');
         Schema::dropIfExists('newsletter_subscribers');
         Schema::dropIfExists('newsletter_clicks');
