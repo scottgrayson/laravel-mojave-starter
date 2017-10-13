@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -12,10 +12,7 @@ class CrudController extends Controller
     protected $slug;
     protected $table;
     protected $singular;
-    protected $fields;
     protected $formRequest;
-    protected $cols;
-    protected $relations;
     protected $orderable;
 
     public function __construct()
@@ -24,62 +21,6 @@ class CrudController extends Controller
         $this->slug = $this->slug ?: str_slug($this->table);
         $this->singular = $this->singular ?: str_singular($this->slug);
         $this->plural = isset($this->plural) ? $this->plural : $this->slug;
-
-        // crud index columns
-        $dbCols = collect(\Schema::getColumnListing($this->table));
-
-        // global index page table excludes
-        $this->cols = $dbCols->filter(
-            function ($c) {
-                return !in_array(
-                    $c,
-                    [
-                    'path',
-                    'bucket',
-                    'message',
-                    'file',
-                    'description',
-                    'remember_token',
-                    'password'
-                    ]
-                );
-            }
-        )->toArray();
-
-        $this->relations = collect(preg_replace('/_id$/', '', preg_grep('/_id$/', $this->cols)))
-            ->map(
-                function ($c) {
-                    return camel_case($c);
-                }
-            )->toArray();
-
-        // crud form fields
-        if (!$this->fields && $this->formRequest) {
-            $this->fields = $this->getFieldsFromRules(new $this->formRequest);
-        } else {
-            $this->fields = collect($dbCols)
-                ->filter(
-                    function ($c) {
-                        return !in_array(
-                            $c,
-                            [
-                            'file',
-                            'description',
-                            'remember_token',
-                            'password',
-                            'created_at',
-                            'updated_at'
-                            ]
-                        );
-                    }
-                )
-                // change to validation rules format
-                ->mapWithKeys(
-                    function ($c) {
-                        return [$c => ['nullable']];
-                    }
-                );
-        }
     }
 
     /**
@@ -93,28 +34,58 @@ class CrudController extends Controller
         $defaultSort = isset($this->defaultSort) ? $this->defaultSort : 'created_at';
         $defaultOrder = isset($this->defaultOrder) ? $this->defaultOrder : 'desc';
 
-        $relations = $this->relations;
-        $cols = $this->cols;
+        // crud index columns
+        $dbCols = collect(\Schema::getColumnListing($this->table));
+
+        // global index page table excludes
+        $cols = $dbCols->filter(
+            function ($c) {
+                return !in_array(
+                    $c, [
+                        'layout',
+                        'content',
+                        'meta_title',
+                        'meta_description',
+                        'meta_tags',
+                        'order',
+                        'path',
+                        'bucket',
+                        'message',
+                        'file',
+                        'description',
+                        'remember_token',
+                        'password'
+                    ]
+                );
+            }
+        )->toArray();
+
+        $relations = collect(preg_replace('/_id$/', '', preg_grep('/_id$/', $cols)))
+            ->map(
+                function ($c) {
+                    return camel_case($c);
+                }
+        )->toArray();
+
         $items = $this->model::with($relations)
             ->where(
                 function ($q) use ($request, $relations, $cols) {
                     $wheres = collect($request->query())
-                    ->filter(
-                        function ($v, $k) {
-                            return $v && strpos($k, 'q_') === 0;
-                        }
+                        ->filter(
+                            function ($v, $k) {
+                                return $v && strpos($k, 'q_') === 0;
+                            }
                     )
-                    ->mapWithKeys(
-                        function ($v, $k) {
-                            return [ str_replace('q_', '', $k) => $v ];
-                        }
+                        ->mapWithKeys(
+                            function ($v, $k) {
+                                return [ str_replace('q_', '', $k) => $v ];
+                            }
                     );
                     foreach ($wheres as $k => $v) {
                         if (in_array(camel_case($k), $relations)) {
                             $class = '\\App\\'.studly_case($k);
                             $q->whereHas(
-                                camel_case($k),
-                                function ($q) use ($class, $v) {
+                                camel_case($k), function ($q) use ($class, $v) {
                                     $q->where($class::label(), 'ilike', $v.'%');
                                 }
                             );
@@ -126,7 +97,7 @@ class CrudController extends Controller
                         }
                     }
                 }
-            )
+        )
             ->orderBy(
                 request('sort', $defaultSort),
                 request('order', $defaultOrder)
@@ -139,13 +110,14 @@ class CrudController extends Controller
         // Include the request variables in the pagination links
         $items->appends(request()->all());
 
+        $viewPrefix = request()->is('admin*') ? 'admin.' : '';
+
         return view(
-            'admin.crud.index',
-            [
-            'cols' => $this->cols,
-            'model' => $this->model,
-            'orderable' => $this->orderable,
-            'items' => $items,
+            $viewPrefix.'crud.index', [
+                'cols' => $cols,
+                'model' => $this->model,
+                'orderable' => $this->orderable,
+                'items' => $items,
             ]
         );
     }
@@ -160,12 +132,15 @@ class CrudController extends Controller
         SEO::setTitle('Create ' . title_case($this->singular));
         SEO::setDescription('Create ' . title_case($this->singular));
 
+        $fields = $this->getFieldsFromRules(new $this->formRequest);
+
+        $viewPrefix = request()->is('admin*') ? 'admin.' : '';
+
         return view(
-            'admin.crud.create',
-            [
-            'slug' => $this->slug,
-            'model' => $this->model,
-            'fields' => $this->fields,
+            $viewPrefix.'crud.create', [
+                'slug' => $this->slug,
+                'model' => $this->model,
+                'fields' => $fields,
             ]
         );
     }
@@ -185,13 +160,18 @@ class CrudController extends Controller
 
         $data = $this->handleFileUploads();
 
-        $data = array_intersect_key($data, $this->fields->toArray());
+        $fields = $this->getFieldsFromRules(new $this->formRequest);
+
+        $data = array_intersect_key($data, $fields->toArray());
 
         $item = $this->model::create($data);
 
         flash($this->singular . ' created.');
 
-        return redirect(route("admin.$this->slug.edit", $item->id));
+        if (request()->is('admin*')) {
+            return redirect(route("admin.$this->slug.edit", $item->id));
+        }
+        return redirect(route("$this->slug.edit", $item->id));
     }
 
     /**
@@ -206,11 +186,12 @@ class CrudController extends Controller
         SEO::setTitle(title_case($this->singular) . ': ' . $item->label);
         SEO::setDescription('View ' . title_case($this->singular) . ': ' . $item->label);
 
+        $viewPrefix = request()->is('admin*') ? 'admin.' : '';
+
         return view(
-            'admin.crud.show',
-            [
-            'item' => $item,
-            'model' => $this->model,
+            $viewPrefix.'crud.show', [
+                'item' => $item,
+                'model' => $this->model,
             ]
         );
     }
@@ -227,13 +208,16 @@ class CrudController extends Controller
         SEO::setTitle('Edit ' . title_case($this->singular) . ': ' . $item->label);
         SEO::setDescription('Edit ' . title_case($this->singular) . ': ' . $item->label);
 
+        $fields = $this->getFieldsFromRules(new $this->formRequest);
+
+        $viewPrefix = request()->is('admin*') ? 'admin.' : '';
+
         return view(
-            'admin.crud.edit',
-            [
-            'item' => $item,
-            'model' => $this->model,
-            'slug' => $this->slug,
-            'fields' => $this->fields,
+            $viewPrefix.'crud.edit', [
+                'item' => $item,
+                'model' => $this->model,
+                'slug' => $this->slug,
+                'fields' => $fields,
             ]
         );
     }
@@ -255,13 +239,18 @@ class CrudController extends Controller
 
         $data = $this->handleFileUploads();
 
-        $data = array_intersect_key($data, $this->fields->toArray());
+        $fields = $this->getFieldsFromRules(new $this->formRequest);
+
+        $data = array_intersect_key($data, $ields->toArray());
 
         $item->update($data);
 
         flash($this->singular . ' updated.');
 
-        return redirect(route("admin.$this->slug.edit", $item->id));
+        if (request()->is('admin*')) {
+            return redirect(route("admin.$this->slug.edit", $item->id));
+        }
+        return redirect(route("$this->slug.edit", $item->id));
     }
 
     /**
@@ -276,7 +265,10 @@ class CrudController extends Controller
 
         flash($this->singular . ' deleted.');
 
-        return redirect(route("admin.$this->slug.index"));
+        if (request()->is('admin*')) {
+            return redirect(route("admin.$this->slug.index"));
+        }
+        return redirect(route("$this->slug.index"));
     }
 
 
@@ -285,10 +277,13 @@ class CrudController extends Controller
         SEO::setTitle('Order ' . title_case($this->plural));
         SEO::setDescription('Order ' . title_case($this->plural));
 
-        return view('admin.crud.order', [
-            'items' => $this->model::getTree(),
-            'slug' => $this->slug,
-        ]);
+        $viewPrefix = request()->is('admin*') ? 'admin.' : '';
+
+        return view(
+            $viewPrefix.'crud.order', [
+                'items' => $this->model::getTree(),
+                'slug' => $this->slug,
+            ]);
     }
 
     public function reorder(Request $request)

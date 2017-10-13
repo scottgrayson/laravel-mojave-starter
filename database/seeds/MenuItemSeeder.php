@@ -58,6 +58,7 @@ class MenuItemSeeder extends Seeder
                         'name' => 'view site',
                         'link' => '/',
                     ],
+                    [ 'name' => 'logout' ],
                 ],
             ],
             [
@@ -87,6 +88,40 @@ class MenuItemSeeder extends Seeder
                         'name' => 'settings',
                         'link' => '/admin/settings',
                     ],
+                ],
+            ],
+            [
+                'name' => 'admin collapsed',
+                'children' => [
+                    [
+                        'name' => 'users',
+                        'link' => '/admin/users',
+                    ],
+                    [
+                        'name' => 'pages',
+                        'link' => '/admin/pages',
+                    ],
+                    [
+                        'name' => 'menu items',
+                        'link' => '/admin/menu-items',
+                    ],
+                    [
+                        'name' => 'images',
+                        'link' => '/admin/images',
+                    ],
+                    [
+                        'name' => 'files',
+                        'link' => '/admin/files',
+                    ],
+                    [
+                        'name' => 'settings',
+                        'link' => '/admin/settings',
+                    ],
+                    [
+                        'name' => 'view site',
+                        'link' => '/',
+                    ],
+                    [ 'name' => 'logout' ],
                 ],
             ],
             [

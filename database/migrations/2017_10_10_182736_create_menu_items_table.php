@@ -23,7 +23,6 @@ class CreateMenuItemsTable extends Migration
             $table->integer('order')->unsigned()->default(0);
             $table->boolean('target_blank')->default(0);
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

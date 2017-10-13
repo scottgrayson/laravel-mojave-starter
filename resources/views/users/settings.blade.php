@@ -1,9 +1,10 @@
-@extends('layouts.admin')
+@extends('layouts.app')
 
 @section('content')
-  @include('crud.create', [
+  @include('crud.edit', [
     'fields' => $fields,
     'slug' => $slug,
     'model' => $model,
+    'item' => $item,
   ])
 @endsection

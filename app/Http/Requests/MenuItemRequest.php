@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 class MenuItemRequest extends FormRequest
 {
-    public function createRules()
+    public function adminCreateRules()
     {
         return [
             'name' => 'required',
@@ -16,7 +16,7 @@ class MenuItemRequest extends FormRequest
         ];
     }
 
-    public function editRules()
+    public function adminEditRules()
     {
         return [
             'label' => 'required',
