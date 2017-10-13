@@ -89,9 +89,6 @@
           @endforeach
           <td>
             <div class="d-flex">
-              @php
-              \Route::has(route('admin.'.$slug.'.show', $i->id));
-                @endphp
               @if (\Route::has('admin.'.$slug.'.show'))
                 <a target="_blank" rel="noopener norefferer" href="{{ route('admin.'.$slug.'.show', $i->id) }}"
                   class="btn btn-icon">
