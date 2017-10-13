@@ -6,8 +6,6 @@ class PageRequest extends FormRequest
 {
     public function rules()
     {
-        $id = \Request::get('id');
-
         return [
             'name' => 'required',
             'title' => 'required',

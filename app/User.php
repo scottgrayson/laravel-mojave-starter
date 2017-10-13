@@ -50,4 +50,9 @@ class User extends Authenticatable
     {
         return $this->unreadNotifications->count();
     }
+
+    public function isAdmin()
+    {
+        return $this->hasRole('admin');
+    }
 }

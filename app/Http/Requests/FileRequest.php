@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 class FileRequest extends FormRequest
 {
-    public function createRules()
+    public function adminCreateRules()
     {
         return [
             'file' => 'required|file|max:10000',
         ];
     }
 
-    public function editRules()
+    public function adminEditRules()
     {
         return [
             'name' => 'required|string|max:255',

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 class ImageRequest extends FormRequest
 {
-    public function createRules()
+    public function adminCreateRules()
     {
         return [
             'name' => 'required|string|max:255',
@@ -12,7 +12,7 @@ class ImageRequest extends FormRequest
         ];
     }
 
-    public function editRules()
+    public function adminEditRules()
     {
         return [
             'name' => 'required|string|max:255',

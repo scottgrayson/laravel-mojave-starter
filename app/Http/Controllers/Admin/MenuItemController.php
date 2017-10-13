@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\CrudController;
+
 class MenuItemController extends CrudController
 {
     protected $model = \App\MenuItem::class;
