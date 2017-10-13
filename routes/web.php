@@ -15,10 +15,16 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 
+// Newsletter Subscribe
 Route::get('newsletter', 'NewsletterSubscriberController@create')->name('newsletter-subscriber.create');
 Route::post('newsletter', 'NewsletterSubscriberController@store')->name('newsletter-subscriber.store');
 Route::get('newsletter/unsubscribe', 'NewsletterSubscriberController@unsubscribe')->name('newsletter-subscriber.unsubscribe');
 Route::delete('newsletter/unsubscribe', 'NewsletterSubscriberController@destroy')->name('newsletter-subscriber.destroy');
+
+
+// Newsletter Tracking
+Route::get('newsletters/short/{slug}', 'NewsletterTrackingController@link');
+Route::get('newsletters/open/{id}', 'NewsletterTrackingController@open');
 
 Route::middleware('auth')->group( function () {
     Route::get('notifications/mark-read', 'NotificationController@markAllRead');
