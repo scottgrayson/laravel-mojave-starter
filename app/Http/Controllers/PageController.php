@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Page;
 use Illuminate\Http\Request;
+use SEO;
 
 class PageController extends Controller
 {
@@ -20,6 +21,9 @@ class PageController extends Controller
         if (!$page->published && !$isAdmin) {
             abort(404);
         }
+
+        SEO::setTitle($page->meta_title ? $page->meta_title : $page->title);
+        SEO::setDescription($page->meta_description ? $page->meta_description : $page->title);
 
         return view('page', [
             'page' => $page,

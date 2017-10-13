@@ -26,6 +26,7 @@ class PageSeeder extends Seeder
             'title' => isset($i['title']) ? $i['title'] : title_case($i['name']),
             'uri' => isset($i['uri']) ? $i['uri'] : '/'.str_slug($i['name']),
             'content' => isset($i['content']) ? $i['content'] : $i['name'],
+            'published' => 1,
         ]);
     }
 
