@@ -9,7 +9,6 @@
         "artesaos/seotools": "^0.10.0",
         "erusev/parsedown": "^1.6",
         "fideloper/proxy": "~3.3",
-        "jenssegers/rollbar": "^1.5",
         "laracasts/flash": "^3.0",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
@@ -17,6 +16,7 @@
         "league/flysystem-aws-s3-v3": "^1.0",
         "nothingworks/blade-svg": "^0.2.2",
         "pusher/pusher-php-server": "~2.6",
+        "rollbar/rollbar-laravel": "^2.2",
         "spatie/laravel-permission": "^2.5"
     },
     "require-dev": {
