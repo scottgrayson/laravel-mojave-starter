@@ -18,7 +18,6 @@ window.Vue = require('vue');
 require('./utils/utc-to-local');
 
 Vue.component('vue-socket', require('./components/VueSocket.vue'));
-Vue.component('meta-editor', require('./components/meta-editor.vue'));
 
 const app = new Vue({
   el: '#app'

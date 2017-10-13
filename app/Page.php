@@ -8,10 +8,6 @@ class Page extends Model
     {
         $model = self::where('uri', '/'.$uri)->first();
 
-        if (!$model) {
-            throw new ModelNotFoundException;
-        }
-
         return $model;
     }
 
@@ -19,5 +15,10 @@ class Page extends Model
     {
         $PD = new \Parsedown();
         return $PD->text($this->content);
+    }
+
+    public function getLayoutAttribute()
+    {
+        return property_exists($this, 'layout') && $this->layout ? $this->layout : 'app';
     }
 }

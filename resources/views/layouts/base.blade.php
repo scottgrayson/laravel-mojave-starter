@@ -8,12 +8,9 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>
-      {{ config('app.name', 'Mojave') }} - @yield('title')
-    </title>
+    {!! app('seotools')->generate(true) !!}
 
-    <meta name="description" content="@yield('description')">
-    <meta name="keywords" content="@yield('keywords')">
+    @yield('meta')
 
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">

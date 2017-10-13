@@ -45,7 +45,7 @@ class BladeServiceProvider extends ServiceProvider
         );
 
         \Form::component(
-            'meta', 'form.inputs.meta', [
+            'code', 'form.inputs.code', [
             'name',
             'value' => null,
             'attributes' => [],

@@ -10,10 +10,10 @@
   $label = $name;
   $relation = '';
 
-  if (in_array($name, ['description', 'message'])) {
+  if (in_array($name, ['meta_description', 'description', 'message'])) {
     $type = 'textarea';
-  } elseif (in_array($name, ['meta'])) {
-    $type = 'meta';
+  } elseif (in_array($name, ['meta_tags'])) {
+    $type = 'code';
   } elseif (in_array($name, ['content'])) {
     $type = 'editor';
   } elseif (in_array($name, ['email', 'password'])) {
