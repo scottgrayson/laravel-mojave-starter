@@ -167,6 +167,7 @@ return [
         /*
          * Package Service Providers...
          */
+        Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -228,6 +229,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         // Package
+        'SEO' => Artesaos\SEOTools\Facades\SEOTools::class,
     ],
 
 ];

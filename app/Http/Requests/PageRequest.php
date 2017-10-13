@@ -11,9 +11,11 @@ class PageRequest extends FormRequest
         return [
             'name' => 'required',
             'title' => 'required',
-            'layout' => 'required',
             'uri' => 'required',
             'published' => 'boolean',
+            'meta_title' => 'nullable',
+            'meta_description' => 'nullable',
+            'meta_tags' => 'nullable',
             'content' => 'nullable',
         ];
     }

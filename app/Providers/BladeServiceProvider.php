@@ -47,6 +47,15 @@ class BladeServiceProvider extends ServiceProvider
             'item' => null,
             ]
         );
+
+        \Form::component(
+            'code', 'form.inputs.code', [
+            'name',
+            'value' => null,
+            'attributes' => [],
+            'item' => null,
+            ]
+        );
     }
 
     /**

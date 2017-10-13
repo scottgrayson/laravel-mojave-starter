@@ -4,21 +4,74 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6206c42fd4bdba85b975beac733147b8",
-    "content-hash": "312e17a1b6b87e048f9f363260aae585",
+    "hash": "3b151b25537f6c30d0debd94f065bdee",
+    "content-hash": "a60afd161376cf76fc6dda6d57ca3e5e",
     "packages": [
         {
-            "name": "aws/aws-sdk-php",
-            "version": "3.36.25",
+            "name": "artesaos/seotools",
+            "version": "0.10.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "c7a93ab8a4aff2915f4dd1545c99f9f59e13bafd"
+                "url": "https://github.com/artesaos/seotools.git",
+                "reference": "6cdd1787aa36ac0c1a63155fb84a27934f426c93"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/c7a93ab8a4aff2915f4dd1545c99f9f59e13bafd",
-                "reference": "c7a93ab8a4aff2915f4dd1545c99f9f59e13bafd",
+                "url": "https://api.github.com/repos/artesaos/seotools/zipball/6cdd1787aa36ac0c1a63155fb84a27934f426c93",
+                "reference": "6cdd1787aa36ac0c1a63155fb84a27934f426c93",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/config": "~5",
+                "illuminate/support": "~5",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^0.9.4",
+                "orchestra/testbench": "~3.0",
+                "phpspec/phpspec": "2.1.x",
+                "phpunit/phpunit": "^4.0|^5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Artesaos\\SEOTools\\": "src/SEOTools/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Vinicius",
+                    "email": "luiz.vinicius73@gmail.com"
+                }
+            ],
+            "description": "SEO Tools for Laravel and Lumen",
+            "keywords": [
+                "laravel5",
+                "lumen",
+                "metatags",
+                "opengraph",
+                "seo",
+                "seotools",
+                "webmaster"
+            ],
+            "time": "2016-10-27 03:03:45"
+        },
+        {
+            "name": "aws/aws-sdk-php",
+            "version": "3.36.26",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/aws/aws-sdk-php.git",
+                "reference": "96f2c1525d3fd17a0802329c309c76c01a78aa51"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/96f2c1525d3fd17a0802329c309c76c01a78aa51",
+                "reference": "96f2c1525d3fd17a0802329c309c76c01a78aa51",
                 "shasum": ""
             },
             "require": {
@@ -85,7 +138,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2017-10-11 19:12:01"
+            "time": "2017-10-12 19:45:50"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",

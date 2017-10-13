@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use SEO;
 
 class CrudController extends Controller
 {
@@ -132,6 +133,9 @@ class CrudController extends Controller
             )
             ->paginate(config('settings.paginate'));
 
+        SEO::setTitle(title_case($this->plural));
+        SEO::setDescription('View ' . title_case($this->plural));
+
         // Include the request variables in the pagination links
         $items->appends(request()->all());
 
@@ -153,6 +157,9 @@ class CrudController extends Controller
      */
     public function create()
     {
+        SEO::setTitle('Create ' . title_case($this->singular));
+        SEO::setDescription('Create ' . title_case($this->singular));
+
         return view(
             'admin.crud.create',
             [
@@ -196,6 +203,9 @@ class CrudController extends Controller
     {
         $item = $this->model::findOrFail($id);
 
+        SEO::setTitle(title_case($this->singular) . ': ' . $item->label);
+        SEO::setDescription('View ' . title_case($this->singular) . ': ' . $item->label);
+
         return view(
             'admin.crud.show',
             [
@@ -213,6 +223,9 @@ class CrudController extends Controller
     public function edit($id)
     {
         $item = $this->model::findOrFail($id);
+
+        SEO::setTitle('Edit ' . title_case($this->singular) . ': ' . $item->label);
+        SEO::setDescription('Edit ' . title_case($this->singular) . ': ' . $item->label);
 
         return view(
             'admin.crud.edit',
@@ -269,6 +282,9 @@ class CrudController extends Controller
 
     public function order()
     {
+        SEO::setTitle('Order ' . title_case($this->plural));
+        SEO::setDescription('Order ' . title_case($this->plural));
+
         return view('admin.crud.order', [
             'items' => $this->model::getTree(),
             'slug' => $this->slug,
