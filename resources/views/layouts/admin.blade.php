@@ -4,11 +4,11 @@
   @include('admin.nav.top')
   <div class="container-fluid">
     <div class="row">
-      <div class="col-sm-3 col-md-2 d-none d-sm-block">
+      <div class="col-lg-2 col-xl-1 d-none d-lg-block">
         @include('admin.nav.sidebar')
       </div>
 
-      <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
+      <main class="col-lg-10 col-xl-11 pt-3" role="main">
         @yield('content')
       </main>
     </div>

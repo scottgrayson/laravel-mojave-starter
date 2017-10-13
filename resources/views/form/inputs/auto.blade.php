@@ -5,11 +5,17 @@
   $labelClass = '';
   $inputClass = '';
   $options = [];
+  $model = isset($model) ? $model : get_class($item);
+  $item = isset($item) ? $item : null;
   $label = $name;
   $relation = '';
 
-  if (in_array($name, ['description', 'message'])) {
+  if (in_array($name, ['meta_description', 'description', 'message'])) {
     $type = 'textarea';
+  } elseif (in_array($name, ['meta_tags'])) {
+    $type = 'code';
+  } elseif (in_array($name, ['content'])) {
+    $type = 'editor';
   } elseif (in_array($name, ['email', 'password'])) {
     $type = $type ?: $name;
   } elseif ($rule = preg_grep('/in:/', $rules)) {
@@ -21,6 +27,9 @@
     $type = 'select';
   } elseif (preg_match('/^(.*)_ids?$/', $name)) {
     $relation = '\\App\\'.studly_case(preg_replace('/_ids?/', '', $name));
+    if ($relation === '\\App\\Parent') {
+      $relation = $model;
+    }
     $label = title_case(preg_replace('/_id/', '', $name));
     if (preg_grep('/array/', $rules)) {
       $attributes['multiple'] = 'multiple';
@@ -33,7 +42,7 @@
     $groupClass .= 'form-check';
     $labelClass .= 'form-check-label';
     $inputClass .= 'form-check-input';
-    $type = 'check';
+    $type = 'checkbox';
   }
 
   //defaults
@@ -54,8 +63,10 @@
 
   // Render Field
 
-  echo "<div class=$groupClass>";
-  echo Form::label($label, null, ['class' => $labelClass]);
+  echo '<div class="'.$groupClass.'">';
+  if ($type !== 'checkbox') {
+    echo Form::label($label, null, ['class' => $labelClass]);
+  }
 
   if ($type === 'password' || $name === 'password_confirmation') {
     // passwords dont have a value argument
@@ -65,11 +76,16 @@
   } elseif ($type === 'select') {
     // select has a different arg signature
     echo Form::select($name, $options, null, array_merge(['class' => $inputClass], $attributes));
+  } elseif ($type === 'checkbox') {
+    echo '<label class="form-check-label">';
+    echo Form::checkbox($name, 1, null, array_merge(['class' => $inputClass], $attributes));
+    echo $label;
+    echo '</label>';
   } elseif ($type === 'file') {
     // files dont have value
-    echo Form::file($name, array_merge(['class' => $inputClass], $attributes));
+    echo Form::file($name, array_merge(['class' => $inputclass], $attributes));
   } else {
-    echo Form::$type($name, $value, array_merge(['class' => $inputClass], $attributes));
+    echo Form::$type($name, $value, array_merge(['class' => $inputClass], $attributes), $item);
   }
 
   // render errors

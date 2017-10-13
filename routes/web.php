@@ -13,20 +13,18 @@
 
 Auth::routes();
 
-Route::get('/', 'HomeController@welcome')->name('welcome');
+Route::get('/', 'HomeController@index')->name('home');
 
-Route::middleware('auth')->group(
-    function () {
-        Route::get('home', 'HomeController@home')->name('home');
+Route::middleware('auth')->group( function () {
+    Route::get('notifications/mark-read', 'NotificationController@markAllRead');
 
-        Route::get('notifications/mark-read', 'NotificationController@markAllRead');
+    Route::resource('notifications', 'NotificationController', [
+        'only' => ['index', 'show'],
+    ]);
 
-        Route::resource(
-            'notifications',
-            'NotificationController',
-            [
-            'only' => ['index', 'show'],
-            ]
-        );
-    }
-);
+    // Users
+    Route::get('settings', 'UserController@settings')->name('settings');
+    Route::resource('users', 'UserController', [
+        'only' => ['update'],
+    ]);
+});

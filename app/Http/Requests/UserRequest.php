@@ -4,7 +4,15 @@ namespace App\Http\Requests;
 
 class UserRequest extends FormRequest
 {
-    public function createRules()
+    public function editRules()
+    {
+        return [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+        ];
+    }
+
+    public function adminCreateRules()
     {
         return [
             'name' => 'required|string|max:255',
@@ -12,7 +20,7 @@ class UserRequest extends FormRequest
         ];
     }
 
-    public function editRules()
+    public function adminEditRules()
     {
         return [
             'name' => 'required|string|max:255',
