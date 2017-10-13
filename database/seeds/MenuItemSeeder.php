@@ -85,6 +85,14 @@ class MenuItemSeeder extends Seeder
                         'link' => '/admin/files',
                     ],
                     [
+                        'name' => 'newsletters',
+                        'link' => '/admin/newsletters',
+                    ],
+                    [
+                        'name' => 'newsletter subscribers',
+                        'link' => '/admin/newsletter-subscribers',
+                    ],
+                    [
                         'name' => 'settings',
                         'link' => '/admin/settings',
                     ],
@@ -112,6 +120,14 @@ class MenuItemSeeder extends Seeder
                     [
                         'name' => 'files',
                         'link' => '/admin/files',
+                    ],
+                    [
+                        'name' => 'newsletters',
+                        'link' => '/admin/newsletters',
+                    ],
+                    [
+                        'name' => 'newsletter subscribers',
+                        'link' => '/admin/newsletter-subscribers',
                     ],
                     [
                         'name' => 'settings',

@@ -14,7 +14,7 @@
     $type = 'textarea';
   } elseif (in_array($name, ['meta_tags'])) {
     $type = 'code';
-  } elseif (in_array($name, ['content'])) {
+  } elseif (in_array($name, ['body', 'content'])) {
     $type = 'editor';
   } elseif (in_array($name, ['email', 'password'])) {
     $type = $type ?: $name;

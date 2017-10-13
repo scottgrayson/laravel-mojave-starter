@@ -16,9 +16,8 @@ class CreateNewslettersTables extends Migration
         Schema::create('newsletters', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title', 124);
-            $table->text('body');
+            $table->text('body')->nullable();
             $table->datetime('sent_at')->nullable();
-            $table->boolean('read_receipts')->default(1);
             $table->integer('user_id')->unsigned()->nullable();
             $table->timestamps();
             $table->softDeletes();

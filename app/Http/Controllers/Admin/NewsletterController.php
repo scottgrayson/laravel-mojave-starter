@@ -14,9 +14,9 @@ class NewsletterController extends CrudController
     use SendsPasswordResetEmails;
 
     protected $model = \App\Newsletter::class;
-    protected $slug = 'users';
-    protected $singular = 'user';
-    protected $plural = 'users';
+    protected $slug = 'newsletters';
+    protected $singular = 'newsletter';
+    protected $plural = 'newsletters';
     protected $formRequest = \App\Http\Requests\NewsletterRequest::class;
 
     public function send($id)
