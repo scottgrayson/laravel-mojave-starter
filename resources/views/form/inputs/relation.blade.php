@@ -35,16 +35,17 @@
   {{--Normal relation--}}
   @php
     $attributes['class'] = $attributes['class'] . ' select2';
-  if (!isset($attributes['required']) && !isset($attributes['multiple'])) {
-    $attributes['placeholder'] = 'None';
-  }
-  echo Form::select(
-    $name . (isset($attributes['multiple']) ? '[]' : ''),
-    $relation::pluck($relation::label(), 'id'),
-    null,
-    $attributes
-  );
-@endphp
+    if (!isset($attributes['required']) && !isset($attributes['multiple'])) {
+      $attributes['placeholder'] = 'None';
+    }
+    $options = $relation::pluck($relation::label(), 'id');
+    echo Form::select(
+      $name . (isset($attributes['multiple']) ? '[]' : ''),
+      $options,
+      null,
+      $attributes
+    );
+  @endphp
 
 @section('scripts')
   @parent

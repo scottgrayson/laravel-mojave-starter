@@ -17,6 +17,6 @@ class Model extends EloquentModel
     public function getLabelAttribute()
     {
         $labelColumn = static::label();
-        return $this->$labelColumn;
+        return property_exists($this, 'label') ? $this->label : $this->$labelColumn;
     }
 }

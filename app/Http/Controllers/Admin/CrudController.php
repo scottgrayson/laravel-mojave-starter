@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use SEO;
 
 class CrudController extends Controller
 {
@@ -15,13 +16,14 @@ class CrudController extends Controller
     protected $formRequest;
     protected $cols;
     protected $relations;
+    protected $orderable;
 
     public function __construct()
     {
-        $this->table = $this->table ?: str_replace('-', '_', $this->slug) ?: snake_case(str_plural($model));
-        $this->slug = $this->slug ?: str_slug($this->table) ?: snake_case(str_plural($model));
+        $this->table = $this->table ?: str_replace('-', '_', $this->slug);
+        $this->slug = $this->slug ?: str_slug($this->table);
         $this->singular = $this->singular ?: str_singular($this->slug);
-        $this->plural = $this->plural ?: $this->slug;
+        $this->plural = isset($this->plural) ? $this->plural : $this->slug;
 
         // crud index columns
         $dbCols = collect(\Schema::getColumnListing($this->table));
@@ -131,6 +133,9 @@ class CrudController extends Controller
             )
             ->paginate(config('settings.paginate'));
 
+        SEO::setTitle(title_case($this->plural));
+        SEO::setDescription('View ' . title_case($this->plural));
+
         // Include the request variables in the pagination links
         $items->appends(request()->all());
 
@@ -138,6 +143,8 @@ class CrudController extends Controller
             'admin.crud.index',
             [
             'cols' => $this->cols,
+            'model' => $this->model,
+            'orderable' => $this->orderable,
             'items' => $items,
             ]
         );
@@ -150,10 +157,14 @@ class CrudController extends Controller
      */
     public function create()
     {
+        SEO::setTitle('Create ' . title_case($this->singular));
+        SEO::setDescription('Create ' . title_case($this->singular));
+
         return view(
             'admin.crud.create',
             [
             'slug' => $this->slug,
+            'model' => $this->model,
             'fields' => $this->fields,
             ]
         );
@@ -192,10 +203,14 @@ class CrudController extends Controller
     {
         $item = $this->model::findOrFail($id);
 
+        SEO::setTitle(title_case($this->singular) . ': ' . $item->label);
+        SEO::setDescription('View ' . title_case($this->singular) . ': ' . $item->label);
+
         return view(
             'admin.crud.show',
             [
             'item' => $item,
+            'model' => $this->model,
             ]
         );
     }
@@ -209,10 +224,14 @@ class CrudController extends Controller
     {
         $item = $this->model::findOrFail($id);
 
+        SEO::setTitle('Edit ' . title_case($this->singular) . ': ' . $item->label);
+        SEO::setDescription('Edit ' . title_case($this->singular) . ': ' . $item->label);
+
         return view(
             'admin.crud.edit',
             [
             'item' => $item,
+            'model' => $this->model,
             'slug' => $this->slug,
             'fields' => $this->fields,
             ]
@@ -258,5 +277,45 @@ class CrudController extends Controller
         flash($this->singular . ' deleted.');
 
         return redirect(route("admin.$this->slug.index"));
+    }
+
+
+    public function order()
+    {
+        SEO::setTitle('Order ' . title_case($this->plural));
+        SEO::setDescription('Order ' . title_case($this->plural));
+
+        return view('admin.crud.order', [
+            'items' => $this->model::getTree(),
+            'slug' => $this->slug,
+        ]);
+    }
+
+    public function reorder(Request $request)
+    {
+        if (!request('order')) {
+            flash("Error while updating $this->singular order.");
+            return redirect(route("admin.$this->slug.order"));
+        }
+
+        $orderArray = explode(',', request('order'));
+
+        $order = array_flip($orderArray);
+
+        // TODO would be more efficient to do delete than reinsert
+        // but is that safe? Would users load a page with 0 menu items
+
+        foreach ($this->model::all() as $i) {
+            if (isset($order[$i->id])) {
+                $i->update(['order' => $order[$i->id]]);
+            } else {
+                flash("Error while updating $this->singular order.");
+                return redirect(route("admin.$this->slug.order"));
+            }
+        };
+
+        flash("$this->singular order updated.");
+
+        return redirect(route("admin.$this->slug.order"));
     }
 }

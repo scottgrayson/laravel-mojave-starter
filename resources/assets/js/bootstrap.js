@@ -13,6 +13,15 @@ require('bootstrap')
 
 window.select2 = require('select2')
 
+import CodeMirror from 'codemirror'
+window.CodeMirror = CodeMirror
+
+import SimpleMDE from 'simplemde'
+window.SimpleMDE = SimpleMDE
+
+import Sortable from 'sortablejs'
+window.Sortable = Sortable
+
 import Moment from 'moment'
 window.moment = Moment
 

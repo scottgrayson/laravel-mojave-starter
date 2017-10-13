@@ -1,11 +1,7 @@
 <nav class="bg-light sidebar">
   <ul class="nav nav-pills flex-column">
-      @include('nav.nav-item', ['name' => 'users', 'path' => 'admin/users'])
-      @include('nav.nav-item', ['name' => 'images', 'path' => 'admin/images'])
-      @include('nav.nav-item', ['name' => 'files', 'path' => 'admin/files'])
+    @foreach(\App\MenuItem::childrenOf('admin sidebar') as $item)
+      @include('nav.nav-item', ['l' => $item])
+    @endforeach
   </ul>
-  {{--<hr/>
-  <ul class="nav nav-pills flex-column">
-      @include('nav.nav-item', ['name' => 'settings', 'path' => 'admin/settings'])
-  </ul>--}}
 </nav>
