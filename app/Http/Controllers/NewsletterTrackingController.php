@@ -42,10 +42,10 @@ class NewsletterTrackingController extends Controller
 
         if (config('app.env') === 'testing') {
             return response()
-                ->file('public/img/bus_128.png', ['cache-control' => 'no-cache']);
+                ->file('public/img/tiny.png', ['cache-control' => 'no-cache']);
         }
 
         return response()
-            ->file('img/bus_128.png', ['cache-control' => 'no-cache']);
+            ->file('img/tiny.png', ['cache-control' => 'no-cache']);
     }
 }
