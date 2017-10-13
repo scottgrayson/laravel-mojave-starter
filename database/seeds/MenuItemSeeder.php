@@ -220,7 +220,7 @@ class MenuItemSeeder extends Seeder
                 'children' => [
                     $this->pageItem('about'),
                     $this->pageItem('contact'),
-                    [ 'name' => 'newsletter' ],
+                    [ 'name' => 'newsletter-subscription' ],
                 ],
             ],
         ];
