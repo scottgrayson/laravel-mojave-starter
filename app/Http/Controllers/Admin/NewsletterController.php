@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use App\Newsletter;
 use App\Jobs\SendNewsletter;
+use SEO;
 
 class NewsletterController extends CrudController
 {
@@ -18,6 +19,25 @@ class NewsletterController extends CrudController
     protected $singular = 'newsletter';
     protected $plural = 'newsletters';
     protected $formRequest = \App\Http\Requests\NewsletterRequest::class;
+
+    public function edit($id)
+    {
+        $item = $this->model::findOrFail($id);
+
+        SEO::setTitle('Edit Newsletter: ' . $item->label);
+        SEO::setDescription('Edit Newsletter: ' . $item->label);
+
+        $fields = $this->getFieldsFromRules(new $this->formRequest);
+
+        return view(
+            'admin.newsletter.edit', [
+                'item' => $item,
+                'model' => $this->model,
+                'slug' => $this->slug,
+                'fields' => $fields,
+            ]
+        );
+    }
 
     public function send($id)
     {

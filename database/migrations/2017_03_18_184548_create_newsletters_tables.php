@@ -20,7 +20,6 @@ class CreateNewslettersTables extends Migration
             $table->datetime('sent_at')->nullable();
             $table->integer('user_id')->unsigned()->nullable();
             $table->timestamps();
-            $table->softDeletes();
         });
 
         Schema::create('newsletter_urls', function (Blueprint $table) {
@@ -31,7 +30,6 @@ class CreateNewslettersTables extends Migration
                 ->references('id')->on('newsletters')->index();
             $table->text('target');
             $table->timestamps();
-            $table->softDeletes();
         });
 
         Schema::create('newsletter_opens', function (Blueprint $table) {

@@ -15,9 +15,9 @@ Route::post('menu-items/order', 'MenuItemController@reorder')->name('menu-items.
 Route::resource('menu-items', 'MenuItemController');
 
 // Newsletter
-Route::get('newsletters/{newsletter}/send', 'NewsletterController@send');
-Route::post('newsletters/{newsletter}/preview', 'NewsletterController@preview');
-Route::get('newsletters/{newsletter}/statistics', 'NewsletterController@statistics');
+Route::post('newsletters/{newsletter}/send', 'NewsletterController@send')->name('newsletter.send');
+Route::post('newsletters/{newsletter}/preview', 'NewsletterController@preview')->name('newsletter.preview');
+Route::get('newsletters/{newsletter}/statistics', 'NewsletterController@statistics')->name('newsletter.statistics');
 
 Route::resource('newsletter-subscribers', 'NewsletterSubscriberController');
 Route::resource('newsletters', 'NewsletterController');

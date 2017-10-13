@@ -6,5 +6,6 @@ $factory->define(App\Newsletter::class, function (Faker $faker) {
     return [
         'title' => $faker->word,
         'body' => $faker->paragraph,
+        'sent_at' => $faker->dateTimeThisYear(),
     ];
 });
