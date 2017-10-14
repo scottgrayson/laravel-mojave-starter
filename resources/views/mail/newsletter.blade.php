@@ -3,7 +3,7 @@
   {!! $newsletter->body !!}
 
   <p style="font-size:0.65rem; text-align:center;">
-    <a href="{{ route("newsletter-subscriber.unsubscribe", $data['subscriberId']) }}">
+    <a href="{{ route("newsletter.unsubscribe", ['email' => $data['subscriberEmail']]) }}">
       Unsubscribe
     </a>
   </p>

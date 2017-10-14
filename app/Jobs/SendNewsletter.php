@@ -34,10 +34,11 @@ class SendNewsletter implements ShouldQueue
         if ($this->preview) {
             $this->data['subscriberEmail'] = $this->preview;
 
-            Mail::to($this->preview)->queue(new NewsletterMail(
-                $this->newsletter,
-                $this->data
-            ))->onQueue('newsletter');
+            $message = (new NewsletterMail($this->newsletter, $this->data))
+                ->onQueue('newsletter');
+
+            Mail::to($this->preview)
+                ->queue($message);
 
             return;
         }
@@ -45,10 +46,11 @@ class SendNewsletter implements ShouldQueue
         NewsletterSubscriber::each(function ($u) {
             $this->data['subscriberEmail'] = $u->email;
 
-            Mail::to($u->email)->queue(new NewsletterMail(
-                $this->newsletter,
-                $this->data
-            ))->onQueue('newsletter');
+            $message = (new NewsletterMail($this->newsletter, $this->data))
+                ->onQueue('newsletter');
+
+            Mail::to($u->email)
+                ->queue($message);
         });
 
         $this->newsletter->update([ 'sent_at' => Carbon::now() ]);
