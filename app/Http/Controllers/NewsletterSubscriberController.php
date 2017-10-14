@@ -22,7 +22,6 @@ class NewsletterSubscriberController extends Controller
 
         return view(
             'newsletter.create', [
-                'item' => $item,
                 'model' => $this->model,
                 'slug' => $this->slug,
                 'fields' => $fields,
@@ -57,7 +56,6 @@ class NewsletterSubscriberController extends Controller
 
         return view(
             'newsletter.unsubscribe', [
-                'item' => $item,
                 'model' => $this->model,
                 'slug' => $this->slug,
                 'fields' => $fields,
@@ -68,10 +66,10 @@ class NewsletterSubscriberController extends Controller
     public function destroy(NewsletterSubscriberRequest $request)
     {
         $email = request('email');
-        $sub = NewsletterSubscriber::where('email', $email);
+        $sub = NewsletterSubscriber::where('email', $email)->first();
 
         if (!$sub) {
-            flash("Could not find newsletter subscription for $email")->error();
+            flash("Could not find newsletter subscription for email: $email")->error();
             return redirect()->back();
         }
 

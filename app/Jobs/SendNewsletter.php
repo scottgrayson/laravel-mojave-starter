@@ -32,7 +32,7 @@ class SendNewsletter implements ShouldQueue
     public function handle()
     {
         if ($this->preview) {
-            $this->data['subscriberId'] = 0;
+            $this->data['subscriberEmail'] = $this->preview;
 
             Mail::to($this->preview)->queue(new NewsletterMail(
                 $this->newsletter,
@@ -43,7 +43,7 @@ class SendNewsletter implements ShouldQueue
         }
 
         NewsletterSubscriber::each(function ($u) {
-            $this->data['subscriberId'] = $u->id;
+            $this->data['subscriberEmail'] = $u->email;
 
             Mail::to($u->email)->queue(new NewsletterMail(
                 $this->newsletter,

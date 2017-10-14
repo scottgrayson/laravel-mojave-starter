@@ -2,16 +2,17 @@
 
 @section('content')
   @if($item->sent_at)
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-between alert alert-info">
       <div>
-        <h4>Newsletter Sent</h4>
-
+        <h4>Sent</h4>
+        <small>{{ $item->sent_at }}</small>
       </div>
-      <a href="{{ route('admin.newsletter.statistics', $item->id) }}"
-        class="btn btn-secondary">
+
+      <a href="{{ route('admin.newsletters.show', $item->id) }}"
+        class="align-self-start btn btn-outline-info">
         Statistics
       </a>
-    </div>
+      </div>
   @endif
 
   @include('crud.edit', [

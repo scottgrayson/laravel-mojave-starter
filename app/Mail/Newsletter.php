@@ -28,7 +28,7 @@ class Newsletter extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.newsletter')
+        return $this->markdown('mail.newsletter')
             ->subject($this->newsletter->subject)
             ->with('newsletter', $this->newsletter)
             ->with('data', $this->data);
