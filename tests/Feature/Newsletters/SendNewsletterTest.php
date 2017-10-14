@@ -21,9 +21,9 @@ class SendNewsletterText extends TestCase
             'email' => 'newsletter@test.com'
         ]);
 
-        $newsletter = Newsletter::create();
+        $newsletter = factory(Newsletter::class)->create();
 
-        $this->get("/admin/newsletter/{$newsletter->id}/send")
+        $this->post(route('admin.newsletter.send', $newsletter->id))
             ->assertStatus(302);
 
         Mail::assertQueued(MailNewsletter::class, function($mail) {

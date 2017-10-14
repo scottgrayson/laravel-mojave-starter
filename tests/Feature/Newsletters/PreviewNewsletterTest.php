@@ -9,7 +9,7 @@ use App\Newsletter;
 use App\NewsletterSubscriber;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 
-class PreviewNewsletterText extends TestCase
+class PreviewNewsletterTest extends TestCase
 {
     use WithoutMiddleware;
 
@@ -17,12 +17,12 @@ class PreviewNewsletterText extends TestCase
     {
         Mail::fake();
 
-        $newsletter = Newsletter::create([
+        $newsletter = factory(Newsletter::class)->create([
             'subject' => 'Newsletter 1',
             'body' => 'Here is the content',
         ]);
 
-        $this->post("/admin/newsletter/{$newsletter->id}/preview", [
+        $this->post(route('admin.newsletter.preview', $newsletter->id), [
             'email' => 'test@email.com'
         ])
             ->assertStatus(302);

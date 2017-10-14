@@ -58,6 +58,7 @@ class NewsletterController extends CrudController
 
     public function preview($id)
     {
+
         $validator = \Validator::make(request()->all(), [
             'email' => 'required|email',
         ]);

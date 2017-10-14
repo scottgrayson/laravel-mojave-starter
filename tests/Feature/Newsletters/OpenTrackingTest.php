@@ -15,7 +15,7 @@ class OpenTrackingTest extends TestCase
 
     public function testTrackingOpens()
     {
-        $newsletter = Newsletter::create();
+        $newsletter = factory(Newsletter::class)->create();
 
         $this->assertEquals(0, NewsletterOpen::count());
 

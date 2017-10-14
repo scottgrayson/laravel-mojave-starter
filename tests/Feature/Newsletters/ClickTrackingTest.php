@@ -16,7 +16,7 @@ class ClickTrackingTest extends TestCase
 
     public function testTrackingLinks()
     {
-        $newsletter = Newsletter::create();
+        $newsletter = factory(Newsletter::class)->create();
 
         $trackable = NewsletterUrl::create([
             'target' => 'http://google.com',
