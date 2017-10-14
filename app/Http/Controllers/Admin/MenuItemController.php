@@ -12,4 +12,11 @@ class MenuItemController extends CrudController
     protected $singular = 'menu item';
     protected $plural = 'menu items';
     protected $formRequest = \App\Http\Requests\MenuItemRequest::class;
+
+    public function show($id)
+    {
+        $page = $this->model::findOrFail($id);
+
+        return redirect($page->href);
+    }
 }

@@ -115,6 +115,7 @@ class CrudController extends Controller
         return view(
             $viewPrefix.'crud.index', [
                 'cols' => $cols,
+                'slug' => $this->slug,
                 'model' => $this->model,
                 'orderable' => $this->orderable,
                 'items' => $items,
@@ -241,7 +242,7 @@ class CrudController extends Controller
 
         $fields = $this->getFieldsFromRules(new $this->formRequest);
 
-        $data = array_intersect_key($data, $ields->toArray());
+        $data = array_intersect_key($data, $fields->toArray());
 
         $item->update($data);
 
