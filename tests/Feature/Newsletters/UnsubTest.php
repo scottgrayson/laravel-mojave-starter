@@ -14,7 +14,7 @@ class UnsubTest extends TestCase
             'email' => 'newsletter@test.com'
         ]);
 
-        $response = $this->delete(route('newsletter-subscriber.destroy'), [
+        $response = $this->delete(route('newsletter.destroy'), [
             'email' => $subscriber->email,
         ]);
 

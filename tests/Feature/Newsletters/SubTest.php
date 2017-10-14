@@ -9,7 +9,7 @@ class SubTest extends TestCase
 {
     public function testSubscribingFromNewsletter()
     {
-        $response = $this->post(route('newsletter-subscriber.store'), ['email' => 'newsletter@test.com']);
+        $response = $this->post(route('newsletter.store'), ['email' => 'newsletter@test.com']);
 
         $response->assertStatus(302);
 
