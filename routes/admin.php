@@ -18,5 +18,7 @@ Route::resource('menu-items', 'MenuItemController');
 Route::post('newsletters/{newsletter}/send', 'NewsletterController@send')->name('newsletter.send');
 Route::post('newsletters/{newsletter}/preview', 'NewsletterController@preview')->name('newsletter.preview');
 
-Route::resource('newsletter-subscribers', 'NewsletterSubscriberController');
+Route::resource('newsletter-subscribers', 'NewsletterSubscriberController', [
+    'except' => ['show'],
+]);
 Route::resource('newsletters', 'NewsletterController');

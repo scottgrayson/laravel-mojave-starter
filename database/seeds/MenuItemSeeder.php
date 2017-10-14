@@ -92,10 +92,6 @@ class MenuItemSeeder extends Seeder
                         'name' => 'newsletter subscribers',
                         'link' => '/admin/newsletter-subscribers',
                     ],
-                    [
-                        'name' => 'settings',
-                        'link' => '/admin/settings',
-                    ],
                 ],
             ],
             [
@@ -128,10 +124,6 @@ class MenuItemSeeder extends Seeder
                     [
                         'name' => 'newsletter subscribers',
                         'link' => '/admin/newsletter-subscribers',
-                    ],
-                    [
-                        'name' => 'settings',
-                        'link' => '/admin/settings',
                     ],
                     [
                         'name' => 'view site',

@@ -242,7 +242,7 @@ class CrudController extends Controller
 
         $fields = $this->getFieldsFromRules(new $this->formRequest);
 
-        $data = array_intersect_key($data, $ields->toArray());
+        $data = array_intersect_key($data, $fields->toArray());
 
         $item->update($data);
 
