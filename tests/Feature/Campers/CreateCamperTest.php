@@ -16,10 +16,11 @@ class CreateCamperTest extends TestCase
         $camper = factory(Camper::class)->make(['tent_id' => $tent->id]);
         $user = factory(User::class)->create();
 
+        $this->be($user);
         $r = $this->get(route('campers.create'));
         $r->assertStatus(200);
 
-        $r = $this->get(route('campers.store'), $camper->toArray());
+        $r = $this->post(route('campers.store'), $camper->toArray());
 
         $this->assertEquals($user->campers()->first()->id, $camper->id);
         $this->assertEquals($camper->tent()->count(), 1);

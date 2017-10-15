@@ -19,6 +19,7 @@ class EditCamperTest extends TestCase
         ]);
         $camper->name = 'Updated Name';
 
+        $this->be($user);
         $r = $this->get(route('campers.edit', $camper->id));
         $r->assertStatus(200);
 
@@ -37,6 +38,7 @@ class EditCamperTest extends TestCase
             'user_id' => $otheruser->id,
         ]);
 
+        $this->be($user);
         $r = $this->get(route('campers.edit', $camper->id));
         $r->assertStatus(403);
         $r = $this->put(route('campers.update', $camper->id), $camper->toArray());
