@@ -19,37 +19,49 @@
 
   <br>
 
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Camper</th>
-        <th>Status</th>
-        <th class="text-right">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      @foreach ($items as $i)
+  @if($items && $items->count())
+    <table class="table">
+      <thead>
         <tr>
-          <td>
-            {{ $i->name}}
-          </td>
-          <td>
-            {{ $status[array_rand($status)] }}
-          </td>
-          <td>
-            <div class="d-flex">
-              <a target="_blank" rel="noopener norefferer" href="{{ route('admin.'.$slug.'.show', $i->id) }}"
-                class="btn btn-icon">
-                @svg('cart')
+          <th>Camper</th>
+          <th class="d-none d-sm-table-cell">Status</th>
+          <th class="text-right">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach ($items as $i)
+          <tr>
+            <td>
+              {{ $i->name}}
+            </td>
+            <td class="d-none d-sm-table-cell">
+              {{ $status[$i->id % 4] }}
+            </td>
+            <td class="text-right">
+              <a href="{{ route('reservations.index', ['camper' =>  $i->id]) }}"
+                class="mb-1 mb-lg-0 btn btn-sm btn-secondary">
+                @svg('calendar', 'text-top')
+                <span class="d-none d-md-inline">
+                  Reservations
+                </span>
               </a>
               <a href="{{ route('campers.edit', $i->id) }}"
-                class="btn btn-icon">
-                @svg('edit')
+                class="mb-1 mb-lg-0 btn btn-sm btn-secondary">
+                @svg('edit', 'text-top')
+                <span class="d-none d-md-inline">
+                  Registration
+                </span>
               </a>
-            </div>
-          </td>
-        </tr>
-      @endforeach
-    </tbody>
-  </table>
+            </td>
+          </tr>
+        @endforeach
+      </tbody>
+    </table>
+  @else
+
+    <div class="alert alert-info">
+      You have not registered any campers.
+    </div>
+  @endif
+
 @endsection
