@@ -4,82 +4,79 @@ namespace App\Http\Controllers;
 
 use App\Camper;
 use Illuminate\Http\Request;
+use App\Http\Requests\CamperRequest;
+use SEO;
 
 class CamperController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
+    protected $model = \App\Camper::class;
+    protected $slug = 'campers';
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        SEO::setTitle('Create Camper');
+        SEO::setDescription('Create Camper');
+
+        $fields = $this->getFieldsFromRules(new CamperRequest);
+
+        return view(
+            'campers.create', [
+                'slug' => $this->slug,
+                'model' => $this->model,
+                'fields' => $fields,
+            ]
+        );
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(CamperRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        $data = array_merge($data, ['user_id' => request()->user()->id]);
+
+        $item = $this->model::create($data);
+
+        flash('Camper created.');
+
+        return redirect(route("campers.edit"), $camper->id);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Camper  $camper
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Camper $camper)
+    public function edit(Request $request)
     {
-        //
+        $id = request()->user()->id;
+        $item = User::findOrFail($id);
+
+        if (request()->user()->id != $item->user_id) {
+            abort(403);
+        }
+
+        SEO::setTitle('Camper Registration for ' . $item->label);
+        SEO::setDescription('Camper Registration for ' . $item->label);
+
+        $fields = $this->getFieldsFromRules(new CamperRequest);
+
+        return view(
+            'campers.edit', [
+                'item' => $item,
+                'model' => $this->model,
+                'slug' => $this->slug,
+                'fields' => $fields,
+            ]
+        );
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Camper  $camper
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Camper $camper)
+    public function update(UserRequest $request, $id)
     {
-        //
-    }
+        $item = Camper::findOrFail($id);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Camper  $camper
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Camper $camper)
-    {
-        //
-    }
+        if (request()->user()->id != $item->user_id) {
+            abort(403);
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Camper  $camper
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Camper $camper)
-    {
-        //
+        $item->update($request->validated());
+
+        flash('Settings updated.');
+
+        return redirect(route("settings"));
     }
 }
