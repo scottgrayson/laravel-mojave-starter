@@ -21,7 +21,8 @@ class CamperController extends Controller
         $items = request()->user()->campers;
 
         return view(
-            'campers.index', [
+            'campers.index',
+            [
                 'slug' => $this->slug,
                 'model' => $this->model,
                 'items' => $items,
@@ -37,7 +38,8 @@ class CamperController extends Controller
         $fields = $this->getFieldsFromRules(new CamperRequest);
 
         return view(
-            'campers.create', [
+            'campers.create',
+            [
                 'slug' => $this->slug,
                 'model' => $this->model,
                 'fields' => $fields,
@@ -72,7 +74,8 @@ class CamperController extends Controller
         $fields = $this->getFieldsFromRules(new CamperRequest);
 
         return view(
-            'campers.edit', [
+            'campers.edit',
+            [
                 'item' => $item,
                 'model' => $this->model,
                 'slug' => $this->slug,

@@ -45,7 +45,8 @@ class CrudController extends Controller
             $cols = $dbCols->filter(
                 function ($c) {
                     return !in_array(
-                        $c, [
+                        $c,
+                        [
                             'layout',
                             'content',
                             'meta_title',
