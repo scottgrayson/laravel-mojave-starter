@@ -49,6 +49,7 @@ class CreateCampersTable extends Migration
             $table->string('guardian_cell_phone')->nullable();
             $table->string('guardian_employer_name')->nullable();
             $table->string('guardian_employer_title')->nullable();
+            $table->string('alternate_contact_name')->nullable();
             $table->string('alternate_contact_daytime_phone')->nullable();
             $table->string('alternate_contact_evening_phone')->nullable();
             $table->boolean('photo_consent')->default(0);

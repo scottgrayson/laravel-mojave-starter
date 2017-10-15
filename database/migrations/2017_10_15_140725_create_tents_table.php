@@ -15,6 +15,7 @@ class CreateTentsTable extends Migration
     {
         Schema::create('tents', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
             $table->integer('grade')->unsigned();
             $table->string('sex');
             $table->timestamps();

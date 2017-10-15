@@ -79,7 +79,7 @@
   } elseif ($type === 'checkbox') {
     echo '<label class="form-check-label">';
     echo Form::checkbox($name, 1, null, array_merge(['class' => $inputClass], $attributes));
-    echo $label;
+    echo title_case(str_replace('_', ' ', $label));
     echo '</label>';
   } elseif ($type === 'file') {
     // files dont have value

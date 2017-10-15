@@ -38,6 +38,7 @@ class CamperRequest extends FormRequest
             'guardian_cell_phone' => 'nullable',
             'guardian_employer_name' => 'nullable',
             'guardian_employer_title' => 'nullable',
+            'alternate_contact_name' => 'nullable',
             'alternate_contact_daytime_phone' => 'nullable',
             'alternate_contact_evening_phone' => 'nullable',
             'photo_consent' => 'boolean',

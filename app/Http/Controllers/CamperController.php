@@ -12,6 +12,23 @@ class CamperController extends Controller
     protected $model = \App\Camper::class;
     protected $slug = 'campers';
 
+    public function index()
+    {
+        SEO::setTitle('My Campers');
+        SEO::setDescription('My Campers');
+
+        // Include the request variables in the pagination links
+        $items = request()->user()->campers;
+
+        return view(
+            'campers.index', [
+                'slug' => $this->slug,
+                'model' => $this->model,
+                'items' => $items,
+            ]
+        );
+    }
+
     public function create()
     {
         SEO::setTitle('Create Camper');
