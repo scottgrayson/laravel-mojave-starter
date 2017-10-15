@@ -26,9 +26,7 @@ class FormRequest extends BaseRequest
                 return $this->adminCreateRules();
             }
             return $this->createRules();
-
         } else {
-
             if ($this->isAdmin()) {
                 return $this->adminEditRules();
             }

@@ -21,7 +21,8 @@ class NewsletterSubscriberController extends Controller
         $fields = $this->getFieldsFromRules(new NewsletterSubscriberRequest);
 
         return view(
-            'newsletter.create', [
+            'newsletter.create',
+            [
                 'model' => $this->model,
                 'slug' => $this->slug,
                 'fields' => $fields,
@@ -55,7 +56,8 @@ class NewsletterSubscriberController extends Controller
         $fields = $this->getFieldsFromRules(new NewsletterSubscriberRequest);
 
         return view(
-            'newsletter.unsubscribe', [
+            'newsletter.unsubscribe',
+            [
                 'model' => $this->model,
                 'slug' => $this->slug,
                 'fields' => $fields,
