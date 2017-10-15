@@ -30,7 +30,8 @@ class NewsletterController extends CrudController
         $fields = $this->getFieldsFromRules(new $this->formRequest);
 
         return view(
-            'admin.newsletter.edit', [
+            'admin.newsletter.edit',
+            [
                 'item' => $item,
                 'model' => $this->model,
                 'slug' => $this->slug,

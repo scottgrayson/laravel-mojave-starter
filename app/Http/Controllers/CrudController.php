@@ -41,7 +41,8 @@ class CrudController extends Controller
         $cols = $dbCols->filter(
             function ($c) {
                 return !in_array(
-                    $c, [
+                    $c,
+                    [
                         'layout',
                         'content',
                         'meta_title',
@@ -65,7 +66,7 @@ class CrudController extends Controller
                 function ($c) {
                     return camel_case($c);
                 }
-        )->toArray();
+            )->toArray();
 
         $items = $this->model::with($relations)
             ->where(
@@ -75,17 +76,18 @@ class CrudController extends Controller
                             function ($v, $k) {
                                 return $v && strpos($k, 'q_') === 0;
                             }
-                    )
+                        )
                         ->mapWithKeys(
                             function ($v, $k) {
                                 return [ str_replace('q_', '', $k) => $v ];
                             }
-                    );
+                        );
                     foreach ($wheres as $k => $v) {
                         if (in_array(camel_case($k), $relations)) {
                             $class = '\\App\\'.studly_case($k);
                             $q->whereHas(
-                                camel_case($k), function ($q) use ($class, $v) {
+                                camel_case($k),
+                                function ($q) use ($class, $v) {
                                     $q->where($class::label(), 'ilike', $v.'%');
                                 }
                             );
@@ -97,7 +99,7 @@ class CrudController extends Controller
                         }
                     }
                 }
-        )
+            )
             ->orderBy(
                 request('sort', $defaultSort),
                 request('order', $defaultOrder)
@@ -113,7 +115,8 @@ class CrudController extends Controller
         $viewPrefix = request()->is('admin*') ? 'admin.' : '';
 
         return view(
-            $viewPrefix.'crud.index', [
+            $viewPrefix.'crud.index',
+            [
                 'cols' => $cols,
                 'slug' => $this->slug,
                 'model' => $this->model,
@@ -138,7 +141,8 @@ class CrudController extends Controller
         $viewPrefix = request()->is('admin*') ? 'admin.' : '';
 
         return view(
-            $viewPrefix.'crud.create', [
+            $viewPrefix.'crud.create',
+            [
                 'slug' => $this->slug,
                 'model' => $this->model,
                 'fields' => $fields,
@@ -190,7 +194,8 @@ class CrudController extends Controller
         $viewPrefix = request()->is('admin*') ? 'admin.' : '';
 
         return view(
-            $viewPrefix.'crud.show', [
+            $viewPrefix.'crud.show',
+            [
                 'item' => $item,
                 'model' => $this->model,
             ]
@@ -214,7 +219,8 @@ class CrudController extends Controller
         $viewPrefix = request()->is('admin*') ? 'admin.' : '';
 
         return view(
-            $viewPrefix.'crud.edit', [
+            $viewPrefix.'crud.edit',
+            [
                 'item' => $item,
                 'model' => $this->model,
                 'slug' => $this->slug,
@@ -281,10 +287,12 @@ class CrudController extends Controller
         $viewPrefix = request()->is('admin*') ? 'admin.' : '';
 
         return view(
-            $viewPrefix.'crud.order', [
+            $viewPrefix.'crud.order',
+            [
                 'items' => $this->model::getTree(),
                 'slug' => $this->slug,
-            ]);
+            ]
+        );
     }
 
     public function reorder(Request $request)

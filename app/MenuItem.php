@@ -59,7 +59,7 @@ class MenuItem extends Model
     {
         if ($this->page) {
             return $this->page->uri;
-        } else if (!$this->link) {
+        } elseif (!$this->link) {
             return '#';
         }
 

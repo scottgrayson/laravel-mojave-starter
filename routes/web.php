@@ -26,7 +26,7 @@ Route::delete('newsletter/unsubscribe', 'NewsletterSubscriberController@destroy'
 Route::get('newsletters/short/{slug}', 'NewsletterTrackingController@link');
 Route::get('newsletters/open/{id}', 'NewsletterTrackingController@open');
 
-Route::middleware('auth')->group( function () {
+Route::middleware('auth')->group(function () {
     Route::get('notifications/mark-read', 'NotificationController@markAllRead');
 
     Route::resource('notifications', 'NotificationController', [
