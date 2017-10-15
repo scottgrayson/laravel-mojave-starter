@@ -41,8 +41,10 @@ class CamperController extends Controller
         return redirect(route("campers.edit", $item->id));
     }
 
-    public function edit(Camper $item, Request $request)
+    public function edit(Request $request, $id)
     {
+        $item = Camper::findOrFail($id);
+
         if (request()->user()->id != $item->user_id) {
             abort(403);
         }
@@ -62,8 +64,10 @@ class CamperController extends Controller
         );
     }
 
-    public function update(Camper $item, CamperRequest $request)
+    public function update(CamperRequest $request, $id)
     {
+        $item = Camper::findOrFail($id);
+
         if (request()->user()->id != $item->user_id) {
             abort(403);
         }

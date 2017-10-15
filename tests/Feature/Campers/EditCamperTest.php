@@ -18,6 +18,7 @@ class EditCamperTest extends TestCase
             'user_id' => $user->id,
         ]);
         $camper->name = 'Updated Name';
+        $camper->address = 'Updated Address';
 
         $this->be($user);
         $r = $this->get(route('campers.edit', $camper->id));
@@ -26,6 +27,7 @@ class EditCamperTest extends TestCase
         $r = $this->put(route('campers.update', $camper->id), $camper->toArray());
 
         $this->assertEquals($user->campers()->first()->name, $camper->name);
+        $this->assertEquals($user->campers()->first()->address, $camper->address);
     }
 
     public function testCannotEditOtherParentsCampers()

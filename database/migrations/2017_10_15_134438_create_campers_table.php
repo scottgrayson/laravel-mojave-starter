@@ -41,6 +41,7 @@ class CreateCampersTable extends Migration
             $table->string('insurance_carrier')->nullable();
             $table->string('insurance_policy_number')->nullable();
             $table->string('guardian_name')->nullable();
+            $table->string('guardian_email')->nullable();
             $table->string('guardian_address')->nullable();
             $table->string('guardian_daytime_phone')->nullable();
             $table->string('guardian_evening_phone')->nullable();
