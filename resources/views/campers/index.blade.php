@@ -48,7 +48,7 @@
               <a href="{{ route('campers.edit', $i->id) }}"
                 class="mb-1 mb-lg-0 btn btn-sm btn-secondary">
                 @svg('edit', 'text-top')
-                <span class="d-none d-md-inline">
+                <span style="padding-right:0.35rem;" class="d-none d-md-inline">
                   Registration
                 </span>
               </a>

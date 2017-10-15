@@ -8,4 +8,9 @@ class Camper extends Model
     {
         return $this->belongsTo(\App\Tent::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(\App\User::class);
+    }
 }

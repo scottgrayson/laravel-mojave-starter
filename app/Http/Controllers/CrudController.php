@@ -14,6 +14,7 @@ class CrudController extends Controller
     protected $singular;
     protected $formRequest;
     protected $orderable;
+    protected $columns;
 
     public function __construct()
     {
@@ -34,31 +35,35 @@ class CrudController extends Controller
         $defaultSort = isset($this->defaultSort) ? $this->defaultSort : 'created_at';
         $defaultOrder = isset($this->defaultOrder) ? $this->defaultOrder : 'desc';
 
-        // crud index columns
-        $dbCols = collect(\Schema::getColumnListing($this->table));
+        if ($this->columns) {
+            $cols = $this->columns;
+        } else {
+            // crud index columns
+            $dbCols = collect(\Schema::getColumnListing($this->table));
 
-        // global index page table excludes
-        $cols = $dbCols->filter(
-            function ($c) {
-                return !in_array(
-                    $c, [
-                        'layout',
-                        'content',
-                        'meta_title',
-                        'meta_description',
-                        'meta_tags',
-                        'order',
-                        'path',
-                        'bucket',
-                        'message',
-                        'file',
-                        'description',
-                        'remember_token',
-                        'password'
-                    ]
-                );
-            }
-        )->toArray();
+            // global index page table excludes
+            $cols = $dbCols->filter(
+                function ($c) {
+                    return !in_array(
+                        $c, [
+                            'layout',
+                            'content',
+                            'meta_title',
+                            'meta_description',
+                            'meta_tags',
+                            'order',
+                            'path',
+                            'bucket',
+                            'message',
+                            'file',
+                            'description',
+                            'remember_token',
+                            'password'
+                        ]
+                    );
+                }
+            )->toArray();
+        }
 
         $relations = collect(preg_replace('/_id$/', '', preg_grep('/_id$/', $cols)))
             ->map(

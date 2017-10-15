@@ -69,6 +69,14 @@ class MenuItemSeeder extends Seeder
                         'link' => '/admin/users',
                     ],
                     [
+                        'name' => 'campers',
+                        'link' => '/admin/campers',
+                    ],
+                    [
+                        'name' => 'tents',
+                        'link' => '/admin/tents',
+                    ],
+                    [
                         'name' => 'pages',
                         'link' => '/admin/pages',
                     ],
@@ -100,6 +108,14 @@ class MenuItemSeeder extends Seeder
                     [
                         'name' => 'users',
                         'link' => '/admin/users',
+                    ],
+                    [
+                        'name' => 'campers',
+                        'link' => '/admin/campers',
+                    ],
+                    [
+                        'name' => 'tents',
+                        'link' => '/admin/tents',
                     ],
                     [
                         'name' => 'pages',

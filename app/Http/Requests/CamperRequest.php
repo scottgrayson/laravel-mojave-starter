@@ -17,31 +17,41 @@ class CamperRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'tent_id' => 'required|numeric',
-            'address' => 'required',
-            'city' => 'required',
-            'township' => 'required',
-            'state' => 'required',
-            'phone' => 'required',
-            'birthdate' => 'required|date',
-            'allergies' => 'required',
-            'medical_conditions' => 'required',
-            'physician_name' => 'required',
-            'physician_phone' => 'required',
-            'insurance_carrier' => 'required',
-            'insurance_policy_number' => 'required',
-            'guardian_name' => 'required',
-            'guardian_email' => 'required|email',
-            'guardian_address' => 'required',
-            'guardian_daytime_phone' => 'required',
-            'guardian_evening_phone' => 'required',
-            'guardian_work_phone' => 'required',
-            'guardian_cell_phone' => 'required',
-            'guardian_employer_name' => 'required',
-            'guardian_employer_title' => 'required',
-            'alternate_contact_name' => 'required',
-            'alternate_contact_daytime_phone' => 'required',
-            'alternate_contact_evening_phone' => 'required',
+            'address' => 'nullable',
+            'city' => 'nullable',
+            'township' => 'nullable',
+            'state' => 'nullable',
+            'phone' => 'nullable',
+            'birthdate' => 'nullable|date',
+            'allergies' => 'nullable',
+            'medical_conditions' => 'nullable',
+            'physician_name' => 'nullable',
+            'physician_phone' => 'nullable',
+            'insurance_carrier' => 'nullable',
+            'insurance_policy_number' => 'nullable',
+            'guardian_name' => 'nullable',
+            'guardian_email' => 'nullable|email',
+            'guardian_address' => 'nullable',
+            'guardian_daytime_phone' => 'nullable',
+            'guardian_evening_phone' => 'nullable',
+            'guardian_work_phone' => 'nullable',
+            'guardian_cell_phone' => 'nullable',
+            'guardian_employer_name' => 'nullable',
+            'guardian_employer_title' => 'nullable',
+            'alternate_contact_name' => 'nullable',
+            'alternate_contact_daytime_phone' => 'nullable',
+            'alternate_contact_evening_phone' => 'nullable',
             'photo_consent' => 'boolean',
         ];
+    }
+
+    public function adminEditRules()
+    {
+        return $this->adminCreateRules();
+    }
+
+    public function adminCreateRules()
+    {
+        return array_merge(['user_id' => 'required'], $this->editRules());
     }
 }
