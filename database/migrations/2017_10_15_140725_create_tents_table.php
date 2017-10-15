@@ -18,6 +18,7 @@ class CreateTentsTable extends Migration
             $table->string('name');
             $table->integer('grade')->unsigned();
             $table->string('sex');
+            $table->integer('camper_limit');
             $table->timestamps();
         });
     }

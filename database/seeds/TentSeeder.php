@@ -19,6 +19,7 @@ class TentSeeder extends Seeder
                     'name' => $grade . $this->ordinal_suffix($grade) . ' Grade ' . ($sex === 'm' ? 'Boys' : 'Girls'),
                     'sex' => $sex,
                     'grade' => $grade,
+                    'camper_limit' => 30,
                 ];
             }
         }

@@ -10,6 +10,7 @@ class TentRequest extends FormRequest
             'name' => 'required',
             'sex' => 'required|max:1',
             'grade' => 'required|numeric',
+            'camper_limit' => 'required|numeric',
         ];
     }
 }
