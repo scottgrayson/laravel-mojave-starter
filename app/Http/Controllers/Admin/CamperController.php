@@ -18,10 +18,13 @@ class CamperController extends CrudController
         'guardian_cell_phone',
     ];
 
+    /*
+        TODO show reservations
     public function show($id)
     {
         $camper = $this->model::findOrFail($id);
 
         return redirect($camper->uri);
     }
+     */
 }
