@@ -9888,10 +9888,11 @@ body {
  */
 
 .sidebar {
-  position: fixed;
-  top: 51px;
+  position: relative;
+  top: 0;
   bottom: 0;
   left: 0;
+  height: calc(100vh - 51px);
   z-index: 1000;
   padding: 20px;
   overflow-x: hidden;
@@ -9903,6 +9904,7 @@ body {
 /* Sidebar navigation */
 
 .sidebar {
+  padding-top: 0;
   padding-left: 0;
   padding-right: 0;
 }
@@ -9970,6 +9972,10 @@ div.alert-notify {
 .svg.sm {
   height: .8rem;
   width: .8rem;
+}
+
+.btn svg {
+  vertical-align: text-top;
 }
 
 .btn-icon svg {

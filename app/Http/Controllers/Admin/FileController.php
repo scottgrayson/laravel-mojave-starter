@@ -12,4 +12,11 @@ class FileController extends CrudController
     protected $singular = 'file';
     protected $plural = 'files';
     protected $formRequest = \App\Http\Requests\FileRequest::class;
+
+    public function show($id)
+    {
+        $file = $this->model::findOrFail($id);
+
+        return redirect($file->url);
+    }
 }

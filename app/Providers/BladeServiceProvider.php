@@ -40,7 +40,9 @@ class BladeServiceProvider extends ServiceProvider
         );
 
         \Form::component(
-            'editor', 'form.inputs.editor', [
+            'editor',
+            'form.inputs.editor',
+            [
             'name',
             'value' => null,
             'attributes' => [],
@@ -49,7 +51,9 @@ class BladeServiceProvider extends ServiceProvider
         );
 
         \Form::component(
-            'code', 'form.inputs.code', [
+            'code',
+            'form.inputs.code',
+            [
             'name',
             'value' => null,
             'attributes' => [],

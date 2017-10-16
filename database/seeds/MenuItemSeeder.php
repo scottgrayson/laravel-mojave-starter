@@ -73,6 +73,14 @@ class MenuItemSeeder extends Seeder
                         'link' => '/admin/counselors',
                     ],
                     [
+                        'name' => 'campers',
+                        'link' => '/admin/campers',
+                    ],
+                    [
+                        'name' => 'tents',
+                        'link' => '/admin/tents',
+                    ],
+                    [
                         'name' => 'pages',
                         'link' => '/admin/pages',
                     ],
@@ -89,8 +97,12 @@ class MenuItemSeeder extends Seeder
                         'link' => '/admin/files',
                     ],
                     [
-                        'name' => 'settings',
-                        'link' => '/admin/settings',
+                        'name' => 'newsletters',
+                        'link' => '/admin/newsletters',
+                    ],
+                    [
+                        'name' => 'newsletter subscribers',
+                        'link' => '/admin/newsletter-subscribers',
                     ],
                 ],
             ],
@@ -106,6 +118,14 @@ class MenuItemSeeder extends Seeder
                         'link' => '/admin/counselors',
                     ],
                     [
+                        'name' => 'campers',
+                        'link' => '/admin/campers',
+                    ],
+                    [
+                        'name' => 'tents',
+                        'link' => '/admin/tents',
+                    ],
+                    [
                         'name' => 'pages',
                         'link' => '/admin/pages',
                     ],
@@ -122,8 +142,12 @@ class MenuItemSeeder extends Seeder
                         'link' => '/admin/files',
                     ],
                     [
-                        'name' => 'settings',
-                        'link' => '/admin/settings',
+                        'name' => 'newsletters',
+                        'link' => '/admin/newsletters',
+                    ],
+                    [
+                        'name' => 'newsletter subscribers',
+                        'link' => '/admin/newsletter-subscribers',
                     ],
                     [
                         'name' => 'view site',

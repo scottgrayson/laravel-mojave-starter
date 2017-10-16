@@ -8,8 +8,11 @@ class CounselorController extends CrudController
 {
     protected $model = \App\Counselor::class;
     protected $slug = 'counselors';
-    protected $table = 'counselors';
-    protected $singular = 'counselor';
-    protected $plural = 'counselors';
     protected $formRequest = \App\Http\Requests\CounselorRequest::class;
+    protected $columns = [
+        'id',
+        'user_id',
+        'tent_id',
+        'name',
+    ];
 }

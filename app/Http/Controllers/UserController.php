@@ -24,7 +24,8 @@ class UserController extends Controller
         $fields = $this->getFieldsFromRules(new UserRequest);
 
         return view(
-            'users.settings', [
+            'users.settings',
+            [
                 'item' => $item,
                 'model' => $this->model,
                 'slug' => $this->slug,

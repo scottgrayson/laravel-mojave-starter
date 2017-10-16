@@ -12,4 +12,11 @@ class ImageController extends CrudController
     protected $singular = 'image';
     protected $plural = 'images';
     protected $formRequest = \App\Http\Requests\ImageRequest::class;
+
+    public function show($id)
+    {
+        $img = $this->model::findOrFail($id);
+
+        return redirect($img->file->url);
+    }
 }
