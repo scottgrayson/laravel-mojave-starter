@@ -40,5 +40,4 @@ Route::middleware('auth')->group(function () {
     ]);
 
     Route::resource('campers', 'CamperController');
-    Route::resource('reservations', 'ReservationController');
 });

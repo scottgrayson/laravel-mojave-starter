@@ -18,6 +18,11 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function reservations()
+    {
+        return $this->hasMany(\App\Reservation::class);
+    }
+
     public function campers()
     {
         return $this->hasMany(\App\Camper::class);
