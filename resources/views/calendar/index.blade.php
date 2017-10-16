@@ -6,6 +6,7 @@
     :camp-dates="{{ \App\CampDates::current()->toJson() }}"
     :tents="{{ \App\Tent::all()->toJson() }}"
     :campers="{{ auth()->check() ? auth()->user()->campers->toJson() : json_encode([]) }}"
+    :reservations="{{ auth()->check() ? auth()->user()->reservations->toJson() : json_encode([]) }}"
     :availabilities="{{ \App\CampDates::availabilities()->toJson() }}"
     ></camp-calendar>
 

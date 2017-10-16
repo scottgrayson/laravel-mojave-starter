@@ -36,6 +36,10 @@ export default {
       type: Array,
       default: []
     },
+    reservations: {
+      type: Array,
+      required: true
+    },
     availabilities: {
       type: Array,
       required: true
@@ -92,6 +96,25 @@ export default {
   computed: {
 
     events () {
+      return this.filteredAvailabilities.concat(this.filteredReservations)
+    },
+
+    filteredReservations () {
+      return this.reservations
+        .filter(e => {
+          return e.tent_id == this.selectedTentId || !this.selectedTentId
+        })
+
+        .map(e => {
+          return {
+            title: 'Camp',
+            allDay: true,
+            start: e.date,
+          }
+        })
+    },
+
+    filteredAvailabilities () {
       return this.availabilities
         .filter(e => {
           return e.tent_id == (this.selectedTentId ? this.selectedTentId : 1)
@@ -112,7 +135,6 @@ export default {
             }
           }
         })
-
     }
 
     // end computed

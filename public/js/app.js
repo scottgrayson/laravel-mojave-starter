@@ -93503,6 +93503,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       type: Array,
       default: []
     },
+    reservations: {
+      type: Array,
+      required: true
+    },
     availabilities: {
       type: Array,
       required: true
@@ -93558,12 +93562,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   computed: {
     events: function events() {
+      return this.filteredAvailabilities.concat(this.filteredReservations);
+    },
+    filteredReservations: function filteredReservations() {
       var _this2 = this;
 
-      return this.availabilities.filter(function (e) {
-        return e.tent_id == (_this2.selectedTentId ? _this2.selectedTentId : 1);
+      return this.reservations.filter(function (e) {
+        return e.tent_id == _this2.selectedTentId || !_this2.selectedTentId;
       }).map(function (e) {
-        if (_this2.selectedTentId) {
+        return {
+          title: 'Camp',
+          allDay: true,
+          start: e.date
+        };
+      });
+    },
+    filteredAvailabilities: function filteredAvailabilities() {
+      var _this3 = this;
+
+      return this.availabilities.filter(function (e) {
+        return e.tent_id == (_this3.selectedTentId ? _this3.selectedTentId : 1);
+      }).map(function (e) {
+        if (_this3.selectedTentId) {
           return {
             title: e.tent_limit - e.campers + ' Openings',
             allDay: true,
@@ -93706,6 +93726,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -93733,14 +93757,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   methods: {
     handleTentUpdate: function handleTentUpdate(e) {
-      var tentId = e.target.value;
+      var tentId = parseInt(e.target.value);
       this.$emit('update', {
         tent: tentId,
         camper: 0
       });
     },
     handleCamperUpdate: function handleCamperUpdate(e) {
-      var camperId = e.target.value;
+      var camperId = parseInt(e.target.value);
       var tent = this.tents.find(function (t) {
         return t.id == e.tent_id;
       });
@@ -93764,59 +93788,65 @@ var render = function() {
   return _c("div", [
     _vm.campers.length
       ? _c("div", { staticClass: "row align-items-center" }, [
-          _c("label", { staticClass: "col", attrs: { for: "tent-select" } }, [
-            _vm._v("Select a camper To make reservations.")
-          ]),
-          _vm._v(" "),
           _c(
-            "select",
-            {
-              staticClass: "col form-control",
-              on: { change: _vm.handleCamperUpdate }
-            },
-            [
-              _c("option", { domProps: { value: 0 } }, [
-                _vm._v("No Camper Selected")
-              ]),
-              _vm._v(" "),
-              _vm._l(_vm.campers, function(c) {
-                return _c("option", { domProps: { value: c.id } }, [
-                  _vm._v(_vm._s(c.name))
-                ])
-              })
-            ],
-            2
-          )
+            "label",
+            { staticClass: "col-sm", attrs: { for: "tent-select" } },
+            [_vm._v("Select a camper To make reservations.")]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-sm" }, [
+            _c(
+              "select",
+              {
+                staticClass: "col-sm form-control",
+                on: { change: _vm.handleCamperUpdate }
+              },
+              [
+                _c("option", { domProps: { value: 0 } }, [
+                  _vm._v("No Camper Selected")
+                ]),
+                _vm._v(" "),
+                _vm._l(_vm.campers, function(c) {
+                  return _c("option", { domProps: { value: c.id } }, [
+                    _vm._v(_vm._s(c.name))
+                  ])
+                })
+              ],
+              2
+            )
+          ])
         ])
       : _vm._e(),
     _vm._v(" "),
     _c("br"),
     _vm._v(" "),
     _c("div", { staticClass: "row align-items-center" }, [
-      _c("label", { staticClass: "col", attrs: { for: "tent-select" } }, [
+      _c("label", { staticClass: "col-sm", attrs: { for: "tent-select" } }, [
         _vm._v("Select a tent to view openings.")
       ]),
       _vm._v(" "),
-      _c(
-        "select",
-        {
-          staticClass: "col form-control",
-          attrs: { id: "tent-select" },
-          on: { change: _vm.handleTentUpdate }
-        },
-        [
-          _c("option", { domProps: { value: 0 } }, [
-            _vm._v("No Tent Selected")
-          ]),
-          _vm._v(" "),
-          _vm._l(_vm.tents, function(t) {
-            return _c("option", { domProps: { value: t.id } }, [
-              _vm._v(_vm._s(t.name))
-            ])
-          })
-        ],
-        2
-      )
+      _c("div", { staticClass: "col-sm" }, [
+        _c(
+          "select",
+          {
+            staticClass: "form-control",
+            attrs: { id: "tent-select" },
+            on: { change: _vm.handleTentUpdate }
+          },
+          [
+            _c("option", { domProps: { value: 0 } }, [
+              _vm._v("No Tent Selected")
+            ]),
+            _vm._v(" "),
+            _vm._l(_vm.tents, function(t) {
+              return _c("option", { domProps: { value: t.id } }, [
+                _vm._v(_vm._s(t.name))
+              ])
+            })
+          ],
+          2
+        )
+      ])
     ])
   ])
 }
