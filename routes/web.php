@@ -38,4 +38,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('users', 'UserController', [
         'only' => ['update'],
     ]);
+
+    Route::resource('campers', 'CamperController');
+    Route::resource('reservations', 'ReservationController');
 });

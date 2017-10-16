@@ -18,6 +18,11 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function campers()
+    {
+        return $this->hasMany(\App\Camper::class);
+    }
+
     // If admin creates a user send them an invite using password reset token
     public function sendPasswordResetNotification($token)
     {
