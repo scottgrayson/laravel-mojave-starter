@@ -20,11 +20,11 @@ Route::get('newsletter', 'NewsletterSubscriberController@create')->name('newslet
 Route::post('newsletter', 'NewsletterSubscriberController@store')->name('newsletter.store');
 Route::get('newsletter/unsubscribe', 'NewsletterSubscriberController@unsubscribe')->name('newsletter.unsubscribe');
 Route::delete('newsletter/unsubscribe', 'NewsletterSubscriberController@destroy')->name('newsletter.destroy');
-
-
 // Newsletter Tracking
 Route::get('newsletters/short/{slug}', 'NewsletterTrackingController@link');
 Route::get('newsletters/open/{id}', 'NewsletterTrackingController@open');
+
+Route::get('calendar', 'CalendarController@index')->name('calendar.index');
 
 Route::middleware('auth')->group(function () {
     Route::get('notifications/mark-read', 'NotificationController@markAllRead');

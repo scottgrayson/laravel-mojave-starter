@@ -21,7 +21,9 @@ class DatabaseSeeder extends Seeder
         $this->call(NewsletterSeeder::class);
 
         // Miss Betty's Day Camp
+        $this->call(CampDatesSeeder::class);
         $this->call(TentSeeder::class);
         $this->call(CamperSeeder::class);
+        $this->call(ReservationSeeder::class);
     }
 }

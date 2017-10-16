@@ -6,6 +6,13 @@ use Carbon\Carbon;
 
 class CampDates extends Model
 {
+    protected $dates = [
+        'camp_start',
+        'camp_end',
+        'registration_start',
+        'registration_end',
+    ];
+
     public static function current()
     {
         return static::where('camp_end', '>', Carbon::now()->toDateString())
