@@ -8,7 +8,10 @@ try {
 
 window.moment = require('moment')
 
-window.Popper = require('popper.js')
+import Popper from 'popper.js'
+window.Popper = Popper
+
+window.swal = require('sweetalert')
 
 require('bootstrap')
 

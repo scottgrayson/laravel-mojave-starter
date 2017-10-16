@@ -1,9 +1,9 @@
 <template>
   <div>
     <div v-if="campers.length" class="row align-items-center">
-      <label class="col-sm" for="tent-select">Select a camper To make reservations.</label>
+      <label class="col-sm" for="tent-select">Select a camper to make reservations.</label>
       <div class="col-sm">
-        <select @change="handleCamperUpdate" class="col-sm form-control">
+        <select @change="handleCamperUpdate" :value="camper" class="col-sm form-control">
           <option :value="0">No Camper Selected</option>
           <option v-for="c in campers" :value="c.id">{{ c.name }}</option>
         </select>
@@ -13,9 +13,9 @@
     <br>
 
     <div class="row align-items-center">
-      <label class="col-sm" for="tent-select">Select a tent to view openings.</label>
+      <label class="col-sm" for="tent-select">Openings for:</label>
       <div class="col-sm">
-        <select @change="handleTentUpdate" class="form-control" id="tent-select">
+        <select @change="handleTentUpdate" :value="tent" class="form-control" id="tent-select">
           <option :value="0">No Tent Selected</option>
           <option v-for="t in tents" :value="t.id">{{ t.name }}</option>
         </select>
@@ -61,11 +61,11 @@ export default {
 
     handleCamperUpdate(e) {
       const camperId = parseInt(e.target.value)
-      const tent = this.tents.find(t => {
-        return t.id == e.tent_id
+      const camper = this.campers.find(c => {
+        return c.id == camperId
       })
       this.$emit('update', {
-        tent: tent.id,
+        tent: camper.tent_id,
         camper: camperId
       })
     }

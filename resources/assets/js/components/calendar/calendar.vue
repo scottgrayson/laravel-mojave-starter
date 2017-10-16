@@ -67,11 +67,12 @@ export default {
           right: 'prev,next',
         },
         defaultDate: this.campDates.camp_start,
+        eventTextColor: 'white',
+        eventBorderColor: 'white',
         // themeSystem: 'bootstrap3'
 
-        events: (start, end, timezone, callback) => {
-          callback(this.events)
-        }
+        events: (start, end, timezone, callback) => callback(this.events),
+        eventClick: this.handleEventClick
       })
     })
 
@@ -79,6 +80,40 @@ export default {
   },
 
   methods: {
+
+    handleEventClick(event) {
+      if (!event.openings) {
+        // no click events for non reservable
+        return
+
+      } else if (!this.campers.length) {
+        swal({
+          title: 'Cannot Reserve',
+          text: 'You must register a camper before reserving.',
+          icon: 'error',
+          buttons: ['Later', 'Register Camper'],
+        })
+          .then(wantsRedirect => {
+            if (wantsRedirect) {
+              window.location.href = '/campers/create'
+            }
+          })
+
+      } else if (!this.selectedCamperId) {
+        swal({
+          title: 'Cannot Reserve',
+          text: 'Select a camper before reserving.',
+          icon: 'error',
+        })
+
+      } else {
+        swal({
+          title: 'Add to Cart?',
+          text: `Reserve a spot for ${this.selectedCamper.name} in ${this.selectedTent.name} on ${moment(event.start).format('l')}?`,
+          icon: 'warning',
+        })
+      }
+    },
 
     handleTentCamperUpdate({ tent, camper }) {
       this.selectedTentId = tent
@@ -104,12 +139,12 @@ export default {
         .filter(e => {
           return e.tent_id == this.selectedTentId || !this.selectedTentId
         })
-
         .map(e => {
           return {
-            title: 'Camp',
+            title: e.title,
             allDay: true,
             start: e.date,
+            className: 'badge badge-success'
           }
         })
     },
@@ -117,26 +152,39 @@ export default {
     filteredAvailabilities () {
       return this.availabilities
         .filter(e => {
-          return e.tent_id == (this.selectedTentId ? this.selectedTentId : 1)
+          const reserved = this.filteredReservations.find(r => r.start == e.date)
+          return !reserved && (e.tent_id == (this.selectedTentId ? this.selectedTentId : 1))
         })
-
         .map(e => {
           if (this.selectedTentId) {
+            const openings = (e.tent_limit - e.campers) > 0
+            const className = 'badge ' + (openings ? 'pointer badge-primary' : 'badge-secondary')
+
             return {
-              title: e.tent_limit - e.campers + ' Openings',
+              title: openings ? 'Reserve Now' : 'No Openings',
               allDay: true,
               start: e.date,
+              className: className,
+              openings: openings
             }
           } else {
             return {
               title: 'Camp',
               allDay: true,
               start: e.date,
+              className: 'badge badge-secondary'
             }
           }
         })
-    }
+    },
 
+    selectedCamper () {
+      return this.campers.find(c => c.id == this.selectedCamperId)
+    },
+
+    selectedTent () {
+      return this.tents.find(t => t.id == this.selectedTentId)
+    }
     // end computed
   }
 

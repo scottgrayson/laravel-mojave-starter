@@ -10002,6 +10002,10 @@ div.alert-notify {
   color: #23272b;
 }
 
+.fc-event.badge {
+  max-width: calc(100% - 1rem);
+}
+
 body {
   padding-top: 3.5rem;
 }
@@ -10021,6 +10025,10 @@ label.required:after {
 }
 
 .btn {
+  cursor: pointer;
+}
+
+.pointer {
   cursor: pointer;
 }
 
