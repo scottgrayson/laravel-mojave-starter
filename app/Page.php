@@ -17,6 +17,11 @@ class Page extends Model
         return $PD->text($this->content);
     }
 
+    public function getPreviewUrlAttribute()
+    {
+        return $this->uri;
+    }
+
     public function getLayoutAttribute()
     {
         return property_exists($this, 'layout') && $this->layout ? $this->layout : 'app';

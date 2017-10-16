@@ -89,8 +89,8 @@
           @endforeach
           <td>
             <div class="d-flex">
-              @if ($i->uri)
-                <a target="_blank" rel="noopener norefferer" href="{{ $i->uri }}"
+              @if (\Route::has('admin.'.$slug.'.show'))
+                <a target="_blank" rel="noopener norefferer" href="{{ route('admin.'.$slug.'.show', $i->id) }}"
                   class="btn btn-icon">
                   @svg('eye')
                 </a>

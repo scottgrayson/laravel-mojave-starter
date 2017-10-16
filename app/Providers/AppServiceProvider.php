@@ -16,6 +16,8 @@ class AppServiceProvider extends ServiceProvider
         if ($this->app->environment('production', 'staging')) {
             $this->app->register(\Rollbar\Laravel\RollbarServiceProvider::class);
         }
+
+        \App\Newsletter::observe(\App\Observers\NewsletterObserver::class);
     }
 
     /**

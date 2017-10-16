@@ -14,6 +14,7 @@ class CrudController extends Controller
     protected $singular;
     protected $formRequest;
     protected $orderable;
+    protected $columns;
 
     public function __construct()
     {
@@ -34,38 +35,43 @@ class CrudController extends Controller
         $defaultSort = isset($this->defaultSort) ? $this->defaultSort : 'created_at';
         $defaultOrder = isset($this->defaultOrder) ? $this->defaultOrder : 'desc';
 
-        // crud index columns
-        $dbCols = collect(\Schema::getColumnListing($this->table));
+        if ($this->columns) {
+            $cols = $this->columns;
+        } else {
+            // crud index columns
+            $dbCols = collect(\Schema::getColumnListing($this->table));
 
-        // global index page table excludes
-        $cols = $dbCols->filter(
-            function ($c) {
-                return !in_array(
-                    $c, [
-                        'layout',
-                        'content',
-                        'meta_title',
-                        'meta_description',
-                        'meta_tags',
-                        'order',
-                        'path',
-                        'bucket',
-                        'message',
-                        'file',
-                        'description',
-                        'remember_token',
-                        'password'
-                    ]
-                );
-            }
-        )->toArray();
+            // global index page table excludes
+            $cols = $dbCols->filter(
+                function ($c) {
+                    return !in_array(
+                        $c,
+                        [
+                            'layout',
+                            'content',
+                            'meta_title',
+                            'meta_description',
+                            'meta_tags',
+                            'order',
+                            'path',
+                            'bucket',
+                            'message',
+                            'file',
+                            'description',
+                            'remember_token',
+                            'password'
+                        ]
+                    );
+                }
+            )->toArray();
+        }
 
         $relations = collect(preg_replace('/_id$/', '', preg_grep('/_id$/', $cols)))
             ->map(
                 function ($c) {
                     return camel_case($c);
                 }
-        )->toArray();
+            )->toArray();
 
         $items = $this->model::with($relations)
             ->where(
@@ -75,17 +81,18 @@ class CrudController extends Controller
                             function ($v, $k) {
                                 return $v && strpos($k, 'q_') === 0;
                             }
-                    )
+                        )
                         ->mapWithKeys(
                             function ($v, $k) {
                                 return [ str_replace('q_', '', $k) => $v ];
                             }
-                    );
+                        );
                     foreach ($wheres as $k => $v) {
                         if (in_array(camel_case($k), $relations)) {
                             $class = '\\App\\'.studly_case($k);
                             $q->whereHas(
-                                camel_case($k), function ($q) use ($class, $v) {
+                                camel_case($k),
+                                function ($q) use ($class, $v) {
                                     $q->where($class::label(), 'ilike', $v.'%');
                                 }
                             );
@@ -97,7 +104,7 @@ class CrudController extends Controller
                         }
                     }
                 }
-        )
+            )
             ->orderBy(
                 request('sort', $defaultSort),
                 request('order', $defaultOrder)
@@ -113,8 +120,10 @@ class CrudController extends Controller
         $viewPrefix = request()->is('admin*') ? 'admin.' : '';
 
         return view(
-            $viewPrefix.'crud.index', [
+            $viewPrefix.'crud.index',
+            [
                 'cols' => $cols,
+                'slug' => $this->slug,
                 'model' => $this->model,
                 'orderable' => $this->orderable,
                 'items' => $items,
@@ -137,7 +146,8 @@ class CrudController extends Controller
         $viewPrefix = request()->is('admin*') ? 'admin.' : '';
 
         return view(
-            $viewPrefix.'crud.create', [
+            $viewPrefix.'crud.create',
+            [
                 'slug' => $this->slug,
                 'model' => $this->model,
                 'fields' => $fields,
@@ -189,7 +199,8 @@ class CrudController extends Controller
         $viewPrefix = request()->is('admin*') ? 'admin.' : '';
 
         return view(
-            $viewPrefix.'crud.show', [
+            $viewPrefix.'crud.show',
+            [
                 'item' => $item,
                 'model' => $this->model,
             ]
@@ -213,7 +224,8 @@ class CrudController extends Controller
         $viewPrefix = request()->is('admin*') ? 'admin.' : '';
 
         return view(
-            $viewPrefix.'crud.edit', [
+            $viewPrefix.'crud.edit',
+            [
                 'item' => $item,
                 'model' => $this->model,
                 'slug' => $this->slug,
@@ -241,7 +253,7 @@ class CrudController extends Controller
 
         $fields = $this->getFieldsFromRules(new $this->formRequest);
 
-        $data = array_intersect_key($data, $ields->toArray());
+        $data = array_intersect_key($data, $fields->toArray());
 
         $item->update($data);
 
@@ -280,10 +292,12 @@ class CrudController extends Controller
         $viewPrefix = request()->is('admin*') ? 'admin.' : '';
 
         return view(
-            $viewPrefix.'crud.order', [
+            $viewPrefix.'crud.order',
+            [
                 'items' => $this->model::getTree(),
                 'slug' => $this->slug,
-            ]);
+            ]
+        );
     }
 
     public function reorder(Request $request)
