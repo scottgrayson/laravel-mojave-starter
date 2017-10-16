@@ -15,7 +15,6 @@ class CreateCounselorsTable extends Migration
     {
         Schema::create('counselors', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
             $table->string('name')
                 ->references('name')
                 ->on('users');
@@ -25,6 +24,7 @@ class CreateCounselorsTable extends Migration
             $table->integer('tent_id')
                 ->references('id')
                 ->on('tents');
+            $table->timestamps();
         });
     }
 
