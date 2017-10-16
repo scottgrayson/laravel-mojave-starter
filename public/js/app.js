@@ -37611,6 +37611,7 @@ window.Vue = __webpack_require__(176);
 __webpack_require__(177);
 
 Vue.component('vue-socket', __webpack_require__(178));
+Vue.component('camp-calendar', __webpack_require__(189));
 
 var app = new Vue({
   el: '#app'
@@ -37640,7 +37641,7 @@ __webpack_require__(133);
 
 window.select2 = __webpack_require__(134);
 
-window.fullCalendar = __webpack_require__(188);
+//window.fullCalendar = require('fullcalendar')
 
 window.CodeMirror = __webpack_require__(1);
 
@@ -93405,6 +93406,429 @@ fcViews.listYear = {
 
 return FC; // export for Node/CommonJS
 });
+
+/***/ }),
+/* 189 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(179)
+/* script */
+var __vue_script__ = __webpack_require__(190)
+/* template */
+var __vue_template__ = __webpack_require__(191)
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/calendar/calendar.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] calendar.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-2660ab81", Component.options)
+  } else {
+    hotAPI.reload("data-v-2660ab81", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 190 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(154);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_fullcalendar__ = __webpack_require__(188);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_fullcalendar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_fullcalendar__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tent_camper_select__ = __webpack_require__(192);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tent_camper_select___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__tent_camper_select__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: { tentCamperSelect: __WEBPACK_IMPORTED_MODULE_2__tent_camper_select___default.a },
+
+  props: {
+    tents: {
+      type: Array,
+      required: true
+    },
+    campers: {
+      type: Array,
+      default: []
+    },
+    availabilities: {
+      type: Array,
+      required: true
+    },
+    campDates: {
+      type: Object,
+      required: true
+    }
+  },
+
+  data: function data() {
+    return {
+      selectedTentId: 0,
+      selectedCamperId: 0
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    this.$nextTick(function () {
+      $('#calendar').fullCalendar({
+        weekends: false,
+        header: {
+          left: 'title',
+          right: 'prev,next'
+        },
+        defaultDate: _this.campDates.camp_start,
+        // themeSystem: 'bootstrap3'
+
+        events: function events(start, end, timezone, callback) {
+          callback(_this.events);
+        }
+      });
+    });
+
+    // end mounted
+  },
+
+
+  methods: {
+    handleTentCamperUpdate: function handleTentCamperUpdate(_ref) {
+      var tent = _ref.tent,
+          camper = _ref.camper;
+
+      this.selectedTentId = tent;
+      this.selectedCamperId = camper;
+      this.refetchEvents();
+    },
+    refetchEvents: function refetchEvents() {
+      $('#calendar').fullCalendar('refetchEvents');
+    }
+  },
+
+  computed: {
+    events: function events() {
+      var _this2 = this;
+
+      return this.availabilities.filter(function (e) {
+        return e.tent_id == (_this2.selectedTentId ? _this2.selectedTentId : 1);
+      }).map(function (e) {
+        if (_this2.selectedTentId) {
+          return {
+            title: e.tent_limit - e.campers + ' Openings',
+            allDay: true,
+            start: e.date
+          };
+        } else {
+          return {
+            title: 'Camp',
+            allDay: true,
+            start: e.date
+          };
+        }
+      });
+    }
+
+    // end computed
+
+  }
+
+});
+
+/***/ }),
+/* 191 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("h1", { staticClass: "h2" }, [_vm._v("\n    Camp Calendar\n  ")]),
+      _vm._v(" "),
+      _c("tent-camper-select", {
+        attrs: {
+          tent: _vm.selectedTentId,
+          camper: _vm.selectedCamperId,
+          campers: _vm.campers,
+          tents: _vm.tents
+        },
+        on: { update: _vm.handleTentCamperUpdate }
+      }),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("div", { attrs: { id: "calendar" } })
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-2660ab81", module.exports)
+  }
+}
+
+/***/ }),
+/* 192 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(179)
+/* script */
+var __vue_script__ = __webpack_require__(193)
+/* template */
+var __vue_template__ = __webpack_require__(194)
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/calendar/tent-camper-select.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] tent-camper-select.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-57b45f30", Component.options)
+  } else {
+    hotAPI.reload("data-v-57b45f30", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 193 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(154);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_fullcalendar__ = __webpack_require__(188);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_fullcalendar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_fullcalendar__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tent_camper_select__ = __webpack_require__(192);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tent_camper_select___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__tent_camper_select__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: { tentCamperSelect: __WEBPACK_IMPORTED_MODULE_2__tent_camper_select___default.a },
+
+  props: {
+    camper: {
+      default: 0
+    },
+    tent: {
+      default: 0
+    },
+    tents: {
+      type: Array,
+      required: true
+    },
+    campers: {
+      type: Array,
+      default: []
+    }
+  },
+
+  methods: {
+    handleTentUpdate: function handleTentUpdate(e) {
+      var tentId = e.target.value;
+      this.$emit('update', {
+        tent: tentId,
+        camper: 0
+      });
+    },
+    handleCamperUpdate: function handleCamperUpdate(e) {
+      var camperId = e.target.value;
+      var tent = this.tents.find(function (t) {
+        return t.id == e.tent_id;
+      });
+      this.$emit('update', {
+        tent: tent.id,
+        camper: camperId
+      });
+    }
+  }
+
+});
+
+/***/ }),
+/* 194 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _vm.campers.length
+      ? _c("div", { staticClass: "row align-items-center" }, [
+          _c("label", { staticClass: "col", attrs: { for: "tent-select" } }, [
+            _vm._v("Select a camper To make reservations.")
+          ]),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              staticClass: "col form-control",
+              on: { change: _vm.handleCamperUpdate }
+            },
+            [
+              _c("option", { domProps: { value: 0 } }, [
+                _vm._v("No Camper Selected")
+              ]),
+              _vm._v(" "),
+              _vm._l(_vm.campers, function(c) {
+                return _c("option", { domProps: { value: c.id } }, [
+                  _vm._v(_vm._s(c.name))
+                ])
+              })
+            ],
+            2
+          )
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _c("br"),
+    _vm._v(" "),
+    _c("div", { staticClass: "row align-items-center" }, [
+      _c("label", { staticClass: "col", attrs: { for: "tent-select" } }, [
+        _vm._v("Select a tent to view openings.")
+      ]),
+      _vm._v(" "),
+      _c(
+        "select",
+        {
+          staticClass: "col form-control",
+          attrs: { id: "tent-select" },
+          on: { change: _vm.handleTentUpdate }
+        },
+        [
+          _c("option", { domProps: { value: 0 } }, [
+            _vm._v("No Tent Selected")
+          ]),
+          _vm._v(" "),
+          _vm._l(_vm.tents, function(t) {
+            return _c("option", { domProps: { value: t.id } }, [
+              _vm._v(_vm._s(t.name))
+            ])
+          })
+        ],
+        2
+      )
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-57b45f30", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

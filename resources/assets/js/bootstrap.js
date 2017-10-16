@@ -14,7 +14,7 @@ require('bootstrap')
 
 window.select2 = require('select2')
 
-window.fullCalendar = require('fullcalendar')
+//window.fullCalendar = require('fullcalendar')
 
 window.CodeMirror = require('codemirror')
 
