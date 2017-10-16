@@ -14,3 +14,4 @@ use Illuminate\Http\Request;
  */
 
 Route::resource('reservations', 'ReservationController');
+Route::resource('availabilities', 'AvailabilityController');
