@@ -13,4 +13,5 @@ Route::get('menu-items/order', 'MenuItemController@order')->name('menu-items.ord
 Route::post('menu-items/order', 'MenuItemController@reorder')->name('menu-items.reorder');
 
 Route::resource('menu-items', 'MenuItemController');
+Route::resource('counselors', 'CounselorController');
 
