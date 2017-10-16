@@ -44,7 +44,7 @@ class AvailabilityController extends Controller
         $end = Carbon::parse($camp->camp_end);
 
         while ($d <= $end) {
-            if ($d->isSameDay(Carbon::parse('july 4')) || $d->isWeekend()) {
+            if (!CampDates::isOpen($d)) {
                 $d = $d->addDays(1);
                 continue;
             }
