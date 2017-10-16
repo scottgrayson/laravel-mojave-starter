@@ -1,29 +1,26 @@
 /**
- * Bootstrap 4 and friends
+ * Vendor
  */
 
 try {
     window.$ = window.jQuery = require('jquery');
 } catch (e) {}
 
-import Popper from 'popper.js'
-window.Popper = Popper
+window.moment = require('moment')
+
+window.Popper = require('popper.js')
 
 require('bootstrap')
 
 window.select2 = require('select2')
 
-import CodeMirror from 'codemirror'
-window.CodeMirror = CodeMirror
+window.fullCalendar = require('fullcalendar')
 
-import SimpleMDE from 'simplemde'
-window.SimpleMDE = SimpleMDE
+window.CodeMirror = require('codemirror')
 
-import Sortable from 'sortablejs'
-window.Sortable = Sortable
+window.SimpleMDE = require('simplemde')
 
-import Moment from 'moment'
-window.moment = Moment
+window.Sortable = require('sortablejs')
 
 /**
  * Next we will register the CSRF Token as a common header with Axios so that
