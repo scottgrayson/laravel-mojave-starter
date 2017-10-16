@@ -93524,6 +93524,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -93592,7 +93606,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       if (!event.openings) {
         // no click events for non reservable
         return;
-      } else if (!this.campers.length) {
+      } else {
+        this.addToCart(event.start);
+      }
+    },
+    addToCart: function addToCart(date) {
+      var _this2 = this;
+
+      if (!this.campers.length) {
         swal({
           title: 'Cannot Reserve',
           text: 'You must register a camper before reserving.',
@@ -93610,10 +93631,38 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           icon: 'error'
         });
       } else {
+
+        var title = 'Reserve Full Camp Session?';
+        var text = this.selectedCamper.name + ' in ' + this.selectedTent.name;
+
+        if (date != 'full') {
+          title = 'Reserve Day?';
+          text = this.selectedCamper.name + ' in ' + this.selectedTent.name + ' on ' + moment(date).format('l');
+        }
+
         swal({
-          title: 'Add to Cart?',
-          text: 'Reserve a spot for ' + this.selectedCamper.name + ' in ' + this.selectedTent.name + ' on ' + moment(event.start).format('l') + '?',
-          icon: 'warning'
+          title: title,
+          text: text,
+          icon: 'warning',
+          buttons: ['Cancel', 'Add to Cart']
+        }).then(function (wantsToAdd) {
+          if (wantsToAdd) {
+            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('cart', {
+              camper_id: _this2.selectedCamperId,
+              tent_id: _this2.selectedTentId,
+              date: date
+            }).then(function () {
+              swal({
+                icon: 'success',
+                text: 'Item added to cart.'
+              });
+            }).catch(function () {
+              swal({
+                icon: 'error',
+                text: 'Item was not added to cart.'
+              });
+            });
+          }
         });
       }
     },
@@ -93635,10 +93684,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       return this.filteredAvailabilities.concat(this.filteredReservations);
     },
     filteredReservations: function filteredReservations() {
-      var _this2 = this;
+      var _this3 = this;
 
       return this.reservations.filter(function (e) {
-        return e.tent_id == _this2.selectedTentId || !_this2.selectedTentId;
+        return e.tent_id == _this3.selectedTentId || !_this3.selectedTentId;
       }).map(function (e) {
         return {
           title: e.title,
@@ -93649,15 +93698,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
     },
     filteredAvailabilities: function filteredAvailabilities() {
-      var _this3 = this;
+      var _this4 = this;
 
       return this.availabilities.filter(function (e) {
-        var reserved = _this3.filteredReservations.find(function (r) {
+        var reserved = _this4.filteredReservations.find(function (r) {
           return r.start == e.date;
         });
-        return !reserved && e.tent_id == (_this3.selectedTentId ? _this3.selectedTentId : 1);
+        return !reserved && e.tent_id == (_this4.selectedTentId ? _this4.selectedTentId : 1);
       }).map(function (e) {
-        if (_this3.selectedTentId) {
+        if (_this4.selectedTentId) {
           var openings = e.tent_limit - e.campers > 0;
           var className = 'badge ' + (openings ? 'pointer badge-primary' : 'badge-secondary');
 
@@ -93678,18 +93727,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
       });
     },
+    fullCampAvailable: function fullCampAvailable() {
+      return this.filteredAvailabilities.every(function (i) {
+        return i.openings;
+      });
+    },
     selectedCamper: function selectedCamper() {
-      var _this4 = this;
+      var _this5 = this;
 
       return this.campers.find(function (c) {
-        return c.id == _this4.selectedCamperId;
+        return c.id == _this5.selectedCamperId;
       });
     },
     selectedTent: function selectedTent() {
-      var _this5 = this;
+      var _this6 = this;
 
       return this.tents.find(function (t) {
-        return t.id == _this5.selectedTentId;
+        return t.id == _this6.selectedTentId;
       });
     }
     // end computed
@@ -93891,6 +93945,53 @@ var render = function() {
         },
         on: { update: _vm.handleTentCamperUpdate }
       }),
+      _vm._v(" "),
+      _vm.selectedTent ? _c("br") : _vm._e(),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "d-flex justify-content-around align-items-center" },
+        [
+          _vm.fullCampAvailable
+            ? _c("span", [
+                _vm._v(
+                  "\n      Full camp openings " +
+                    _vm._s(
+                      _vm.selectedTent ? " for " + _vm.selectedTent.name : ""
+                    ) +
+                    "\n    "
+                )
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          !_vm.fullCampAvailable && _vm.selectedTent
+            ? _c("span", { staticClass: "text-muted" }, [
+                _vm._v(
+                  "\n      Full Camp not available" +
+                    _vm._s(
+                      _vm.selectedTent ? " for " + _vm.selectedTent.name : ""
+                    ) +
+                    "\n    "
+                )
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.fullCampAvailable
+            ? _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary",
+                  on: {
+                    click: function($event) {
+                      _vm.addToCart("full")
+                    }
+                  }
+                },
+                [_vm._v("\n      Reserve Full Camp\n    ")]
+              )
+            : _vm._e()
+        ]
+      ),
       _vm._v(" "),
       _c("br"),
       _vm._v(" "),

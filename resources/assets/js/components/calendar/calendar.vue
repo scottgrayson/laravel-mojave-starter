@@ -12,6 +12,20 @@
       @update="handleTentCamperUpdate"
       ></tent-camper-select>
 
+    <br v-if="selectedTent">
+
+    <div class="d-flex justify-content-around align-items-center">
+      <span v-if="fullCampAvailable">
+        Full camp openings {{ selectedTent ? ' for ' + selectedTent.name : '' }}
+      </span>
+      <span v-if="!fullCampAvailable && selectedTent" class="text-muted">
+        Full Camp not available{{ selectedTent ? ' for ' + selectedTent.name : '' }}
+      </span>
+      <button v-if="fullCampAvailable" class="btn btn-primary" @click="addToCart('full')">
+        Reserve Full Camp
+      </button>
+    </div>
+
     <br>
 
     <div id='calendar'></div>
@@ -86,7 +100,13 @@ export default {
         // no click events for non reservable
         return
 
-      } else if (!this.campers.length) {
+      } else {
+        this.addToCart(event.start)
+      }
+    },
+
+    addToCart(date) {
+      if (!this.campers.length) {
         swal({
           title: 'Cannot Reserve',
           text: 'You must register a camper before reserving.',
@@ -105,13 +125,43 @@ export default {
           text: 'Select a camper before reserving.',
           icon: 'error',
         })
-
       } else {
+
+        var title = 'Reserve Full Camp Session?'
+        var text =  `${this.selectedCamper.name} in ${this.selectedTent.name}`
+
+        if (date != 'full') {
+          title = 'Reserve Day?'
+          text =  `${this.selectedCamper.name} in ${this.selectedTent.name} on ${moment(date).format('l')}`
+        }
+
         swal({
-          title: 'Add to Cart?',
-          text: `Reserve a spot for ${this.selectedCamper.name} in ${this.selectedTent.name} on ${moment(event.start).format('l')}?`,
+          title: title,
+          text: text,
           icon: 'warning',
+          buttons: ['Cancel', 'Add to Cart'],
         })
+          .then(wantsToAdd => {
+            if (wantsToAdd) {
+              axios.post('cart', {
+                camper_id: this.selectedCamperId,
+                tent_id: this.selectedTentId,
+                date: date
+              })
+                .then(() => {
+                  swal({
+                    icon: 'success',
+                    text: 'Item added to cart.'
+                  })
+                })
+                .catch(() => {
+                  swal({
+                    icon: 'error',
+                    text: 'Item was not added to cart.'
+                  })
+                })
+            }
+          })
       }
     },
 
@@ -176,6 +226,10 @@ export default {
             }
           }
         })
+    },
+
+    fullCampAvailable () {
+      return this.filteredAvailabilities.every(i => i.openings);
     },
 
     selectedCamper () {
