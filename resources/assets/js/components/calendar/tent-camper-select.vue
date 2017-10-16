@@ -65,7 +65,7 @@ export default {
         return c.id == camperId
       })
       this.$emit('update', {
-        tent: camper.tent_id,
+        tent: camper ? camper.tent_id : 0,
         camper: camperId
       })
     }
