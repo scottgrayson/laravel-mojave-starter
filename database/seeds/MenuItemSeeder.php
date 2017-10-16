@@ -106,6 +106,10 @@ class MenuItemSeeder extends Seeder
                         'link' => '/admin/pages',
                     ],
                     [
+                        'name' => 'products',
+                        'link' => '/admin/products',
+                    ],
+                    [
                         'name' => 'menu items',
                         'link' => '/admin/menu-items',
                     ],
