@@ -9,7 +9,7 @@ class ProductRequest extends FormRequest
         return [
             'name' => 'string|required',
             'price' => 'integer|required',
-            'desc' => 'string|required',
+            'description' => 'string|required',
         ];
     }
 }

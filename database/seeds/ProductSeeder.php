@@ -15,13 +15,13 @@ class ProductSeeder extends Seeder
         $day = \DB::table('products')->insert([
             'name' => 'day',
             'price' => '50',
-            'desc' => 'day rate',
+            'description' => 'day rate',
         ]);
 
         $full = \DB::table('products')->insert([
             'name' => 'full',
             'price' => '1200',
-            'desc' => 'full rate',
+            'description' => 'full rate',
         ]);
     }
 }
