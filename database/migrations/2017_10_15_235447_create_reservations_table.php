@@ -27,6 +27,10 @@ class CreateReservationsTable extends Migration
                 ->unsigned()
                 ->references('id')
                 ->on('tents');
+            //$table->integer('payment_id')
+                //->unsigned()
+                //->references('id')
+                //->on('payments');
             $table->date('date');
             $table->timestamps();
         });

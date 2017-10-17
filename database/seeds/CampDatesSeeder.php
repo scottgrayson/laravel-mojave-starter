@@ -17,9 +17,9 @@ class CampDatesSeeder extends Seeder
             : Carbon::parse('June');
 
         $start_dates = [
-            $upcomingJune->subYears(1),
-            $upcomingJune,
-            $upcomingJune->addYears(1),
+            $upcomingJune->copy()->subYears(1),
+            $upcomingJune->copy(),
+            $upcomingJune->copy()->addYears(1),
         ];
 
         foreach ($start_dates as $start) {

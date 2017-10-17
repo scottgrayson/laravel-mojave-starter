@@ -12,6 +12,8 @@
 
   if (in_array($name, ['meta_description', 'description', 'message'])) {
     $type = 'textarea';
+  } elseif (in_array('date', $rules)) {
+    $type = 'date';
   } elseif (in_array($name, ['meta_tags'])) {
     $type = 'code';
   } elseif (in_array($name, ['body', 'content'])) {
