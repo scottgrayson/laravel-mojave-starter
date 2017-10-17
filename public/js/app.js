@@ -93797,6 +93797,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -93970,7 +93971,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           var className = 'badge ' + (openings ? 'pointer badge-primary' : 'badge-secondary');
 
           return {
-            title: openings ? 'Reserve Now' : 'No Openings',
+            title: openings ? 'Reserve Day' : 'No Openings',
             allDay: true,
             start: e.date,
             className: className,
@@ -94205,52 +94206,56 @@ var render = function() {
         on: { update: _vm.handleTentCamperUpdate }
       }),
       _vm._v(" "),
-      _vm.selectedTent ? _c("br") : _vm._e(),
+      _c("br"),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "d-flex justify-content-around align-items-center" },
-        [
-          _vm.fullCampAvailable
-            ? _c("span", [
-                _vm._v(
-                  "\n      Full camp openings " +
-                    _vm._s(
-                      _vm.selectedTent ? " for " + _vm.selectedTent.name : ""
-                    ) +
-                    "\n    "
-                )
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          !_vm.fullCampAvailable && _vm.selectedTent
-            ? _c("span", { staticClass: "text-muted" }, [
-                _vm._v(
-                  "\n      Full Camp not available" +
-                    _vm._s(
-                      _vm.selectedTent ? " for " + _vm.selectedTent.name : ""
-                    ) +
-                    "\n    "
-                )
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.fullCampAvailable
-            ? _c(
-                "button",
-                {
-                  staticClass: "btn btn-primary",
-                  on: {
-                    click: function($event) {
-                      _vm.addToCart("full")
-                    }
-                  }
-                },
-                [_vm._v("\n      Reserve Full Camp\n    ")]
+      _vm.fullCampAvailable
+        ? _c(
+            "div",
+            {
+              staticClass:
+                "alert alert-primary d-flex justify-content-around align-items-center"
+            },
+            [
+              _vm._v(
+                "\n    Full camp openings " +
+                  _vm._s(
+                    _vm.selectedTent ? " for " + _vm.selectedTent.name : ""
+                  ) +
+                  "\n    "
+              ),
+              _vm.fullCampAvailable
+                ? _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-outline-primary",
+                      on: {
+                        click: function($event) {
+                          _vm.addToCart("full")
+                        }
+                      }
+                    },
+                    [_vm._v("\n      Reserve Full Camp\n    ")]
+                  )
+                : _vm._e()
+            ]
+          )
+        : !_vm.fullCampAvailable && _vm.selectedTent
+          ? _c("div", { staticClass: "text-center alert alert-secondary" }, [
+              _vm._v(
+                "\n    Full camp not available" +
+                  _vm._s(
+                    _vm.selectedTent ? " for " + _vm.selectedTent.name : ""
+                  ) +
+                  ". Reserve by day below.\n  "
               )
-            : _vm._e()
-        ]
-      ),
+            ])
+          : _c("div", { staticClass: "text-center text-muted" }, [
+              _vm._v(
+                "\n    Select a tent" +
+                  _vm._s(_vm.campers.length ? " or camper" : "") +
+                  " to view openings\n  "
+              )
+            ]),
       _vm._v(" "),
       _c("br"),
       _vm._v(" "),

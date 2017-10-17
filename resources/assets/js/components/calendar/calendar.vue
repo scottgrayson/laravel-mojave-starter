@@ -12,18 +12,19 @@
       @update="handleTentCamperUpdate"
       ></tent-camper-select>
 
-    <br v-if="selectedTent">
+    <br>
 
-    <div class="d-flex justify-content-around align-items-center">
-      <span v-if="fullCampAvailable">
-        Full camp openings {{ selectedTent ? ' for ' + selectedTent.name : '' }}
-      </span>
-      <span v-if="!fullCampAvailable && selectedTent" class="text-muted">
-        Full Camp not available{{ selectedTent ? ' for ' + selectedTent.name : '' }}
-      </span>
-      <button v-if="fullCampAvailable" class="btn btn-primary" @click="addToCart('full')">
+    <div v-if="fullCampAvailable" class="alert alert-primary d-flex justify-content-around align-items-center">
+      Full camp openings {{ selectedTent ? ' for ' + selectedTent.name : '' }}
+      <button v-if="fullCampAvailable" class="btn btn-outline-primary" @click="addToCart('full')">
         Reserve Full Camp
       </button>
+    </div>
+    <div v-else-if="!fullCampAvailable && selectedTent" class="text-center alert alert-secondary">
+      Full camp not available{{ selectedTent ? ' for ' + selectedTent.name : '' }}. Reserve by day below.
+    </div>
+    <div v-else class="text-center text-muted">
+      Select a tent{{ campers.length ? ' or camper' : '' }} to view openings
     </div>
 
     <br>
@@ -211,7 +212,7 @@ export default {
             const className = 'badge ' + (openings ? 'pointer badge-primary' : 'badge-secondary')
 
             return {
-              title: openings ? 'Reserve Now' : 'No Openings',
+              title: openings ? 'Reserve Day' : 'No Openings',
               allDay: true,
               start: e.date,
               className: className,
