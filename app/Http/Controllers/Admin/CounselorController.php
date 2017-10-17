@@ -13,6 +13,5 @@ class CounselorController extends CrudController
         'id',
         'user_id',
         'tent_id',
-        'name',
     ];
 }

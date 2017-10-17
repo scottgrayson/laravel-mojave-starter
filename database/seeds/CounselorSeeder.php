@@ -14,13 +14,11 @@ class CounselorSeeder extends Seeder
         $userCount = \App\User::count();
         $tentCount = \App\Tent::count();
 
-        $counselors = factory(\App\Camper::class, 15)->make()
+        $counselors = factory(\App\Counselor::class, 15)->make()
             ->each(function ($i, $key) use ($userCount, $tentCount) {
                 $i->user_id = rand(1, $userCount);
                 $i->tent_id = rand(1, $tentCount);
-                $i->name = \App\User::find($i->user_id)->name;
-            })
-            ->toArray();
+            })->toArray();
 
         DB::table('counselors')->insert($counselors);
     }
