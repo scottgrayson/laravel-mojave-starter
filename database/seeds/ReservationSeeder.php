@@ -24,6 +24,15 @@ class ReservationSeeder extends Seeder
                 'date' => $this->randomCampDay($camp),
             ]);
         }
+
+        // Make sure dev accounts have campers
+        \App\User::where('id', '<', 2)->get()
+            ->each(function ($u) use ($tentCount) {
+                factory(\App\Camper::class, 2)->create([
+                    'user_id' => $u->id,
+                    'tent_id' => rand(1, $tentCount),
+                ]);
+            });
     }
 
     public function randomCampDay($camp)

@@ -30,8 +30,8 @@ class CampDates extends Model
     {
         $date = Carbon::parse($arg);
 
-        $camp = static::where('camp_start', '<=', $date->toDateString())
-            ->where('camp_end', '>=', $date->toDateString())
+        $camp = static::whereDate('camp_start', '<=', $date->toDateString())
+            ->whereDate('camp_end', '>=', $date->toDateString())
             ->first();
 
         if (!$camp) {
@@ -61,8 +61,8 @@ class CampDates extends Model
             "date"
         )
         ->join('tents', 'tents.id', '=', 'reservations.tent_id')
-        ->where('date', '<=', $camp->camp_end)
-        ->where('date', '>=', $camp->camp_start)
+        ->whereDate('date', '<=', $camp->camp_end->toDateString())
+        ->whereDate('date', '>=', $camp->camp_start->toDateString())
         ->groupBy('camper_limit', 'tents.name', 'date', 'tent_id')
         ->get();
 
@@ -70,17 +70,11 @@ class CampDates extends Model
         // Excluding weekends and july 4th
         $availabilities = [];
 
-        $d = Carbon::parse($camp->camp_start);
-        $end = Carbon::parse($camp->camp_end);
-
-        while ($d <= $end) {
-            if (!static::isOpen($d)) {
-                $d = $d->addDays(1);
-                continue;
-            }
-
+        foreach ($camp->openDays() as $d) {
             foreach (\App\Tent::all() as $t) {
-                $reserved = $reservations->where('date', $d->toDateString())
+                $reserved = $reservations->filter(function ($r) use ($d) {
+                    return Carbon::parse($r->date)->isSameDay($d);
+                })
                     ->where('tent_id', $t->id)
                     ->first();
 
@@ -92,10 +86,31 @@ class CampDates extends Model
                     'campers' => $reserved ? (int) $reserved->campers : 0,
                 ];
             }
-
-            $d = $d->addDays(1);
         }
 
         return collect($availabilities);
+    }
+
+    /*
+     * Get All days from start to finish
+     */
+    public function openDays()
+    {
+        $days = collect([]);
+
+        $d = Carbon::parse($this->camp_start);
+        $end = Carbon::parse($this->camp_end);
+
+        while ($d <= $end) {
+            if (!static::isOpen($d)) {
+                $d = $d->addDays(1);
+                continue;
+            }
+
+            $days->push($d->copy());
+            $d = $d->addDays(1);
+        }
+
+        return $days;
     }
 }

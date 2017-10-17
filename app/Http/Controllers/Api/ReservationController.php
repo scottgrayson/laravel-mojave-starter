@@ -18,7 +18,7 @@ class ReservationController extends Controller
     {
         if (auth()->check()) {
             return auth()->user()->reservations()
-                ->where('date', '>', Carbon::now()->toDateString())
+                ->whereDate('date', '>', Carbon::now()->toDateString())
                 ->get();
         } else {
             return [];

@@ -39,7 +39,7 @@ class ViewAvailabilitiesTest extends TestCase
         $r = $this->get(route('api.availabilities.index'));
         $r->assertStatus(200)
             ->assertJson([ 0 => [
-                'date' => $camp->camp_start,
+                'date' => $camp->camp_start->toDateString(),
                 'tent_id' => $tent->id,
                 'tent_name' => $tent->name,
                 'tent_limit' => $tent->camper_limit,
@@ -49,7 +49,7 @@ class ViewAvailabilitiesTest extends TestCase
                 'date' => $July4th->toDateString(),
             ])
             ->assertJsonFragment([
-                'date' => $camp->camp_end,
+                'date' => $camp->camp_end->toDateString(),
             ]);
     }
 }
