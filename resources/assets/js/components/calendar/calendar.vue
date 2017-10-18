@@ -14,7 +14,10 @@
 
     <br>
 
-    <div v-if="fullCampAvailable" class="alert alert-primary d-flex justify-content-around align-items-center">
+    <div v-if="fullCampReserved" class="alert alert-success text-center">
+      Full camp reserved for {{ selectedCamper.name }}
+    </div>
+    <div v-else-if="fullCampAvailable" class="alert alert-primary d-flex justify-content-around align-items-center">
       Full camp openings {{ selectedTent ? ' for ' + selectedTent.name : '' }}
       <button v-if="fullCampAvailable" class="btn btn-outline-primary" @click="addToCart('full')">
         Reserve Full Camp
@@ -27,22 +30,22 @@
       Select a tent{{ campers.length ? ' or camper' : '' }} to view openings
     </div>
 
-    <div class="alert" v-if="selectedCamperId">
+    <div class="alert px-0" v-if="selectedCamperId && !fullCampReserved">
       <h4>
         Reserve By Day
       </h4>
-      <div class="row">
-        <small class="col text-muted">
+      <div class="row align-items-center">
+        <span class="col text-muted">
           {{ selectedDays.length }} Day{{ selectedDays.length == 1 ? '' : 's' }} Selected
-        </small>
-        <div class="btn-group btn-group-sm" role="group">
-          <button class="btn btn-secondary">
+        </span>
+        <div class="col text-right">
+          <button @click="selectAll" class="btn btn-sm btn-secondary">
             All
           </button>
-          <button class="btn btn-secondary">
+          <button @click="selectNone" class="btn btn-sm btn-secondary">
             None
           </button>
-          <button class="btn btn-secondary">
+          <button @click="addToCart" class="btn btn-sm btn-secondary">
             Update Cart
           </button>
         </div>
@@ -116,7 +119,25 @@ export default {
     // end mounted
   },
 
+  watch: {
+    cartItems: function () { this.reloadCalendar() },
+    selectedDays: function () { this.reloadCalendar() },
+    availabilities: function () { this.reloadCalendar() },
+    selectedCamperId: function () { this.reloadCalendar() },
+    selectedTentId: function () { this.reloadCalendar() },
+  },
+
   methods: {
+
+    selectAll () {
+      this.selectedDays = this.events()
+        .filter(e => e.openings)
+        .map(e => e.start)
+    },
+
+    selectNone () {
+      this.selectedDays = []
+    },
 
     canReserve () {
       if (!this.campers.length) {
@@ -161,8 +182,6 @@ export default {
         } else {
           this.selectedDays.push(date)
         }
-
-        this.reloadCalendar()
       }
     },
 
@@ -203,7 +222,7 @@ export default {
     handleTentCamperUpdate({ tent, camper }) {
       this.selectedTentId = tent
       this.selectedCamperId = camper
-      this.reloadCalendar()
+      this.selectNone()
     },
 
     reloadCalendar () {
@@ -226,6 +245,7 @@ export default {
         if (reserved) {
           return {
             title: 'Reserved',
+            reserved: true,
             start: date,
             className: 'badge badge-success'
           }
@@ -278,6 +298,9 @@ export default {
 
   computed: {
 
+    fullCampReserved () {
+      return this.events().every(e => e.reserved)
+    },
 
     fullCampAvailable () {
       return this.availabilities
@@ -292,6 +315,7 @@ export default {
     selectedTent () {
       return this.tents.find(t => t.id == this.selectedTentId)
     }
+
     // end computed
   }
 

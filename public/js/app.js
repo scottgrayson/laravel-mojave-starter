@@ -93818,6 +93818,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -94313,8 +94315,8 @@ var render = function() {
         ? _c("div", { staticClass: "alert" }, [
             _c("h4", [_vm._v("\n      Reserve By Day\n    ")]),
             _vm._v(" "),
-            _c("div", { staticClass: "row" }, [
-              _c("small", { staticClass: "col text-muted" }, [
+            _c("div", { staticClass: "row align-items-center" }, [
+              _c("span", { staticClass: "col text-muted" }, [
                 _vm._v(
                   "\n        " +
                     _vm._s(_vm.selectedDays.length) +
@@ -94339,23 +94341,28 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "btn-group btn-group-sm", attrs: { role: "group" } },
-      [
-        _c("button", { staticClass: "btn btn-secondary" }, [
-          _vm._v("\n          All\n        ")
-        ]),
-        _vm._v(" "),
-        _c("button", { staticClass: "btn btn-secondary" }, [
-          _vm._v("\n          None\n        ")
-        ]),
-        _vm._v(" "),
-        _c("button", { staticClass: "btn btn-secondary" }, [
-          _vm._v("\n          Update Cart\n        ")
-        ])
-      ]
-    )
+    return _c("div", { staticClass: "col" }, [
+      _c(
+        "div",
+        {
+          staticClass: "ml-auto btn-group btn-group-sm",
+          attrs: { role: "group" }
+        },
+        [
+          _c("button", { staticClass: "btn btn-secondary" }, [
+            _vm._v("\n            All\n          ")
+          ]),
+          _vm._v(" "),
+          _c("button", { staticClass: "btn btn-secondary" }, [
+            _vm._v("\n            None\n          ")
+          ]),
+          _vm._v(" "),
+          _c("button", { staticClass: "btn btn-secondary" }, [
+            _vm._v("\n            Update Cart\n          ")
+          ])
+        ]
+      )
+    ])
   }
 ]
 render._withStripped = true

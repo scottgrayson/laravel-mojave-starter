@@ -15,7 +15,7 @@ require('dotenv').config()
 mix.js('resources/assets/js/app.js', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css')
 
-mix.browserSync(process.env.APP_URL)
+//mix.browserSync(process.env.APP_URL)
 
 if (mix.config.inProduction) {
   mix.version()
