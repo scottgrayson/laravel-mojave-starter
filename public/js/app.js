@@ -93798,6 +93798,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -93895,12 +93915,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       if (this.canReserve()) {
         // Toggle Selected Day
-        if (event.selected) {
-          this.seletedDays = this.selectedDays.filter(function (date) {
-            return date != event.start.format('YYYY-MM-DD');
-          });
+        var _date = event.start.format('YYYY-MM-DD');
+        var index = this.selectedDays.indexOf(_date);
+        if (index > -1) {
+          this.selectedDays.splice(index, 1);
         } else {
-          this.selectedDays.push(event.start.format('YYYY-MM-DD'));
+          this.selectedDays.push(_date);
         }
 
         this.reloadCalendar();
@@ -93986,7 +94006,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         if (selected) {
           return {
             start: date,
-            title: 'Selected',
+            title: 'Unselect Day',
             openings: true,
             selected: true,
             className: 'badge badge-warning text-dark pointer'
@@ -94289,14 +94309,55 @@ var render = function() {
               )
             ]),
       _vm._v(" "),
-      _c("br"),
+      _vm.selectedCamperId
+        ? _c("div", { staticClass: "alert" }, [
+            _c("h4", [_vm._v("\n      Reserve By Day\n    ")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c("small", { staticClass: "col text-muted" }, [
+                _vm._v(
+                  "\n        " +
+                    _vm._s(_vm.selectedDays.length) +
+                    " Day" +
+                    _vm._s(_vm.selectedDays.length == 1 ? "" : "s") +
+                    " Selected\n      "
+                )
+              ]),
+              _vm._v(" "),
+              _vm._m(0)
+            ])
+          ])
+        : _vm._e(),
       _vm._v(" "),
       _c("div", { attrs: { id: "calendar" } })
     ],
     1
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "btn-group btn-group-sm", attrs: { role: "group" } },
+      [
+        _c("button", { staticClass: "btn btn-secondary" }, [
+          _vm._v("\n          All\n        ")
+        ]),
+        _vm._v(" "),
+        _c("button", { staticClass: "btn btn-secondary" }, [
+          _vm._v("\n          None\n        ")
+        ]),
+        _vm._v(" "),
+        _c("button", { staticClass: "btn btn-secondary" }, [
+          _vm._v("\n          Update Cart\n        ")
+        ])
+      ]
+    )
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

@@ -27,7 +27,27 @@
       Select a tent{{ campers.length ? ' or camper' : '' }} to view openings
     </div>
 
-    <br>
+    <div class="alert" v-if="selectedCamperId">
+      <h4>
+        Reserve By Day
+      </h4>
+      <div class="row">
+        <small class="col text-muted">
+          {{ selectedDays.length }} Day{{ selectedDays.length == 1 ? '' : 's' }} Selected
+        </small>
+        <div class="btn-group btn-group-sm" role="group">
+          <button class="btn btn-secondary">
+            All
+          </button>
+          <button class="btn btn-secondary">
+            None
+          </button>
+          <button class="btn btn-secondary">
+            Update Cart
+          </button>
+        </div>
+      </div>
+    </div>
 
     <div id='calendar'></div>
 
@@ -134,10 +154,12 @@ export default {
 
       if (this.canReserve()) {
         // Toggle Selected Day
-        if (event.selected) {
-          this.seletedDays = this.selectedDays.filter(date => date != event.start.format('YYYY-MM-DD'))
+        const date = event.start.format('YYYY-MM-DD')
+        const index = this.selectedDays.indexOf(date)
+        if (index > -1) {
+          this.selectedDays.splice(index, 1)
         } else {
-          this.selectedDays.push(event.start.format('YYYY-MM-DD'))
+          this.selectedDays.push(date)
         }
 
         this.reloadCalendar()
@@ -224,7 +246,7 @@ export default {
         if (selected) {
           return {
             start: date,
-            title: 'Selected',
+            title: 'Unselect Day',
             openings: true,
             selected: true,
             className: 'badge badge-warning text-dark pointer'
