@@ -13,7 +13,7 @@ use Cart;
 
 class CreateCartItemTest extends TestCase
 {
-    public function testAddingReservationToCart()
+    public function testAddingAndRemovingReservationToCart()
     {
         $product = factory(Product::class)->create(['slug' => 'day']);
         $tent = factory(Tent::class)->create();
@@ -33,10 +33,17 @@ class CreateCartItemTest extends TestCase
                 'date' => $camp->randomCampDay()->toDateString(),
         ]);
 
-        //$this->feedback($r);
-
         $r->assertStatus(200);
 
         $this->assertEquals(Cart::content()->count(), 1);
+
+        // now, remove it
+        $rowId = Cart::content()->first()->rowId;
+
+        $r = $this->json('DELETE', route('api.cart-items.destroy', $rowId));
+
+        $r->assertStatus(200);
+
+        $this->assertEquals(Cart::content()->count(), 0);
     }
 }
