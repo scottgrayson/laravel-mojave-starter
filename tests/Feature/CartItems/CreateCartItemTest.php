@@ -9,12 +9,13 @@ use App\Camper;
 use App\Product;
 use App\User;
 use App\Tent;
+use Cart;
 
 class CreateCartItemTest extends TestCase
 {
     public function testAddingReservationToCart()
     {
-        $product = factory(Product::class)->make(['slug' => 'day']);
+        $product = factory(Product::class)->create(['slug' => 'day']);
         $tent = factory(Tent::class)->create();
         $user = factory(User::class)->create();
         $camp = factory(CampDates::class)->create();
@@ -25,12 +26,14 @@ class CreateCartItemTest extends TestCase
 
         $this->be($user);
 
-        $r = $this->json('POST', route('cart-items.store'), [
+        $r = $this->json('POST', route('api.cart-items.store'), [
                 'camper_id' => $camper->id,
                 'tent_id' => $tent->id,
                 'product' => $product->slug,
-                'date' => $camp->randomCampDay(),
+                'date' => $camp->randomCampDay()->toDateString(),
         ]);
+
+        //$this->feedback($r);
 
         $r->assertStatus(200);
 

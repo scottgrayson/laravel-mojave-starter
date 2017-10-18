@@ -7,5 +7,6 @@ $factory->define(App\Product::class, function (Faker $faker) {
         'name' => $faker->word,
         'slug' => $faker->word,
         'price' => 50,
+        'description' => $faker->paragraph,
     ];
 });
