@@ -20,7 +20,7 @@
     <div v-else-if="fullCampAvailable" class="alert alert-primary d-flex justify-content-around align-items-center">
       Full camp openings {{ selectedTent ? ' for ' + selectedTent.name : '' }}
       <button v-if="fullCampAvailable" class="btn btn-outline-primary" @click="addToCart('full')">
-        Reserve Full Camp
+        Reserve<span class="d-none d-sm-inline">Full Camp</span>
       </button>
     </div>
     <div v-else-if="!fullCampAvailable && selectedTent" class="text-center alert alert-secondary">
@@ -35,10 +35,10 @@
         Reserve By Day
       </h4>
       <div class="row align-items-center">
-        <span class="col text-muted">
+        <p class="col-sm text-muted">
           {{ selectedDays.length }} Day{{ selectedDays.length == 1 ? '' : 's' }} Selected
-        </span>
-        <div class="col text-right">
+        </p>
+        <div class="col-sm text-right">
           <button @click="selectAll" class="btn btn-sm btn-secondary">
             All
           </button>
@@ -52,7 +52,7 @@
       </div>
     </div>
 
-    <div id='calendar'></div>
+    <div class="camp-calendar" id='calendar'></div>
 
   </div>
 </template>
@@ -103,6 +103,7 @@ export default {
     this.$nextTick(() => {
       $('#calendar').fullCalendar({
         weekends: false,
+        height: 'auto',
         header: {
           left: 'title',
           right: 'prev,next',
@@ -258,7 +259,7 @@ export default {
           return {
             start: date,
             title: 'No Openings',
-            className: 'badge badge-secondary'
+            className: 'badge badge-light text-dark'
           }
         }
 
@@ -266,10 +267,10 @@ export default {
         if (selected) {
           return {
             start: date,
-            title: 'Unselect Day',
+            title: 'Selected',
             openings: true,
             selected: true,
-            className: 'badge badge-warning text-dark pointer'
+            className: 'badge badge-primary pointer'
           }
         }
 
@@ -279,9 +280,9 @@ export default {
         if (available) {
           return {
             start: date,
-            title: 'Reserve Day',
+            title: 'Available',
             openings: true,
-            className: 'badge badge-primary pointer'
+            className: 'badge badge-secondary pointer'
           }
         }
 
