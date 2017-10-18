@@ -4,7 +4,12 @@
 
 @include media-breakpoint-down (xs) {
   .camp-calendar .fc-view-container {
-    margin-left: -15px;
-    margin-right: -15px;
+    margin-left: -10px;
+    margin-right: -10px;
+  }
+  .fc-event.badge {
+    font-size: 0.625rem;
+    font-weight: 400;
   }
 }
+
