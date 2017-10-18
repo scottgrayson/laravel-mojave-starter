@@ -93819,12 +93819,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       type: Array,
       required: true
     },
-    availabilities: {
+    openDays: {
       type: Array,
-      required: true
-    },
-    campDates: {
-      type: Object,
       required: true
     }
   },
@@ -93832,8 +93828,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   data: function data() {
     return {
       selectedTentId: 0,
-      selectedCamperId: 0
+      selectedCamperId: 0,
+      selectedDays: [],
+      availabilities: [],
+      cartItems: []
     };
+  },
+  created: function created() {
+    this.fetchAvailabilities();
   },
   mounted: function mounted() {
     var _this = this;
@@ -93845,13 +93847,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           left: 'title',
           right: 'prev,next'
         },
-        defaultDate: _this.campDates.camp_start,
+        defaultDate: _this.openDays.length ? _this.openDays[0] : '',
         eventTextColor: 'white',
         eventBorderColor: 'white',
         // themeSystem: 'bootstrap3'
-
         events: function events(start, end, timezone, callback) {
-          return callback(_this.events);
+          return callback(_this.events());
         },
         eventClick: _this.handleEventClick
       });
@@ -93862,17 +93863,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
   methods: {
-    handleEventClick: function handleEventClick(event) {
-      if (!event.openings) {
-        // no click events for non reservable
-        return;
-      } else {
-        this.addToCart(event.start);
-      }
-    },
-    addToCart: function addToCart(date) {
-      var _this2 = this;
-
+    canReserve: function canReserve() {
       if (!this.campers.length) {
         swal({
           title: 'Cannot Reserve',
@@ -93884,47 +93875,67 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             window.location.href = '/campers/create';
           }
         });
+        return false;
       } else if (!this.selectedCamperId) {
         swal({
           title: 'Cannot Reserve',
           text: 'Select a camper before reserving.',
           icon: 'error'
         });
+        return false;
       } else {
+        return true;
+      }
+    },
+    handleEventClick: function handleEventClick(event) {
+      if (!event.openings) {
+        // no click events for non reservable
+        return;
+      }
 
-        var title = 'Reserve Full Camp Session?';
-        var text = this.selectedCamper.name + ' in ' + this.selectedTent.name;
-
-        if (date != 'full') {
-          title = 'Reserve Day?';
-          text = this.selectedCamper.name + ' in ' + this.selectedTent.name + ' on ' + moment(date).format('l');
+      if (this.canReserve()) {
+        // Toggle Selected Day
+        if (event.selected) {
+          this.seletedDays = this.selectedDays.filter(function (date) {
+            return date != event.start.format('YYYY-MM-DD');
+          });
+        } else {
+          this.selectedDays.push(event.start.format('YYYY-MM-DD'));
         }
 
-        swal({
-          title: title,
-          text: text,
-          icon: 'warning',
-          buttons: ['Cancel', 'Add to Cart']
-        }).then(function (wantsToAdd) {
-          if (wantsToAdd) {
-            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('cart', {
-              camper_id: _this2.selectedCamperId,
-              tent_id: _this2.selectedTentId,
-              date: date
-            }).then(function () {
-              swal({
-                icon: 'success',
-                text: 'Item added to cart.'
-              });
-            }).catch(function () {
-              swal({
-                icon: 'error',
-                text: 'Item was not added to cart.'
-              });
-            });
-          }
-        });
+        this.reloadCalendar();
       }
+    },
+    addToCart: function addToCart() {
+      var _this2 = this;
+
+      var title = 'Reserve ' + this.selectedDays.length + ' Days?';
+      var text = this.selectedCamper.name + ' in ' + this.selectedTent.name + ' on ' + moment(date).format('l');
+
+      swal({
+        title: title,
+        text: text,
+        icon: 'warning',
+        buttons: ['Cancel', 'Add to Cart']
+      }).then(function (wantsToAdd) {
+        if (wantsToAdd) {
+          __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('cart', {
+            camper_id: _this2.selectedCamperId,
+            tent_id: _this2.selectedTentId,
+            dates: _this2.selectedDays
+          }).then(function () {
+            swal({
+              icon: 'success',
+              title: 'Cart Updated.'
+            });
+          }).catch(function () {
+            swal({
+              icon: 'error',
+              text: 'There was a problem updating your cart.'
+            });
+          });
+        }
+      });
     },
     handleTentCamperUpdate: function handleTentCamperUpdate(_ref) {
       var tent = _ref.tent,
@@ -93932,78 +93943,99 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       this.selectedTentId = tent;
       this.selectedCamperId = camper;
-      this.refetchEvents();
+      this.reloadCalendar();
     },
-    refetchEvents: function refetchEvents() {
+    reloadCalendar: function reloadCalendar() {
       $('#calendar').fullCalendar('refetchEvents');
+    },
+    fetchAvailabilities: function fetchAvailabilities() {
+      var _this3 = this;
+
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/api/availabilities').then(function (res) {
+        _this3.availabilities = res.data;
+      });
+    },
+    events: function events() {
+      var _this4 = this;
+
+      return this.openDays.map(function (date) {
+
+        var reserved = _this4.reservations.find(function (r) {
+          return r.date == date && r.camper_id == _this4.selectedCamperId;
+        });
+        if (reserved) {
+          return {
+            title: 'Reserved',
+            start: date,
+            className: 'badge badge-success'
+          };
+        }
+
+        var filled = _this4.availabilities.find(function (r) {
+          return r.date == date && r.tent_id == _this4.selectedTentId && r.tent_limit <= r.campers;
+        });
+        if (filled) {
+          return {
+            start: date,
+            title: 'No Openings',
+            className: 'badge badge-secondary'
+          };
+        }
+
+        var selected = _this4.selectedDays.indexOf(date) !== -1;
+        if (selected) {
+          return {
+            start: date,
+            title: 'Selected',
+            openings: true,
+            selected: true,
+            className: 'badge badge-warning text-dark pointer'
+          };
+        }
+
+        var available = _this4.availabilities.find(function (r) {
+          return r.date == date && r.tent_id == _this4.selectedTentId;
+        });
+        if (available) {
+          return {
+            start: date,
+            title: 'Reserve Day',
+            openings: true,
+            className: 'badge badge-primary pointer'
+          };
+        }
+
+        return {
+          title: 'Camp',
+          className: 'badge badge-secondary',
+          start: date
+        };
+      });
     }
   },
 
   computed: {
-    events: function events() {
-      return this.filteredAvailabilities.concat(this.filteredReservations);
-    },
-    filteredReservations: function filteredReservations() {
-      var _this3 = this;
-
-      return this.reservations.filter(function (e) {
-        return e.tent_id == _this3.selectedTentId || !_this3.selectedTentId;
-      }).map(function (e) {
-        return {
-          title: e.title,
-          allDay: true,
-          start: e.date,
-          className: 'badge badge-success'
-        };
-      });
-    },
-    filteredAvailabilities: function filteredAvailabilities() {
-      var _this4 = this;
-
-      return this.availabilities.filter(function (e) {
-        var reserved = _this4.filteredReservations.find(function (r) {
-          return r.start == e.date;
-        });
-        return !reserved && e.tent_id == (_this4.selectedTentId ? _this4.selectedTentId : 1);
-      }).map(function (e) {
-        if (_this4.selectedTentId) {
-          var openings = e.tent_limit - e.campers > 0;
-          var className = 'badge ' + (openings ? 'pointer badge-primary' : 'badge-secondary');
-
-          return {
-            title: openings ? 'Reserve Day' : 'No Openings',
-            allDay: true,
-            start: e.date,
-            className: className,
-            openings: openings
-          };
-        } else {
-          return {
-            title: 'Camp',
-            allDay: true,
-            start: e.date,
-            className: 'badge badge-secondary'
-          };
-        }
-      });
-    },
     fullCampAvailable: function fullCampAvailable() {
-      return this.filteredAvailabilities.every(function (i) {
-        return i.openings;
+      var _this5 = this;
+
+      return this.availabilities.filter(function (i) {
+        return i.tent_id == _this5.selectedTentId;
+      }).every(function (i) {
+        return i.tent_limit > i.campers;
       });
     },
     selectedCamper: function selectedCamper() {
-      var _this5 = this;
+      var _this6 = this;
 
       return this.campers.find(function (c) {
-        return c.id == _this5.selectedCamperId;
+        return c.id == _this6.selectedCamperId;
       });
     },
     selectedTent: function selectedTent() {
-      var _this6 = this;
+      var _this7 = this;
 
       return this.tents.find(function (t) {
-        return t.id == _this6.selectedTentId;
+        return t.id == _this7.selectedTentId;
       });
     }
     // end computed

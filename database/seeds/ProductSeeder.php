@@ -14,12 +14,14 @@ class ProductSeeder extends Seeder
         \DB::table('products')->truncate();
         $day = \DB::table('products')->insert([
             'name' => 'day',
+            'slug' => 'day',
             'price' => '50',
             'description' => 'day rate',
         ]);
 
         $full = \DB::table('products')->insert([
             'name' => 'full',
+            'slug' => 'full',
             'price' => '1200',
             'description' => 'full rate',
         ]);

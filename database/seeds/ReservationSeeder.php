@@ -17,12 +17,14 @@ class ReservationSeeder extends Seeder
         $camp = CampDates::current();
 
         foreach ($campers as $c) {
-            factory(\App\Reservation::class)->create([
-                'camper_id' => $c->id,
-                'user_id' => $c->user_id,
-                'tent_id' => $c->tent_id,
-                'date' => $camp->randomCampDay(),
-            ]);
+            foreach ($camp->openDays() as $day) {
+                factory(\App\Reservation::class)->create([
+                    'camper_id' => $c->id,
+                    'user_id' => $c->user_id,
+                    'tent_id' => $c->tent_id,
+                    'date' => $day->toDateString(),
+                ]);
+            }
         }
     }
 }

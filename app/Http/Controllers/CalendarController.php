@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Cart;
 use SEO;
 use App\CampDates;
 use App\Reservation;
@@ -21,15 +22,22 @@ class CalendarController extends Controller
             ->get()
             ->map(function ($r) {
                 return [
-                    'title' => $r->camper->name,
-                    'allDay' => true,
+                    'camper_id' => $r->camper_id,
                     'tent_id' => $r->tent_id,
                     'date' => $r->date,
                 ];
             });
 
+        $openDays = CampDates::current()->openDays()
+            ->map(function ($d) {
+                return $d->toDateString();
+            });
+
         return view('calendar.index', [
             'reservations' => $reservations,
+            'tents' => \App\Tent::all(),
+            'campers' => auth()->check() ? auth()->user()->campers : collect([]),
+            'openDays' => $openDays,
         ]);
     }
 }
