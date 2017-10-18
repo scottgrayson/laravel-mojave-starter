@@ -10,6 +10,7 @@ Route::resource('tents', 'TentController');
 Route::resource('images', 'ImageController');
 Route::resource('files', 'FileController');
 Route::resource('pages', 'PageController');
+Route::resource('products', 'ProductController');
 
 // Menu
 // order must go before show/edit/update
