@@ -21,21 +21,8 @@ class ReservationSeeder extends Seeder
                 'camper_id' => $c->id,
                 'user_id' => $c->user_id,
                 'tent_id' => $c->tent_id,
-                'date' => $this->randomCampDay($camp),
+                'date' => $camp->randomCampDay(),
             ]);
         }
-    }
-
-    public function randomCampDay($camp)
-    {
-        $campLength = $camp->camp_start->diffInDays($camp->camp_end);
-
-        $randomDay = $camp->camp_start->addDays(rand(0, $campLength));
-
-        while (!CampDates::isOpen($randomDay)) {
-            $randomDay = $camp->camp_start->addDays(rand(0, $campLength));
-        }
-
-        return $randomDay;
     }
 }

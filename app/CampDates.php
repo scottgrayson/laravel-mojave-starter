@@ -113,4 +113,17 @@ class CampDates extends Model
 
         return $days;
     }
+
+    public function randomCampDay()
+    {
+        $campLength = $this->camp_start->diffInDays($this->camp_end);
+
+        $randomDay = $this->camp_start->addDays(rand(0, $campLength));
+
+        while (!CampDates::isOpen($randomDay)) {
+            $randomDay = $this->camp_start->addDays(rand(0, $campLength));
+        }
+
+        return $randomDay;
+    }
 }

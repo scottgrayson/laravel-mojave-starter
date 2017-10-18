@@ -147,6 +147,7 @@ export default {
               axios.post('cart', {
                 camper_id: this.selectedCamperId,
                 tent_id: this.selectedTentId,
+                product: date == 'full' ? 'full' : 'day',
                 date: date
               })
                 .then(() => {
