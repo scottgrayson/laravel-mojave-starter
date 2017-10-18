@@ -18,6 +18,7 @@ window.Vue = require('vue');
 require('./utils/utc-to-local');
 
 Vue.component('vue-socket', require('./components/VueSocket.vue'));
+Vue.component('camp-calendar', require('./components/calendar/calendar.vue'));
 
 const app = new Vue({
   el: '#app'

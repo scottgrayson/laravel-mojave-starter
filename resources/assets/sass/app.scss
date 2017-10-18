@@ -5,6 +5,7 @@
 
 // Other Vendor
 @import "~select2/dist/css/select2";
+@import "~fullcalendar/dist/fullcalendar.min.css";
 @import "~simplemde/dist/simplemde.min.css";
 
 //@import "stepper";
@@ -13,6 +14,7 @@
 @import "sidebar";
 @import "notifications";
 @import "icons";
+@import "calendar";
 
 // padding for fixed nav
 body {
@@ -35,5 +37,9 @@ label.required:after {
 }
 
 .btn {
+  cursor: pointer;
+}
+
+.pointer {
   cursor: pointer;
 }

@@ -13,9 +13,23 @@
     @endif
     <div class="dropdown-menu {{ $l->name === 'user dropdown' ? 'dropdown-menu-md-right' : '' }}">
       @foreach ($l->children as $c)
-        <a class="dropdown-item {{ (request()->is($c->href.'*')) ? 'active' : '' }}" href="{{ $c->href }}">
-          {{ title_case($c->label) }}
-        </a>
+        @if ($c->href === '/logout')
+
+          <a class="dropdown-item" href="{{ url('/logout') }}"
+            onclick="event.preventDefault();
+            document.getElementById('logout-form').submit();">
+            Logout
+          </a>
+
+          <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+            {{ csrf_field() }}
+          </form>
+
+        @else
+          <a class="dropdown-item {{ (request()->is($c->href.'*')) ? 'active' : '' }}" href="{{ $c->href }}">
+            {{ title_case($c->label) }}
+          </a>
+        @endif
       @endforeach
     </div>
   </li>
@@ -41,7 +55,7 @@
         {{ title_case($l->label) }}
         @if ($l->href === '/notifications')
           <span class="badge badge-pill badge-danger">
-        {{ auth()->user()->unread_notification_count }}
+            {{ auth()->user()->unread_notification_count }}
           </span>
         @endif
         @if (request()->is($l->href.'*'))

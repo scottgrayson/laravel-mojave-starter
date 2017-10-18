@@ -73,6 +73,14 @@ class MenuItemSeeder extends Seeder
                         'link' => '/admin/campers',
                     ],
                     [
+                        'name' => 'reservations',
+                        'link' => '/admin/reservations',
+                    ],
+                    [
+                        'name' => 'camp dates',
+                        'link' => '/admin/camp-dates',
+                    ],
+                    [
                         'name' => 'tents',
                         'link' => '/admin/tents',
                     ],
@@ -116,6 +124,14 @@ class MenuItemSeeder extends Seeder
                     [
                         'name' => 'campers',
                         'link' => '/admin/campers',
+                    ],
+                    [
+                        'name' => 'reservations',
+                        'link' => '/admin/reservations',
+                    ],
+                    [
+                        'name' => 'camp dates',
+                        'link' => '/admin/camp-dates',
                     ],
                     [
                         'name' => 'tents',
