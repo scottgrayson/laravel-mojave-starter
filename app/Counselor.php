@@ -8,4 +8,9 @@ class Counselor extends Model
     {
         return $this->belongsTo(\App\User::class);
     }
+
+    public function tent()
+    {
+        return $this->belongsTo(\App\Tent::class);
+    }
 }
