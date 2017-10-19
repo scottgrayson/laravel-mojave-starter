@@ -14,31 +14,28 @@
 
     <br>
 
-    <div v-if="fullCampReserved" class="alert alert-success text-center">
-      Full camp reserved for {{ selectedCamper.name }}
+    <div v-if="daysReserved.length" class="alert alert-success text-center">
+      {{ daysReserved.length }}/{{ openDays.length }} days reserved for {{ selectedCamper.name }}
     </div>
-    <div v-else-if="fullCampAvailable" class="alert alert-primary d-flex justify-content-around align-items-center">
-      Full camp openings {{ selectedTent ? ' for ' + selectedTent.name : '' }}
-      <button v-if="fullCampAvailable" class="btn btn-outline-primary" @click="addToCart(true)">
-        Reserve <span class="d-none d-sm-inline">Full Camp</span>
-      </button>
-    </div>
-    <div v-else-if="!fullCampAvailable && selectedTent" class="text-center alert alert-secondary">
-      Full camp not available{{ selectedTent ? ' for ' + selectedTent.name : '' }}. Reserve by day below.
-    </div>
-    <div v-else class="text-center text-muted">
+
+    <div v-show="!selectedTentId" class="text-center text-muted alert px-0">
       Select a tent{{ campers.length ? ' or camper' : '' }} to view openings
     </div>
 
-    <div class="alert px-0" v-if="selectedCamperId && !fullCampReserved">
+    <div class="alert px-0" v-if="selectedTentId">
       <h4>
         Reserve By Day
       </h4>
       <div class="row align-items-center">
-        <p class="col-sm text-muted">
-          {{ selectedDays.length }} Day{{ selectedDays.length == 1 ? '' : 's' }} Selected
-        </p>
-        <div class="col-sm text-right">
+        <div class="col-md text-muted">
+          <p>
+            {{ availableDays.length }}/{{ openDays.length }} Days Available for {{ selectedTent.name }}
+          </p>
+          <p v-if="selectedCamperId">
+            {{ selectedDays.length }}/{{ availableDays.length }} Days Selected for {{ selectedCamper.name }}
+          </p>
+        </div>
+        <div class="col-md text-right">
           <button @click="selectAll" class="btn btn-sm btn-secondary">
             All
           </button>
@@ -183,15 +180,13 @@ export default {
         return
       }
 
-      if (this.canReserve()) {
-        // Toggle Selected Day
-        const date = event.start.format('YYYY-MM-DD')
-        const index = this.selectedDays.indexOf(date)
-        if (index > -1) {
-          this.selectedDays.splice(index, 1)
-        } else {
-          this.selectedDays.push(date)
-        }
+      // Toggle Selected Day
+      const date = event.start.format('YYYY-MM-DD')
+      const index = this.selectedDays.indexOf(date)
+      if (index > -1) {
+        this.selectedDays.splice(index, 1)
+      } else {
+        this.selectedDays.push(date)
       }
     },
 
@@ -321,14 +316,12 @@ export default {
 
   computed: {
 
-    fullCampReserved () {
-      return this.events().every(e => e.reserved)
+    daysReserved () {
+      return this.events().filter(e => e.reserved)
     },
 
-    fullCampAvailable () {
-      return this.availabilities
-        .filter(i => i.tent_id == this.selectedTentId)
-        .every(i => i.tent_limit > i.campers);
+    availableDays () {
+      return this.events().filter(e => e.openings)
     },
 
     selectedCamper () {
