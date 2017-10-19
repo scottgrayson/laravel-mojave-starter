@@ -3,11 +3,14 @@
 Route::get('/', 'DashboardController@dashboard')->name('dashboard');
 
 Route::resource('users', 'UserController', ['except' => ['show']]);
+Route::resource('camp-dates', 'CampDatesController', ['except' => ['show']]);
+Route::resource('reservations', 'ReservationController', ['except' => ['show']]);
 Route::resource('campers', 'CamperController');
 Route::resource('tents', 'TentController');
 Route::resource('images', 'ImageController');
 Route::resource('files', 'FileController');
 Route::resource('pages', 'PageController');
+Route::resource('products', 'ProductController');
 
 // Menu
 // order must go before show/edit/update
