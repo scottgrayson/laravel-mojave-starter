@@ -21,6 +21,7 @@ class CreateCounselorsTable extends Migration
             $table->integer('tent_id')
                 ->references('id')
                 ->on('tents');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
