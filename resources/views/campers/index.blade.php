@@ -38,7 +38,7 @@
               {{ $status[$i->id % 4] }}
             </td>
             <td class="text-right">
-              <a href="{{ route('reservations.index', ['camper' =>  $i->id]) }}"
+              <a href="{{ route('calendar.index', ['camper' =>  $i->id]) }}"
                 class="mb-1 mb-lg-0 btn btn-sm btn-secondary">
                 @svg('calendar', 'text-top')
                 <span class="d-none d-md-inline">
