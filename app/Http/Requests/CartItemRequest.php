@@ -10,7 +10,7 @@ class CartItemRequest extends FormRequest
             'product' => 'required|string|max:255',
             'camper_id' => 'required|numeric',
             'tent_id' => 'required|numeric',
-            'date' => 'required|date',
+            'dates' => 'nullable|array',
         ];
     }
 }

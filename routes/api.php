@@ -16,6 +16,4 @@ use Illuminate\Http\Request;
 Route::resource('reservations', 'ReservationController');
 Route::resource('availabilities', 'AvailabilityController');
 
-Route::middleware('auth')->group(function () {
-    Route::resource('cart-items', 'CartItemController');
-});
+Route::resource('cart-items', 'CartItemController');

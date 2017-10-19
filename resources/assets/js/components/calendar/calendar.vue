@@ -19,8 +19,8 @@
     </div>
     <div v-else-if="fullCampAvailable" class="alert alert-primary d-flex justify-content-around align-items-center">
       Full camp openings {{ selectedTent ? ' for ' + selectedTent.name : '' }}
-      <button v-if="fullCampAvailable" class="btn btn-outline-primary" @click="addToCart('full')">
-        Reserve<span class="d-none d-sm-inline">Full Camp</span>
+      <button v-if="fullCampAvailable" class="btn btn-outline-primary" @click="addToCart(true)">
+        Reserve <span class="d-none d-sm-inline">Full Camp</span>
       </button>
     </div>
     <div v-else-if="!fullCampAvailable && selectedTent" class="text-center alert alert-secondary">
@@ -96,6 +96,7 @@ export default {
 
   created () {
     this.fetchAvailabilities()
+    this.fetchCart()
   },
 
   mounted () {
@@ -111,7 +112,7 @@ export default {
         defaultDate: this.openDays.length ? this.openDays[0] : '',
         eventTextColor: 'white',
         eventBorderColor: 'white',
-        // themeSystem: 'bootstrap3'
+        //themeSystem: 'bootstrap3',
         events: (start, end, timezone, callback) => callback(this.events()),
         eventClick: this.handleEventClick
       })
@@ -138,6 +139,14 @@ export default {
 
     selectNone () {
       this.selectedDays = []
+    },
+
+    getSelectedDaysFromCart () {
+      this.selectedDays = this.cartItems
+        .filter(i => i.camper_id == this.selectedCamperId && i.date)
+        .map(i => {
+          return i.date
+        })
     },
 
     canReserve () {
@@ -186,44 +195,52 @@ export default {
       }
     },
 
-    addToCart () {
+    addToCart (full = false) {
+      if (this.canReserve()) {
+        const title = 'Reserve ' + (full === true ? ' Full Camp?' : this.selectedDays.length + ' Days?')
+        const text =  `${this.selectedCamper.name} in ${this.selectedTent.name}`
 
-      const title = `Reserve ${this.selectedDays.length} Days?`
-      const text =  `${this.selectedCamper.name} in ${this.selectedTent.name} on ${moment(date).format('l')}`
-
-      swal({
-        title: title,
-        text: text,
-        icon: 'warning',
-        buttons: ['Cancel', 'Add to Cart'],
-      })
-        .then(wantsToAdd => {
-          if (wantsToAdd) {
-            axios.post('cart', {
-              camper_id: this.selectedCamperId,
-              tent_id: this.selectedTentId,
-              dates: this.selectedDays,
-            })
-              .then(() => {
-                swal({
-                  icon: 'success',
-                  title: 'Cart Updated.'
-                })
-              })
-              .catch(() => {
-                swal({
-                  icon: 'error',
-                  text: 'There was a problem updating your cart.'
-                })
-              })
-          }
+        swal({
+          title: title,
+          text: text,
+          icon: 'warning',
+          buttons: ['Cancel', 'Add to Cart'],
         })
+          .then(wantsToAdd => {
+            if (wantsToAdd) {
+              axios.post('api/cart-items', {
+                camper_id: this.selectedCamperId,
+                tent_id: this.selectedTentId,
+                product: full === true ? 'full' : 'day',
+                dates: this.selectedDays,
+              })
+                .then(res => {
+                  this.parseCartResponse(res)
+                  swal({
+                    icon: 'success',
+                    title: 'Cart Updated.'
+                  })
+                })
+                .catch((e) => {
+                  console.log(e)
+                  swal({
+                    icon: 'error',
+                    text: 'There was a problem updating your cart.'
+                  })
+                })
+            }
+          })
+      }
+    },
+
+    parseCartResponse (res) {
+      this.cartItems = res.data
     },
 
     handleTentCamperUpdate({ tent, camper }) {
       this.selectedTentId = tent
       this.selectedCamperId = camper
-      this.selectNone()
+      this.getSelectedDaysFromCart()
     },
 
     reloadCalendar () {
@@ -235,6 +252,11 @@ export default {
         .then(res => {
           this.availabilities = res.data
         })
+    },
+
+    fetchCart () {
+      axios.get('/api/cart-items')
+        .then(this.parseCartResponse)
     },
 
     events () {

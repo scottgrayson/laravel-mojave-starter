@@ -2,7 +2,7 @@
   max-width: calc(100% - 1rem);
 }
 
-@include media-breakpoint-down (xs) {
+@media (max-width: 400px) {
   .camp-calendar .fc-view-container {
     margin-left: -10px;
     margin-right: -10px;
