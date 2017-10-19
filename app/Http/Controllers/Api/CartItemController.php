@@ -17,11 +17,7 @@ class CartItemController extends Controller
 
     public function store(CartItemRequest $request)
     {
-        $product = Product::findBySlug(request('product'));
-
-        if (!$product) {
-            abort(404);
-        }
+        $product = Product::findBySlug('day');
 
         // remove existing cart_items for camper_id
         $existing = Cart::content()

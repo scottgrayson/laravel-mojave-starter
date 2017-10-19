@@ -190,9 +190,9 @@ export default {
       }
     },
 
-    addToCart (full = false) {
+    addToCart () {
       if (this.canReserve()) {
-        const title = 'Reserve ' + (full === true ? ' Full Camp?' : this.selectedDays.length + ' Days?')
+        const title = 'Reserve ' + this.selectedDays.length + ' Days?'
         const text =  `${this.selectedCamper.name} in ${this.selectedTent.name}`
 
         swal({
@@ -206,7 +206,6 @@ export default {
               axios.post('api/cart-items', {
                 camper_id: this.selectedCamperId,
                 tent_id: this.selectedTentId,
-                product: full === true ? 'full' : 'day',
                 dates: this.selectedDays,
               })
                 .then(res => {
