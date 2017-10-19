@@ -210,6 +210,7 @@ export default {
               })
                 .then(res => {
                   this.parseCartResponse(res)
+                  bus.$emit('cart-updated', res.data.length)
                   swal({
                     icon: 'success',
                     title: 'Cart Updated.'

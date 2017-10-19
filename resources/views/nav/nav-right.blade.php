@@ -3,13 +3,12 @@
   @foreach(\App\MenuItem::childrenOf('nav right user') as $item)
     @if ($item->name === 'notifications dropdown')
       @include('nav.notifications', ['notifications' => auth()->user()->unreadNotifications])
+    @elseif ($item->href === '/cart')
+      @include('nav.cart-icon', ['l' => $item, 'itemCount' => Cart::content()->count()])
     @else
       @include('nav.nav-item', ['l' => $item])
     @endif
   @endforeach
-
-  {{--
-  --}}
 
 @else
 

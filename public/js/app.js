@@ -56317,6 +56317,7 @@ module.exports = __webpack_require__(192);
 __webpack_require__(137);
 
 window.Vue = __webpack_require__(182);
+window.bus = new Vue();
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -56328,6 +56329,7 @@ __webpack_require__(183);
 
 Vue.component('vue-socket', __webpack_require__(184));
 Vue.component('camp-calendar', __webpack_require__(187));
+Vue.component('cart-count', __webpack_require__(199));
 
 var app = new Vue({
   el: '#app'
@@ -93818,8 +93820,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 
 
@@ -93858,6 +93858,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   created: function created() {
     this.fetchAvailabilities();
+    this.fetchCart();
   },
   mounted: function mounted() {
     var _this = this;
@@ -93865,6 +93866,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     this.$nextTick(function () {
       $('#calendar').fullCalendar({
         weekends: false,
+        height: 'auto',
         header: {
           left: 'title',
           right: 'prev,next'
@@ -93872,7 +93874,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         defaultDate: _this.openDays.length ? _this.openDays[0] : '',
         eventTextColor: 'white',
         eventBorderColor: 'white',
-        // themeSystem: 'bootstrap3'
+        //themeSystem: 'bootstrap3',
         events: function events(start, end, timezone, callback) {
           return callback(_this.events());
         },
@@ -93884,7 +93886,44 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
 
 
+  watch: {
+    cartItems: function cartItems() {
+      this.reloadCalendar();
+    },
+    selectedDays: function selectedDays() {
+      this.reloadCalendar();
+    },
+    availabilities: function availabilities() {
+      this.reloadCalendar();
+    },
+    selectedCamperId: function selectedCamperId() {
+      this.reloadCalendar();
+    },
+    selectedTentId: function selectedTentId() {
+      this.reloadCalendar();
+    }
+  },
+
   methods: {
+    selectAll: function selectAll() {
+      this.selectedDays = this.events().filter(function (e) {
+        return e.openings;
+      }).map(function (e) {
+        return e.start;
+      });
+    },
+    selectNone: function selectNone() {
+      this.selectedDays = [];
+    },
+    getSelectedDaysFromCart: function getSelectedDaysFromCart() {
+      var _this2 = this;
+
+      this.selectedDays = this.cartItems.filter(function (i) {
+        return i.camper_id == _this2.selectedCamperId && i.date;
+      }).map(function (i) {
+        return i.date;
+      });
+    },
     canReserve: function canReserve() {
       if (!this.campers.length) {
         swal({
@@ -93915,49 +93954,53 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return;
       }
 
-      if (this.canReserve()) {
-        // Toggle Selected Day
-        var _date = event.start.format('YYYY-MM-DD');
-        var index = this.selectedDays.indexOf(_date);
-        if (index > -1) {
-          this.selectedDays.splice(index, 1);
-        } else {
-          this.selectedDays.push(_date);
-        }
-
-        this.reloadCalendar();
+      // Toggle Selected Day
+      var date = event.start.format('YYYY-MM-DD');
+      var index = this.selectedDays.indexOf(date);
+      if (index > -1) {
+        this.selectedDays.splice(index, 1);
+      } else {
+        this.selectedDays.push(date);
       }
     },
     addToCart: function addToCart() {
-      var _this2 = this;
+      var _this3 = this;
 
-      var title = 'Reserve ' + this.selectedDays.length + ' Days?';
-      var text = this.selectedCamper.name + ' in ' + this.selectedTent.name + ' on ' + moment(date).format('l');
+      if (this.canReserve()) {
+        var title = 'Reserve ' + this.selectedDays.length + ' Days?';
+        var text = this.selectedCamper.name + ' in ' + this.selectedTent.name;
 
-      swal({
-        title: title,
-        text: text,
-        icon: 'warning',
-        buttons: ['Cancel', 'Add to Cart']
-      }).then(function (wantsToAdd) {
-        if (wantsToAdd) {
-          __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('cart', {
-            camper_id: _this2.selectedCamperId,
-            tent_id: _this2.selectedTentId,
-            dates: _this2.selectedDays
-          }).then(function () {
-            swal({
-              icon: 'success',
-              title: 'Cart Updated.'
+        swal({
+          title: title,
+          text: text,
+          icon: 'warning',
+          buttons: ['Cancel', 'Add to Cart']
+        }).then(function (wantsToAdd) {
+          if (wantsToAdd) {
+            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('api/cart-items', {
+              camper_id: _this3.selectedCamperId,
+              tent_id: _this3.selectedTentId,
+              dates: _this3.selectedDays
+            }).then(function (res) {
+              _this3.parseCartResponse(res);
+              bus.$emit('cart-updated', res.data.length);
+              swal({
+                icon: 'success',
+                title: 'Cart Updated.'
+              });
+            }).catch(function (e) {
+              console.log(e);
+              swal({
+                icon: 'error',
+                text: 'There was a problem updating your cart.'
+              });
             });
-          }).catch(function () {
-            swal({
-              icon: 'error',
-              text: 'There was a problem updating your cart.'
-            });
-          });
-        }
-      });
+          }
+        });
+      }
+    },
+    parseCartResponse: function parseCartResponse(res) {
+      this.cartItems = res.data;
     },
     handleTentCamperUpdate: function handleTentCamperUpdate(_ref) {
       var tent = _ref.tent,
@@ -93965,65 +94008,69 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       this.selectedTentId = tent;
       this.selectedCamperId = camper;
-      this.reloadCalendar();
+      this.getSelectedDaysFromCart();
     },
     reloadCalendar: function reloadCalendar() {
       $('#calendar').fullCalendar('refetchEvents');
     },
     fetchAvailabilities: function fetchAvailabilities() {
-      var _this3 = this;
+      var _this4 = this;
 
       __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/api/availabilities').then(function (res) {
-        _this3.availabilities = res.data;
+        _this4.availabilities = res.data;
       });
     },
+    fetchCart: function fetchCart() {
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/api/cart-items').then(this.parseCartResponse);
+    },
     events: function events() {
-      var _this4 = this;
+      var _this5 = this;
 
       return this.openDays.map(function (date) {
 
-        var reserved = _this4.reservations.find(function (r) {
-          return r.date == date && r.camper_id == _this4.selectedCamperId;
+        var reserved = _this5.reservations.find(function (r) {
+          return r.date == date && r.camper_id == _this5.selectedCamperId;
         });
         if (reserved) {
           return {
             title: 'Reserved',
+            reserved: true,
             start: date,
             className: 'badge badge-success'
           };
         }
 
-        var filled = _this4.availabilities.find(function (r) {
-          return r.date == date && r.tent_id == _this4.selectedTentId && r.tent_limit <= r.campers;
+        var filled = _this5.availabilities.find(function (r) {
+          return r.date == date && r.tent_id == _this5.selectedTentId && r.tent_limit <= r.campers;
         });
         if (filled) {
           return {
             start: date,
             title: 'No Openings',
-            className: 'badge badge-secondary'
+            className: 'badge badge-light text-dark'
           };
         }
 
-        var selected = _this4.selectedDays.indexOf(date) !== -1;
+        var selected = _this5.selectedDays.indexOf(date) !== -1;
         if (selected) {
           return {
             start: date,
-            title: 'Unselect Day',
+            title: 'Selected',
             openings: true,
             selected: true,
-            className: 'badge badge-warning text-dark pointer'
+            className: 'badge badge-primary pointer'
           };
         }
 
-        var available = _this4.availabilities.find(function (r) {
-          return r.date == date && r.tent_id == _this4.selectedTentId;
+        var available = _this5.availabilities.find(function (r) {
+          return r.date == date && r.tent_id == _this5.selectedTentId;
         });
         if (available) {
           return {
             start: date,
-            title: 'Reserve Day',
+            title: 'Available',
             openings: true,
-            className: 'badge badge-primary pointer'
+            className: 'badge badge-secondary pointer'
           };
         }
 
@@ -94037,13 +94084,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
 
   computed: {
-    fullCampAvailable: function fullCampAvailable() {
-      var _this5 = this;
-
-      return this.availabilities.filter(function (i) {
-        return i.tent_id == _this5.selectedTentId;
-      }).every(function (i) {
-        return i.tent_limit > i.campers;
+    daysReserved: function daysReserved() {
+      return this.events().filter(function (e) {
+        return e.reserved;
+      });
+    },
+    availableDays: function availableDays() {
+      return this.events().filter(function (e) {
+        return e.openings;
       });
     },
     selectedCamper: function selectedCamper() {
@@ -94060,6 +94108,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return t.id == _this7.selectedTentId;
       });
     }
+
     // end computed
 
   }
@@ -94262,109 +94311,113 @@ var render = function() {
       _vm._v(" "),
       _c("br"),
       _vm._v(" "),
-      _vm.fullCampAvailable
-        ? _c(
-            "div",
-            {
-              staticClass:
-                "alert alert-primary d-flex justify-content-around align-items-center"
-            },
-            [
-              _vm._v(
-                "\n    Full camp openings " +
-                  _vm._s(
-                    _vm.selectedTent ? " for " + _vm.selectedTent.name : ""
-                  ) +
-                  "\n    "
-              ),
-              _vm.fullCampAvailable
-                ? _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-outline-primary",
-                      on: {
-                        click: function($event) {
-                          _vm.addToCart("full")
-                        }
-                      }
-                    },
-                    [_vm._v("\n      Reserve Full Camp\n    ")]
-                  )
-                : _vm._e()
-            ]
-          )
-        : !_vm.fullCampAvailable && _vm.selectedTent
-          ? _c("div", { staticClass: "text-center alert alert-secondary" }, [
-              _vm._v(
-                "\n    Full camp not available" +
-                  _vm._s(
-                    _vm.selectedTent ? " for " + _vm.selectedTent.name : ""
-                  ) +
-                  ". Reserve by day below.\n  "
-              )
-            ])
-          : _c("div", { staticClass: "text-center text-muted" }, [
-              _vm._v(
-                "\n    Select a tent" +
-                  _vm._s(_vm.campers.length ? " or camper" : "") +
-                  " to view openings\n  "
-              )
-            ]),
+      _vm.daysReserved.length
+        ? _c("div", { staticClass: "alert alert-success text-center" }, [
+            _vm._v(
+              "\n    " +
+                _vm._s(_vm.daysReserved.length) +
+                "/" +
+                _vm._s(_vm.openDays.length) +
+                " days reserved for " +
+                _vm._s(_vm.selectedCamper.name) +
+                "\n  "
+            )
+          ])
+        : _vm._e(),
       _vm._v(" "),
-      _vm.selectedCamperId
-        ? _c("div", { staticClass: "alert" }, [
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: !_vm.selectedTentId,
+              expression: "!selectedTentId"
+            }
+          ],
+          staticClass: "text-center text-muted alert px-0"
+        },
+        [
+          _vm._v(
+            "\n    Select a tent" +
+              _vm._s(_vm.campers.length ? " or camper" : "") +
+              " to view openings\n  "
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _vm.selectedTentId
+        ? _c("div", { staticClass: "alert px-0" }, [
             _c("h4", [_vm._v("\n      Reserve By Day\n    ")]),
             _vm._v(" "),
             _c("div", { staticClass: "row align-items-center" }, [
-              _c("span", { staticClass: "col text-muted" }, [
-                _vm._v(
-                  "\n        " +
-                    _vm._s(_vm.selectedDays.length) +
-                    " Day" +
-                    _vm._s(_vm.selectedDays.length == 1 ? "" : "s") +
-                    " Selected\n      "
-                )
+              _c("div", { staticClass: "col-md text-muted" }, [
+                _c("p", [
+                  _vm._v(
+                    "\n          " +
+                      _vm._s(_vm.availableDays.length) +
+                      "/" +
+                      _vm._s(_vm.openDays.length) +
+                      " Days Available for " +
+                      _vm._s(_vm.selectedTent.name) +
+                      "\n        "
+                  )
+                ]),
+                _vm._v(" "),
+                _vm.selectedCamperId
+                  ? _c("p", [
+                      _vm._v(
+                        "\n          " +
+                          _vm._s(_vm.selectedDays.length) +
+                          "/" +
+                          _vm._s(_vm.availableDays.length) +
+                          " Days Selected for " +
+                          _vm._s(_vm.selectedCamper.name) +
+                          "\n        "
+                      )
+                    ])
+                  : _vm._e()
               ]),
               _vm._v(" "),
-              _vm._m(0)
+              _c("div", { staticClass: "col-md text-right" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-sm btn-secondary",
+                    on: { click: _vm.selectAll }
+                  },
+                  [_vm._v("\n          All\n        ")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-sm btn-secondary",
+                    on: { click: _vm.selectNone }
+                  },
+                  [_vm._v("\n          None\n        ")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-sm btn-secondary",
+                    on: { click: _vm.addToCart }
+                  },
+                  [_vm._v("\n          Update Cart\n        ")]
+                )
+              ])
             ])
           ])
         : _vm._e(),
       _vm._v(" "),
-      _c("div", { attrs: { id: "calendar" } })
+      _c("div", { staticClass: "camp-calendar", attrs: { id: "calendar" } })
     ],
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col" }, [
-      _c(
-        "div",
-        {
-          staticClass: "ml-auto btn-group btn-group-sm",
-          attrs: { role: "group" }
-        },
-        [
-          _c("button", { staticClass: "btn btn-secondary" }, [
-            _vm._v("\n            All\n          ")
-          ]),
-          _vm._v(" "),
-          _c("button", { staticClass: "btn btn-secondary" }, [
-            _vm._v("\n            None\n          ")
-          ]),
-          _vm._v(" "),
-          _c("button", { staticClass: "btn btn-secondary" }, [
-            _vm._v("\n            Update Cart\n          ")
-          ])
-        ]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -94379,6 +94432,123 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 193 */,
+/* 194 */,
+/* 195 */,
+/* 196 */,
+/* 197 */,
+/* 198 */,
+/* 199 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(7)
+/* script */
+var __vue_script__ = __webpack_require__(200)
+/* template */
+var __vue_template__ = __webpack_require__(201)
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/cart/cart-count.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] cart-count.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-057f96fa", Component.options)
+  } else {
+    hotAPI.reload("data-v-057f96fa", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 200 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['initialCount'],
+
+  data: function data() {
+    return {
+      count: 0
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    this.count = parseInt(this.initialCount);
+
+    bus.$on('cart-updated', function (count) {
+      _this.count = count;
+    });
+  }
+});
+
+/***/ }),
+/* 201 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "span",
+    {
+      directives: [
+        {
+          name: "show",
+          rawName: "v-show",
+          value: _vm.count,
+          expression: "count"
+        }
+      ]
+    },
+    [_vm._v("\n  " + _vm._s(_vm.count) + "\n")]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-057f96fa", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

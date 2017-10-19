@@ -1,11 +1,11 @@
 <div class="dropdown">
-  <button data-toggle="dropdown" class="noti dropdown-toggle btn btn-icon mb-2 mb-md-0 mr-2">
+  <button data-toggle="dropdown" class="dropdown-toggle btn btn-icon mb-2 mb-md-0 mr-2">
     @if(auth()->user()->unread_notification_count)
       <span class="noti-badge badge badge-pill badge-danger">
         {{ auth()->user()->unread_notification_count }}
       </span>
     @endif
-    @svg('bell')
+    @svg('bell', 'xl')
   </button>
   <div class="dropdown-menu dropdown-menu-md-right">
     <h6 class="dropdown-header">Notifications</h6>

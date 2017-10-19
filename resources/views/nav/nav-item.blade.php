@@ -2,8 +2,8 @@
 
   <li class="nav-item dropdown">
     @if ($l->name === 'user dropdown')
-      <button data-toggle="dropdown" class="noti dropdown-toggle btn btn-icon mb-2 mb-md-0 mr-2">
-        @svg('user')
+      <button data-toggle="dropdown" class="dropdown-toggle btn btn-icon mb-2 mb-md-0 mr-2">
+        @svg('user', 'xl')
       </button>
     @else
       <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
@@ -53,6 +53,11 @@
     <li class="nav-item {{ (request()->is($l->href.'*')) ? 'active' : '' }}">
       <a class="nav-link {{ (request()->is($l->href.'*')) ? 'active' : '' }}" href="{{$l->href}}">
         {{ title_case($l->label) }}
+        @if ($l->href === '/cart')
+          <cart-count class="badge badge-pill badge-danger"
+            initial-count="{{ Cart::content()->count() }}">
+          </cart-count>
+        @endif
         @if ($l->href === '/notifications')
           <span class="badge badge-pill badge-danger">
             {{ auth()->user()->unread_notification_count }}
