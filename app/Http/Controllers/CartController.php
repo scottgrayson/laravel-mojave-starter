@@ -11,8 +11,30 @@ class CartController extends Controller
 {
     public function index(Request $request)
     {
+
+        $cart = Cart::content();
+        $campers = auth()->user()->campers
+            ->map(function ($camper) use ($cart) {
+                $days = $cart->filter(function ($i) use ($camper) {
+                    return $i->options->camper_id == $camper->id;
+                })->count();
+
+                // TODO do price calculation with discounts for # days > X
+                $rate = 50;
+
+                return (object) [
+                    'camper' => $camper,
+                    'days' => $days,
+                    'rate' => $rate,
+                    'price' => $days * $rate,
+                ];
+            })
+            ->filter(function ($camper) {
+                return $camper->days > 0;
+            });
+
         return view('cart.index', [
-            'items' => Cart::content(),
+            'items' => $campers,
         ]);
     }
 }

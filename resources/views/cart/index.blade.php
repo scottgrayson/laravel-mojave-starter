@@ -20,17 +20,27 @@
         </tr>
       </thead>
       <tbody>
+        @foreach($items as $item)
         <tr>
-          <td>Mark</td>
-          <td>19</td>
-          <td>20</td>
-          <td>380</td>
           <td>
-            <a href="{{ route('calendar.index', ['camper' => 1]) }}" class="btn btn-icon">
+            {{ $item->camper->name }}
+          </td>
+          <td>
+            {{ $item->days }}
+          </td>
+          <td>
+            {{ $item->rate }}
+          </td>
+          <td>
+            {{ $item->price }}
+          </td>
+          <td>
+          <a href="{{ route('calendar.index', ['camper' => $item->camper->id]) }}" class="btn btn-icon">
               @svg('edit')
             </a>
           </td>
         </tr>
+        @endforeach
       </tbody>
     </table>
 

@@ -5,8 +5,8 @@
     </h1>
 
     <tent-camper-select
-      :tent="selectedTentId"
-      :camper="selectedCamperId"
+      :tent="query.tent"
+      :camper="query.camper"
       :campers="campers"
       :tents="tents"
       @update="handleTentCamperUpdate"
@@ -18,11 +18,11 @@
       {{ daysReserved.length }}/{{ openDays.length }} days reserved for {{ selectedCamper.name }}
     </div>
 
-    <div v-show="!selectedTentId" class="text-center text-muted alert px-0">
+    <div v-show="!query.tent" class="text-center text-muted alert px-0">
       Select a tent{{ campers.length ? ' or camper' : '' }} to view openings
     </div>
 
-    <div class="alert px-0" v-if="selectedTentId">
+    <div class="alert px-0" v-if="query.tent">
       <h4>
         Reserve By Day
       </h4>
@@ -31,7 +31,7 @@
           <p>
             {{ availableDays.length }}/{{ openDays.length }} Days Available for {{ selectedTent.name }}
           </p>
-          <p v-if="selectedCamperId">
+          <p v-if="query.camper">
             {{ selectedDays.length }}/{{ availableDays.length }} Days Selected for {{ selectedCamper.name }}
           </p>
         </div>
@@ -55,9 +55,10 @@
 </template>
 
 <script>
-import axios from 'axios';
-import fullCalendar from 'fullcalendar';
-import tentCamperSelect from './tent-camper-select';
+import Query from '../../utils/query'
+import axios from 'axios'
+import fullCalendar from 'fullcalendar'
+import tentCamperSelect from './tent-camper-select'
 
 export default {
   components: { tentCamperSelect },
@@ -83,15 +84,37 @@ export default {
 
   data () {
     return {
-      selectedTentId: 0,
-      selectedCamperId: 0,
+      query: new Query({
+        tent: 0,
+        camper: 0,
+      }),
       selectedDays: [],
       availabilities: [],
       cartItems: [],
+      calendarMounted: false,
     }
   },
 
   created () {
+    if (location.search) {
+      this.query.parse(location.search)
+
+      if (this.query.camper) {
+        const camper = this.campers.find(c => c.id == this.query.camper)
+        if (camper) {
+          this.query.tent = camper.tent_id
+        } else {
+          this.query.camper = 0
+          this.query.tent = 0
+        }
+      } else if (this.query.tent) {
+        const tent = this.tents.find(t => t.id == this.query.tent)
+        this.query.tent = tent ? tent.id : 0
+      }
+
+      this.query.push()
+    }
+
     this.fetchAvailabilities()
     this.fetchCart()
   },
@@ -110,26 +133,28 @@ export default {
         eventTextColor: 'white',
         eventBorderColor: 'white',
         //themeSystem: 'bootstrap3',
-        events: (start, end, timezone, callback) => callback(this.events()),
+        events: (start, end, timezone, callback) => callback(this.events),
         eventClick: this.handleEventClick
       })
+
+      this.calendarMounted = true;
     })
 
     // end mounted
   },
 
   watch: {
-    cartItems: function () { this.reloadCalendar() },
-    selectedDays: function () { this.reloadCalendar() },
-    availabilities: function () { this.reloadCalendar() },
-    selectedCamperId: function () { this.reloadCalendar() },
-    selectedTentId: function () { this.reloadCalendar() },
+    events: function () {
+      if (this.calendarMounted) {
+        this.reloadCalendar()
+      }
+    },
   },
 
   methods: {
 
     selectAll () {
-      this.selectedDays = this.events()
+      this.selectedDays = this.events
         .filter(e => e.openings)
         .map(e => e.start)
     },
@@ -140,7 +165,7 @@ export default {
 
     getSelectedDaysFromCart () {
       this.selectedDays = this.cartItems
-        .filter(i => i.camper_id == this.selectedCamperId && i.date)
+        .filter(i => i.camper_id == this.query.camper && i.date)
         .map(i => {
           return i.date
         })
@@ -161,7 +186,7 @@ export default {
           })
         return false
 
-      } else if (!this.selectedCamperId) {
+      } else if (!this.query.camper) {
         swal({
           title: 'Cannot Reserve',
           text: 'Select a camper before reserving.',
@@ -204,8 +229,8 @@ export default {
           .then(wantsToAdd => {
             if (wantsToAdd) {
               axios.post('api/cart-items', {
-                camper_id: this.selectedCamperId,
-                tent_id: this.selectedTentId,
+                camper_id: this.query.camper,
+                tent_id: this.query.tent,
                 dates: this.selectedDays,
               })
                 .then(res => {
@@ -230,11 +255,13 @@ export default {
 
     parseCartResponse (res) {
       this.cartItems = res.data
+      this.getSelectedDaysFromCart()
     },
 
     handleTentCamperUpdate({ tent, camper }) {
-      this.selectedTentId = tent
-      this.selectedCamperId = camper
+      this.query.tent = tent
+      this.query.camper = camper
+      this.query.push()
       this.getSelectedDaysFromCart()
     },
 
@@ -254,11 +281,16 @@ export default {
         .then(this.parseCartResponse)
     },
 
+    // end methods
+  },
+
+  computed: {
+
     events () {
       return this.openDays.map(date => {
 
         const reserved = this.reservations.find(r => {
-          return r.date == date && r.camper_id == this.selectedCamperId
+          return r.date == date && r.camper_id == this.query.camper
         })
         if (reserved) {
           return {
@@ -270,7 +302,7 @@ export default {
         }
 
         const filled = this.availabilities.find(r => {
-          return r.date == date && r.tent_id == this.selectedTentId && r.tent_limit <= r.campers
+          return r.date == date && r.tent_id == this.query.tent && r.tent_limit <= r.campers
         })
         if (filled) {
           return {
@@ -292,7 +324,7 @@ export default {
         }
 
         const available = this.availabilities.find(r => {
-          return r.date == date && r.tent_id == this.selectedTentId
+          return r.date == date && r.tent_id == this.query.tent
         })
         if (available) {
           return {
@@ -311,25 +343,20 @@ export default {
       })
     },
 
-    // end methods
-  },
-
-  computed: {
-
     daysReserved () {
-      return this.events().filter(e => e.reserved)
+      return this.events.filter(e => e.reserved)
     },
 
     availableDays () {
-      return this.events().filter(e => e.openings)
+      return this.events.filter(e => e.openings)
     },
 
     selectedCamper () {
-      return this.campers.find(c => c.id == this.selectedCamperId)
+      return this.campers.find(c => c.id == this.query.camper)
     },
 
     selectedTent () {
-      return this.tents.find(t => t.id == this.selectedTentId)
+      return this.tents.find(t => t.id == this.query.tent)
     }
 
     // end computed
