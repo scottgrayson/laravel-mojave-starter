@@ -32,7 +32,7 @@
             <td class="d-none d-sm-table-cell">
               {{ $i->status }}
             </td>
-            <td class="text-right d-flex justify-content-end">
+            <td class="d-flex justify-content-end">
               <a href="{{ route('calendar.index', ['camper' =>  $i->id]) }}"
                 class="btn btn-sm btn-secondary">
                 @svg('calendar', 'text-top')
