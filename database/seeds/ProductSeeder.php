@@ -12,16 +12,33 @@ class ProductSeeder extends Seeder
     public function run()
     {
         \DB::table('products')->truncate();
-        $day = \DB::table('products')->insert([
+
+        \DB::table('products')->insert([
             'name' => 'day',
+            'slug' => 'day',
             'price' => '50',
-            'description' => 'day rate',
+            'description' => 'Rate for campers reserving less than 5 days',
         ]);
 
-        $full = \DB::table('products')->insert([
-            'name' => 'full',
-            'price' => '1200',
-            'description' => 'full rate',
+        \DB::table('products')->insert([
+            'name' => 'week rate',
+            'slug' => 'week',
+            'price' => '45',
+            'description' => 'Rate for campers reserving 5 or more days',
+        ]);
+
+        \DB::table('products')->insert([
+            'name' => 'full rate',
+            'slug' => 'full',
+            'price' => '40',
+            'description' => 'Rate for campers reserving full camp',
+        ]);
+
+        \DB::table('products')->insert([
+            'name' => 'Work Party Fee',
+            'slug' => 'work-party-fee',
+            'price' => '100',
+            'description' => 'Waived if you agree to attend a work party during checkout',
         ]);
     }
 }

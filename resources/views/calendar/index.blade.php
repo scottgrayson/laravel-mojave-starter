@@ -2,12 +2,13 @@
 
 @section('content')
 
+  {{-- Props that will not change between page refresh --}}
+
   <camp-calendar
-    :camp-dates="{{ \App\CampDates::current()->toJson() }}"
-    :tents="{{ \App\Tent::all()->toJson() }}"
-    :campers="{{ auth()->check() ? auth()->user()->campers->toJson() : json_encode([]) }}"
+    :open-days="{{ $openDays->toJson() }}"
+    :tents="{{ $tents->toJson() }}"
+    :campers="{{ $campers->toJson() }}"
     :reservations="{{ $reservations->toJson() }}"
-    :availabilities="{{ \App\CampDates::availabilities()->toJson() }}"
     ></camp-calendar>
 
   <br>

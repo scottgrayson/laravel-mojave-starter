@@ -1,8 +1,3 @@
-@php
-  // TODO replace this with logic in \App\Camper
-  $status = ['Pending Approval', 'Registration Incomplete', 'Camp Dates Reserved', 'No Reservations']
-@endphp
-
 @extends('layouts.app')
 
 @section('content')
@@ -35,21 +30,29 @@
               {{ $i->name}}
             </td>
             <td class="d-none d-sm-table-cell">
-              {{ $status[$i->id % 4] }}
+              {{ $i->status }}
             </td>
-            <td class="text-right">
-              <a href="{{ route('reservations.index', ['camper' =>  $i->id]) }}"
-                class="mb-1 mb-lg-0 btn btn-sm btn-secondary">
+            <td class="d-flex justify-content-end">
+              <a href="{{ route('calendar.index', ['camper' =>  $i->id]) }}"
+                class="btn btn-sm btn-secondary">
                 @svg('calendar', 'text-top')
                 <span class="d-none d-md-inline">
                   Reservations
                 </span>
               </a>
               <a href="{{ route('campers.edit', $i->id) }}"
-                class="mb-1 mb-lg-0 btn btn-sm btn-secondary">
+                class="mx-1 btn btn-sm btn-secondary">
                 @svg('edit', 'text-top')
-                <span style="padding-right:0.35rem;" class="d-none d-md-inline">
+                <span class="d-none d-md-inline">
                   Registration
+                </span>
+              </a>
+              <a href="{{ route('campers.destroy', $i->id) }}"
+                data-method="delete"
+                class="btn btn-sm btn-secondary">
+                @svg('trash', 'text-top')
+                <span class="d-none d-md-inline">
+                  Delete
                 </span>
               </a>
             </td>

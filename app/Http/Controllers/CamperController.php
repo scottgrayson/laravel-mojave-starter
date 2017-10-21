@@ -94,8 +94,23 @@ class CamperController extends Controller
 
         $item->update($request->validated());
 
-        flash('Settings updated.');
+        flash('Registration updated.')->success();
 
-        return redirect(route("settings"));
+        return redirect()->back();
+    }
+
+    public function destroy($id)
+    {
+        $item = Camper::findOrFail($id);
+
+        if (request()->user()->id != $item->user_id) {
+            abort(403);
+        }
+
+        $item->delete();
+
+        flash('Camper deleted.')->success();
+
+        return redirect(route("campers.index"));
     }
 }

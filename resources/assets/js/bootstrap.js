@@ -17,13 +17,15 @@ require('bootstrap')
 
 window.select2 = require('select2')
 
-//window.fullCalendar = require('fullcalendar')
-
 window.CodeMirror = require('codemirror')
+
+window.fullCalendar = require('fullcalendar')
 
 window.SimpleMDE = require('simplemde')
 
 window.Sortable = require('sortablejs')
+
+require('./utils/areyousure.js')
 
 /**
  * Next we will register the CSRF Token as a common header with Axios so that
@@ -48,12 +50,12 @@ if (token) {
  * for events that are broadcast by Laravel. Echo and event broadcasting
  * allows your team to easily build robust real-time web applications.
  */
-import Echo from "laravel-echo"
+//import Echo from "laravel-echo"
 
-window.Pusher = require('pusher-js');
+//window.Pusher = require('pusher-js');
 
-window.Echo = new Echo({
-  broadcaster: 'pusher',
-  key: app.pusherKey,
-  cluster: 'us2'
-});
+//window.Echo = new Echo({
+  //broadcaster: 'pusher',
+  //key: app.pusherKey,
+  //cluster: 'us2'
+//});
