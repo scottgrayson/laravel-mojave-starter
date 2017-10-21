@@ -68,6 +68,8 @@ class CamperController extends Controller
             abort(403);
         }
 
+        $currentStep = request('step') ? request('step') : 1;
+
         SEO::setTitle('Camper Registration for ' . $item->label);
         SEO::setDescription('Camper Registration for ' . $item->label);
 
@@ -76,6 +78,7 @@ class CamperController extends Controller
         return view(
             'campers.edit',
             [
+                'currentStep' => $currentStep,
                 'item' => $item,
                 'model' => $this->model,
                 'slug' => $this->slug,
@@ -96,7 +99,16 @@ class CamperController extends Controller
 
         flash('Registration updated.')->success();
 
-        return redirect()->back();
+        $currentStep = request('step') ? request('step') : 1;
+
+        if ($currentStep === 4) {
+            return redirect(route('campers.index'));
+        } else {
+            return redirect(route('campers.edit', [
+                'camper' => $item->id,
+                'step' => $currentStep + 1,
+            ]));
+        }
     }
 
     public function destroy($id)

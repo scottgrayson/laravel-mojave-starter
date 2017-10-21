@@ -15,9 +15,9 @@
 <div class="d-flex align-items-center">
   @foreach ($steps as $step)
     <div class="h2">
-      <span class="badge badge-{{ $currentStep >= $loop->iteration ? 'primary' : 'secondary' }} badge-pill">
+      <a href="{{ $step['href'] }}" class="badge badge-{{ $currentStep >= $loop->iteration ? 'primary' : 'secondary' }} badge-pill">
         {{ $loop->iteration }}
-      </span>
+      </a>
     </div>
 
     @if (!$loop->last)
@@ -31,5 +31,5 @@
 <br>
 
 <h3 class="text-muted text-center">
-  {{ $steps[$currentStep - 1] }}
+  {{ $steps[$currentStep - 1]['label'] }}
 </h3>
