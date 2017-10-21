@@ -12,7 +12,7 @@ class PageSeeder extends Seeder
      */
     public function run()
     {
-        \DB::table('pages')->truncate();
+        \DB::statement('truncate pages cascade');
 
         foreach ($this->pages() as $page) {
             $this->createPage($page);

@@ -17,14 +17,18 @@ class CreateImagesTable extends Migration
             $table->increments('id');
             $table->integer('user_id')
                 ->nullable()
-                ->unsigned()
+                ->unsigned();
+            $table->foreign('user_id')
                 ->references('id')
-                ->on('users');
-            $table->string('file_id')
-                ->unsigned()
+                ->on('users')
+                ->onDelete('set null');
+            $table->integer('file_id')
+                ->unsigned();
+            $table->foreign('file_id')
                 ->references('id')
                 ->on('files')
-                ->nullable();
+                ->onDelete('cascade');
+            $table->index('file_id');
             $table->string('name');
             $table->timestamps();
         });

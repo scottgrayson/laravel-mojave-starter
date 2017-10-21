@@ -16,13 +16,19 @@ class CreateCampersTable extends Migration
         Schema::create('campers', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')
-                ->unsigned()
+                ->unsigned();
+            $table->foreign('user_id')
                 ->references('id')
-                ->on('users');
+                ->on('users')
+                ->onDelete('restrict');
+            $table->index('user_id');
             $table->integer('tent_id')
-                ->unsigned()
+                ->unsigned();
+            $table->foreign('tent_id')
                 ->references('id')
-                ->on('tents');
+                ->on('tents')
+                ->onDelete('restrict');
+            $table->index('tent_id');
             $table->string('name');
 
             /*
