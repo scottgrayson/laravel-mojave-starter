@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Cart;
+use SEO;
 use App\Product;
 use App\CampDates;
 use App\Http\Controllers\Controller;
@@ -13,6 +14,7 @@ class CartController extends Controller
 {
     public function index(Request $request)
     {
+        SEO::setTitle('My Cart');
 
         $cart = Cart::content();
 
@@ -65,10 +67,25 @@ class CartController extends Controller
         $total = $items->sum('subtotal');
 
         return view('cart.index', [
+            'noReservations' => $campers->isEmpty(),
             'items' => $items,
             'total' => $total,
             'rates' => $rates,
             'workPartyFee' => $workPartyFee,
         ]);
+    }
+
+    public function destroy()
+    {
+        try {
+            Cart::destroy();
+        } catch (\Exceptions $e) {
+            flash('There was a problem resetting your cart.')->error();
+            return redirect()->back();
+        }
+
+        flash('Your cart is now empty.')->success();
+
+        return redirect()->back();
     }
 }

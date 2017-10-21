@@ -7,21 +7,38 @@
 
   <br>
 
-  <span class="lead">
-    Daily rate is:
-  </span>
-  <ul>
-    @foreach($rates as $rate)
-      <li>
-        <b>${{ $rate->price }}</b>
-        {{ $rate->description }}
-      </li>
-    @endforeach
-  </ul>
+  @if($noReservations)
 
-  <br>
+    <div class="alert alert-info">
+      <h4>
+        Your Cart Is Empty
+      </h4>
+      <div class="d-flex justify-content-between align-items-center">
+        <span>
+          Go to our calendar to reserve days for your campers.
+        </span>
 
-  @if($items->count())
+        <a href="/calendar" class="btn btn-outline-info">
+          Calendar
+        </a>
+      </div>
+    </div>
+
+  @else
+
+    <span class="lead">
+      Daily rate is:
+    </span>
+    <ul>
+      @foreach($rates as $rate)
+        <li>
+          <b>${{ $rate->price }}</b>
+          {{ $rate->description }}
+        </li>
+      @endforeach
+    </ul>
+
+    <br>
 
     <table class="table">
       <thead>
@@ -84,23 +101,6 @@
       <a href="/checkout" class="btn btn-primary">
         Checkout
       </a>
-    </div>
-
-  @else
-
-    <div class="alert alert-info">
-      <h4>
-        Your Cart Is Empty
-      </h4>
-      <div class="d-flex justify-content-between align-items-center">
-        <span>
-          Go to our calendar to reserve days for your campers.
-        </span>
-
-        <a href="/calendar" class="btn btn-outline-info">
-          Calendar
-        </a>
-      </div>
     </div>
 
   @endif

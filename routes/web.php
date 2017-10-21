@@ -41,6 +41,8 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('campers', 'CamperController');
 
+    Route::delete('cart', 'CartController@destroy')->name('cart.destroy');
+
     Route::resource('cart', 'CartController', [
         'only' => ['index'],
     ]);
