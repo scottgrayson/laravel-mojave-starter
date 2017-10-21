@@ -2,8 +2,25 @@
 
 namespace App;
 
+use Cache;
+
 class MenuItem extends Model
 {
+    protected $with = [
+        'page',
+        'children',
+    ];
+
+    public static function boot()
+    {
+        static::saving(function ($menuItem) {
+            $menuNames = static::whereHas('children')->pluck('name');
+            foreach ($menuNames as $name) {
+                Cache::forget('menu.' . $name);
+            }
+        });
+    }
+
     public function parent()
     {
         return $this->belongsTo(MenuItem::class, 'parent_id');
@@ -22,9 +39,11 @@ class MenuItem extends Model
 
     public static function childrenOf($name)
     {
-        $menu = static::where('name', $name)->first();
+        return Cache::rememberForever('menu.' . $name, function () use ($name) {
+            $menu = static::with('children')->where('name', $name)->first();
 
-        return $menu ? $menu->children : collect([]);
+            return $menu ? $menu->children : collect([]);
+        });
     }
 
     /**
@@ -57,7 +76,7 @@ class MenuItem extends Model
 
     public function getHrefAttribute()
     {
-        if ($this->page) {
+        if ($this->page_id) {
             return $this->page->uri;
         } elseif (!$this->link) {
             return '#';

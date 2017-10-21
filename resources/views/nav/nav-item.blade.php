@@ -1,4 +1,4 @@
-@if($l->children()->count())
+@if($l->children->count())
 
   <li class="nav-item dropdown">
     @if ($l->name === 'user dropdown')
