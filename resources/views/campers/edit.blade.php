@@ -66,4 +66,6 @@ $steps = [
 
   {{ Form::close() }}
 
+  <br>
+
 @endsection

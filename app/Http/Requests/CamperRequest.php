@@ -86,8 +86,6 @@ class CamperRequest extends FormRequest
                 'guardian_employer_name' => 'required|string|max:255',
                 'guardian_employer_title' => 'required|string|max:255',
             ], [
-                'allergies' => 'required|string',
-                'medical_conditions' => 'required|string',
                 'physician_name' => 'required|string|max:255',
                 'physician_phone' => 'required|phone:AUTO,US',
                 'insurance_carrier' => 'required|string|max:255',
@@ -95,6 +93,8 @@ class CamperRequest extends FormRequest
                 'alternate_contact_name' => 'required|string|max:255',
                 'alternate_contact_daytime_phone' => 'required|phone:AUTO,US',
                 'alternate_contact_evening_phone' => 'required|phone:AUTO,US',
+                'allergies' => 'required|string',
+                'medical_conditions' => 'required|string',
             ], [
                 'photo_consent' => 'boolean',
             ],

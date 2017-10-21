@@ -19,6 +19,11 @@ class EditCamperTest extends TestCase
         ]);
         $camper->name = 'Updated Name';
         $camper->address = 'Updated Address';
+        $camper->city = 'city';
+        $camper->state = 'state';
+        $camper->township = 'township';
+        $camper->phone = '18003334444';
+        $camper->birthdate = '2017-10-10';
 
         $this->be($user);
         $r = $this->get(route('campers.edit', $camper->id));
@@ -39,11 +44,22 @@ class EditCamperTest extends TestCase
             'tent_id' => $tent->id,
             'user_id' => $otheruser->id,
         ]);
+        $camper->name = 'Updated Name';
+        $camper->address = 'Updated Address';
+        $camper->city = 'city';
+        $camper->state = 'state';
+        $camper->township = 'township';
+        $camper->phone = '18003334444';
+        $camper->birthdate = '2017-10-10';
 
         $this->be($user);
         $r = $this->get(route('campers.edit', $camper->id));
         $r->assertStatus(403);
+
         $r = $this->put(route('campers.update', $camper->id), $camper->toArray());
         $r->assertStatus(403);
+
+        $this->assertNotEquals($camper->fresh()->name, $camper->name);
+        $this->assertNotEquals($camper->fresh()->address, $camper->address);
     }
 }
