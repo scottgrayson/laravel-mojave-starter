@@ -7,39 +7,64 @@
 
   <br>
 
+  <span class="lead">
+    Daily rate is:
+  </span>
+  <ul>
+    @foreach($rates as $rate)
+      <li>
+        <b>${{ $rate->price }}</b>
+        {{ $rate->description }}
+      </li>
+    @endforeach
+  </ul>
+
+  <br>
+
   @if($items->count())
 
     <table class="table">
       <thead>
         <tr>
           <th>Camper</th>
-          <th>Days</th>
+          <th>Qty</th>
           <th>Rate</th>
-          <th>Price</th>
+          <th>Subtotal</th>
           <th>Edit</th>
         </tr>
       </thead>
       <tbody>
         @foreach($items as $item)
-        <tr>
-          <td>
-            {{ $item->camper->name }}
-          </td>
-          <td>
-            {{ $item->days }}
-          </td>
-          <td>
-            ${{ $item->rate }}
-          </td>
-          <td>
-            ${{ $item->price }}
-          </td>
-          <td>
-          <a href="{{ route('calendar.index', ['camper' => $item->camper->id]) }}" class="btn btn-icon">
-              @svg('edit')
-            </a>
-          </td>
-        </tr>
+          <tr>
+            @if (isset($item->workPartyNotice))
+              <td colspan="3">
+                {{ $item->name }}
+                <small class="text-muted">
+                  ({{ $item->workPartyNotice }})
+                </small>
+              </td>
+            @else
+              <td>
+                {{ $item->name }}
+              </td>
+              <td>
+                {{ $item->qty }}
+              </td>
+              <td>
+                ${{ $item->rate }}
+              </td>
+            @endif
+            <td>
+              ${{ $item->subtotal }}
+            </td>
+            <td>
+              @if (isset($item->camper_id))
+                <a href="{{ route('calendar.index', ['camper' => $item->camper_id]) }}" class="btn btn-icon">
+                  @svg('edit')
+                </a>
+              @endif
+            </td>
+          </tr>
         @endforeach
       </tbody>
     </table>
