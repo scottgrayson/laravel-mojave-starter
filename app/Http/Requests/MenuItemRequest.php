@@ -7,9 +7,9 @@ class MenuItemRequest extends FormRequest
     public function adminCreateRules()
     {
         return [
-            'name' => 'required',
-            'label' => 'required',
-            'link' => 'nullable',
+            'name' => 'required|string|max:255',
+            'label' => 'required|string|max:255',
+            'link' => 'nullable|string|max:255',
             'page_id' => 'nullable|numeric',
             'parent_id' => 'nullable|numeric',
             'target_blank' => 'boolean',
@@ -19,8 +19,8 @@ class MenuItemRequest extends FormRequest
     public function adminEditRules()
     {
         return [
-            'label' => 'required',
-            'link' => 'nullable',
+            'label' => 'required|string|max:255',
+            'link' => 'nullable|string|max:255',
             'page_id' => 'nullable|numeric',
             'parent_id' => 'nullable|numeric',
             'target_blank' => 'boolean',

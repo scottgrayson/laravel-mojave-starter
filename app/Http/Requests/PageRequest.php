@@ -7,12 +7,12 @@ class PageRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'title' => 'required',
-            'uri' => 'required',
+            'name' => 'required|string|max:255',
+            'title' => 'required|string|max:255',
+            'uri' => 'required|string|max:255',
             'published' => 'boolean',
-            'meta_title' => 'nullable',
-            'meta_description' => 'nullable',
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string',
             'meta_tags' => 'nullable',
             'content' => 'nullable',
         ];
