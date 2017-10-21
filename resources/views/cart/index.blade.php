@@ -29,10 +29,10 @@
             {{ $item->days }}
           </td>
           <td>
-            {{ $item->rate }}
+            ${{ $item->rate }}
           </td>
           <td>
-            {{ $item->price }}
+            ${{ $item->price }}
           </td>
           <td>
           <a href="{{ route('calendar.index', ['camper' => $item->camper->id]) }}" class="btn btn-icon">
@@ -46,7 +46,7 @@
 
     <div class="text-right">
       <b>Total</b>
-      <b>$1000</b>
+      <b>${{ $total }}</b>
     </div>
 
     <hr>

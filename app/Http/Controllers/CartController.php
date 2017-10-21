@@ -33,8 +33,11 @@ class CartController extends Controller
                 return $camper->days > 0;
             });
 
+        $total = $campers->sum('price');
+
         return view('cart.index', [
             'items' => $campers,
+            'total' => $total,
         ]);
     }
 }
