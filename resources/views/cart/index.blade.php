@@ -77,9 +77,9 @@
     <hr>
 
     <div class="text-right">
-      <button type="delete" href="/cart" class="btn btn-secondary">
+      <a data-method="delete" type="delete" href="/cart" class="btn btn-secondary">
         Reset Cart
-      </button>
+      </a>
 
       <a href="/checkout" class="btn btn-primary">
         Checkout
