@@ -56,8 +56,6 @@
 
 <script>
 import Query from '../../utils/query'
-import axios from 'axios'
-import fullCalendar from 'fullcalendar'
 import tentCamperSelect from './tent-camper-select'
 
 export default {

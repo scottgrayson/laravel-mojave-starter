@@ -13,7 +13,21 @@ require('dotenv').config()
  */
 
 mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css')
+  //.extract([
+    //'vue',
+    //'jquery',
+    //'fullcalendar',
+    //'moment',
+    //'select2',
+    //'simplemde',
+    //'codemirror',
+    //'sortablejs',
+    //'sweetalert',
+    //'bootstrap',
+    //'popper.js',
+  //])
+
+  .sass('resources/assets/sass/app.scss', 'public/css')
 
 mix.browserSync(process.env.APP_URL)
 
