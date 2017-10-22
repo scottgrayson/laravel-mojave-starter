@@ -11,7 +11,7 @@ class ImageSeeder extends Seeder
      */
     public function run()
     {
-        \DB::table('images')->truncate();
+        \DB::statement('truncate images cascade');
 
         $imageFiles = \App\File::where('mimetype', 'like', 'image%')->get();
         $userCount = \App\User::count();

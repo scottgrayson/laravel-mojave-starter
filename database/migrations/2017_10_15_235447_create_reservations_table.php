@@ -15,22 +15,39 @@ class CreateReservationsTable extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->increments('id');
+
             $table->integer('user_id')
-                ->unsigned()
+                ->unsigned();
+            $table->foreign('user_id')
                 ->references('id')
-                ->on('users');
+                ->on('users')
+                ->onDelete('restrict');
+            $table->index('user_id');
+
             $table->integer('camper_id')
-                ->unsigned()
+                ->unsigned();
+            $table->foreign('camper_id')
                 ->references('id')
-                ->on('campers');
+                ->on('campers')
+                ->onDelete('restrict');
+            $table->index('camper_id');
+
             $table->integer('tent_id')
-                ->unsigned()
+                ->unsigned();
+            $table->foreign('tent_id')
                 ->references('id')
-                ->on('tents');
+                ->on('tents')
+                ->onDelete('restrict');
+            $table->index('tent_id');
+
             //$table->integer('payment_id')
-                //->unsigned()
-                //->references('id')
-                //->on('payments');
+            //->unsigned();
+            //$table->foreign('payment_id')
+            //->references('id')
+            //->on('payments')
+            //->onDelete('restrict');
+            //$table->index('tent_id');
+
             $table->date('date');
             $table->timestamps();
         });
