@@ -8,6 +8,8 @@ use Illuminate\Auth\Notifications\ResetPassword;
 use App\Notifications\InviteUser;
 use Spatie\Permission\Traits\HasRoles;
 
+use App\Counselor;
+
 class User extends Authenticatable
 {
     use HasRoles, Notifiable;
@@ -73,6 +75,9 @@ class User extends Authenticatable
 
     public function isCounselor()
     {
-        $this->counselor()->count() > 0 ? true : false;
+        $counselor = Counselor::where('user_id', $this->id)
+            ->where('year', \Carbon\Carbon::now()->year)
+            ->count(); 
+        return $counselor > 0 ? true : false;
     }
 }
