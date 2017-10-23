@@ -20,7 +20,7 @@ class CounselorSeeder extends Seeder
             ->each(function ($i, $key) use ($userCount, $tentCount) {
                 $i->user_id = rand(1, $userCount);
                 $i->tent_id = rand(1, $tentCount);
-                $i->camp_year = \Carbon\Carbon::now();
+                $i->camp_year = \Carbon\Carbon::now()->year;
             })->toArray();
 
         \DB::table('counselors')->insert($counselors);
