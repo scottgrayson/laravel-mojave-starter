@@ -35,6 +35,24 @@ class EditCamperTest extends TestCase
         $this->assertEquals($user->campers()->first()->address, $camper->address);
     }
 
+    public function testLastStepRedirect()
+    {
+        $user = factory(User::class)->create();
+        $tent = factory(Tent::class)->create();
+        $camper = factory(Camper::class)->create([
+            'tent_id' => $tent->id,
+            'user_id' => $user->id,
+        ]);
+
+        $this->be($user);
+        $r = $this->get(route('campers.edit', ['camper' => $camper->id, 'step' => 4]));
+        $r->assertStatus(200);
+
+        $r = $this->put(route('campers.update', ['camper' => $camper->id, 'step' => 4]), $camper->toArray());
+
+        $r->assertRedirect(route('campers.index'));
+    }
+
     public function testCannotEditOtherParentsCampers()
     {
         $user = factory(User::class)->create();
