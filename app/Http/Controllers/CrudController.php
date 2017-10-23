@@ -120,7 +120,8 @@ class CrudController extends Controller
         $viewPrefix = request()->is('admin*') ? 'admin.' : '';
 
         return view(
-            $viewPrefix.'crud.index', [
+            $viewPrefix.'crud.index',
+            [
                 'sort' => $sort,
                 'order' => $order,
                 'cols' => $cols,
