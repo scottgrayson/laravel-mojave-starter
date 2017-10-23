@@ -67,6 +67,9 @@ class CrudController extends Controller
                 }
         )->toArray();
 
+        $sort = request('sort', $defaultSort);
+        $order = request('order', $defaultOrder);
+
         $items = $this->model::with($relations)
             ->where(
                 function ($q) use ($request, $relations, $cols) {
@@ -99,8 +102,8 @@ class CrudController extends Controller
                 }
         )
             ->orderBy(
-                request('sort', $defaultSort),
-                request('order', $defaultOrder)
+                $sort,
+                $order
             )
             ->paginate(config('settings.paginate'));
 
@@ -114,6 +117,8 @@ class CrudController extends Controller
 
         return view(
             $viewPrefix.'crud.index', [
+                'sort' => $sort,
+                'order' => $order,
                 'cols' => $cols,
                 'slug' => $this->slug,
                 'model' => $this->model,
