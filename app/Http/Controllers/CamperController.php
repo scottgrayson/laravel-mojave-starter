@@ -68,22 +68,27 @@ class CamperController extends Controller
             abort(403);
         }
 
-        $currentStep = request('step');
+        $requestedStep = request('step');
+        $currentStep = 1;
 
         $camperRequest = new CamperRequest;
 
-        if (!$currentStep) {
-            foreach ($camperRequest->steps() as $index => $stepFields) {
-                $unfinished = collect($stepFields)
-                    ->contains(function ($rules, $field) use ($camper) {
-                        return strpos($rules, 'required') !== false && !$camper->$field;
-                    });
+        foreach ($camperRequest->steps() as $index => $stepFields) {
+            $unfinished = collect($stepFields)
+                ->contains(function ($rules, $field) use ($camper) {
+                    return strpos($rules, 'required') !== false && !$camper->$field;
+                });
 
-                $currentStep = $index + 1;
-                if ($unfinished) {
-                    return redirect(route('campers.edit', ['camper' => $camper->id, 'step' => $currentStep]));
-                }
+            $currentStep = $index + 1;
+            if ($unfinished) {
+                break;
             }
+        }
+
+        if ($currentStep < $requestedStep) {
+            return redirect(route('campers.edit', ['camper' => $camper->id, 'step' => $currentStep]));
+        } else {
+            $currentStep = $requestedStep;
         }
 
         SEO::setTitle('Camper Registration for ' . $camper->label);
