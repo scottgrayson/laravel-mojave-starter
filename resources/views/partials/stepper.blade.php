@@ -9,27 +9,33 @@
   ];
 
   $currentStep = 1;
-  */
-@endphp
+   */
+ @endphp
 
-<div class="d-flex align-items-center">
-  @foreach ($steps as $step)
-    <div class="h2">
-      <a href="{{ $step['href'] }}" class="badge badge-{{ $currentStep >= $loop->iteration ? 'primary' : 'secondary' }} badge-pill">
-        {{ $loop->iteration }}
-      </a>
-    </div>
+ <div class="d-flex align-items-center">
+   @foreach ($steps as $step)
+     <div class="h2">
+       @if(isset($step['href']) && $currentStep > $loop->iteration)
+         <a href="{{ $step['href'] }}" class="badge badge-{{ $currentStep >= $loop->iteration ? 'primary' : 'secondary' }} badge-pill">
+           {{ $loop->iteration }}
+         </a>
+       @else
+         <span class="badge badge-{{ $currentStep >= $loop->iteration ? 'primary' : 'secondary' }} badge-pill">
+           {{ $loop->iteration }}
+         </span>
+       @endif
+     </div>
 
-    @if (!$loop->last)
-      <div class="col">
-        <hr>
-      </div>
-    @endif
-  @endforeach
-</div>
+     @if (!$loop->last)
+       <div class="col">
+         <hr>
+       </div>
+     @endif
+   @endforeach
+ </div>
 
-<br>
+ <br>
 
-<h3 class="text-muted text-center">
-  {{ $steps[$currentStep - 1]['label'] }}
-</h3>
+ <h3 class="text-muted text-center">
+   {{ $steps[$currentStep - 1]['label'] }}
+ </h3>

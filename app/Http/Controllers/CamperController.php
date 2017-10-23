@@ -68,12 +68,28 @@ class CamperController extends Controller
             abort(403);
         }
 
-        $currentStep = request('step') ? request('step') : 1;
+        $currentStep = request('step');
+
+        $camperRequest = new CamperRequest;
+
+        if (!$currentStep) {
+            foreach ($camperRequest->steps() as $index => $stepFields) {
+                $unfinished = collect($stepFields)
+                    ->contains(function ($rules, $field) use ($camper) {
+                        return strpos($rules, 'required') !== false && !$camper->$field;
+                    });
+
+                $currentStep = $index + 1;
+                if ($unfinished) {
+                    return redirect(route('campers.edit', ['camper' => $camper->id, 'step' => $currentStep]));
+                }
+            }
+        }
 
         SEO::setTitle('Camper Registration for ' . $camper->label);
         SEO::setDescription('Camper Registration for ' . $camper->label);
 
-        $fields = $this->getFieldsFromRules(new CamperRequest);
+        $fields = $this->getFieldsFromRules($camperRequest);
 
         // PREFILL
         $doNotPrefill = [
@@ -137,9 +153,15 @@ class CamperController extends Controller
             abort(403);
         }
 
-        $item->update($request->validated());
+        $item->fill($request->validated());
 
-        flash('Registration updated.')->success();
+        $changed = $item->isDirty();
+
+        $item->save();
+
+        if ($changed) {
+            flash('Registration updated.')->success();
+        }
 
         $currentStep = request('step') ? request('step') : 1;
 
