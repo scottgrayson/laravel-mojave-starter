@@ -101,7 +101,7 @@ class CamperController extends Controller
 
         $currentStep = request('step') ? request('step') : 1;
 
-        if ($currentStep === 4) {
+        if ($currentStep == 4) {
             return redirect(route('campers.index'));
         } else {
             return redirect(route('campers.edit', [
