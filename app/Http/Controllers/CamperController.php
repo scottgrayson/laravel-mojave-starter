@@ -85,7 +85,7 @@ class CamperController extends Controller
             }
         }
 
-        if ($currentStep < $requestedStep) {
+        if (!$requestedStep || $currentStep < $requestedStep) {
             return redirect(route('campers.edit', ['camper' => $camper->id, 'step' => $currentStep]));
         } else {
             $currentStep = $requestedStep;

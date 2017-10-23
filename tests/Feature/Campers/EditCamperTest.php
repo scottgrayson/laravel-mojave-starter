@@ -28,7 +28,7 @@ class EditCamperTest extends TestCase
 
         $this->be($user);
         $r = $this->get(route('campers.edit', $camper->id));
-        $r->assertStatus(200);
+        $r->assertStatus(302);
 
         $r = $this->put(route('campers.update', $camper->id), $camper->toArray());
 
@@ -46,8 +46,6 @@ class EditCamperTest extends TestCase
         ]);
 
         $this->be($user);
-        $r = $this->get(route('campers.edit', ['camper' => $camper->id, 'step' => 4]));
-        $r->assertStatus(200);
 
         $r = $this->put(route('campers.update', ['camper' => $camper->id, 'step' => 4]), $camper->toArray());
 
