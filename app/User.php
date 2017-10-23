@@ -65,4 +65,14 @@ class User extends Authenticatable
     {
         return $this->hasRole('admin');
     }
+
+    public function counselor()
+    {
+        return $this->hasOne(\App\Counselor::class);
+    }
+
+    public function isCounselor()
+    {
+        $this->counselor()->count() > 0 ? true : false;
+    }
 }

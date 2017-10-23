@@ -13,7 +13,7 @@ class CounselorController extends CrudController
         'id',
         'user_id',
         'tent_id',
-        'camp_year',
+        'year',
         'head_counselor',
     ];
 }

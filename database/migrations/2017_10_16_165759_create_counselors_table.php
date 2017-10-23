@@ -18,7 +18,7 @@ class CreateCounselorsTable extends Migration
 
             $table->boolean('head_counselor')
                 ->default(false);
-            $table->integer('camp_year')
+            $table->integer('year')
                 ->nullable();
 
             $table->integer('user_id')
