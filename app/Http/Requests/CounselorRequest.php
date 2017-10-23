@@ -9,6 +9,8 @@ class CounselorRequest extends FormRequest
         return [
             'user_id' => 'required|numeric',
             'tent_id' => 'required|numeric',
+            'head_counselor' => 'required|boolean',
+            'camp_year' => 'date',
         ];
     }
 }
