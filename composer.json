@@ -9,6 +9,7 @@
         "artesaos/seotools": "^0.10.0",
         "erusev/parsedown": "^1.6",
         "fideloper/proxy": "~3.3",
+        "gloudemans/shoppingcart": "^2.4",
         "laracasts/flash": "^3.0",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",

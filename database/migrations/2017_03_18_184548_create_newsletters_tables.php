@@ -18,7 +18,14 @@ class CreateNewslettersTables extends Migration
             $table->string('subject', 124);
             $table->text('body')->nullable();
             $table->datetime('sent_at')->nullable();
-            $table->integer('user_id')->unsigned()->nullable();
+            $table->integer('user_id')
+                ->unsigned()
+                ->nullable();
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('set null');
+            $table->index('user_id');
             $table->timestamps();
         });
 
@@ -26,8 +33,12 @@ class CreateNewslettersTables extends Migration
             $table->increments('id');
             $table->string('slug')->unique();
             $table->integer('newsletter_id')
-                ->unsigned()
-                ->references('id')->on('newsletters')->index();
+                ->unsigned();
+            $table->foreign('newsletter_id')
+                ->references('id')
+                ->on('newsletters')
+                ->onDelete('cascade');
+            $table->index('newsletter_id');
             $table->text('target');
             $table->timestamps();
         });
@@ -35,8 +46,12 @@ class CreateNewslettersTables extends Migration
         Schema::create('newsletter_opens', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('newsletter_id')
-                ->unsigned()
-                ->references('id')->on('newsletters')->index();
+                ->unsigned();
+            $table->foreign('newsletter_id')
+                ->references('id')
+                ->on('newsletters')
+                ->onDelete('cascade');
+            $table->index('newsletter_id');
             $table->string('ip_address')->nullable();
             $table->string('user_agent')->nullable();
             $table->timestamps();
@@ -51,11 +66,19 @@ class CreateNewslettersTables extends Migration
         Schema::create('newsletter_clicks', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('newsletter_url_id')
-                ->unsigned()
-                ->references('id')->on('newsletter_urls')->index();
+                ->unsigned();
+            $table->foreign('newsletter_url_id')
+                ->references('id')
+                ->on('newsletter_urls')
+                ->onDelete('cascade');
+            $table->index('newsletter_url_id');
             $table->integer('newsletter_id')
-                ->unsigned()
-                ->references('id')->on('newsletters')->index();
+                ->unsigned();
+            $table->foreign('newsletter_id')
+                ->references('id')
+                ->on('newsletters')
+                ->onDelete('cascade');
+            $table->index('newsletter_id');
             $table->string('ip_address')->nullable();
             $table->string('user_agent')->nullable();
             $table->timestamps();
@@ -71,11 +94,11 @@ class CreateNewslettersTables extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::dropIfExists('newsletters');
-        Schema::dropIfExists('newsletter_urls');
         Schema::dropIfExists('newsletter_opens');
         Schema::dropIfExists('newsletter_subscribers');
         Schema::dropIfExists('newsletter_clicks');
+        Schema::dropIfExists('newsletter_urls');
+        Schema::dropIfExists('newsletters');
 
         Schema::enableForeignKeyConstraints();
     }

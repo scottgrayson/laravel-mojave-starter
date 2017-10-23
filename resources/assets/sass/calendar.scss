@@ -1,3 +1,15 @@
 .fc-event.badge {
   max-width: calc(100% - 1rem);
 }
+
+@media (max-width: 400px) {
+  .camp-calendar .fc-view-container {
+    margin-left: -10px;
+    margin-right: -10px;
+  }
+  .fc-event.badge {
+    font-size: 0.625rem;
+    font-weight: 400;
+  }
+}
+

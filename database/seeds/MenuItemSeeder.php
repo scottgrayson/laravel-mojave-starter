@@ -13,7 +13,7 @@ class MenuItemSeeder extends Seeder
      */
     public function run()
     {
-        \DB::table('menu_items')->truncate();
+        \DB::statement('truncate menu_items cascade');
 
         foreach ($this->menus() as $menu) {
             $this->createMenuItem($menu);
@@ -193,10 +193,11 @@ class MenuItemSeeder extends Seeder
             [
                 'name' => 'nav right user',
                 'children' => [
-                    [ 'name' => 'notifications dropdown' ],
+                    [ 'name' => 'cart' ],
                     [
                         'name' => 'user dropdown',
                         'children' => [
+                            [ 'name' => 'notifications' ],
                             [ 'name' => 'settings' ],
                             [ 'name' => 'campers' ],
                             [ 'name' => 'logout' ],
@@ -267,6 +268,7 @@ class MenuItemSeeder extends Seeder
                     $this->pageItem('calendar'),
                     $this->pageItem('contact'),
                     $this->pageItem('my account'),
+                    [ 'name' => 'cart' ],
                     [ 'name' => 'notifications' ],
                     [ 'name' => 'logout' ],
                 ],
