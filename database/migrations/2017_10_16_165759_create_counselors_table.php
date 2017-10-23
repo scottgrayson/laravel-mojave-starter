@@ -18,7 +18,8 @@ class CreateCounselorsTable extends Migration
 
             $table->boolean('head_counselor')
                 ->default(false);
-            $table->date('camp_year');
+            $table->date('camp_year')
+                ->nullable();
 
             $table->integer('user_id')
                 ->unsigned();

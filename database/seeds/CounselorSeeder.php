@@ -11,6 +11,8 @@ class CounselorSeeder extends Seeder
      */
     public function run()
     {
+        \DB::statement('truncate counselors cascade');
+
         $userCount = \App\User::count();
         $tentCount = \App\Tent::count();
 
@@ -20,6 +22,6 @@ class CounselorSeeder extends Seeder
                 $i->tent_id = rand(1, $tentCount);
             })->toArray();
 
-        DB::table('counselors')->insert($counselors);
+        \DB::table('counselors')->insert($counselors);
     }
 }
