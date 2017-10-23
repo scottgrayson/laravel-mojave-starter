@@ -17,9 +17,12 @@ class CreateFilesTable extends Migration
             $table->increments('id');
             $table->integer('user_id')
                 ->nullable()
-                ->unsigned()
+                ->unsigned();
+            $table->foreign('user_id')
                 ->references('id')
-                ->on('users');
+                ->on('users')
+                ->onDelete('set null');
+            $table->index('user_id');
             $table->string('name')
                 ->nullable();
             $table->string('bucket')

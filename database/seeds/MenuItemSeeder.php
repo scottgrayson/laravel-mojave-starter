@@ -13,7 +13,7 @@ class MenuItemSeeder extends Seeder
      */
     public function run()
     {
-        \DB::table('menu_items')->truncate();
+        \DB::statement('truncate menu_items cascade');
 
         foreach ($this->menus() as $menu) {
             $this->createMenuItem($menu);
