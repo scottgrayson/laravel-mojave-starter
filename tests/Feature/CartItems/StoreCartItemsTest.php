@@ -71,13 +71,15 @@ class StoreCartItemsTest extends TestCase
 
         $this->assertEquals(Cart::content()->count(), $camp->openDays()->count());
 
+        $randomDay = $camp->randomCampDay();
+
         $r = $this->json('POST', route('api.cart-items.store'), [
             'camper_id' => $camper->id,
             'tent_id' => $tent->id,
             'product' => $product->slug,
             'dates' => [
-                $camp->randomCampDay()->toDateString(),
-                $camp->randomCampDay()->toDateString()
+                $randomDay->toDateString(),
+                $randomDay->addDays(1)->toDateString(),
             ],
         ]);
 

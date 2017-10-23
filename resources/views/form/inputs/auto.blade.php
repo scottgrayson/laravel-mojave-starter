@@ -10,7 +10,7 @@
   $label = $name;
   $relation = '';
 
-  if (in_array($name, ['meta_description', 'description', 'message'])) {
+  if (in_array('string', $rules) && !preg_grep('/max/', $rules)) {
     $type = 'textarea';
   } elseif (in_array('date', $rules)) {
     $type = 'date';

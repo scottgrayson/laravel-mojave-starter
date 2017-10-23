@@ -62,21 +62,87 @@ class CamperController extends Controller
 
     public function edit(Request $request, $id)
     {
-        $item = Camper::findOrFail($id);
+        $camper = Camper::findOrFail($id);
 
-        if (request()->user()->id != $item->user_id) {
+        if (request()->user()->id != $camper->user_id) {
             abort(403);
         }
 
-        SEO::setTitle('Camper Registration for ' . $item->label);
-        SEO::setDescription('Camper Registration for ' . $item->label);
+        $requestedStep = request('step');
+        $currentStep = 1;
 
-        $fields = $this->getFieldsFromRules(new CamperRequest);
+        $camperRequest = new CamperRequest;
+
+        foreach ($camperRequest->steps() as $index => $stepFields) {
+            $unfinished = collect($stepFields)
+                ->contains(function ($rules, $field) use ($camper) {
+                    return strpos($rules, 'required') !== false && !$camper->$field;
+                });
+
+            $currentStep = $index + 1;
+            if ($unfinished) {
+                break;
+            }
+        }
+
+        if (!$requestedStep || $currentStep < $requestedStep) {
+            return redirect(route('campers.edit', ['camper' => $camper->id, 'step' => $currentStep]));
+        } else {
+            $currentStep = $requestedStep;
+        }
+
+        SEO::setTitle('Camper Registration for ' . $camper->label);
+        SEO::setDescription('Camper Registration for ' . $camper->label);
+
+        $fields = $this->getFieldsFromRules($camperRequest);
+
+        // PREFILL
+        $doNotPrefill = [
+            'name',
+            'tent_id',
+            'birthdate',
+            'allergies',
+            'medical_conditions',
+        ];
+
+        $fieldNames = array_diff(
+            $fields->keys()->toArray(),
+            $doNotPrefill
+        );
+
+        $otherCamper = auth()->user()->campers()
+            ->where('id', '!=', $camper->id)
+            ->where(function ($q) use ($fieldNames) {
+                foreach ($fieldNames as $col) {
+                    $q->orWhereNotNull($col);
+                }
+            })
+            ->first();
+
+        // prefill guardian info with campers info
+        if (in_array('guardian_address', $fieldNames)) {
+            foreach ($fieldNames as $guardianField) {
+                $camperField = str_replace('guardian_', '', $guardianField);
+                if (!$camper->$guardianField) {
+                    $camper->$guardianField = $camper->$camperField;
+                }
+            }
+        }
+
+        // prefill camper 2 with some of camper 1's info
+        if ($otherCamper) {
+            foreach ($fieldNames as $field) {
+                if (!$camper->$field) {
+                    $camper->$field = $otherCamper->$field;
+                }
+            }
+        }
 
         return view(
             'campers.edit',
             [
-                'item' => $item,
+                'currentStep' => $currentStep,
+                'item' => $camper,
                 'model' => $this->model,
                 'slug' => $this->slug,
                 'fields' => $fields,
@@ -92,11 +158,26 @@ class CamperController extends Controller
             abort(403);
         }
 
-        $item->update($request->validated());
+        $item->fill($request->validated());
 
-        flash('Registration updated.')->success();
+        $changed = $item->isDirty();
 
-        return redirect()->back();
+        $item->save();
+
+        if ($changed) {
+            flash('Registration updated.')->success();
+        }
+
+        $currentStep = request('step') ? request('step') : 1;
+
+        if ($currentStep == 4) {
+            return redirect(route('campers.index'));
+        } else {
+            return redirect(route('campers.edit', [
+                'camper' => $item->id,
+                'step' => $currentStep + 1,
+            ]));
+        }
     }
 
     public function destroy($id)
