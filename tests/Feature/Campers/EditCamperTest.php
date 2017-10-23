@@ -21,6 +21,7 @@ class EditCamperTest extends TestCase
         $camper->address = 'Updated Address';
         $camper->city = 'city';
         $camper->state = 'state';
+        $camper->zip = 'zip';
         $camper->township = 'township';
         $camper->phone = '18003334444';
         $camper->birthdate = '2017-10-10';
@@ -66,6 +67,7 @@ class EditCamperTest extends TestCase
         $camper->address = 'Updated Address';
         $camper->city = 'city';
         $camper->state = 'state';
+        $camper->zip = 'zip';
         $camper->township = 'township';
         $camper->phone = '18003334444';
         $camper->birthdate = '2017-10-10';

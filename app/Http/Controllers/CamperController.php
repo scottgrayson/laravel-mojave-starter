@@ -62,24 +62,66 @@ class CamperController extends Controller
 
     public function edit(Request $request, $id)
     {
-        $item = Camper::findOrFail($id);
+        $camper = Camper::findOrFail($id);
 
-        if (request()->user()->id != $item->user_id) {
+        if (request()->user()->id != $camper->user_id) {
             abort(403);
         }
 
         $currentStep = request('step') ? request('step') : 1;
 
-        SEO::setTitle('Camper Registration for ' . $item->label);
-        SEO::setDescription('Camper Registration for ' . $item->label);
+        SEO::setTitle('Camper Registration for ' . $camper->label);
+        SEO::setDescription('Camper Registration for ' . $camper->label);
 
         $fields = $this->getFieldsFromRules(new CamperRequest);
+
+        // PREFILL
+        $doNotPrefill = [
+            'name',
+            'tent_id',
+            'birthdate',
+            'allergies',
+            'medical_conditions',
+        ];
+
+        $fieldNames = array_diff(
+            $fields->keys()->toArray(),
+            $doNotPrefill
+        );
+
+        $otherCamper = auth()->user()->campers()
+            ->where('id', '!=', $camper->id)
+            ->where(function ($q) use ($fieldNames) {
+                foreach ($fieldNames as $col) {
+                    $q->orWhereNotNull($col);
+                }
+            })
+            ->first();
+
+        // prefill guardian info with campers info
+        if (in_array('guardian_address', $fieldNames)) {
+            foreach ($fieldNames as $guardianField) {
+                $camperField = str_replace('guardian_', '', $guardianField);
+                if (!$camper->$guardianField) {
+                    $camper->$guardianField = $camper->$camperField;
+                }
+            }
+        }
+
+        // prefill camper 2 with some of camper 1's info
+        if ($otherCamper) {
+            foreach ($fieldNames as $field) {
+                if (!$camper->$field) {
+                    $camper->$field = $otherCamper->$field;
+                }
+            }
+        }
 
         return view(
             'campers.edit',
             [
                 'currentStep' => $currentStep,
-                'item' => $item,
+                'item' => $camper,
                 'model' => $this->model,
                 'slug' => $this->slug,
                 'fields' => $fields,
