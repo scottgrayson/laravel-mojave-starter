@@ -15,13 +15,27 @@ class CreateCounselorsTable extends Migration
     {
         Schema::create('counselors', function (Blueprint $table) {
             $table->increments('id');
+
+            $table->boolean('head_counselor')
+                ->default(false);
+            $table->date('camp_year');
+
             $table->integer('user_id')
+                ->unsigned();
+            $table->foreign('user_id')
                 ->references('id')
-                ->on('users');
+                ->on('users')
+                ->onDelete('restrict');
+            $table->index('user_id');
+
             $table->integer('tent_id')
+                ->unsigned();
+            $table->foreign('tent_id')
                 ->references('id')
-                ->on('tents');
-            $table->softDeletes();
+                ->on('tents')
+                ->onDelete('restrict');
+            $table->index('tent_id');
+
             $table->timestamps();
         });
     }
