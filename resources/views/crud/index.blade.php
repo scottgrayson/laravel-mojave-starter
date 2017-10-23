@@ -62,7 +62,7 @@
                   ['sort' => $c, 'order' => $nextOrder]
                 ));
               @endphp
-              <a class="d-inline-flex align-items-center text-black" href="{{ $sortLink }}">
+              <a class="d-inline-flex align-items-center text-dark" href="{{ $sortLink }}">
                 {{ title_case(str_replace('_', ' ', preg_replace('/(_id)|(_at)$/', '', $c))) }}
                 @if($currentOrder === 'asc')
                   @svg('arrow-bottom', 'ml-1 sm s4')
@@ -71,11 +71,13 @@
                 @endif
               </a>
             @else
-              {{ title_case(str_replace('_', ' ', preg_replace('/(_id)|(_at)$/', '', $c))) }}
+              <span class="text-muted">
+                {{ title_case(str_replace('_', ' ', preg_replace('/(_id)|(_at)$/', '', $c))) }}
+              </span>
             @endif
           </th>
         @endforeach
-        <th>Actions</th>
+        <th class="text-muted">Actions</th>
       </tr>
     </thead>
 

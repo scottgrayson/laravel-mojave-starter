@@ -32,8 +32,8 @@ class CrudController extends Controller
     public function index(Request $request)
     {
         // TODO if where.like sorts by relevance, dont have a default sort
-        $defaultSort = isset($this->defaultSort) ? $this->defaultSort : 'created_at';
-        $defaultOrder = isset($this->defaultOrder) ? $this->defaultOrder : 'desc';
+        $defaultSort = isset($this->defaultSort) ? $this->defaultSort : 'id';
+        $defaultOrder = isset($this->defaultOrder) ? $this->defaultOrder : 'asc';
 
         if ($this->columns) {
             $cols = $this->columns;
