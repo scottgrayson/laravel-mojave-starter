@@ -32,8 +32,8 @@ class CrudController extends Controller
     public function index(Request $request)
     {
         // TODO if where.like sorts by relevance, dont have a default sort
-        $defaultSort = isset($this->defaultSort) ? $this->defaultSort : 'created_at';
-        $defaultOrder = isset($this->defaultOrder) ? $this->defaultOrder : 'desc';
+        $defaultSort = isset($this->defaultSort) ? $this->defaultSort : 'id';
+        $defaultOrder = isset($this->defaultOrder) ? $this->defaultOrder : 'asc';
 
         if ($this->columns) {
             $cols = $this->columns;
@@ -73,6 +73,9 @@ class CrudController extends Controller
                 }
             )->toArray();
 
+        $sort = request('sort', $defaultSort);
+        $order = request('order', $defaultOrder);
+
         $items = $this->model::with($relations)
             ->where(
                 function ($q) use ($request, $relations, $cols) {
@@ -105,10 +108,7 @@ class CrudController extends Controller
                     }
                 }
             )
-            ->orderBy(
-                request('sort', $defaultSort),
-                request('order', $defaultOrder)
-            )
+            ->orderBy($sort, $order)
             ->paginate(config('settings.paginate'));
 
         SEO::setTitle(title_case($this->plural));
@@ -122,6 +122,8 @@ class CrudController extends Controller
         return view(
             $viewPrefix.'crud.index',
             [
+                'sort' => $sort,
+                'order' => $order,
                 'cols' => $cols,
                 'slug' => $this->slug,
                 'model' => $this->model,
