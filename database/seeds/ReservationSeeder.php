@@ -18,9 +18,11 @@ class ReservationSeeder extends Seeder
         $camp = CampDates::current();
 
         foreach ($campers as $c) {
+            $payment = factory(\App\Payment::class)->create(['user_id' => $c->user_id]);
             foreach ($camp->openDays() as $day) {
                 factory(\App\Reservation::class)->create([
                     'camper_id' => $c->id,
+                    'payment_id' => $payment->id,
                     'user_id' => $c->user_id,
                     'tent_id' => $c->tent_id,
                     'date' => $day->toDateString(),
@@ -36,9 +38,11 @@ class ReservationSeeder extends Seeder
         ]);
 
         foreach ($firstGraders as $c) {
+            $payment = factory(\App\Payment::class)->create(['user_id' => $c->user_id]);
             foreach ($camp->openDays()->take(5) as $day) {
                 factory(\App\Reservation::class)->create([
                     'camper_id' => $c->id,
+                    'payment_id' => $payment->id,
                     'user_id' => $c->user_id,
                     'tent_id' => $c->tent_id,
                     'date' => $day->toDateString(),
