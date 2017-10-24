@@ -81,6 +81,10 @@ class MenuItemSeeder extends Seeder
                         'link' => '/admin/reservations',
                     ],
                     [
+                        'name' => 'payments',
+                        'link' => '/admin/payments',
+                    ],
+                    [
                         'name' => 'camp dates',
                         'link' => '/admin/camp-dates',
                     ],
@@ -136,6 +140,10 @@ class MenuItemSeeder extends Seeder
                     [
                         'name' => 'reservations',
                         'link' => '/admin/reservations',
+                    ],
+                    [
+                        'name' => 'payments',
+                        'link' => '/admin/payments',
                     ],
                     [
                         'name' => 'camp dates',

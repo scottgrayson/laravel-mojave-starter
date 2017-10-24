@@ -30,10 +30,12 @@
         Reorder
       </a>
     @endif
+    @if (\Route::has('admin.'.$slug.'.create'))
     <a href="{{ '/' . request()->path() . '/create' }}"
       class="btn btn-primary">
       New
     </a>
+    @endif
   </div>
 </div>
 
@@ -56,26 +58,26 @@
             @if(strpos($c, '_id') === false)
               @php
                 $order = request('sort') === $c ? request('order') : '';
-                $nextOrder = $order === 'asc' ? 'desc' : 'asc';
-                $sortLink = '/' . request()->path() . '?' . http_build_query(array_merge(
-                  request()->query(),
-                  ['sort' => $c, 'order' => $nextOrder]
-                ));
-              @endphp
-              <a class="d-inline-flex align-items-center text-black" href="{{ $sortLink }}">
-                {{ title_case(str_replace('_', ' ', preg_replace('/(_id)|(_at)$/', '', $c))) }}
-                @if($order === 'asc')
-                  @svg('arrow-bottom', 'ml-1 sm s4')
-                @elseif($order === 'desc')
-                  @svg('arrow-top', 'ml-1 sm s4')
-                @endif
-              </a>
-            @else
-              {{ title_case(str_replace('_', ' ', preg_replace('/(_id)|(_at)$/', '', $c))) }}
-            @endif
-          </th>
-        @endforeach
-        <th>Actions</th>
+        $nextOrder = $order === 'asc' ? 'desc' : 'asc';
+        $sortLink = '/' . request()->path() . '?' . http_build_query(array_merge(
+          request()->query(),
+          ['sort' => $c, 'order' => $nextOrder]
+        ));
+      @endphp
+      <a class="d-inline-flex align-items-center text-black" href="{{ $sortLink }}">
+        {{ title_case(str_replace('_', ' ', preg_replace('/(_id)|(_at)$/', '', $c))) }}
+        @if($order === 'asc')
+          @svg('arrow-bottom', 'ml-1 sm s4')
+        @elseif($order === 'desc')
+          @svg('arrow-top', 'ml-1 sm s4')
+        @endif
+      </a>
+    @else
+      {{ title_case(str_replace('_', ' ', preg_replace('/(_id)|(_at)$/', '', $c))) }}
+    @endif
+  </th>
+@endforeach
+<th>Actions</th>
       </tr>
     </thead>
 
@@ -95,15 +97,19 @@
                   @svg('eye')
                 </a>
               @endif
-              <a href="{{ '/' . request()->path() . '/' . $i->id . '/edit' }}"
-                class="btn btn-icon">
-                @svg('edit')
-              </a>
-              {{ Form::open(['method' => 'delete', 'url' => request()->path() . '/' . $i->id]) }}
-              <button type="submit" class="btn btn-icon">
-                @svg('trash')
-              </button>
-              {{ Form::close() }}
+              @if (\Route::has('admin.'.$slug.'.edit'))
+                <a href="{{ '/' . request()->path() . '/' . $i->id . '/edit' }}"
+                  class="btn btn-icon">
+                  @svg('edit')
+                </a>
+              @endif
+              @if (\Route::has('admin.'.$slug.'.destroy'))
+                {{ Form::open(['method' => 'delete', 'url' => request()->path() . '/' . $i->id]) }}
+                <button type="submit" class="btn btn-icon">
+                  @svg('trash')
+                </button>
+                {{ Form::close() }}
+              @endif
             </div>
           </td>
         </tr>
