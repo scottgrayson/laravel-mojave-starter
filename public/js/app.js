@@ -90111,17 +90111,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
 
         // Submit payload.nonce to your server
-        axios.post('/api/payments', payload).then(function (res) {
-          swal({
-            title: 'Payment Successful',
-            text: 'Camp dates reserved.',
-            icon: 'success',
-            buttons: ['Close', 'View Calendar']
-          }).then(function (wantsRedirect) {
-            if (wantsRedirect) {
-              window.location.href = '/calendar';
-            }
-          });
+        axios.post('/api/payments', payload).then(function () {
+          window.location.href = '/thank-you';
         });
       });
     }
