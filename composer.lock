@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "cc57330316b9a7ea060bf9a5896f5516",
-    "content-hash": "aca17e7615a0dbe239abd5e76b85aafc",
+    "hash": "9ee61b26c215b5195f8d1d7355b20c2e",
+    "content-hash": "c621bd0ebcea9d114c8bb70d4e6d3ed4",
     "packages": [
         {
             "name": "artesaos/seotools",
@@ -139,6 +139,53 @@
                 "sdk"
             ],
             "time": "2017-10-18 18:46:11"
+        },
+        {
+            "name": "braintree/braintree_php",
+            "version": "3.25.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/braintree/braintree_php.git",
+                "reference": "8c8785b8876d5b2f4b4f78c5768ad245a7c43feb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/braintree/braintree_php/zipball/8c8785b8876d5b2f4b4f78c5768ad245a7c43feb",
+                "reference": "8c8785b8876d5b2f4b4f78c5768ad245a7c43feb",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-dom": "*",
+                "ext-hash": "*",
+                "ext-openssl": "*",
+                "ext-xmlwriter": "*",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Braintree": "lib/"
+                },
+                "psr-4": {
+                    "Braintree\\": "lib/Braintree"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Braintree",
+                    "homepage": "http://www.braintreepayments.com"
+                }
+            ],
+            "description": "Braintree PHP Client Library",
+            "time": "2017-08-25 19:38:09"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
