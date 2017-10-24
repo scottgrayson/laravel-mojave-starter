@@ -14,7 +14,7 @@
       }
     },
     created () {
-      axios.get('/api/tent/'+this.tent.id)
+      axios.get('/api/tents/'+this.tent.id)
         .then((response) => {
           console.log(response)
         })

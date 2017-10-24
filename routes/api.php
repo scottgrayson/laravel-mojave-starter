@@ -17,3 +17,4 @@ Route::resource('reservations', 'ReservationController');
 Route::resource('availabilities', 'AvailabilityController');
 
 Route::resource('cart-items', 'CartItemController');
+Route::resource('tents', 'TentController');
