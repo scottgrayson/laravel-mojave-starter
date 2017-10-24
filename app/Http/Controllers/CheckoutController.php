@@ -32,9 +32,7 @@ class CheckoutController extends Controller
 
         $amount = CartHelper::total();
 
-        // TODO fix this
-        //$clientToken = Braintree_ClientToken::generate();
-        $clientToken = '';
+        $clientToken = Braintree_ClientToken::generate();
 
         return view('checkout.index', [
             'amount' => $amount,

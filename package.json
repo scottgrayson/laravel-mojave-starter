@@ -19,6 +19,7 @@
     },
     "dependencies": {
         "bootstrap": "^4.0.0-beta",
+        "braintree-web-drop-in": "^1.8.0",
         "browser-sync": "^2.18.13",
         "browser-sync-webpack-plugin": "^1.2.0",
         "bytesize-icons": "^1.2.0",
