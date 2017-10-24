@@ -18,4 +18,9 @@ class Reservation extends Model
     {
         return $this->belongsTo(\App\Tent::class);
     }
+
+    public function payment()
+    {
+        return $this->belongsTo(\App\Payment::class);
+    }
 }

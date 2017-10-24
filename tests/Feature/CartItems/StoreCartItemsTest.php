@@ -33,6 +33,7 @@ class StoreCartItemsTest extends TestCase
             'dates' => [$camp->randomCampDay()->toDateString()],
         ]);
 
+        //$this->feedback($r);
         $r->assertStatus(200);
 
         $this->assertEquals(Cart::content()->count(), 1);

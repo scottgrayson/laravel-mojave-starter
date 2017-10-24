@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use Cart;
 use App\Product;
+use App\CampDates;
+use App\Reservation;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CartItemRequest;
 use Illuminate\Http\Request;
@@ -17,8 +19,6 @@ class CartItemController extends Controller
 
     public function store(CartItemRequest $request)
     {
-        $product = Product::findBySlug('day');
-
         // remove existing cart_items for camper_id
         $existing = Cart::content()
             ->filter(function ($i) use ($request) {
@@ -28,6 +28,23 @@ class CartItemController extends Controller
             ->map(function ($i) {
                 Cart::remove($i->rowId);
             });
+
+        $camp = CampDates::current();
+        $campLength = $camp->openDays()->count();
+
+        $numReserved = Reservation::where('camper_id', request('camper_id'))
+            ->whereDate('date', '>=', $camp->camp_start->toDateString())
+            ->count();
+
+        $numDays = count(request('dates')) + $numReserved;
+
+        if ($numDays == $campLength) {
+            $product = Product::where('slug', 'full')->first();
+        } elseif ($numDays >= 5) {
+            $product = Product::where('slug', 'week')->first();
+        } else {
+            $product = Product::where('slug', 'day')->first();
+        }
 
         foreach (request('dates') as $date) {
             Cart::add($product, 1, [

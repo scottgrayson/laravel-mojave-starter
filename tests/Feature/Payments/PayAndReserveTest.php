@@ -15,7 +15,7 @@ class PayAndReserveTest extends TestCase
 {
     public function testPayingAndReservingCamperDays()
     {
-        $product = factory(Product::class)->create(['slug' => 'full']);
+        $product = factory(Product::class)->create(['slug' => 'day']);
         $tent = factory(Tent::class)->create();
         $user = factory(User::class)->create();
         $camp = factory(CampDates::class)->create();
@@ -32,9 +32,11 @@ class PayAndReserveTest extends TestCase
             'product' => $product->slug,
         ]);
 
-        $r = $this->post(route('api.payments.store'), {
-        });
+        $r = $this->post(route('api.payments.store'), [
+            'nonce' => 'fake-valid-nonce',
+        ]);
 
+        //$this->feedback($r);
         $r->assertStatus(200);
 
         $this->assertEquals($user->reservations->count(), 1);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Cart;
+use App\Helpers\CartHelper;
 use SEO;
 use App\Product;
 use App\CampDates;
@@ -25,18 +26,18 @@ class CheckoutController extends Controller
     {
         SEO::setTitle('Checkout');
 
-        $cart = Cart::content();
-
-        if ($cart->isEmpty()) {
+        if (Cart::content()->isEmpty()) {
             return redirect(route('cart.index'));
         }
+
+        $amount = CartHelper::total();
 
         // TODO fix this
         //$clientToken = Braintree_ClientToken::generate();
         $clientToken = '';
 
         return view('checkout.index', [
-            'cart' => $cart,
+            'amount' => $amount,
             'clientToken' => $clientToken,
         ]);
     }

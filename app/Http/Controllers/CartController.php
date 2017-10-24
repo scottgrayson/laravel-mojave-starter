@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Cart;
+use App\Helpers\CartHelper;
 use SEO;
 use App\Product;
 use App\CampDates;
@@ -16,58 +17,16 @@ class CartController extends Controller
     {
         SEO::setTitle('My Cart');
 
-        $cart = Cart::content();
-
         $workPartyFee = Product::where('slug', 'work-party-fee')->first();
 
-        $rates = Product::whereIn('slug', ['day', 'week', 'full'])->get();
-        $ratesArr = $rates->pluck('price', 'slug');
-
-        $campLength = CampDates::current()->openDays()->count();
-
-        $campers = auth()->user()->campers
-            ->map(function ($camper) use ($cart, $ratesArr, $campLength) {
-                $days = $cart->filter(function ($i) use ($camper) {
-                    return $i->options->camper_id == $camper->id;
-                })->count();
-
-                // TODO do price calculation with discounts for # days > X
-                if ($days == $campLength) {
-                    $rate = $ratesArr['full'];
-                } elseif ($days >= 5) {
-                    $rate = $ratesArr['week'];
-                } else {
-                    $rate = $ratesArr['day'];
-                }
-
-                return (object) [
-                    'name' => $camper->name,
-                    'qty' => $days,
-                    'rate' => $rate,
-                    'subtotal' => $days * $rate,
-                    'camper_id' => $camper->id,
-                ];
-            })
-            ->filter(function ($camper) {
-                return $camper->qty > 0;
-            });
-
-        $fees = collect([
-            (object) [
-                'name' => $workPartyFee->name,
-                'qty' => 1,
-                'rate' => $workPartyFee->price,
-                'subtotal' => $workPartyFee->price,
-                'workPartyNotice' => $workPartyFee->description,
-            ]
-        ]);
-
-        $items = $campers->merge($fees);
+        $items = CartHelper::reservationsByCamper();
 
         $total = $items->sum('subtotal');
 
+        $rates = Product::whereIn('slug', ['day', 'week', 'full'])->get();
+
         return view('cart.index', [
-            'noReservations' => $campers->isEmpty(),
+            'noReservations' => Cart::content()->isEmpty(),
             'items' => $items,
             'total' => $total,
             'rates' => $rates,
@@ -88,5 +47,4 @@ class CartController extends Controller
 
         return redirect()->back();
     }
-
 }

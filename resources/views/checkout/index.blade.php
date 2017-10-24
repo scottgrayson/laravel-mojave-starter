@@ -6,7 +6,7 @@
   </h1>
 
   <h2 class="lead">
-    Cart Total: {{ Cart::total() }}
+    Cart Total: ${{ $amount }}
   </h2>
 
   <p>
