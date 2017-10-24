@@ -21,6 +21,7 @@ require('./utils/utc-to-local')
 //Vue.component('vue-socket', require('./components/VueSocket.vue'))
 Vue.component('camp-calendar', require('./components/calendar/calendar.vue'))
 Vue.component('cart-count', require('./components/cart/cart-count.vue'))
+Vue.component('my-tent', require('./components/counselors/tent.vue'))
 
 const app = new Vue({
   el: '#app'

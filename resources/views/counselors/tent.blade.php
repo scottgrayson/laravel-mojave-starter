@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-  My Tent
+  <my-tent
+    :tent="{{ $counselorTent }}">
+  </my-tent>
 @endsection

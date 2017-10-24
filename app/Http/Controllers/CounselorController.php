@@ -9,6 +9,11 @@ class CounselorController extends Controller
     //
     public function myTent()
     {
-        return view('counselors.tent');
+        $x = auth()->user()->counselor->tent_id;
+
+        $tent = \App\Tent::find($x);
+
+        return view('counselors.tent')
+            ->with('counselorTent', $tent);
     }
 }
