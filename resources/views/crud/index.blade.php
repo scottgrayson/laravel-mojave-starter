@@ -57,27 +57,29 @@
             {{-- cant sort by relations --}}
             @if(strpos($c, '_id') === false)
               @php
-                $order = request('sort') === $c ? request('order') : '';
-        $nextOrder = $order === 'asc' ? 'desc' : 'asc';
-        $sortLink = '/' . request()->path() . '?' . http_build_query(array_merge(
-          request()->query(),
-          ['sort' => $c, 'order' => $nextOrder]
-        ));
-      @endphp
-      <a class="d-inline-flex align-items-center text-black" href="{{ $sortLink }}">
-        {{ title_case(str_replace('_', ' ', preg_replace('/(_id)|(_at)$/', '', $c))) }}
-        @if($order === 'asc')
-          @svg('arrow-bottom', 'ml-1 sm s4')
-        @elseif($order === 'desc')
-          @svg('arrow-top', 'ml-1 sm s4')
-        @endif
-      </a>
-    @else
-      {{ title_case(str_replace('_', ' ', preg_replace('/(_id)|(_at)$/', '', $c))) }}
-    @endif
-  </th>
-@endforeach
-<th>Actions</th>
+                $currentOrder = $sort === $c ? $order : '';
+                $nextOrder = $currentOrder === 'asc' ? 'desc' : 'asc';
+                $sortLink = '/' . request()->path() . '?' . http_build_query(array_merge(
+                  request()->query(),
+                  ['sort' => $c, 'order' => $nextOrder]
+                ));
+              @endphp
+              <a class="d-inline-flex align-items-center text-dark" href="{{ $sortLink }}">
+                {{ title_case(str_replace('_', ' ', preg_replace('/(_id)|(_at)$/', '', $c))) }}
+                @if($currentOrder === 'asc')
+                  @svg('arrow-bottom', 'ml-1 sm s4')
+                @elseif($currentOrder === 'desc')
+                  @svg('arrow-top', 'ml-1 sm s4')
+                @endif
+              </a>
+            @else
+              <span class="text-muted">
+                {{ title_case(str_replace('_', ' ', preg_replace('/(_id)|(_at)$/', '', $c))) }}
+              </span>
+            @endif
+          </th>
+        @endforeach
+        <th class="text-muted">Actions</th>
       </tr>
     </thead>
 
