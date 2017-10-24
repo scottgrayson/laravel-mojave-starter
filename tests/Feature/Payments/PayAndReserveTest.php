@@ -37,7 +37,7 @@ class PayAndReserveTest extends TestCase
             'nonce' => 'fake-valid-nonce',
         ]);
 
-        $this->feedback($r);
+        //$this->feedback($r);
         $r->assertStatus(200);
 
         $this->assertEquals($user->reservations->count(), 1);

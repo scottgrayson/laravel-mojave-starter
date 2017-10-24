@@ -32,6 +32,7 @@ class CampRatesTest extends TestCase
 
         for ($i = $start; $i <= $end; $i->addDays(1)) {
             $reservation = factory(Reservation::class)->create([
+                'payment_id' => factory(\App\Payment::class)->create()->id,
                 'tent_id' => $tent->id,
                 'user_id' => $user->id,
                 'camper_id' => $camper->id,
