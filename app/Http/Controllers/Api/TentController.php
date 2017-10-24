@@ -11,5 +11,8 @@ class TentController extends Controller
 {
     public function show($id)
     {
+        $result = Tent::find($id)->campers;
+
+        return $result;
     }
 }
