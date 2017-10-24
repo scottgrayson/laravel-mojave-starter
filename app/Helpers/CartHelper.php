@@ -40,7 +40,7 @@ class CartHelper
                 return $camper;
             });
 
-        $fees = collect([
+        $fees = $workPartyFee ? collect([
             (object) [
                 'name' => $workPartyFee->name,
                 'qty' => 1,
@@ -48,7 +48,7 @@ class CartHelper
                 'subtotal' => $workPartyFee->price,
                 'workPartyNotice' => $workPartyFee->description,
             ]
-        ]);
+        ]) : collect([]);
 
         return $campers->merge($fees);
     }
@@ -60,6 +60,13 @@ class CartHelper
 
     public static function pendingReservations()
     {
-        return Cart::content();
+        return Cart::content()->map(function ($i) {
+            return [
+                'user_id' => auth()->user()->id,
+                'camper_id' => $i->options->camper_id,
+                'tent_id' => $i->options->tent_id,
+                'date' => $i->options->date,
+            ];
+        })->toArray();
     }
 }

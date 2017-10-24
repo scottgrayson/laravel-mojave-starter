@@ -24,7 +24,9 @@ class CreatePaymentsTable extends Migration
                 ->onDelete('restrict');
             $table->index('user_id');
 
-            $table->string('nonce');
+            $table->string('transaction');
+            $table->decimal('amount');
+
             $table->timestamps();
         });
     }

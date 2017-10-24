@@ -93,15 +93,17 @@
 
     <hr>
 
-    <div class="text-right">
-      <a data-method="delete" type="delete" href="/cart" class="btn btn-secondary">
-        Reset Cart
-      </a>
+    <a href="/checkout" class="btn btn-primary">
+      Checkout
+    </a>
 
-      <a href="/checkout" class="btn btn-primary">
-        Checkout
-      </a>
-    </div>
+    <a data-method="delete" type="delete" href="/cart" class="btn btn-secondary">
+      Reset Cart
+    </a>
+
+    <a href="/calendar" class="d-none d-sm-inline btn btn-link">
+      Add More Reservations
+    </a>
 
   @endif
 @endsection

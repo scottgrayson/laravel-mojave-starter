@@ -30,13 +30,14 @@ class PayAndReserveTest extends TestCase
             'camper_id' => $camper->id,
             'tent_id' => $tent->id,
             'product' => $product->slug,
+            'date' => $camp->camp_start->toDateString(),
         ]);
 
         $r = $this->post(route('api.payments.store'), [
             'nonce' => 'fake-valid-nonce',
         ]);
 
-        //$this->feedback($r);
+        $this->feedback($r);
         $r->assertStatus(200);
 
         $this->assertEquals($user->reservations->count(), 1);

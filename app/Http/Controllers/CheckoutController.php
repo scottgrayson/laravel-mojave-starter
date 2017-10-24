@@ -41,18 +41,4 @@ class CheckoutController extends Controller
             'clientToken' => $clientToken,
         ]);
     }
-
-    public function store()
-    {
-        try {
-            Cart::destroy();
-        } catch (\Exceptions $e) {
-            flash('There was a problem resetting your cart.')->error();
-            return redirect()->back();
-        }
-
-        flash('Payment successful. Camp dates reserved.')->success();
-
-        return redirect()->back();
-    }
 }
