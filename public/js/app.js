@@ -88821,10 +88821,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
 
 
 
@@ -89751,20 +89747,6 @@ var render = function() {
       _vm._v(" "),
       _c("br"),
       _vm._v(" "),
-      _vm.daysReserved.length
-        ? _c("div", { staticClass: "alert alert-success text-center" }, [
-            _vm._v(
-              "\n    " +
-                _vm._s(_vm.daysReserved.length) +
-                "/" +
-                _vm._s(_vm.openDays.length) +
-                " days reserved for " +
-                _vm._s(_vm.selectedCamper.name) +
-                "\n  "
-            )
-          ])
-        : _vm._e(),
-      _vm._v(" "),
       _c(
         "div",
         {
@@ -89787,7 +89769,7 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _vm.query.tent
+      _vm.query.tent && _vm.availableDays.length
         ? _c("div", { staticClass: "alert px-0" }, [
             _c("h4", [_vm._v("\n      Reserve By Day\n    ")]),
             _vm._v(" "),
