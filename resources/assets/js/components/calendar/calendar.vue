@@ -14,15 +14,11 @@
 
     <br>
 
-    <div v-if="daysReserved.length" class="alert alert-success text-center">
-      {{ daysReserved.length }}/{{ openDays.length }} days reserved for {{ selectedCamper.name }}
-    </div>
-
     <div v-show="!query.tent" class="text-center text-muted alert px-0">
       Select a tent{{ campers.length ? ' or camper' : '' }} to view openings
     </div>
 
-    <div class="alert px-0" v-if="query.tent">
+    <div class="alert px-0" v-if="query.tent && availableDays.length">
       <h4>
         Reserve By Day
       </h4>

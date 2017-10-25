@@ -9,7 +9,7 @@ class NewsletterRequest extends FormRequest
     public function rules()
     {
         return [
-            'subject' => 'required',
+            'subject' => 'required|string|max:255',
             'body' => 'nullable',
         ];
     }
