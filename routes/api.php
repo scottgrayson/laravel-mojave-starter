@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 |
  */
 
+Route::get('/reservations/{tent}', 'ReservationController@tentReservations');
 Route::resource('reservations', 'ReservationController');
 Route::resource('availabilities', 'AvailabilityController');
 

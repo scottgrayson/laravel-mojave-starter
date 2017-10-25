@@ -26,7 +26,7 @@
         </a>
       </div>
       <ul class="list-group">
-        <li v-for="camper in campers"
+        <li v-for="(camper, key) in campers"
           class="list-group-item">
           {{camper.name}}
         </li>
@@ -60,21 +60,13 @@
     methods: {
       fetchNext () {
         this.selectedWeek += 1
-        this.getReservations(this.selectedWeek)
       },
       fetchPrevious () {
         this.selectedWeek -= 1
-        this.getReservations(this.selectedWeek)
       },
-      getReservations (week) {
-        axios.get('/api/reservations/week/'+week)
-          .then((response) => {
-            this.campers = response.data
-          })
-      }
     },
     created () {
-      axios.get('/api/tents/'+this.tent.id)
+      axios.get('/api/reservations/'+this.tent.id)
         .then((response) => {
           this.campers = response.data
         })
