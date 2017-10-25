@@ -131,10 +131,9 @@ class CampDates extends Model
     {
         $range = $this->openDays()->groupBy(function ($item, $key) {
             return $item->weekOfYear;
-        })->flatten();
+        })->values();
 
         return $range;
-
     }
 
 }

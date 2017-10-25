@@ -1,32 +1,31 @@
 <template>
-  <div>
-    <!--h1 class="text-center">{{tent.name}}</h1-->
-    <hr>
-  <div>
-    <div class="d-flex flex-row justify-content-between align-items-center m-2">
-      <a class="btn btn-outline-secondary">
-        Previous
-      </a>
-      <div class="dropdown">
-        <button class="btn btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown">
-          Dropdown button
-        </button>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" v-for="(value, key) in weeks">{{key}}</a>
+  <div class="card">
+    <h1 class="text-center pt-3">{{tent.name}}</h1>
+    <div class="card-body">
+      <div class="d-flex flex-row justify-content-between align-items-center mb-3">
+        <a class="btn btn-outline-secondary">
+          Previous
+        </a>
+        <div class="dropdown">
+          <button class="btn btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown">
+            {{weekOf}}
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" v-for="(value, key) in weeks">Week: {{value}}</a>
+          </div>
         </div>
+        <a class="btn btn-outline-secondary">
+          Next
+        </a>
       </div>
-      <a class="btn btn-outline-secondary">
-        Next
-      </a>
+      <ul class="list-group">
+        <li v-for="camper in campers"
+          class="list-group-item">
+          {{camper.name}}
+        </li>
+      </ul>
     </div>
-    <ul class="list-group">
-      <li v-for="camper in campers"
-        class="list-group-item">
-        {{camper.name}}
-      </li>
-    </ul>
   </div>
-</div>
 </template>
 
 <script>
@@ -44,6 +43,11 @@
         selectedWeek: ''
       }
     },
+    computed: {
+      weekOf () {
+        return 'Week Of: '+moment(this.selectedWeek).format('MMMM D, YYYY')
+      }
+    },
     created () {
       axios.get('/api/tents/'+this.tent.id)
         .then((response) => {
@@ -52,7 +56,7 @@
       axios.get('/api/camp-dates/')
         .then((response) => {
           this.weeks = response.data
-          console.log(response.data)
+          this.selectedWeek = response.data[0][0].date
         })
     }
   }
