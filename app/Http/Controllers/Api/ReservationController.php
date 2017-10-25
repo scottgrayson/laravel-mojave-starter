@@ -36,7 +36,7 @@ class ReservationController extends Controller
             $camper = Camper::find($key);
             return [
                 'name' => $camper->name,
-                'dates' => $item
+                'dates' => $item->pluck('date')
             ];
         })->values();
 
