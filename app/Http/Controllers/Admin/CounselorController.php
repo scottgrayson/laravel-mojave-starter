@@ -11,9 +11,9 @@ class CounselorController extends CrudController
     protected $formRequest = \App\Http\Requests\CounselorRequest::class;
     protected $columns = [
         'id',
+        'head_counselor',
+        'year',
         'user_id',
         'tent_id',
-        'year',
-        'head_counselor',
     ];
 }
