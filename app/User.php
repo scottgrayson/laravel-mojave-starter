@@ -77,7 +77,7 @@ class User extends Authenticatable
     {
         $counselor = Counselor::where('user_id', $this->id)
             ->where('year', \Carbon\Carbon::now()->year)
-            ->count(); 
+            ->count();
         return $counselor > 0 ? true : false;
     }
 }

@@ -135,5 +135,4 @@ class CampDates extends Model
 
         return $range;
     }
-
 }
