@@ -5,28 +5,29 @@
       <div class="d-flex flex-row justify-content-between align-items-center mb-3">
         <a class="btn btn-outline-secondary"
           @click="fetchPrevious"
-          :class="[campStart === weeks[selectedWeek][0].date ? 'disabled' : '']">
+          :class="[firstWeek ? 'disabled' : '']">
           Previous
         </a>
         <div class="dropdown">
           <button class="btn btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown">
-            {{weekOf}}
+            {{selectedReadableWeek}}
           </button>
           <div class="dropdown-menu">
-            <a class="dropdown-item" v-for="(value, key) in weeks"
+            <a class="dropdown-item" v-for="(value, key) in weekSelection"
               @click="selectedWeek = key">
-              {{weeks[key][0].date}}
+              {{}}
             </a>
           </div>
         </div>
         <a class="btn btn-outline-secondary"
-          @click="fetchNext"
-          :class="[campEnd === weeks[selectedWeek][0].date ? 'disabled' : '']">
+          :class="[lastWeek ? 'disabled' : '']"
+          @click="fetchNext">
           Next
         </a>
       </div>
       <ul class="list-group">
         <li v-for="(camper, key) in campers"
+          :class="[lastWeek ? 'disabled' : '']"
           class="list-group-item">
           {{camper.name}}
         </li>
@@ -46,23 +47,40 @@
     data () {
       return {
         weeks: [],
+        weekSelection: [],
         campers: {},
         campStart: '',
         campEnd: '',
-        selectedWeek: 0
-      }
-    },
-    computed: {
-      weekOf () {
-        return 'Week Of: '+moment(this.weeks[this.selectedWeek][0].date).format('MMMM D, YYYY')
+        firstWeek: true,
+        lastWeek: false,
+        selectedWeek: 0,
+        selectedReadableWeek: ''
       }
     },
     methods: {
+      weekOf (val) {
+        console.log(val)
+        return 'Week Of: '+moment(this.weeks[val][0].date).format('MMMM D, YYYY')
+      },
       fetchNext () {
         this.selectedWeek += 1
+        if (this.selectedWeek === (Object.keys(this.weeks).length - 1)) {
+          this.lastWeek = true
+        } else {
+          this.firstWeek = false
+          this.lastWeek = false
+        }
+        this.selectedReadableWeek = this.weekOf(this.selectedWeek)
       },
       fetchPrevious () {
         this.selectedWeek -= 1
+        if (this.selectedWeek === 0) {
+          this.firstWeek = true
+        } else {
+          this.firstWeek = false
+          this.lastWeek = false
+        }
+        this.selectedReadableWeek = this.weekOf(this.selectedWeek)
       },
     },
     created () {
@@ -75,6 +93,7 @@
           this.weeks = response.data.weeks
           this.campStart = response.data.camp_start.date
           this.campEnd = response.data.camp_end.date
+          this.selectedReadableWeek = this.weekOf(this.selectedWeek)
         })
     }
   }
