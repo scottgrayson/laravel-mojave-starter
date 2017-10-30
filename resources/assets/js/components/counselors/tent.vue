@@ -14,8 +14,8 @@
           </button>
           <div class="dropdown-menu">
             <a class="dropdown-item" v-for="(value, key) in weekSelection"
-              @click="selectedWeek = key">
-              {{}}
+              @click="selectedWeek = key, selectedReadableWeek = weekOf(key)">
+              {{value}}
             </a>
           </div>
         </div>
@@ -59,7 +59,6 @@
     },
     methods: {
       weekOf (val) {
-        console.log(val)
         return 'Week Of: '+moment(this.weeks[val][0].date).format('MMMM D, YYYY')
       },
       fetchNext () {
@@ -82,6 +81,13 @@
         }
         this.selectedReadableWeek = this.weekOf(this.selectedWeek)
       },
+      weekSelect (val) {
+        var select = []
+        for (const x in val) {
+          select.push(moment(val[x][0].date).format('YYYY-MM-DD') + " - " + moment(val[x][val[x].length - 1].date).format('YYYY-MM-DD'))
+        }
+        this.weekSelection = select
+      }
     },
     created () {
       axios.get('/api/reservations/'+this.tent.id)
@@ -91,6 +97,7 @@
       axios.get('/api/camp-dates/')
         .then((response) => {
           this.weeks = response.data.weeks
+          this.weekSelect(response.data.weeks)
           this.campStart = response.data.camp_start.date
           this.campEnd = response.data.camp_end.date
           this.selectedReadableWeek = this.weekOf(this.selectedWeek)
