@@ -25,13 +25,27 @@
           Next
         </a>
       </div>
-      <ul class="list-group">
-        <li v-for="(camper, key) in campers"
-          :class="[lastWeek ? 'disabled' : '']"
-          class="list-group-item">
-          {{camper.name}}
-        </li>
-      </ul>
+      <table class="table">
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Monday</th>
+          <th>Tuesday</th>
+          <th>Wednesday</th>
+          <th>Thursday</th>
+          <th>Friday</th>
+        </tr>
+        <tr v-for="(camper, key) in campers"
+          scope="row">
+          <td>{{key + 1}}</td>
+          <td>{{camper.name}}</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+        </tr>
+      </table>
     </div>
   </div>
 </template>
