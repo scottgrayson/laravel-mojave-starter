@@ -25,7 +25,7 @@
           Next
         </a>
       </div>
-      <table class="table">
+      <table class="table table-responsive">
         <tr>
           <th>#</th>
           <th>Name</th>
@@ -38,7 +38,9 @@
         <tr v-for="(camper, key) in campers"
           scope="row">
           <td>{{key + 1}}</td>
-          <td>{{camper.name}}</td>
+          <td><a :href="'/campers/'+camper.id">
+              {{camper.name}}
+          </a></td>
           <td>X</td>
           <td>X</td>
           <td>X</td>

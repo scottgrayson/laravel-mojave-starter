@@ -35,6 +35,7 @@ class ReservationController extends Controller
         $x = $result->map(function ($item, $key) {
             $camper = Camper::find($key);
             return [
+                'id' => $camper->id,
                 'name' => $camper->name,
                 'dates' => $item->pluck('date')
             ];
