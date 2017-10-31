@@ -28,6 +28,7 @@
       <table class="table table-responsive">
         <tr>
           <th>#</th>
+          <th>Allergies</th>
           <th>Name</th>
           <th>Monday</th>
           <th>Tuesday</th>
@@ -38,9 +39,19 @@
         <tr v-for="(camper, key) in campers"
           scope="row">
           <td>{{key + 1}}</td>
-          <td><a :href="'/campers/'+camper.id">
+          <td v-if="camper.allergies !== null">
+            <svg id="i-alert" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+              <path d="M16 3 L30 29 2 29 Z M16 11 L16 19 M16 23 L16 25" />
+            </svg>
+          </td>
+          <td v-else>
+            None
+          </td>
+          <td>
+            <a :href="'/campers/'+camper.id">
               {{camper.name}}
-          </a></td>
+            </a>
+          </td>
           <td>X</td>
           <td>X</td>
           <td>X</td>

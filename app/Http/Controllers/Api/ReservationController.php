@@ -37,7 +37,8 @@ class ReservationController extends Controller
             return [
                 'id' => $camper->id,
                 'name' => $camper->name,
-                'dates' => $item->pluck('date')
+                'dates' => $item->pluck('date'),
+                'allergies' => $camper->allergies
             ];
         })->values();
 
