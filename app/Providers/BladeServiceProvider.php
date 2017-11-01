@@ -24,6 +24,7 @@ class BladeServiceProvider extends ServiceProvider
             'rules' => [],
             'model' => null,
             'item' => null,
+            'wording' => [],
             ]
         );
 
