@@ -41,7 +41,16 @@ class FetchPageContent extends Command
      */
     public function handle()
     {
-        $converter = new HtmlConverter(['strip_tags' => true]);
+        $converter = new HtmlConverter([
+            'header_style' => 'atx', // Set to 'atx' to output H1 and H2 headers as # Header1 and ## Header2
+            'suppress_errors' => true, // Set to false to show warnings when loading malformed HTML
+            'strip_tags' => true, // Set to true to strip tags that don't have markdown equivalents. N.B. Strips tags, not their content. Useful to clean MS Word HTML output.
+            'bold_style' => '**', // Set to '__' if you prefer the underlined style
+            'italic_style' => '*', // Set to '*' if you prefer the asterisk style
+            'remove_nodes' => '', // space-separated list of dom nodes that should be removed. example: 'meta style script'
+            'hard_break' => true, // Set to true to turn <br> into `\n` instead of `  \n`
+            'list_item_style' => '*', // Set the default character for each <li> in a <ul>. Can be '-', '*', or
+        ]);
 
         collect($this->urls())->each(function ($uri) use ($converter) {
             $uriWithSuffix = !$uri ? $uri : $uri.'.html';
@@ -52,12 +61,12 @@ class FetchPageContent extends Command
             $res = $document->find('title');
             $title = count($res) ? $res[0]->text() : '';
 
-            $res = $document->find('meta[type=description]');
+            $res = $document->find('meta[property=og:description]');
             $description = count($res) ? $res[0]->getAttribute('content') : '';
 
             $res = $document->find('#wsite-content');
             $content = count($res) ? $res[0]->html() : '';
-            $markdown = trim($converter->convert($content));
+            $markdown = str_replace('.html', '', trim($converter->convert($content)));
 
             Page::updateOrCreate(
                 ['uri' => '/'.$uri],
