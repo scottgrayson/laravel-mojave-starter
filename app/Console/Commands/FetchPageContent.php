@@ -6,6 +6,9 @@ use Illuminate\Console\Command;
 use League\HTMLToMarkdown\HtmlConverter;
 use DiDom\Document;
 use App\Page;
+use App\File;
+use App\Image;
+use Illuminate\Support\Facades\Storage;
 
 class FetchPageContent extends Command
 {
@@ -23,6 +26,8 @@ class FetchPageContent extends Command
      */
     protected $description = 'Fetch page content from old site';
 
+    protected $baseUrl;
+
     /**
      * Create a new command instance.
      *
@@ -32,6 +37,7 @@ class FetchPageContent extends Command
     {
         parent::__construct();
 
+        $this->baseUrl = 'http://www.missbettysdaycamp.org';
     }
 
     /**
@@ -53,10 +59,11 @@ class FetchPageContent extends Command
         ]);
 
         collect($this->urls())->each(function ($uri) use ($converter) {
-            $uriWithSuffix = !$uri ? $uri : $uri.'.html';
-            $fullUrl = 'http://www.missbettysdaycamp.org/' . $uriWithSuffix;
+            $fullUrl = $this->baseUrl . $uri;
 
             $document = new Document($fullUrl, true);
+
+            $this->replaceImages($document);
 
             $res = $document->find('title');
             $title = count($res) ? $res[0]->text() : '';
@@ -69,9 +76,9 @@ class FetchPageContent extends Command
             $markdown = str_replace('.html', '', trim($converter->convert($content)));
 
             Page::updateOrCreate(
-                ['uri' => '/'.$uri],
+                ['uri' => $uri],
                 [
-                    'uri' => '/'.$uri,
+                    'uri' => $uri,
                     'name' => $title ? $title : $uri,
                     'title' => $title,
                     'meta_description' => $description,
@@ -82,12 +89,72 @@ class FetchPageContent extends Command
         });
     }
 
+    protected function replaceImages($document)
+    {
+        foreach ($document->find('img') as $img) {
+            if ($img->getAttribute('alt') === 'Quantcast') {
+                continue; //ignore tracking pixel img
+            }
+
+            $url = $this->baseUrl . preg_replace('/\?.*/', '', $img->getAttribute('src'));
+
+            $filename = basename($url);
+            $prefix = dirname($url);
+            // get the fullsize image
+            $origUrl = $prefix . '/' . str_replace('.', '_orig.', $filename);
+
+            try {
+                $image = file_get_contents($origUrl);
+            } catch (\Exception $e) {
+                $image = file_get_contents($url);
+            }
+
+            $storagePath = 'uploads/'.$filename;
+            Storage::put($storagePath, $image);
+
+
+            $fileModel = \App\File::createFromStoragePath($storagePath, $filename);
+
+            $imageModel = \App\Image::create(
+                [
+                    'name' => $filename,
+                    'file_id' => $fileModel->id,
+                    'user_id' => auth()->check() ? request()->user()->id : null,
+                ]
+            );
+
+            $img->setAttribute('src', '/'.$storagePath);
+
+            // remove any image links because they go to old site
+            $parent = $img->parent();
+            if ($parent->tag === 'a') {
+                $parent->replace($img);
+            }
+        }
+    }
+
     protected function urls()
     {
-        return [
-            '',
-            'history',
-            'rules-and-regulations',
-        ];
+        // get all results from search page. and load unique links
+        $fullUrl = $this->baseUrl . '/apps/search?q=%2A&filter=page';
+
+        $document = new Document($fullUrl, true);
+        $links = $document->find('a[href]');
+
+        $uriArr = [];
+
+        foreach ($links as $link) {
+            $href = $link->getAttribute('href');
+
+            // pages are homepage or end in url.
+            // they are relative urls
+            $isPage = (strpos($href, '.html') !== false || $href = '/') && strpos($href, '.com') === false;
+
+            if ($isPage && !in_array($href, $uriArr)) {
+                $uriArr []= $href;
+            }
+        }
+
+        return $uriArr;
     }
 }
