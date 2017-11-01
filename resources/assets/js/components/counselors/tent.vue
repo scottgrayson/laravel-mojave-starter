@@ -36,7 +36,7 @@
           <th>Thursday</th>
           <th>Friday</th>
         </tr>
-        <tr v-for="(camper, key) in campers"
+        <tr v-for="(camper, key) in camperSelection"
           scope="row">
           <td>{{key + 1}}</td>
           <td v-if="camper.allergies !== null">
@@ -83,6 +83,7 @@
         weeks: [],
         weekSelection: [],
         campers: {},
+        camperSelection: {},
         campStart: '',
         campEnd: '',
         firstWeek: true,
@@ -104,9 +105,16 @@
           this.firstWeek = false
           this.lastWeek = false
         }
+        this.campers = this.parseCampers(this.campers)
       },
       weekOf (val) {
         return 'Week Of: '+moment(this.weeks[val][0].date).format('MMMM D, YYYY')
+      },
+      parseCampers (val) {
+        for (var x of val) {
+          console.log(this.weeks[0])
+          console.log(x.dates)
+        }
       },
       fetchNext () {
         this.selectedWeek += 1
@@ -137,10 +145,6 @@
       }
     },
     created () {
-      axios.get('/api/reservations/'+this.tent.id)
-        .then((response) => {
-          this.campers = response.data
-        })
       axios.get('/api/camp-dates/')
         .then((response) => {
           this.weeks = response.data.weeks
@@ -148,6 +152,11 @@
           this.campStart = response.data.camp_start.date
           this.campEnd = response.data.camp_end.date
           this.selectedReadableWeek = this.weekOf(this.selectedWeek)
+        })
+      axios.get('/api/reservations/'+this.tent.id)
+        .then((response) => {
+          this.campers = response.data
+          this.camperSelection = this.parseCampers(response.data)
         })
     }
   }
