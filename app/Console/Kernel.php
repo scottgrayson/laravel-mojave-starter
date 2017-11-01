@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Jobs\CounselorReminder;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -25,6 +26,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+        $schedule->job(new CounselorReminder)->sundays()->at('12:00');
     }
 
     /**
