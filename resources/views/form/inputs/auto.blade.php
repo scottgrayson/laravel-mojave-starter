@@ -8,7 +8,7 @@
   $model = isset($model) ? $model : get_class($item);
   $item = isset($item) ? $item : null;
   $relation = '';
-  $wording = isset($words[$name]) ? $words[$name] : false;
+
   $label = $wording && isset($wording['label']) ? $wording['label'] : $name;
   $before = $wording && isset($wording['before']) ? $wording['before'] : '';
   $help = $wording && isset($wording['help']) ? $wording['help'] : '';
@@ -68,7 +68,9 @@
 
   // Render Field
 
-
+  if ($before) {
+    echo '<p>' . $before . '</p>';
+  }
 
   echo '<div class="'.$groupClass.'">';
   if ($type !== 'checkbox') {
@@ -93,6 +95,10 @@
     echo Form::file($name, array_merge(['class' => $inputclass], $attributes));
   } else {
     echo Form::$type($name, $value, array_merge(['class' => $inputClass], $attributes), $item);
+  }
+
+  if ($help) {
+    echo '<small class="text-muted">' . $help . '</small>';
   }
 
   // render errors

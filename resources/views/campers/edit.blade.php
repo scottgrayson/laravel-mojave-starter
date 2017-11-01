@@ -27,6 +27,16 @@ $steps = [
     'href' => route('campers.edit', ['camper' => $item->id, 'step' => 4]),
   ],
 ];
+
+$wording = [
+  'tent_id' => ['help' => 'Choose the grade that the camper has completed. Not the grade for the upcoming year.'],
+  'photo_consent' => [
+    'before' => "We take photographs of camp activities, that usually include recognizable images  of our campers, as well as counselors and staff.  We would like to use these photographs for marketing purposes, including, but not limited to, in brochures,  mailings and on our website,  and to include them in CD albums of the Camp experience that may be offered for sale to Camp families at the end of Camp.   By signing below, you agree that Miss Betty’s Day Camp is granted a license to use photographs that include images of your child/children in their activities at Camp for those purposes,  without charge, unless the box below has been checked.  Thank you.",
+  ],
+  'henna_consent' => [
+    'before' => "Henna consent explanation",
+  ],
+];
   @endphp
 
 
@@ -41,18 +51,15 @@ $steps = [
     'steps' => $steps,
   ])
 
-  @if($currentStep == 4)
-    <br>
-    <p class="muted">
-      We take photographs of camp activities, that usually include recognizable images  of our campers, as well as counselors and staff.  We would like to use these photographs for marketing purposes, including, but not limited to, in brochures,  mailings and on our website,  and to include them in CD albums of the Camp experience that may be offered for sale to Camp families at the end of Camp.   By signing below, you agree that Miss Betty’s Day Camp is granted a license to use photographs that include images of your child/children in their activities at Camp for those purposes,  without charge, unless the box below has been checked.  Thank you.
-    </p>
-  @endif
 
   {{ Form::model($item, ['method' => 'PUT', 'route' => ["campers.update", $item->id]]) }}
 
-  @foreach ($fields as $name => $rules)
-    {{ Form::bs($name, null, null, [], $rules, $model, $item) }}
-  @endforeach
+  @include('form.fields', [
+    'fields' => $fields,
+    'item' => $item,
+    'model' => $model,
+    'wording' => $wording,
+  ])
 
   <input hidden name="step" value="{{ $currentStep }}"></input>
 

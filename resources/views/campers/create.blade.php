@@ -10,9 +10,11 @@
 
   {{ Form::open(['method' => 'POST', 'route' => "campers.store"]) }}
 
-  @foreach ($fields as $name => $rules)
-    {{ Form::bs($name, null, null, [], $rules, $model) }}
-  @endforeach
+  @include('form.fields', [
+    'fields' => $fields,
+    'model' => $model,
+  ])
+
 
   <br>
 
