@@ -2,6 +2,10 @@
 
 namespace App\Jobs;
 
+use App\Tent;
+use App\Counselor;
+use App\Mail\CamperSchedule;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -29,6 +33,13 @@ class CounselorReminder implements ShouldQueue
      */
     public function handle()
     {
-        //
+        $tents = Tent::all();
+
+        foreach ($tents as $tent) {
+            $counselors = $tent->counselors()->get();
+            foreach ($counselors as $counselor) {
+                Mail::to($counselor->user->email)->send(new CamperSchedule());
+            }
+        }
     }
 }
