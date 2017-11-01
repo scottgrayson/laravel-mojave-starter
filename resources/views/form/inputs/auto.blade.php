@@ -98,7 +98,7 @@
   }
 
   if ($help) {
-    echo '<small class="text-muted">' . $help . '</small>';
+    echo '<small class="form-text text-muted">' . $help . '</small>';
   }
 
   // render errors

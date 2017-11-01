@@ -13,6 +13,9 @@
   @include('form.fields', [
     'fields' => $fields,
     'model' => $model,
+    'wording' => [
+      'tent_id' => ['help' => 'Choose the grade that the camper has completed. Not the grade for the upcoming year.'],
+    ],
   ])
 
 
