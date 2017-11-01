@@ -7,8 +7,11 @@
   $options = [];
   $model = isset($model) ? $model : get_class($item);
   $item = isset($item) ? $item : null;
-  $label = $name;
   $relation = '';
+  $wording = isset($words[$name]) ? $words[$name] : false;
+  $label = $wording && isset($wording['label']) ? $wording['label'] : $name;
+  $before = $wording && isset($wording['before']) ? $wording['before'] : '';
+  $help = $wording && isset($wording['help']) ? $wording['help'] : '';
 
   if (in_array('string', $rules) && !preg_grep('/max/', $rules)) {
     $type = 'textarea';
@@ -23,7 +26,7 @@
   } elseif ($rule = preg_grep('/in:/', $rules)) {
     $options = collect(explode(',', str_ireplace('in:', '', array_shift($rule))))
       ->mapWithKeys(function ($o) {
-        return [$o => title_case(str_replace('_', ' ', $o))];
+        return [$o => ucfirst(str_replace('_', ' ', $o))];
       })
       ->toArray();
     $type = 'select';
@@ -64,6 +67,8 @@
   }
 
   // Render Field
+
+
 
   echo '<div class="'.$groupClass.'">';
   if ($type !== 'checkbox') {
