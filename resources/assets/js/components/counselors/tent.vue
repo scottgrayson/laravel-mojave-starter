@@ -14,7 +14,7 @@
           </button>
           <div class="dropdown-menu">
             <a class="dropdown-item" v-for="(value, key) in weekSelection"
-              @click="selectedWeek = key, selectedReadableWeek = weekOf(key)">
+              @click="setWeek(key), selectedReadableWeek = weekOf(key)">
               {{value}}
             </a>
           </div>
@@ -40,7 +40,14 @@
           scope="row">
           <td>{{key + 1}}</td>
           <td v-if="camper.allergies !== null">
-            <svg id="i-alert" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+            <svg id="i-alert" viewBox="0 0 32 32" 
+              width="32" 
+              height="32" 
+              fill="none"
+              stroke="currentcolor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2">
               <path d="M16 3 L30 29 2 29 Z M16 11 L16 19 M16 23 L16 25" />
             </svg>
           </td>
@@ -85,6 +92,19 @@
       }
     },
     methods: {
+      setWeek (val) {
+        this.selectedWeek = val
+        if (val === 0) {
+          this.firstWeek = true
+          this.lastWeek = false
+        } else if (val === (this.weeks.length - 1)) {
+          this.firstWeek = false
+          this.lastWeek = true
+        } else {
+          this.firstWeek = false
+          this.lastWeek = false
+        }
+      },
       weekOf (val) {
         return 'Week Of: '+moment(this.weeks[val][0].date).format('MMMM D, YYYY')
       },
