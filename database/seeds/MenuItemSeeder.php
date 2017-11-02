@@ -223,11 +223,9 @@ class MenuItemSeeder extends Seeder
                             $this->pageItem('history'),
                             $this->pageItem('special events'),
                             $this->pageItem('tuition information'),
-                            $this->pageItem('registration'),
                             $this->pageItem('work parties'),
                             $this->pageItem('rules and regulations'),
                             $this->pageItem('board of directors'),
-                            $this->pageItem('photo gallery'),
                         ],
                     ],
                     [
