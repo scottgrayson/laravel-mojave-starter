@@ -188,7 +188,12 @@ class CamperController extends Controller
             abort(403);
         }
 
-        $item->delete();
+        try {
+            $item->delete();
+        } catch (\Exception $e) {
+            flash('Could not delete camper. '. $item->name . ' has reservations.')->error();
+            return redirect(route("campers.index"));
+        }
 
         flash('Camper deleted.')->success();
 
