@@ -8,3 +8,15 @@
   {!! $page->html !!}
 @endsection
 
+
+@section('style')
+  @parent
+  <style>
+    img {
+      display: block;
+      margin: 0 auto;
+      max-height: 50vh;
+      max-width: 100%;
+    }
+  </style>
+@endsection
