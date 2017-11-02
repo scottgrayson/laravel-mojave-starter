@@ -75,10 +75,12 @@ class FetchPageContent extends Command
             $content = count($res) ? $res[0]->html() : '';
             $markdown = str_replace('.html', '', trim($converter->convert($content)));
 
+            $newUri = str_replace('.html', '', $uri);
+
             Page::updateOrCreate(
-                ['uri' => $uri],
+                ['uri' => $newUri],
                 [
-                    'uri' => $uri,
+                    'uri' => $newUri,
                     'name' => $title ? $title : $uri,
                     'title' => $title,
                     'meta_description' => $description,
