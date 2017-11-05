@@ -125,7 +125,7 @@ class FetchPageContent extends Command
                 ]
             );
 
-            $img->setAttribute('src', '/'.$storagePath);
+            $img->setAttribute('src', '/storage/'.$storagePath);
 
             // remove any image links because they go to old site
             $parent = $img->parent();
