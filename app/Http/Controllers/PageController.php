@@ -22,7 +22,7 @@ class PageController extends Controller
             abort(404);
         }
 
-        SEO::setTitle($page->meta_title ? $page->meta_title : $page->title);
+        SEO::setTitle($page->title);
         SEO::setDescription($page->meta_description ? $page->meta_description : $page->title);
 
         return view('page', [

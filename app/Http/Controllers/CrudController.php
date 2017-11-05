@@ -49,7 +49,6 @@ class CrudController extends Controller
                         [
                             'layout',
                             'content',
-                            'meta_title',
                             'meta_description',
                             'meta_tags',
                             'order',
