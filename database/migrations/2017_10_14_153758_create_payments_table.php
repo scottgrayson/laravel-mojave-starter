@@ -24,6 +24,14 @@ class CreatePaymentsTable extends Migration
                 ->onDelete('restrict');
             $table->index('user_id');
 
+            $table->integer('camp_id')
+                ->unsigned();
+            $table->foreign('camp_id')
+                ->references('id')
+                ->on('camps')
+                ->onDelete('restrict');
+            $table->index('camp_id');
+
             $table->string('transaction');
             $table->string('type');
             $table->decimal('amount');
