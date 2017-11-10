@@ -25,7 +25,9 @@ class ViewAvailabilitiesTest extends TestCase
 
         // Reserve first day to avoid weekends
         $reservation = factory(Reservation::class)->create([
-            'payment_id' => factory(\App\Payment::class)->create()->id,
+            'payment_id' => factory(\App\Payment::class)->create([
+                'camp_id' => $camp->id,
+            ])->id,
             'tent_id' => $tent->id,
             'user_id' => $user->id,
             'camper_id' => $camper->id,

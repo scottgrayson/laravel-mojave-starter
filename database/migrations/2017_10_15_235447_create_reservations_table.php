@@ -24,14 +24,6 @@ class CreateReservationsTable extends Migration
                 ->onDelete('restrict');
             $table->index('user_id');
 
-            $table->integer('camp_id')
-                ->unsigned();
-            $table->foreign('camp_id')
-                ->references('id')
-                ->on('camps')
-                ->onDelete('restrict');
-            $table->index('camp_id');
-
             $table->integer('camper_id')
                 ->unsigned();
             $table->foreign('camper_id')

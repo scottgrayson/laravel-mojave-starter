@@ -35,9 +35,12 @@ class User extends Authenticatable
 
     public function hasPaidWorkPartyFee()
     {
-        $fee = $this->payments()->where('type', 'work_party_fee')->latest()->first();
+        $camp = \App\Camp::current();
 
-        return $fee && $fee->isForCurrentCamp();
+        return $camp && $this->payments()
+            ->where('type', 'work_party_fee')
+            ->where('camp_id', $camp->id)
+            ->count();
     }
 
     // If admin creates a user send them an invite using password reset token

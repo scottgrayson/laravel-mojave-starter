@@ -110,6 +110,7 @@ class PayAndReserveTest extends TestCase
         // Existing Payment
         $workPartyPayment = factory(Payment::class)->create([
             'user_id' => $user->id,
+            'camp_id' => $camp->id,
             'type' => 'work_party_fee',
             'amount' => $workPartyFee->price,
         ]);
@@ -156,13 +157,27 @@ class PayAndReserveTest extends TestCase
             'user_id' => $user->id,
         ]);
 
-        // Existing Payment
+        $lastJune = Carbon::parse('June')->subYears(2);
+        $oldCamp = factory(Camp::class)->create([
+            'camp_start' => $lastJune->toDateString(),
+            'camp_end' => $lastJune->addDays(6 * 7)->toDateString(),
+            'registration_end' => $lastJune->subMonths(1)->toDateString(),
+        ]);
+        // Last years payment
         $workPartyPayment = factory(Payment::class)->create([
             'user_id' => $user->id,
+            'camp_id' => $oldCamp->id,
             'type' => 'work_party_fee',
             'amount' => $workPartyFee->price,
             'created_at' => Carbon::now()->subYears(1),
         ]);
+
+        // Assert work party fee paid for new year and old
+        $workPartyPayments = Payment::where('user_id', $user->id)
+            ->where('type', 'work_party_fee')
+            ->count();
+
+        $this->assertEquals($workPartyPayments, 1);
 
         $this->be($user);
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Helpers\CartHelper;
+use App\Camp;
 use App\Product;
 use App\Payment;
 use Cart;
@@ -24,12 +25,14 @@ class PaymentController extends Controller
 
     public function store(Request $request)
     {
-        if (Cart::content()->isEmpty()) {
+        $camp = Camp::current();
+
+        if (!$camp || Cart::content()->isEmpty()) {
             abort(400);
         }
 
         // Pay Workparty Fee
-        if (!request()->user()->hasPaidWorkPartyFee()) {
+        if (!request()->user()->hasPaidWorkPartyFee() && Cart::content()->count() >= 5) {
             $workPartyFee = Product::where('slug', 'work_party_fee')->firstOrFail();
 
             $result = Braintree_Transaction::sale([
@@ -44,6 +47,7 @@ class PaymentController extends Controller
                 // See $result->transaction for details
                 $payment = Payment::create([
                     'user_id' => auth()->user()->id,
+                    'camp_id' => $camp->id,
                     'transaction' => $result->transaction->id,
                     'amount' => $result->transaction->amount,
                     'type' => 'work_party_fee',
@@ -68,6 +72,7 @@ class PaymentController extends Controller
             // See $result->transaction for details
             $payment = Payment::create([
                 'user_id' => auth()->user()->id,
+                'camp_id' => $camp->id,
                 'transaction' => $result->transaction->id,
                 'amount' => $result->transaction->amount,
                 'type' => 'reservation',
