@@ -16,7 +16,7 @@ class ProductSeeder extends Seeder
         \DB::table('products')->insert([
             'name' => 'day',
             'slug' => 'day',
-            'price' => '50',
+            'price' => '65',
             'description' => 'Rate for campers reserving less than 5 days',
         ]);
 
@@ -24,21 +24,21 @@ class ProductSeeder extends Seeder
             'name' => 'week rate',
             'slug' => 'week',
             'price' => '45',
-            'description' => 'Rate for campers reserving 5 or more days',
+            'description' => '$225 - per week',
         ]);
 
         \DB::table('products')->insert([
             'name' => 'full rate',
             'slug' => 'full',
             'price' => '40',
-            'description' => 'Rate for campers reserving full camp',
+            'description' => '$1,200 - six weeks',
         ]);
 
         \DB::table('products')->insert([
             'name' => 'Work Party Fee',
             'slug' => 'work-party-fee',
             'price' => '100',
-            'description' => 'Waived if you agree to attend a work party during checkout',
+            'description' => 'If you attend the work party prior to the start of Camp, the registration fee will be refunded to you.',
         ]);
     }
 }
