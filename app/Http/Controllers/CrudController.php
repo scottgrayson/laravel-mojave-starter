@@ -49,7 +49,6 @@ class CrudController extends Controller
                         [
                             'layout',
                             'content',
-                            'meta_title',
                             'meta_description',
                             'meta_tags',
                             'order',
@@ -275,9 +274,13 @@ class CrudController extends Controller
     public function destroy($id)
     {
         $item = $this->model::findOrFail($id);
-        $item->delete();
 
-        flash($this->singular . ' deleted.');
+        try {
+            $item->delete();
+            flash($this->singular . ' deleted.')->success();
+        } catch (\Exception $e) {
+            flash("Could not delete $this->singular.")->error();
+        }
 
         if (request()->is('admin*')) {
             return redirect(route("admin.$this->slug.index"));

@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
+
 class CamperRequest extends FormRequest
 {
     public function createRules()
@@ -42,6 +44,7 @@ class CamperRequest extends FormRequest
             'zip' => 'nullable|string|max:255',
             'phone' => 'nullable|phone:AUTO,US',
             'birthdate' => 'nullable|date',
+            'shirt_size' => 'required|in:S,M,L,XL',
             'guardian_name' => 'nullable|string|max:255',
             'guardian_email' => 'nullable|email',
             'guardian_address' => 'nullable|string|max:255',
@@ -65,6 +68,7 @@ class CamperRequest extends FormRequest
             'alternate_contact_daytime_phone' => 'nullable|phone:AUTO,US',
             'alternate_contact_evening_phone' => 'nullable|phone:AUTO,US',
             'photo_consent' => 'boolean',
+            'henna_consent' => 'boolean',
         ];
     }
 
@@ -81,6 +85,7 @@ class CamperRequest extends FormRequest
                 'zip' => 'required|string|max:255',
                 'phone' => 'required|phone:AUTO,US',
                 'birthdate' => 'required|date',
+                'shirt_size' => 'required|in:S,M,L,XL',
             ], [
                 'guardian_name' => 'required|string|max:255',
                 'guardian_email' => 'required|email',
@@ -107,6 +112,7 @@ class CamperRequest extends FormRequest
                 'medical_conditions' => 'required|string',
             ], [
                 'photo_consent' => 'boolean',
+                'henna_consent' => 'boolean',
             ],
         ];
     }

@@ -106,11 +106,11 @@
                 </a>
               @endif
               @if (\Route::has('admin.'.$slug.'.destroy'))
-                {{ Form::open(['method' => 'delete', 'url' => request()->path() . '/' . $i->id]) }}
-                <button type="submit" class="btn btn-icon">
-                  @svg('trash')
-                </button>
-                {{ Form::close() }}
+                <a href="{{ route('admin.'.$slug.'.destroy', $i->id) }}"
+                  data-method="delete"
+                  class="btn btn-icon">
+                  @svg('trash', 'text-top')
+                </a>
               @endif
             </div>
           </td>

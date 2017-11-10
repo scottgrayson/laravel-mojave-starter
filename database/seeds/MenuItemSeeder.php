@@ -42,6 +42,10 @@ class MenuItemSeeder extends Seeder
     {
         $page = Page::where('name', $name)->first();
 
+        if (!$page) {
+            dd('could not find page: ' . $name);
+        }
+
         return [
             'page_id' => $page->id,
             'name' => $page->name,
@@ -223,11 +227,13 @@ class MenuItemSeeder extends Seeder
                     [
                         'name' => 'about',
                         'children' => [
-                            $this->pageItem('general information'),
+                            $this->pageItem('about'),
+                            $this->pageItem('history'),
+                            $this->pageItem('special events'),
+                            $this->pageItem('tuition information'),
                             $this->pageItem('work parties'),
                             $this->pageItem('rules and regulations'),
                             $this->pageItem('board of directors'),
-                            $this->pageItem('photos'),
                         ],
                     ],
                     [
@@ -241,11 +247,11 @@ class MenuItemSeeder extends Seeder
                             $this->pageItem('theatre'),
                             $this->pageItem('creek'),
                             $this->pageItem('games and contests'),
-                            $this->pageItem('events'),
+                            $this->pageItem('special events'),
                         ],
                     ],
-                    $this->pageItem('enroll'),
-                    $this->pageItem('calendar'),
+                    $this->pageItem('registration'),
+                    [ 'name' => 'calendar' ],
                     $this->pageItem('contact'),
                 ],
             ],
@@ -258,8 +264,8 @@ class MenuItemSeeder extends Seeder
                     ],
                     $this->pageItem('about'),
                     $this->pageItem('activities'),
-                    $this->pageItem('enroll'),
-                    $this->pageItem('calendar'),
+                    $this->pageItem('registration'),
+                    [ 'name' => 'calendar' ],
                     $this->pageItem('contact'),
                 ],
             ],
@@ -272,12 +278,11 @@ class MenuItemSeeder extends Seeder
                     ],
                     $this->pageItem('about'),
                     $this->pageItem('activities'),
-                    $this->pageItem('enroll'),
-                    $this->pageItem('calendar'),
+                    $this->pageItem('registration'),
+                    [ 'name' => 'calendar' ],
                     $this->pageItem('contact'),
                     $this->pageItem('my account'),
                     [ 'name' => 'cart' ],
-                    [ 'name' => 'notifications' ],
                     [ 'name' => 'logout' ],
                 ],
             ],
@@ -286,7 +291,7 @@ class MenuItemSeeder extends Seeder
                 'children' => [
                     $this->pageItem('about'),
                     $this->pageItem('contact'),
-                    $this->pageItem('newsletter'),
+                    [ 'name' => 'newsletter' ],
                 ],
             ],
         ];
