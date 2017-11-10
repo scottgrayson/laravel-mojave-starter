@@ -3,10 +3,10 @@
 namespace App;
 
 use App\Reservation;
-use App\CampDates;
+use App\Camp;
 use Carbon\Carbon;
 
-class CampDates extends Model
+class Camp extends Model
 {
     protected $dates = [
         'camp_start',
@@ -120,7 +120,7 @@ class CampDates extends Model
 
         $randomDay = $this->camp_start->addDays(rand(0, $campLength));
 
-        while (!CampDates::isOpen($randomDay)) {
+        while (!Camp::isOpen($randomDay)) {
             $randomDay = $this->camp_start->addDays(rand(0, $campLength));
         }
 

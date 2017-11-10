@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class CampDatesRequest extends FormRequest
+class CampRequest extends FormRequest
 {
     public function rules()
     {

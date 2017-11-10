@@ -23,9 +23,21 @@ class User extends Authenticatable
         return $this->hasMany(\App\Reservation::class);
     }
 
+    public function payments()
+    {
+        return $this->hasMany(\App\Payment::class);
+    }
+
     public function campers()
     {
         return $this->hasMany(\App\Camper::class);
+    }
+
+    public function hasPaidWorkPartyFee()
+    {
+        $fee = $this->payments()->where('type', 'work_party_fee')->latest()->first();
+
+        return $fee && $fee->isForCurrentCamp();
     }
 
     // If admin creates a user send them an invite using password reset token

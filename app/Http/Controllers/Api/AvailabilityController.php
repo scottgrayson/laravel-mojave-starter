@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\CampDates;
+use App\Camp;
 use Illuminate\Http\Request;
 
 class AvailabilityController extends Controller
@@ -15,6 +15,6 @@ class AvailabilityController extends Controller
      */
     public function index(Request $request)
     {
-        return CampDates::availabilities();
+        return Camp::availabilities();
     }
 }

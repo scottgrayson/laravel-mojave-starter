@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Cart;
 use App\Product;
-use App\CampDates;
+use App\Camp;
 use App\Reservation;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CartItemRequest;
@@ -29,7 +29,7 @@ class CartItemController extends Controller
                 Cart::remove($i->rowId);
             });
 
-        $camp = CampDates::current();
+        $camp = Camp::current();
         $campLength = $camp->openDays()->count();
 
         $numReserved = Reservation::where('camper_id', request('camper_id'))

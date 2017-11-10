@@ -28,6 +28,34 @@ class PaymentController extends Controller
             abort(400);
         }
 
+        // Pay Workparty Fee
+        if (!request()->user()->hasPaidWorkPartyFee()) {
+            $workPartyFee = Product::where('slug', 'work_party_fee')->firstOrFail();
+
+            $result = Braintree_Transaction::sale([
+                'amount' => $workPartyFee->price,
+                'paymentMethodNonce' => request('nonce'),
+                'options' => [
+                    'submitForSettlement' => true,
+                ]
+            ]);
+
+            if ($result->success) {
+                // See $result->transaction for details
+                $payment = Payment::create([
+                    'user_id' => auth()->user()->id,
+                    'transaction' => $result->transaction->id,
+                    'amount' => $result->transaction->amount,
+                    'type' => 'work_party_fee',
+                ]);
+            } else {
+                // Handle errors
+                \Log::error($result);
+                abort(400);
+            }
+        }
+
+        // Pay For Reservation
         $result = Braintree_Transaction::sale([
             'amount' => CartHelper::total(),
             'paymentMethodNonce' => request('nonce'),

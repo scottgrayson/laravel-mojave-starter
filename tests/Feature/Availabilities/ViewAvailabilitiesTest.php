@@ -5,7 +5,7 @@ namespace Tests\Feature\Availabilities;
 use Tests\TestCase;
 use Carbon\Carbon;
 use App\Reservation;
-use App\CampDates;
+use App\Camp;
 use App\Camper;
 use App\User;
 use App\Tent;
@@ -21,7 +21,7 @@ class ViewAvailabilitiesTest extends TestCase
             'user_id' => $user->id,
         ]);
 
-        $camp = factory(CampDates::class)->create();
+        $camp = factory(Camp::class)->create();
 
         // Reserve first day to avoid weekends
         $reservation = factory(Reservation::class)->create([

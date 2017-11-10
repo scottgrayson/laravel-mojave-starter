@@ -90,7 +90,7 @@ class MenuItemSeeder extends Seeder
                     ],
                     [
                         'name' => 'camp dates',
-                        'link' => '/admin/camp-dates',
+                        'link' => '/admin/camps',
                     ],
                     [
                         'name' => 'tents',
@@ -151,7 +151,7 @@ class MenuItemSeeder extends Seeder
                     ],
                     [
                         'name' => 'camp dates',
-                        'link' => '/admin/camp-dates',
+                        'link' => '/admin/camps',
                     ],
                     [
                         'name' => 'tents',

@@ -4,7 +4,7 @@ namespace Tests\Feature\CartItems;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
-use App\CampDates;
+use App\Camp;
 use App\Reservation;
 use App\Camper;
 use App\Product;
@@ -21,7 +21,7 @@ class CampRatesTest extends TestCase
         $full = factory(Product::class)->create(['slug' => 'full']);
         $tent = factory(Tent::class)->create();
         $user = factory(User::class)->create();
-        $camp = factory(CampDates::class)->create();
+        $camp = factory(Camp::class)->create();
         $camper = factory(Camper::class)->create([
             'tent_id' => $tent->id,
             'user_id' => $user->id,

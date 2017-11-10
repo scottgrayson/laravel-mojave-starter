@@ -6,7 +6,7 @@ use Cart;
 use App\Helpers\CartHelper;
 use SEO;
 use App\Product;
-use App\CampDates;
+use App\Camp;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Braintree_Configuration;

@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Carbon\Carbon;
 
-class CampDatesSeeder extends Seeder
+class CampSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -25,7 +25,7 @@ class CampDatesSeeder extends Seeder
         foreach ($start_dates as $start) {
             $start = $start->isWeekend() ? $start->addDays(2) : $start;
 
-            factory(\App\CampDates::class)->create([
+            factory(\App\Camp::class)->create([
                 'camp_start' => $start->toDateString(),
                 'camp_end' => $start->addDays(6 * 7)->toDateString(),
                 'registration_end' => $start->subMonths(1)->toDateString(),

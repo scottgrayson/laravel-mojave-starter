@@ -4,7 +4,7 @@ namespace App\Helpers;
 
 use Cart;
 use App\Product;
-use App\CampDates;
+use App\Camp;
 
 class CartHelper
 {
@@ -14,7 +14,7 @@ class CartHelper
 
         $workPartyFee = Product::where('slug', 'work-party-fee')->first();
 
-        $campLength = CampDates::current()->openDays()->count();
+        $campLength = Camp::current()->openDays()->count();
 
         $campers = auth()->user()->campers
             ->map(function ($camper) use ($cart) {

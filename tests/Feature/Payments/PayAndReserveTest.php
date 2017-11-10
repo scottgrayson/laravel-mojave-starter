@@ -4,7 +4,7 @@ namespace Tests\Feature\Payments;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
-use App\CampDates;
+use App\Camp;
 use App\Camper;
 use App\Product;
 use App\User;
@@ -21,7 +21,7 @@ class PayAndReserveTest extends TestCase
         $workPartyFee = factory(Product::class)->create(['slug' => 'work_party_fee']);
         $tent = factory(Tent::class)->create();
         $user = factory(User::class)->create();
-        $camp = factory(CampDates::class)->create();
+        $camp = factory(Camp::class)->create();
         $camper = factory(Camper::class)->create([
             'tent_id' => $tent->id,
             'user_id' => $user->id,
@@ -59,7 +59,7 @@ class PayAndReserveTest extends TestCase
         $workPartyFee = factory(Product::class)->create(['slug' => 'work_party_fee']);
         $tent = factory(Tent::class)->create();
         $user = factory(User::class)->create();
-        $camp = factory(CampDates::class)->create();
+        $camp = factory(Camp::class)->create();
         $camper = factory(Camper::class)->create([
             'tent_id' => $tent->id,
             'user_id' => $user->id,
@@ -101,7 +101,7 @@ class PayAndReserveTest extends TestCase
         $workPartyFee = factory(Product::class)->create(['slug' => 'work_party_fee']);
         $tent = factory(Tent::class)->create();
         $user = factory(User::class)->create();
-        $camp = factory(CampDates::class)->create();
+        $camp = factory(Camp::class)->create();
         $camper = factory(Camper::class)->create([
             'tent_id' => $tent->id,
             'user_id' => $user->id,
@@ -150,7 +150,7 @@ class PayAndReserveTest extends TestCase
         $workPartyFee = factory(Product::class)->create(['slug' => 'work_party_fee']);
         $tent = factory(Tent::class)->create();
         $user = factory(User::class)->create();
-        $camp = factory(CampDates::class)->create();
+        $camp = factory(Camp::class)->create();
         $camper = factory(Camper::class)->create([
             'tent_id' => $tent->id,
             'user_id' => $user->id,

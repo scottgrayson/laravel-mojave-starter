@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCampDatesTable extends Migration
+class CreateCampTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateCampDatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('camp_dates', function (Blueprint $table) {
+        Schema::create('camps', function (Blueprint $table) {
             $table->increments('id');
             $table->date('camp_start');
             $table->date('camp_end');
@@ -30,6 +30,6 @@ class CreateCampDatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('camp_dates');
+        Schema::dropIfExists('camps');
     }
 }

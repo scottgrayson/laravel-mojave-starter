@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\User;
 use App\Camper;
-use App\CampDates;
+use App\Camp;
 
 class ReservationSeeder extends Seeder
 {
@@ -15,7 +15,7 @@ class ReservationSeeder extends Seeder
     public function run()
     {
         $campers = Camper::limit(Camper::count() / 2)->get();
-        $camp = CampDates::current();
+        $camp = Camp::current();
 
         foreach ($campers as $c) {
             $payment = factory(\App\Payment::class)->create(['user_id' => $c->user_id]);
