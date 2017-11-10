@@ -44,6 +44,50 @@ class PayAndReserveTest extends TestCase
 
         $this->assertEquals($user->reservations->count(), 1);
 
+        // Assert work party fee NOT paid
+        $workPartyPayment = Payments::where('user_id', $user->id)
+            ->where('type', 'work_party_fee')
+            ->count();
+
+        $this->assertEquals($workPartyPayment, 0);
+    }
+
+    public function testWorkPartyFee()
+    {
+        $product = factory(Product::class)->create(['slug' => 'day']);
+        $workPartyFee = factory(Product::class)->create(['slug' => 'work_party_fee']);
+        $tent = factory(Tent::class)->create();
+        $user = factory(User::class)->create();
+        $camp = factory(CampDates::class)->create();
+        $camper = factory(Camper::class)->create([
+            'tent_id' => $tent->id,
+            'user_id' => $user->id,
+        ]);
+
+        $this->be($user);
+
+        foreach ($camp->openDays() as $key => $d) {
+            if ($key > 5) {
+                break;
+            }
+
+            Cart::add($product, 1, [
+                'camper_id' => $camper->id,
+                'tent_id' => $tent->id,
+                'product' => $product->slug,
+                'date' => $d->toDateString(),
+            ]);
+        }
+
+        $r = $this->post(route('api.payments.store'), [
+            'nonce' => 'fake-valid-nonce',
+        ]);
+
+        //$this->feedback($r);
+        $r->assertStatus(200);
+
+        $this->assertEquals($user->reservations->count(), 1);
+
         // Assert work party fee paid
         $workPartyPayment = Payments::where('user_id', $user->id)
             ->where('type', 'work_party_fee')
@@ -73,12 +117,18 @@ class PayAndReserveTest extends TestCase
 
         $this->be($user);
 
-        Cart::add($product, 1, [
-            'camper_id' => $camper->id,
-            'tent_id' => $tent->id,
-            'product' => $product->slug,
-            'date' => $camp->camp_start->toDateString(),
-        ]);
+        foreach ($camp->openDays() as $key => $d) {
+            if ($key > 5) {
+                break;
+            }
+
+            Cart::add($product, 1, [
+                'camper_id' => $camper->id,
+                'tent_id' => $tent->id,
+                'product' => $product->slug,
+                'date' => $d->toDateString(),
+            ]);
+        }
 
         $r = $this->post(route('api.payments.store'), [
             'nonce' => 'fake-valid-nonce',
@@ -87,7 +137,7 @@ class PayAndReserveTest extends TestCase
         //$this->feedback($r);
         $r->assertStatus(200);
 
-        // Assert work party fee paid
+        // Assert work party fee not paid twice
         $workPartyPayments = Payments::where('user_id', $user->id)
             ->where('type', 'work_party_fee')
             ->count();
@@ -117,12 +167,18 @@ class PayAndReserveTest extends TestCase
 
         $this->be($user);
 
-        Cart::add($product, 1, [
-            'camper_id' => $camper->id,
-            'tent_id' => $tent->id,
-            'product' => $product->slug,
-            'date' => $camp->camp_start->toDateString(),
-        ]);
+        foreach ($camp->openDays() as $key => $d) {
+            if ($key > 5) {
+                break;
+            }
+
+            Cart::add($product, 1, [
+                'camper_id' => $camper->id,
+                'tent_id' => $tent->id,
+                'product' => $product->slug,
+                'date' => $d->toDateString(),
+            ]);
+        }
 
         $r = $this->post(route('api.payments.store'), [
             'nonce' => 'fake-valid-nonce',
@@ -131,7 +187,7 @@ class PayAndReserveTest extends TestCase
         //$this->feedback($r);
         $r->assertStatus(200);
 
-        // Assert work party fee paid
+        // Assert work party fee paid for new year and old
         $workPartyPayments = Payments::where('user_id', $user->id)
             ->where('type', 'work_party_fee')
             ->count();
