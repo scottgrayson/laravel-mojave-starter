@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\CartItems;
+namespace Tests\Feature\Payments;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
@@ -11,6 +11,7 @@ use App\User;
 use App\Tent;
 use App\Payment;
 use Cart;
+use Carbon\Carbon;
 
 class PayAndReserveTest extends TestCase
 {
@@ -45,7 +46,7 @@ class PayAndReserveTest extends TestCase
         $this->assertEquals($user->reservations->count(), 1);
 
         // Assert work party fee NOT paid
-        $workPartyPayment = Payments::where('user_id', $user->id)
+        $workPartyPayment = Payment::where('user_id', $user->id)
             ->where('type', 'work_party_fee')
             ->count();
 
@@ -86,10 +87,8 @@ class PayAndReserveTest extends TestCase
         //$this->feedback($r);
         $r->assertStatus(200);
 
-        $this->assertEquals($user->reservations->count(), 1);
-
         // Assert work party fee paid
-        $workPartyPayment = Payments::where('user_id', $user->id)
+        $workPartyPayment = Payment::where('user_id', $user->id)
             ->where('type', 'work_party_fee')
             ->first();
 
@@ -138,7 +137,7 @@ class PayAndReserveTest extends TestCase
         $r->assertStatus(200);
 
         // Assert work party fee not paid twice
-        $workPartyPayments = Payments::where('user_id', $user->id)
+        $workPartyPayments = Payment::where('user_id', $user->id)
             ->where('type', 'work_party_fee')
             ->count();
 
@@ -188,7 +187,7 @@ class PayAndReserveTest extends TestCase
         $r->assertStatus(200);
 
         // Assert work party fee paid for new year and old
-        $workPartyPayments = Payments::where('user_id', $user->id)
+        $workPartyPayments = Payment::where('user_id', $user->id)
             ->where('type', 'work_party_fee')
             ->count();
 

@@ -25,6 +25,7 @@ class CreatePaymentsTable extends Migration
             $table->index('user_id');
 
             $table->string('transaction');
+            $table->string('type');
             $table->decimal('amount');
 
             $table->timestamps();

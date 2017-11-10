@@ -42,6 +42,7 @@ class PaymentController extends Controller
                 'user_id' => auth()->user()->id,
                 'transaction' => $result->transaction->id,
                 'amount' => $result->transaction->amount,
+                'type' => 'reservation',
             ]);
         } else {
             // Handle errors
