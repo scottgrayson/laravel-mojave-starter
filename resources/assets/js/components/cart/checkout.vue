@@ -20,7 +20,7 @@
 
     <br>
 
-    <button @click="submit" v-show="!error" id="submit-button" class="btn btn-primary">
+    <button @disabled="processing" @click="submit" v-show="!error" id="submit-button" class="btn btn-primary">
       Purchase
     </button>
     <a href="/cart" class="btn btn-link">
@@ -81,12 +81,18 @@ export default {
         }
 
         // Submit payload.nonce to your server
+        const loadingSwal = swal({
+          title: 'Processing...',
+          text: 'Your payment is being processed',
+          icon: 'info'
+        })
+
         axios.post('/api/payments', payload)
           .then(() => {
             window.location.href = '/thank-you'
           })
           .catch((error) => {
-            debugger
+            loadingSwal.close()
             this.error = error
           })
       })
