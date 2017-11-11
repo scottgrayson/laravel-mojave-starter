@@ -12,15 +12,15 @@
       Completing the payment form below will reserve days for your campers.
     </p>
 
-    <div v-show="error" class="alert alert-danger">
-      {{ error }}
+    <div v-show="initError" class="alert alert-danger">
+      {{ initError }}
     </div>
 
     <div id="dropin-container"></div>
 
     <br>
 
-    <button @disabled="processing" @click="submit" v-show="!error" id="submit-button" class="btn btn-primary">
+    <button @disabled="processing" @click="submit" v-show="!initError" id="submit-button" class="btn btn-primary">
       Purchase
     </button>
     <a href="/cart" class="btn btn-link">
@@ -45,7 +45,9 @@ export default {
 
   data () {
     return {
-      error: ''
+      error: '',
+      braintree: null,
+      processing: false
     }
   },
 
@@ -74,26 +76,34 @@ export default {
 
   methods: {
     submit () {
+      this.processing = true
+        swal({
+          title: 'Processing...',
+          text: 'Your payment is being processed',
+          icon: 'info',
+          button: false,
+          closeOnClickOutside: false,
+          closeOnEsc: false
+        })
+
       this.braintree.requestPaymentMethod((err, payload) => {
         if (err) {
+          swal.close()
           // An appropriate error will be shown in the UI
           return
         }
 
         // Submit payload.nonce to your server
-        const loadingSwal = swal({
-          title: 'Processing...',
-          text: 'Your payment is being processed',
-          icon: 'info'
-        })
-
         axios.post('/api/payments', payload)
           .then(() => {
             window.location.href = '/thank-you'
           })
           .catch((error) => {
-            loadingSwal.close()
-            this.error = error
+            this.processing = true
+            swal({
+              text: 'Error processing payment.',
+              icon: 'error'
+            })
           })
       })
     }

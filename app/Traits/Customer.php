@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use Braintree_Transaction;
 use Braintree_Customer;
+use Braintree_PaymentMethod;
 
 trait Customer
 {
@@ -17,8 +18,9 @@ trait Customer
         // Update Card
         if ($this->isCustomer()) {
             $this->updatePaymentMethod($nonce);
+        } else {
+            $this->createCustomer($nonce);
         }
-        $this->createCustomer($nonce);
     }
 
     public function createCustomer($nonce)
