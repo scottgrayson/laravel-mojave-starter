@@ -92148,7 +92148,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   data: function data() {
     return {
-      initError: ''
+      error: ''
     };
   },
   created: function created() {
@@ -92162,8 +92162,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       authorization: this.authorization,
       selector: '#dropin-container',
       paypal: {
-        flow: 'checkout',
-        amount: this.amount
+        flow: 'vault'
       }
     }, function (err, instance) {
       if (err) {
@@ -92180,6 +92179,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   methods: {
     submit: function submit() {
+      var _this2 = this;
+
       this.braintree.requestPaymentMethod(function (err, payload) {
         if (err) {
           // An appropriate error will be shown in the UI
@@ -92189,6 +92190,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         // Submit payload.nonce to your server
         axios.post('/api/payments', payload).then(function () {
           window.location.href = '/thank-you';
+        }).catch(function (error) {
+          debugger;
+          _this2.error = error;
         });
       });
     }
@@ -100101,13 +100105,13 @@ var render = function() {
           {
             name: "show",
             rawName: "v-show",
-            value: _vm.initError,
-            expression: "initError"
+            value: _vm.error,
+            expression: "error"
           }
         ],
         staticClass: "alert alert-danger"
       },
-      [_vm._v("\n    " + _vm._s(_vm.initError) + "\n  ")]
+      [_vm._v("\n    " + _vm._s(_vm.error) + "\n  ")]
     ),
     _vm._v(" "),
     _c("div", { attrs: { id: "dropin-container" } }),
@@ -100121,8 +100125,8 @@ var render = function() {
           {
             name: "show",
             rawName: "v-show",
-            value: !_vm.initError,
-            expression: "!initError"
+            value: !_vm.error,
+            expression: "!error"
           }
         ],
         staticClass: "btn btn-primary",

@@ -31,6 +31,13 @@ class PaymentController extends Controller
             abort(400);
         }
 
+        if (!request()->user()->isCustomer() && !request('nonce')) {
+            abort(400);
+        } elseif (request('nonce')) {
+            // update or create customer
+            request()->user()->setPaymentMethod(request('nonce'));
+        }
+
         // Pay Registration Fee
         if (!request()->user()->hasPaidRegistrationFee() && Cart::content()->count() >= 5) {
             $registrationFee = Product::where('slug', 'registration-fee')->firstOrFail();

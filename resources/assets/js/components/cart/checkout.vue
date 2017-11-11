@@ -12,15 +12,15 @@
       Completing the payment form below will reserve days for your campers.
     </p>
 
-    <div v-show="initError" class="alert alert-danger">
-      {{ initError }}
+    <div v-show="error" class="alert alert-danger">
+      {{ error }}
     </div>
 
     <div id="dropin-container"></div>
 
     <br>
 
-    <button @click="submit" v-show="!initError" id="submit-button" class="btn btn-primary">
+    <button @click="submit" v-show="!error" id="submit-button" class="btn btn-primary">
       Purchase
     </button>
     <a href="/cart" class="btn btn-link">
@@ -45,7 +45,7 @@ export default {
 
   data () {
     return {
-      initError: ''
+      error: ''
     }
   },
 
@@ -58,8 +58,7 @@ export default {
       authorization: this.authorization,
       selector: '#dropin-container',
       paypal: {
-        flow: 'checkout',
-        amount: this.amount
+        flow: 'vault'
       }
     }, (err, instance) => {
       if (err) {
@@ -85,6 +84,10 @@ export default {
         axios.post('/api/payments', payload)
           .then(() => {
             window.location.href = '/thank-you'
+          })
+          .catch((error) => {
+            debugger
+            this.error = error
           })
       })
     }
