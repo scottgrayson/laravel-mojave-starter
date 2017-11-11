@@ -6,11 +6,12 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Auth\Notifications\ResetPassword;
 use App\Notifications\InviteUser;
+use App\Traits\Customer;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasRoles, Notifiable;
+    use HasRoles, Notifiable, Customer;
 
     protected $guarded = ['id'];
 
