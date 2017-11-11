@@ -9,19 +9,10 @@ use App\Product;
 use App\Camp;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Braintree_Configuration;
 use Braintree_ClientToken;
 
 class CheckoutController extends Controller
 {
-    public function __construct()
-    {
-        Braintree_Configuration::environment(config('services.braintree.env'));
-        Braintree_Configuration::merchantId(config('services.braintree.merchant_id'));
-        Braintree_Configuration::publicKey(config('services.braintree.public_key'));
-        Braintree_Configuration::privateKey(config('services.braintree.private_key'));
-    }
-
     public function index(Request $request)
     {
         SEO::setTitle('Checkout');
@@ -32,7 +23,13 @@ class CheckoutController extends Controller
 
         $amount = CartHelper::total();
 
-        $clientToken = Braintree_ClientToken::generate();
+        if (request()->user()->isCustomer()) {
+            $clientToken = Braintree_ClientToken::generate([
+                'customerId' => request()->user()->braintree_customer
+            ]);
+        } else {
+            $clientToken = Braintree_ClientToken::generate();
+        }
 
         return view('checkout.index', [
             'amount' => $amount,

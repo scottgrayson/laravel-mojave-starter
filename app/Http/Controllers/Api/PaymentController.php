@@ -57,7 +57,7 @@ class PaymentController extends Controller
         }
 
         // Pay For Reservation
-        $total = CartHelper::total();
+        $total = CartHelper::totalWithoutFees();
         $result = request()->user()->charge($total, 'camp');
 
         if ($result->success) {

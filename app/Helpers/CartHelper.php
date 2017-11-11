@@ -63,6 +63,15 @@ class CartHelper
         return static::reservationsByCamper()->sum('subtotal');
     }
 
+    public static function totalWithoutFees()
+    {
+        return static::reservationsByCamper()
+            ->filter(function ($i) {
+                return !isset($i->feeNotice);
+            })
+            ->sum('subtotal');
+    }
+
     public static function pendingReservations()
     {
         return Cart::content()->map(function ($i) {

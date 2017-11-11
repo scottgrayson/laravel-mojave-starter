@@ -45,7 +45,7 @@ export default {
 
   data () {
     return {
-      error: '',
+      initError: '',
       braintree: null,
       processing: false
     }
