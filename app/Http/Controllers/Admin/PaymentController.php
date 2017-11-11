@@ -11,6 +11,7 @@ class PaymentController extends CrudController
     protected $columns = [
         'id',
         'user_id',
+        'type',
         'transaction',
         'amount',
         'created_at',

@@ -32,23 +32,29 @@
     <b>Amount:</b>
     ${{ $payment->amount }}
   </p>
+  <p>
+    <b>Type:</b>
+    {{ $payment->type }}
+  </p>
 
-  <h4>Reservations</h4>
+  @if(!$reservations->isEmpty())
+    <h4>Reservations</h4>
 
-  <table class="table">
-    <thead>
-      <th>Camper</th>
-      <th>Tent</th>
-      <th>Date</th>
-    </thead>
-    <tbody>
-      @foreach($reservations as $r)
-        <tr>
-          <td>{{ $r->camper->name }}</td>
-          <td>{{ $r->tent->name }}</td>
-          <td>{{ $r->date }}</td>
-        </tr>
-      @endforeach
-    </tbody>
-  </table>
+    <table class="table">
+      <thead>
+        <th>Camper</th>
+        <th>Tent</th>
+        <th>Date</th>
+      </thead>
+      <tbody>
+        @foreach($reservations as $r)
+          <tr>
+            <td>{{ $r->camper->name }}</td>
+            <td>{{ $r->tent->name }}</td>
+            <td>{{ $r->date }}</td>
+          </tr>
+        @endforeach
+      </tbody>
+    </table>
+  @endif
 @endsection
