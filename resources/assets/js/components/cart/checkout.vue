@@ -58,9 +58,14 @@ export default {
 
     dropin.create({
       authorization: this.authorization,
-      selector: '#dropin-container',
+      container: '#dropin-container',
+      card: {
+        cardholderName: {
+          required: true
+        }
+      },
       paypal: {
-        flow: 'vault'
+        flow: 'vault',
       }
     }, (err, instance) => {
       if (err) {
