@@ -18,11 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->boolean('notify_email')->default(true);
-
             $table->string('braintree_customer')->nullable()->index();
-            $table->string('card_brand')->nullable();
-            $table->string('card_last_four')->nullable();
-
             $table->string('password');
             $table->boolean('invite_pending')
                 ->default(false);
