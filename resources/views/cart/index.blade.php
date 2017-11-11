@@ -33,7 +33,7 @@
       @foreach($rates as $rate)
         <li>
           <b>${{ $rate->price }}</b>
-          {{ $rate->description }}
+          ({{ $rate->description }})
         </li>
       @endforeach
     </ul>
@@ -53,11 +53,11 @@
       <tbody>
         @foreach($items as $item)
           <tr>
-            @if (isset($item->workPartyNotice))
+            @if (isset($item->feeNotice))
               <td colspan="3">
                 {{ $item->name }}
                 <small class="text-muted">
-                  ({{ $item->workPartyNotice }})
+                  ({{ $item->feeNotice }})
                 </small>
               </td>
             @else

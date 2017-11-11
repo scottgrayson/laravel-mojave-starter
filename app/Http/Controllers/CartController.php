@@ -17,7 +17,7 @@ class CartController extends Controller
     {
         SEO::setTitle('My Cart');
 
-        $workPartyFee = Product::where('slug', 'work-party-fee')->first();
+        $registrationFee = Product::where('slug', 'registration-fee')->first();
 
         $items = CartHelper::reservationsByCamper();
 
@@ -30,7 +30,7 @@ class CartController extends Controller
             'items' => $items,
             'total' => $total,
             'rates' => $rates,
-            'workPartyFee' => $workPartyFee,
+            'registrationFee' => $registrationFee,
         ]);
     }
 

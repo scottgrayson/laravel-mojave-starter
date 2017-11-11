@@ -18,7 +18,7 @@ class PayAndReserveTest extends TestCase
     public function testPayingAndReservingCamperDays()
     {
         $product = factory(Product::class)->create(['slug' => 'day']);
-        $workPartyFee = factory(Product::class)->create(['slug' => 'work_party_fee']);
+        $registrationFee = factory(Product::class)->create(['slug' => 'registration-fee']);
         $tent = factory(Tent::class)->create();
         $user = factory(User::class)->create();
         $camp = factory(Camp::class)->create();
@@ -46,17 +46,17 @@ class PayAndReserveTest extends TestCase
         $this->assertEquals($user->reservations->count(), 1);
 
         // Assert work party fee NOT paid
-        $workPartyPayment = Payment::where('user_id', $user->id)
-            ->where('type', 'work_party_fee')
+        $registrationPayment = Payment::where('user_id', $user->id)
+            ->where('type', 'registration_fee')
             ->count();
 
-        $this->assertEquals($workPartyPayment, 0);
+        $this->assertEquals($registrationPayment, 0);
     }
 
-    public function testWorkPartyFee()
+    public function testRegistrationFee()
     {
         $product = factory(Product::class)->create(['slug' => 'day']);
-        $workPartyFee = factory(Product::class)->create(['slug' => 'work_party_fee']);
+        $registrationFee = factory(Product::class)->create(['slug' => 'registration-fee']);
         $tent = factory(Tent::class)->create();
         $user = factory(User::class)->create();
         $camp = factory(Camp::class)->create();
@@ -88,17 +88,17 @@ class PayAndReserveTest extends TestCase
         $r->assertStatus(200);
 
         // Assert work party fee paid
-        $workPartyPayment = Payment::where('user_id', $user->id)
-            ->where('type', 'work_party_fee')
+        $registrationPayment = Payment::where('user_id', $user->id)
+            ->where('type', 'registration_fee')
             ->first();
 
-        $this->assertEquals($workPartyPayment->amount, $workPartyFee->price);
+        $this->assertEquals($registrationPayment->amount, $registrationFee->price);
     }
 
-    public function testAlreadyPaidWorkPartyFee()
+    public function testAlreadyPaidRegistrationFee()
     {
         $product = factory(Product::class)->create(['slug' => 'day']);
-        $workPartyFee = factory(Product::class)->create(['slug' => 'work_party_fee']);
+        $registrationFee = factory(Product::class)->create(['slug' => 'registration-fee']);
         $tent = factory(Tent::class)->create();
         $user = factory(User::class)->create();
         $camp = factory(Camp::class)->create();
@@ -108,11 +108,11 @@ class PayAndReserveTest extends TestCase
         ]);
 
         // Existing Payment
-        $workPartyPayment = factory(Payment::class)->create([
+        $registrationPayment = factory(Payment::class)->create([
             'user_id' => $user->id,
             'camp_id' => $camp->id,
             'type' => 'work_party_fee',
-            'amount' => $workPartyFee->price,
+            'amount' => $registrationFee->price,
         ]);
 
         $this->be($user);
@@ -138,17 +138,17 @@ class PayAndReserveTest extends TestCase
         $r->assertStatus(200);
 
         // Assert work party fee not paid twice
-        $workPartyPayments = Payment::where('user_id', $user->id)
+        $registrationPayments = Payment::where('user_id', $user->id)
             ->where('type', 'work_party_fee')
             ->count();
 
-        $this->assertEquals($workPartyPayments, 1);
+        $this->assertEquals($registrationPayments, 1);
     }
 
-    public function testPaidWorkPartyFeeForPreviousYear()
+    public function testPaidRegistrationFeeForPreviousYear()
     {
         $product = factory(Product::class)->create(['slug' => 'day']);
-        $workPartyFee = factory(Product::class)->create(['slug' => 'work_party_fee']);
+        $registrationFee = factory(Product::class)->create(['slug' => 'registration-fee']);
         $tent = factory(Tent::class)->create();
         $user = factory(User::class)->create();
         $camp = factory(Camp::class)->create();
@@ -164,20 +164,20 @@ class PayAndReserveTest extends TestCase
             'registration_end' => $lastJune->subMonths(1)->toDateString(),
         ]);
         // Last years payment
-        $workPartyPayment = factory(Payment::class)->create([
+        $registrationPayment = factory(Payment::class)->create([
             'user_id' => $user->id,
             'camp_id' => $oldCamp->id,
-            'type' => 'work_party_fee',
-            'amount' => $workPartyFee->price,
+            'type' => 'registration_fee',
+            'amount' => $registrationFee->price,
             'created_at' => Carbon::now()->subYears(1),
         ]);
 
         // Assert work party fee paid for new year and old
-        $workPartyPayments = Payment::where('user_id', $user->id)
-            ->where('type', 'work_party_fee')
+        $registrationPayments = Payment::where('user_id', $user->id)
+            ->where('type', 'registration_fee')
             ->count();
 
-        $this->assertEquals($workPartyPayments, 1);
+        $this->assertEquals($registrationPayments, 1);
 
         $this->be($user);
 
@@ -202,10 +202,10 @@ class PayAndReserveTest extends TestCase
         $r->assertStatus(200);
 
         // Assert work party fee paid for new year and old
-        $workPartyPayments = Payment::where('user_id', $user->id)
-            ->where('type', 'work_party_fee')
+        $registrationPayments = Payment::where('user_id', $user->id)
+            ->where('type', 'registration_fee')
             ->count();
 
-        $this->assertEquals($workPartyPayments, 2);
+        $this->assertEquals($registrationPayments, 2);
     }
 }

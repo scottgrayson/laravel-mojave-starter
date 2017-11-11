@@ -12,7 +12,7 @@ class CartHelper
     {
         $cart = Cart::content();
 
-        $workPartyFee = Product::where('slug', 'work-party-fee')->first();
+        $registrationFee = Product::where('slug', 'registration-fee')->first();
 
         $campLength = Camp::current()->openDays()->count();
 
@@ -40,13 +40,18 @@ class CartHelper
                 return $camper;
             });
 
-        $fees = $workPartyFee ? collect([
+        $needsToPayRegistrationFee = !request()->user()->hasPaidRegistrationFee()
+            && $campers->contains(function ($c) {
+                return $c->qty >= 5;
+            });
+
+        $fees = $needsToPayRegistrationFee && $registrationFee ? collect([
             (object) [
-                'name' => $workPartyFee->name,
+                'name' => $registrationFee->name,
                 'qty' => 1,
-                'rate' => $workPartyFee->price,
-                'subtotal' => $workPartyFee->price,
-                'workPartyNotice' => $workPartyFee->description,
+                'rate' => $registrationFee->price,
+                'subtotal' => $registrationFee->price,
+                'feeNotice' => $registrationFee->description,
             ]
         ]) : collect([]);
 

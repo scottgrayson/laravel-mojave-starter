@@ -33,12 +33,12 @@ class User extends Authenticatable
         return $this->hasMany(\App\Camper::class);
     }
 
-    public function hasPaidWorkPartyFee()
+    public function hasPaidRegistrationFee()
     {
         $camp = \App\Camp::current();
 
         return $camp && $this->payments()
-            ->where('type', 'work_party_fee')
+            ->where('type', 'registration_fee')
             ->where('camp_id', $camp->id)
             ->count();
     }

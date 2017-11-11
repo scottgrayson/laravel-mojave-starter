@@ -31,12 +31,12 @@ class PaymentController extends Controller
             abort(400);
         }
 
-        // Pay Workparty Fee
-        if (!request()->user()->hasPaidWorkPartyFee() && Cart::content()->count() >= 5) {
-            $workPartyFee = Product::where('slug', 'work_party_fee')->firstOrFail();
+        // Pay Registration Fee
+        if (!request()->user()->hasPaidRegistrationFee() && Cart::content()->count() >= 5) {
+            $registrationFee = Product::where('slug', 'registration-fee')->firstOrFail();
 
             $result = Braintree_Transaction::sale([
-                'amount' => $workPartyFee->price,
+                'amount' => $registrationFee->price,
                 'paymentMethodNonce' => request('nonce'),
                 'options' => [
                     'submitForSettlement' => true,
@@ -50,7 +50,7 @@ class PaymentController extends Controller
                     'camp_id' => $camp->id,
                     'transaction' => $result->transaction->id,
                     'amount' => $result->transaction->amount,
-                    'type' => 'work_party_fee',
+                    'type' => 'registration_fee',
                 ]);
             } else {
                 // Handle errors
