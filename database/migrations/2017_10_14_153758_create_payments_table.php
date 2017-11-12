@@ -35,6 +35,8 @@ class CreatePaymentsTable extends Migration
             $table->string('transaction');
             $table->string('type');
             $table->decimal('amount');
+            $table->timestamp('refunded')
+                ->nullable();
 
             $table->timestamps();
         });
