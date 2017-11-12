@@ -6,6 +6,7 @@ Route::resource('users', 'UserController', ['except' => ['show']]);
 Route::resource('camps', 'CampController', ['except' => ['show']]);
 Route::resource('reservations', 'ReservationController', ['except' => ['show']]);
 Route::resource('payments', 'PaymentController', ['only' => ['index', 'show', 'destroy']]);
+Route::resource('refunds', 'RefundController', ['only' => ['index', 'store']]);
 Route::resource('campers', 'CamperController');
 Route::resource('tents', 'TentController');
 Route::resource('images', 'ImageController');
