@@ -6,7 +6,7 @@
       null,
       [],
       $rules,
-      $model,
+      isset($model) ? $model : null,
       isset($item) ? $item : null,
       isset($wording[$name]) ? $wording[$name] : []
     )

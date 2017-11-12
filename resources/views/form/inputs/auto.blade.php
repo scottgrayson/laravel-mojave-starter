@@ -5,6 +5,7 @@
   $labelClass = '';
   $inputClass = '';
   $options = [];
+  $attributes = [];
   $model = isset($model) ? $model : get_class($item);
   $item = isset($item) ? $item : null;
   $relation = '';
@@ -12,6 +13,7 @@
   $label = $wording && isset($wording['label']) ? $wording['label'] : $name;
   $before = $wording && isset($wording['before']) ? $wording['before'] : '';
   $help = $wording && isset($wording['help']) ? $wording['help'] : '';
+  $attributes['placeholder'] = $wording && isset($wording['placeholder']) ? $wording['placeholder'] : '';
 
   if (in_array('string', $rules) && !preg_grep('/max/', $rules)) {
     $type = 'textarea';

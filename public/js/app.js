@@ -91095,7 +91095,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
               bus.$emit('cart-updated', res.data.length);
               swal({
                 icon: 'success',
-                title: 'Cart Updated.'
+                title: 'Cart Updated',
+                buttons: ['Close', 'View Cart']
+              }).then(function (wantsRedirect) {
+                if (wantsRedirect) {
+                  window.location.href = '/cart';
+                }
               });
             }).catch(function (e) {
               console.log(e);
@@ -92148,7 +92153,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   data: function data() {
     return {
-      error: ''
+      initError: '',
+      braintree: null,
+      processing: false
     };
   },
   created: function created() {
@@ -92160,7 +92167,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     dropin.create({
       authorization: this.authorization,
-      selector: '#dropin-container',
+      container: '#dropin-container',
+      card: {
+        cardholderName: {
+          required: true
+        }
+      },
       paypal: {
         flow: 'vault'
       }
@@ -92181,8 +92193,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     submit: function submit() {
       var _this2 = this;
 
+      this.processing = true;
+      swal({
+        title: 'Processing...',
+        text: 'Your payment is being processed',
+        icon: 'info',
+        button: false,
+        closeOnClickOutside: false,
+        closeOnEsc: false
+      });
+
       this.braintree.requestPaymentMethod(function (err, payload) {
         if (err) {
+          swal.close();
           // An appropriate error will be shown in the UI
           return;
         }
@@ -92191,8 +92214,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         axios.post('/api/payments', payload).then(function () {
           window.location.href = '/thank-you';
         }).catch(function (error) {
-          debugger;
-          _this2.error = error;
+          _this2.processing = true;
+          swal({
+            text: 'Error processing payment.',
+            icon: 'error'
+          });
         });
       });
     }
@@ -100105,13 +100131,13 @@ var render = function() {
           {
             name: "show",
             rawName: "v-show",
-            value: _vm.error,
-            expression: "error"
+            value: _vm.initError,
+            expression: "initError"
           }
         ],
         staticClass: "alert alert-danger"
       },
-      [_vm._v("\n    " + _vm._s(_vm.error) + "\n  ")]
+      [_vm._v("\n    " + _vm._s(_vm.initError) + "\n  ")]
     ),
     _vm._v(" "),
     _c("div", { attrs: { id: "dropin-container" } }),
@@ -100125,13 +100151,13 @@ var render = function() {
           {
             name: "show",
             rawName: "v-show",
-            value: !_vm.error,
-            expression: "!error"
+            value: !_vm.initError,
+            expression: "!initError"
           }
         ],
         staticClass: "btn btn-primary",
         attrs: { id: "submit-button" },
-        on: { click: _vm.submit }
+        on: { disabled: _vm.processing, click: _vm.submit }
       },
       [_vm._v("\n    Purchase\n  ")]
     ),

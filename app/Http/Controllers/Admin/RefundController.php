@@ -6,41 +6,54 @@ use App\Http\Controllers\Controller;
 use App\Camp;
 use App\User;
 use App\Payment;
+use App\Http\Requests\RefundRequest;
+use SEO;
 
 class RefundController extends Controller
 {
-    public function index($id)
+    // Table and create form in one
+    public function index()
     {
         $camp = Camp::current();
 
+        SEO::setTitle('Refunds');
+        SEO::setDescription('Refunds');
+
+        $fields = $this->getFieldsFromRules(new RefundRequest);
+
         $refunds = Payment::where('camp_id', $camp->id)
             ->whereNotNull('refunded')
+            ->where('type', 'registration_fee')
             ->paginate();
 
         return view('admin.refunds.index', [
             'refunds' => $refunds,
-            'reservations' => $reservations,
+            'camp' => $camp,
+            'fields' => $fields,
         ]);
     }
 
     public function store()
     {
         $camp = Camp::current();
-        $emails = explode(',', request('emails'));
+        $emails = explode(',', str_replace(' ', '', request('emails')));
 
         $users = User::whereIn('email', $emails)->get();
 
         $payments = Payment::where('camp_id', $camp->id)
             ->whereIn('user_id', $users->pluck('id'))
+            ->where('type', 'registration_fee')
             ->get();
 
         $toRefund = Payment::where('camp_id', $camp->id)
             ->whereIn('user_id', $users->pluck('id'))
+            ->where('type', 'registration_fee')
             ->whereNull('refunded')
             ->get();
 
         $refundedPayments = Payment::where('camp_id', $camp->id)
             ->whereIn('user_id', $users->pluck('id'))
+            ->where('type', 'registration_fee')
             ->whereNotNull('refunded')
             ->get();
 
