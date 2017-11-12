@@ -5,6 +5,20 @@
     Refunds For Camp {{ $camp->camp_start->year }}
   </h1>
 
+  @if(session()->has('refund_results'))
+    <div class="alert alert-info">
+      @foreach(session('refund_results') as $key => $value)
+        @if(count($value))
+          <h5 class="alert-heading">{{ title_case($key) }}</h5>
+          <p>{{ implode(', ', $value) }}</p>
+          @if (!$loop->last())
+            <hr>
+          @endif
+        @endif
+      @endforeach
+    </div>
+  @endif
+
   <br>
 
   {{ Form::open(['route' => 'admin.refunds.store']) }}

@@ -14,10 +14,12 @@ class RefundMultipleTest extends TestCase
 {
     // @medium
 
-    use WithoutMiddleware;
-
     public function testRefunding()
     {
+        $this->withoutMiddleware([
+            \App\Http\Middleware\RoleMiddleware::class
+        ]);
+
         $camp = factory(Camp::class)->create();
 
         $usersWithRefund = factory(User::class, 1)->create()
@@ -36,15 +38,17 @@ class RefundMultipleTest extends TestCase
 
         $emails = User::pluck('email')->push('junk@email.com')->implode(',');
 
-        $r = $this->json('POST', route('admin.refunds.store'), [ 'emails' => $emails ]);
+        $r = $this->post(route('admin.refunds.store'), [ 'emails' => $emails ]);
 
-        $r->assertStatus(200);
+        $r->assertStatus(302);
 
-        $r->assertJsonFragment(['already_refunded' => $usersWithRefund]);
-        $r->assertJsonFragment(['error_refunding' => []]);
-        $r->assertJsonFragment(['refunded' => $usersWithPayment]);
-        $r->assertJsonFragment(["email_not_found" => ["junk@email.com"]]);
-        $r->assertJsonFragment(['payment_not_found' => $usersWithoutPayment]);
+        $r->assertSessionHas('refund_results', [
+            'already_refunded' => $usersWithRefund,
+            'error_refunding' => collect([]),
+            'refunded' => $usersWithPayment,
+            "email_not_found" => collect(["junk@email.com"]),
+            'payment_not_found' => $usersWithoutPayment,
+        ]);
     }
 
     protected function createPayment($user, $camp, $refunded = false)

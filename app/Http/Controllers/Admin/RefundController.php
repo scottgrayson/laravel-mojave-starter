@@ -33,7 +33,7 @@ class RefundController extends Controller
         ]);
     }
 
-    public function store()
+    public function store(RefundRequest $request)
     {
         $camp = Camp::current();
         $emails = explode(',', str_replace(' ', '', request('emails')));
@@ -79,12 +79,14 @@ class RefundController extends Controller
         $errorRefunding = $users->whereIn('id', collect($fail)->pluck('user_id'))->pluck('email');
         $refunded = $users->whereIn('id', collect($success)->pluck('user_id'))->pluck('email');
 
-        return [
+        $request->session()->flash('refund_results', [
             'email_not_found' => $emailNotFound,
             'payment_not_found' => $paymentNotFound,
             'already_refunded' => $alreadyRefunded,
             'refunded' => $refunded,
             'error_refunding' => $errorRefunding,
-        ];
+        ]);
+
+        return redirect()->back();
     }
 }
