@@ -25,11 +25,21 @@ class Payment extends Model
 
     public function refund()
     {
+        $result = Braintree_Transaction::find($this->transaction);
+
+        // braintree is refunded
+        if ($result->status === 'voided' || $result->refundId) {
+            // update our refunded date to match theirs
+            $this->refunded = $result->updatedAt;
+            $this->save();
+            return;
+        }
+
         // Try To Refund
         $result = Braintree_Transaction::refund($this->transaction);
 
         if ($result->success) {
-            $this->refunded = Carbon::now();
+            $this->refunded = $result->transaction->createdAt;
             $this->save();
             return;
         }
@@ -38,12 +48,12 @@ class Payment extends Model
         $result = Braintree_Transaction::void($this->transaction);
 
         if ($result->success) {
-            $this->refunded = Carbon::now();
+            $this->refunded = $result->transaction->updatedAt;
             $this->save();
             return;
         }
 
         \Log::info($result);
-        throw new \Exception('Could not find payment');
+        throw new \Exception('Could not refund payment');
     }
 }

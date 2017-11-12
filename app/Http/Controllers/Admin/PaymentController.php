@@ -11,9 +11,10 @@ class PaymentController extends CrudController
     protected $columns = [
         'id',
         'user_id',
-        'type',
         'transaction',
+        'type',
         'amount',
+        'refunded',
         'created_at',
     ];
 
@@ -37,15 +38,12 @@ class PaymentController extends CrudController
 
         try {
             $item->refund();
-            flash($this->singular . ' deleted.')->success();
+            flash($this->singular . ' refunded.')->success();
         } catch (\Exception $e) {
             \Log::info($e);
-            flash("Could not delete $this->singular.")->error();
+            flash("Could not refund $this->singular.")->error();
         }
 
-        if (request()->is('admin*')) {
-            return redirect(route("admin.$this->slug.index"));
-        }
-        return redirect(route("$this->slug.index"));
+        return redirect()->back();
     }
 }

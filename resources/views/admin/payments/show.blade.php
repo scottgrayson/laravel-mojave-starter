@@ -56,5 +56,14 @@
         @endforeach
       </tbody>
     </table>
+  @elseif ($payment->refunded)
+    <div class="alert alert-info">
+      Payment refunded at {{ $payment->refunded }}
+    </div>
+  @elseif($payment->type === 'registration_fee')
+    <a class="btn btn-secondary"
+      href="{{ route('admin.payments.destroy', $payment->id) }}" data-method="delete">
+      Refund
+    </a>
   @endif
 @endsection
