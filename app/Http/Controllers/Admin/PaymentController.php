@@ -30,4 +30,22 @@ class PaymentController extends CrudController
             'reservations' => $reservations,
         ]);
     }
+
+    public function destroy($id)
+    {
+        $item = $this->model::findOrFail($id);
+
+        try {
+            $item->refund();
+            flash($this->singular . ' deleted.')->success();
+        } catch (\Exception $e) {
+            \Log::info($e);
+            flash("Could not delete $this->singular.")->error();
+        }
+
+        if (request()->is('admin*')) {
+            return redirect(route("admin.$this->slug.index"));
+        }
+        return redirect(route("$this->slug.index"));
+    }
 }

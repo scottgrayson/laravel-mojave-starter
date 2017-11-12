@@ -11,6 +11,8 @@ use Braintree_Transaction;
 
 class RefundPaymentTest extends TestCase
 {
+    // @medium
+
     use WithoutMiddleware;
 
     public function testRefunding()
@@ -36,15 +38,17 @@ class RefundPaymentTest extends TestCase
 
         $this->be($user);
 
-        $r = $this->post(route('api.payments.delete', $payment->id));
+        $r = $this->delete(route('admin.payments.destroy', $payment->id));
 
         //$this->feedback($r);
-        $r->assertStatus(200);
+        $r->assertStatus(302);
 
-        $this->assertEquals($payment->fresh()->refunded, true);
+        $this->assertNotNull($payment->fresh()->refunded);
 
-        $transaction = Braintree_Transaction::find($payment->transaction);
+        $result = Braintree_Transaction::find($payment->transaction);
 
-        $this->assertEquals(true, $transaction->refunded);
+        $refundedOrVoided = in_array($result->status, ['voided', 'refunded']);
+
+        $this->assertTrue($refundedOrVoided);
     }
 }
