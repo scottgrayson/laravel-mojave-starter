@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\CampDates;
+use App\Camp;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -10,9 +10,9 @@ class CampDateController extends Controller
 {
     public function index()
     {
-        $start = CampDates::current()->camp_start;
-        $end = CampDates::current()->camp_end;
-        $weeks = CampDates::current()->weeks();
+        $start = Camp::current()->camp_start;
+        $end = Camp::current()->camp_end;
+        $weeks = Camp::current()->weeks();
 
         return [
             'camp_start' => $start,

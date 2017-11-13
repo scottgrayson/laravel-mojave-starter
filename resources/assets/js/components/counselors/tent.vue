@@ -135,7 +135,8 @@
       weekSelect (val) {
         var select = []
         for (const x in val) {
-          select.push(moment(val[x][0].date).format('YYYY-MM-DD') + " - " + moment(val[x][val[x].length - 1].date).format('YYYY-MM-DD'))
+          select.push(moment(val[x][0].date).format('YYYY-MM-DD') + 
+            " - " + moment(val[x][val[x].length - 1].date).format('YYYY-MM-DD'))
         }
         return select
       },
