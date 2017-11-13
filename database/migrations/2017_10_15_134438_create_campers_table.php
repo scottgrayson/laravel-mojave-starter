@@ -37,6 +37,7 @@ class CreateCampersTable extends Migration
             $table->string('address')->nullable();
             $table->string('city')->nullable();
             $table->string('township')->nullable();
+            $table->string('school_name')->nullable();
             $table->string('state')->nullable();
             $table->string('zip')->nullable();
             $table->string('phone')->nullable();
@@ -60,7 +61,6 @@ class CreateCampersTable extends Migration
             $table->string('guardian_work_phone')->nullable();
             $table->string('guardian_cell_phone')->nullable();
             $table->string('guardian_employer_name')->nullable();
-            $table->string('guardian_employer_title')->nullable();
             $table->string('alternate_contact_name')->nullable();
             $table->string('alternate_contact_daytime_phone')->nullable();
             $table->string('alternate_contact_evening_phone')->nullable();
