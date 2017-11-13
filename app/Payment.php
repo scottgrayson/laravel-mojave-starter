@@ -25,6 +25,10 @@ class Payment extends Model
 
     public function refund()
     {
+        if ($this->type != 'registration_fee') {
+            throw new \Exception('Could not refund payment. Only registration_fee can be refunded.');
+        }
+
         $result = Braintree_Transaction::find($this->transaction);
 
         // braintree is refunded
