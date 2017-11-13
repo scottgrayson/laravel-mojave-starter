@@ -30,7 +30,7 @@ class Welcome extends Mailable
      */
     public function build()
     {
-        return $this->from(env('DIRECTOR_EMAIL'))
+        return $this->from(config('mail.director_email'))
             ->with('user', $this->user)
             ->with('url', $this->url)
             ->markdown('emails.welcome');
