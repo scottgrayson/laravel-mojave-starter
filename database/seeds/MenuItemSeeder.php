@@ -85,8 +85,16 @@ class MenuItemSeeder extends Seeder
                         'link' => '/admin/reservations',
                     ],
                     [
+                        'name' => 'payments',
+                        'link' => '/admin/payments',
+                    ],
+                    [
+                        'name' => 'refunds',
+                        'link' => '/admin/refunds',
+                    ],
+                    [
                         'name' => 'camp dates',
-                        'link' => '/admin/camp-dates',
+                        'link' => '/admin/camps',
                     ],
                     [
                         'name' => 'tents',
@@ -142,8 +150,16 @@ class MenuItemSeeder extends Seeder
                         'link' => '/admin/reservations',
                     ],
                     [
+                        'name' => 'payments',
+                        'link' => '/admin/payments',
+                    ],
+                    [
+                        'name' => 'refunds',
+                        'link' => '/admin/refunds',
+                    ],
+                    [
                         'name' => 'camp dates',
-                        'link' => '/admin/camp-dates',
+                        'link' => '/admin/camps',
                     ],
                     [
                         'name' => 'tents',

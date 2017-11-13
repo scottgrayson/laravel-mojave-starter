@@ -27,12 +27,11 @@
   @else
 
     <span class="lead">
-      Daily rate is:
+      Prices:
     </span>
     <ul>
       @foreach($rates as $rate)
         <li>
-          <b>${{ $rate->price }}</b>
           {{ $rate->description }}
         </li>
       @endforeach
@@ -53,11 +52,11 @@
       <tbody>
         @foreach($items as $item)
           <tr>
-            @if (isset($item->workPartyNotice))
+            @if (isset($item->feeNotice))
               <td colspan="3">
                 {{ $item->name }}
                 <small class="text-muted">
-                  ({{ $item->workPartyNotice }})
+                  ({{ $item->feeNotice }})
                 </small>
               </td>
             @else
@@ -93,15 +92,17 @@
 
     <hr>
 
-    <div class="text-right">
-      <a data-method="delete" type="delete" href="/cart" class="btn btn-secondary">
-        Reset Cart
-      </a>
+    <a href="/checkout" class="btn btn-primary">
+      Checkout
+    </a>
 
-      <a href="/checkout" class="btn btn-primary">
-        Checkout
-      </a>
-    </div>
+    <a data-method="delete" type="delete" href="/cart" class="btn btn-secondary">
+      Reset Cart
+    </a>
+
+    <a href="/calendar" class="d-none d-sm-inline btn btn-link">
+      Add More Reservations
+    </a>
 
   @endif
 @endsection

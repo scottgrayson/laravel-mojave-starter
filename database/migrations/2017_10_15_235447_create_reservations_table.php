@@ -40,13 +40,13 @@ class CreateReservationsTable extends Migration
                 ->onDelete('restrict');
             $table->index('tent_id');
 
-            //$table->integer('payment_id')
-            //->unsigned();
-            //$table->foreign('payment_id')
-            //->references('id')
-            //->on('payments')
-            //->onDelete('restrict');
-            //$table->index('tent_id');
+            $table->integer('payment_id')
+            ->unsigned();
+            $table->foreign('payment_id')
+            ->references('id')
+            ->on('payments')
+            ->onDelete('restrict');
+            $table->index('payment_id');
 
             $table->date('date');
             $table->timestamps();

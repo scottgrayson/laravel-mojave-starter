@@ -30,10 +30,12 @@
         Reorder
       </a>
     @endif
+    @if (\Route::has('admin.'.$slug.'.create'))
     <a href="{{ '/' . request()->path() . '/create' }}"
       class="btn btn-primary">
       New
     </a>
+    @endif
   </div>
 </div>
 
@@ -97,15 +99,19 @@
                   @svg('eye')
                 </a>
               @endif
-              <a href="{{ '/' . request()->path() . '/' . $i->id . '/edit' }}"
-                class="btn btn-icon">
-                @svg('edit')
-              </a>
-              <a href="{{ route('admin.'.$slug.'.destroy', $i->id) }}"
-                data-method="delete"
-                class="btn btn-icon">
-                @svg('trash', 'text-top')
-              </a>
+              @if (\Route::has('admin.'.$slug.'.edit'))
+                <a href="{{ '/' . request()->path() . '/' . $i->id . '/edit' }}"
+                  class="btn btn-icon">
+                  @svg('edit')
+                </a>
+              @endif
+              @if (\Route::has('admin.'.$slug.'.destroy'))
+                <a href="{{ route('admin.'.$slug.'.destroy', $i->id) }}"
+                  data-method="delete"
+                  class="btn btn-icon">
+                  @svg('trash', 'text-top')
+                </a>
+              @endif
             </div>
           </td>
         </tr>

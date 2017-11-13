@@ -46,4 +46,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('cart', 'CartController', [
         'only' => ['index'],
     ]);
+
+    Route::resource('checkout', 'CheckoutController', [
+        'only' => ['index', 'store']
+    ]);
 });

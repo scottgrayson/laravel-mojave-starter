@@ -1,8 +1,12 @@
 pipeline {
   agent any
-  environment {
-    APP_ENV = 'testing'
-  }
+    environment {
+      APP_ENV = 'testing'
+      BRAINTREE_ENV = 'sandbox'
+      BRAINTREE_MERCHANT_ID = credentials('BETTY_BRAINTREE_MERCHANT_ID')
+      BRAINTREE_PUBLIC_KEY = credentials('BETTY_BRAINTREE_PUBLIC_KEY')
+      BRAINTREE_PRIVATE_KEY = credentials('BETTY_BRAINTREE_PRIVATE_KEY')
+    }
   stages {
     stage('checkout_repo') {
       steps {
