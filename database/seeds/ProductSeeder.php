@@ -17,21 +17,21 @@ class ProductSeeder extends Seeder
             'name' => 'full rate',
             'slug' => 'full',
             'price' => '40',
-            'description' => '$1,200 for six weeks plus $100 registration fee. (Registration fee will be refunded if you attend a work party)',
+            'description' => '$1,200 for six weeks plus $100 registration fee (Registration fee will be refunded if you attend a work party)',
         ]);
 
         \DB::table('products')->insert([
             'name' => 'week rate',
             'slug' => 'week',
             'price' => '45',
-            'description' => '$225 per week plus $100 registration fee. (Registration fee will be refunded if you attend a work party)',
+            'description' => '$225 per week plus $100 registration fee (Registration fee will be refunded if you attend a work party)',
         ]);
 
         \DB::table('products')->insert([
             'name' => 'day',
             'slug' => 'day',
             'price' => '65',
-            'description' => '$65 per day for campers reserving less than 5 days.',
+            'description' => '$65 per day',
         ]);
 
         \DB::table('products')->insert([
