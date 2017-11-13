@@ -5,10 +5,15 @@
   $labelClass = '';
   $inputClass = '';
   $options = [];
+  $attributes = [];
   $model = isset($model) ? $model : get_class($item);
   $item = isset($item) ? $item : null;
-  $label = $name;
   $relation = '';
+
+  $label = $wording && isset($wording['label']) ? $wording['label'] : $name;
+  $before = $wording && isset($wording['before']) ? $wording['before'] : '';
+  $help = $wording && isset($wording['help']) ? $wording['help'] : '';
+  $attributes['placeholder'] = $wording && isset($wording['placeholder']) ? $wording['placeholder'] : '';
 
   if (in_array('string', $rules) && !preg_grep('/max/', $rules)) {
     $type = 'textarea';
@@ -23,7 +28,7 @@
   } elseif ($rule = preg_grep('/in:/', $rules)) {
     $options = collect(explode(',', str_ireplace('in:', '', array_shift($rule))))
       ->mapWithKeys(function ($o) {
-        return [$o => title_case(str_replace('_', ' ', $o))];
+        return [$o => ucfirst(str_replace('_', ' ', $o))];
       })
       ->toArray();
     $type = 'select';
@@ -65,6 +70,10 @@
 
   // Render Field
 
+  if ($before) {
+    echo '<p>' . $before . '</p>';
+  }
+
   echo '<div class="'.$groupClass.'">';
   if ($type !== 'checkbox') {
     echo Form::label($label, null, ['class' => $labelClass]);
@@ -88,6 +97,10 @@
     echo Form::file($name, array_merge(['class' => $inputclass], $attributes));
   } else {
     echo Form::$type($name, $value, array_merge(['class' => $inputClass], $attributes), $item);
+  }
+
+  if ($help) {
+    echo '<small class="form-text text-muted">' . $help . '</small>';
   }
 
   // render errors

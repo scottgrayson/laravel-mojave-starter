@@ -3,7 +3,7 @@
 use Faker\Generator as Faker;
 use Carbon\Carbon;
 
-$factory->define(App\CampDates::class, function (Faker $faker) {
+$factory->define(App\Camp::class, function (Faker $faker) {
     $nextJune = Carbon::now() > Carbon::parse('June')
         ? Carbon::parse('June')->addYears(1)
         : Carbon::parse('June');

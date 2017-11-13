@@ -17,3 +17,5 @@ Route::resource('reservations', 'ReservationController');
 Route::resource('availabilities', 'AvailabilityController');
 
 Route::resource('cart-items', 'CartItemController');
+
+Route::post('payments', 'PaymentController@store')->name('payments.store');

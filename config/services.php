@@ -47,4 +47,10 @@ return [
         'app_id' => env('PUSHER_APP_ID'),
     ],
 
+    'braintree' => [
+        'env' => env('BRAINTREE_ENV', 'sandbox'),
+        'merchant_id' => env('BRAINTREE_MERCHANT_ID', 'merchant_id'),
+        'public_key' => env('BRAINTREE_PUBLIC_KEY', 'public_key'),
+        'private_key' => env('BRAINTREE_PRIVATE_KEY', 'private_key'),
+    ],
 ];

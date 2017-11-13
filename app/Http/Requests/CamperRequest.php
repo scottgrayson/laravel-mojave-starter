@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
+
 class CamperRequest extends FormRequest
 {
     public function createRules()
@@ -42,6 +44,7 @@ class CamperRequest extends FormRequest
             'zip' => 'nullable|string|max:255',
             'phone' => 'nullable|phone:AUTO,US',
             'birthdate' => 'nullable|date',
+            'shirt_size' => 'required|in:S,M,L,XL',
             'guardian_name' => 'nullable|string|max:255',
             'guardian_email' => 'nullable|email',
             'guardian_address' => 'nullable|string|max:255',
@@ -65,6 +68,7 @@ class CamperRequest extends FormRequest
             'alternate_contact_daytime_phone' => 'nullable|phone:AUTO,US',
             'alternate_contact_evening_phone' => 'nullable|phone:AUTO,US',
             'photo_consent' => 'boolean',
+            'henna_consent' => 'boolean',
         ];
     }
 
@@ -76,11 +80,13 @@ class CamperRequest extends FormRequest
                 'tent_id' => 'required|numeric',
                 'address' => 'required|string|max:255',
                 'city' => 'required|string|max:255',
+                'school_name' => 'required|string|max:255',
                 'township' => 'required|string|max:255',
                 'state' => 'required|string|max:255',
                 'zip' => 'required|string|max:255',
                 'phone' => 'required|phone:AUTO,US',
                 'birthdate' => 'required|date',
+                'shirt_size' => 'required|in:S,M,L,XL',
             ], [
                 'guardian_name' => 'required|string|max:255',
                 'guardian_email' => 'required|email',
@@ -94,7 +100,6 @@ class CamperRequest extends FormRequest
                 'guardian_work_phone' => 'required|phone:AUTO,US',
                 'guardian_cell_phone' => 'required|phone:AUTO,US',
                 'guardian_employer_name' => 'required|string|max:255',
-                'guardian_employer_title' => 'required|string|max:255',
             ], [
                 'physician_name' => 'required|string|max:255',
                 'physician_phone' => 'required|phone:AUTO,US',
@@ -103,10 +108,11 @@ class CamperRequest extends FormRequest
                 'alternate_contact_name' => 'required|string|max:255',
                 'alternate_contact_daytime_phone' => 'required|phone:AUTO,US',
                 'alternate_contact_evening_phone' => 'required|phone:AUTO,US',
-                'allergies' => 'required|string',
-                'medical_conditions' => 'required|string',
+                'allergies' => 'nullable|string',
+                'medical_conditions' => 'nullable|string',
             ], [
                 'photo_consent' => 'boolean',
+                'henna_consent' => 'boolean',
             ],
         ];
     }

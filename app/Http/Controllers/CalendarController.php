@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Cart;
 use SEO;
-use App\CampDates;
+use App\Camp;
 use App\Reservation;
 
 class CalendarController extends Controller
@@ -28,7 +28,7 @@ class CalendarController extends Controller
                 ];
             });
 
-        $openDays = CampDates::current()->openDays()
+        $openDays = Camp::current()->openDays()
             ->map(function ($d) {
                 return $d->toDateString();
             });
