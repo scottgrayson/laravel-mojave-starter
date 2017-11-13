@@ -89,6 +89,10 @@ class MenuItemSeeder extends Seeder
                         'link' => '/admin/payments',
                     ],
                     [
+                        'name' => 'refunds',
+                        'link' => '/admin/refunds',
+                    ],
+                    [
                         'name' => 'camp dates',
                         'link' => '/admin/camps',
                     ],
@@ -148,6 +152,10 @@ class MenuItemSeeder extends Seeder
                     [
                         'name' => 'payments',
                         'link' => '/admin/payments',
+                    ],
+                    [
+                        'name' => 'refunds',
+                        'link' => '/admin/refunds',
                     ],
                     [
                         'name' => 'camp dates',

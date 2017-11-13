@@ -5,21 +5,28 @@
     Refunds For Camp {{ $camp->camp_start->year }}
   </h1>
 
-  @if(session()->has('refund_results'))
-    <div class="alert alert-info">
-      @foreach(session('refund_results') as $key => $value)
-        @if(count($value))
-          <h5 class="alert-heading">{{ title_case($key) }}</h5>
-          <p>{{ implode(', ', $value) }}</p>
-          @if (!$loop->last())
-            <hr>
-          @endif
-        @endif
-      @endforeach
-    </div>
-  @endif
-
   <br>
+
+  @php
+    $alertStatus = [
+      'already_refunded' => 'info',
+      'error_refunding' => 'danger',
+      'refunded' => 'success',
+      "email_not_found" => 'danger',
+      'payment_not_found' => 'danger',
+    ]
+  @endphp
+
+  @if(session()->has('refund_results'))
+    @foreach(session('refund_results') as $key => $value)
+      @if($value->count())
+        <div class="alert alert-{{ $alertStatus[$key] }}">
+          <h5 class="alert-heading">{{ title_case(str_replace('_', ' ', $key)) }}</h5>
+          <p>{{ $value->implode(',') }}</p>
+        </div>
+      @endif
+    @endforeach
+  @endif
 
   {{ Form::open(['route' => 'admin.refunds.store']) }}
 
@@ -30,8 +37,8 @@
         'before' => 'Comma seperated list of emails to refund.',
         'placeholder' => 'example1@email.com,example2@email.com,example3@email.com',
         'help' => 'Spaces are ignored and will not cause problems',
-        ],
-      ]
+      ],
+    ]
   ])
 
   {{ Form::submit('Refund', ['class' => 'btn btn-primary']) }}
