@@ -232,8 +232,14 @@ export default {
                   bus.$emit('cart-updated', res.data.length)
                   swal({
                     icon: 'success',
-                    title: 'Cart Updated.'
+                    title: 'Cart Updated',
+                    buttons: ['Close', 'View Cart']
                   })
+                    .then(wantsRedirect => {
+                      if (wantsRedirect) {
+                        window.location.href = '/cart'
+                      }
+                    })
                 })
                 .catch((e) => {
                   console.log(e)

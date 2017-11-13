@@ -20,3 +20,5 @@ Route::resource('availabilities', 'AvailabilityController');
 Route::resource('cart-items', 'CartItemController');
 Route::resource('tents', 'TentController');
 Route::resource('camp-dates', 'CampDateController');
+
+Route::post('payments', 'PaymentController@store')->name('payments.store');

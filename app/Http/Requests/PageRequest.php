@@ -11,7 +11,6 @@ class PageRequest extends FormRequest
             'title' => 'required|string|max:255',
             'uri' => 'required|string|max:255',
             'published' => 'boolean',
-            'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string',
             'meta_tags' => 'nullable',
             'content' => 'nullable',

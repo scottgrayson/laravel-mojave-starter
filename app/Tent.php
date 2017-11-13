@@ -8,4 +8,9 @@ class Tent extends Model
     {
         return $this->hasMany(\App\Camper::class);
     }
+
+    public function counselors()
+    {
+        return $this->hasMany(\App\Counselor::class);
+    }
 }

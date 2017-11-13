@@ -15,7 +15,8 @@ class File extends Model
      */
     public static function createFromStoragePath($filepath, $name = null)
     {
-        return static::create(
+        return static::updateOrCreate(
+            ['path' => $filepath],
             [
             'name' => $name ?: pathinfo($filepath)['basename'],
             'mimetype' => \Storage::getMimetype($filepath),

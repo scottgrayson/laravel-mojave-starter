@@ -119,4 +119,6 @@ return [
             resource_path('views/vendor/mail'),
         ],
     ],
+
+    'director_email' => env('DIRECTOR_EMAIL'),
 ];

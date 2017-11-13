@@ -6,13 +6,14 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Auth\Notifications\ResetPassword;
 use App\Notifications\InviteUser;
+use App\Traits\Customer;
 use Spatie\Permission\Traits\HasRoles;
 
 use App\Counselor;
 
 class User extends Authenticatable
 {
-    use HasRoles, Notifiable;
+    use HasRoles, Notifiable, Customer;
 
     protected $guarded = ['id'];
 
@@ -25,9 +26,24 @@ class User extends Authenticatable
         return $this->hasMany(\App\Reservation::class);
     }
 
+    public function payments()
+    {
+        return $this->hasMany(\App\Payment::class);
+    }
+
     public function campers()
     {
         return $this->hasMany(\App\Camper::class);
+    }
+
+    public function hasPaidRegistrationFee()
+    {
+        $camp = \App\Camp::current();
+
+        return $camp && $this->payments()
+            ->where('type', 'registration_fee')
+            ->where('camp_id', $camp->id)
+            ->count();
     }
 
     // If admin creates a user send them an invite using password reset token
