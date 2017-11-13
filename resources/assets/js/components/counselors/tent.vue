@@ -30,7 +30,7 @@
           <th>Allergies</th>
           <th>Name</th>
           <th v-for="day in weeks[selectedWeek]">
-            {{day.date}}
+            {{ day.date | dateFormat('ddd') }}
           </th>
         </tr>
         <tr v-for="(camper, key) in camperSelection"
@@ -46,7 +46,9 @@
               {{camper[0].name}}
             </a>
           </td>
-          <td v-for="day in weeks[selectedWeek]">X</td>
+          <td v-for="day in weeks[selectedWeek]">
+            {{camper.includes(day.date)}}
+          </td>
         </tr>
       </table>
     </div>
