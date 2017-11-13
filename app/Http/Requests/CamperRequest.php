@@ -80,6 +80,7 @@ class CamperRequest extends FormRequest
                 'tent_id' => 'required|numeric',
                 'address' => 'required|string|max:255',
                 'city' => 'required|string|max:255',
+                'school_name' => 'required|string|max:255',
                 'township' => 'required|string|max:255',
                 'state' => 'required|string|max:255',
                 'zip' => 'required|string|max:255',
@@ -99,7 +100,6 @@ class CamperRequest extends FormRequest
                 'guardian_work_phone' => 'required|phone:AUTO,US',
                 'guardian_cell_phone' => 'required|phone:AUTO,US',
                 'guardian_employer_name' => 'required|string|max:255',
-                'guardian_employer_title' => 'required|string|max:255',
             ], [
                 'physician_name' => 'required|string|max:255',
                 'physician_phone' => 'required|phone:AUTO,US',
@@ -108,8 +108,8 @@ class CamperRequest extends FormRequest
                 'alternate_contact_name' => 'required|string|max:255',
                 'alternate_contact_daytime_phone' => 'required|phone:AUTO,US',
                 'alternate_contact_evening_phone' => 'required|phone:AUTO,US',
-                'allergies' => 'required|string',
-                'medical_conditions' => 'required|string',
+                'allergies' => 'nullable|string',
+                'medical_conditions' => 'nullable|string',
             ], [
                 'photo_consent' => 'boolean',
                 'henna_consent' => 'boolean',

@@ -23,18 +23,21 @@ $steps = [
     'href' => route('campers.edit', ['camper' => $item->id, 'step' => 3]),
   ],
   [
-    'label' => 'Photo Consent',
+    'label' => 'Photo and Henna Consent',
     'href' => route('campers.edit', ['camper' => $item->id, 'step' => 4]),
   ],
 ];
 
 $wording = [
-  'tent_id' => ['help' => 'Choose the grade that the camper has completed. Not the grade for the upcoming year.'],
+  'tent_id' => ['help' => 'Choose the grade your child attended as of January of this year.'],
   'photo_consent' => [
     'before' => "We take photographs of camp activities, that usually include recognizable images  of our campers, as well as counselors and staff.  We would like to use these photographs for marketing purposes, including, but not limited to, in brochures,  mailings and on our website,  and to include them in CD albums of the Camp experience that may be offered for sale to Camp families at the end of Camp.   By signing below, you agree that Miss Betty’s Day Camp is granted a license to use photographs that include images of your child/children in their activities at Camp for those purposes,  without charge, unless the box below has been checked.  Thank you.",
   ],
   'henna_consent' => [
     'before' => "Henna consent explanation",
+  ],
+  'allergies' => [
+    'before' => '<b>Campers with allergies must have a completed paper copy of <a target="_blank" href="/assets/MBDC.medical.pdf">THIS FORM</a> when they attend camp.</b>',
   ],
 ];
   @endphp
