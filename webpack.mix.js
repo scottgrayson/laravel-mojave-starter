@@ -31,6 +31,6 @@ mix.js('resources/assets/js/app.js', 'public/js')
 
 mix.browserSync(process.env.APP_URL)
 
-if (mix.config.inProduction) {
+if (mix.inProduction()) {
   mix.version()
 }
