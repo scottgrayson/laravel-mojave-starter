@@ -83,7 +83,7 @@
         weeks: [],
         weekSelection: [],
         campers: {},
-        camperSelection: {},
+        camperSelection: [],
         campStart: '',
         campEnd: '',
         firstWeek: true,
@@ -112,8 +112,15 @@
       },
       parseCampers (val) {
         for (var x of val) {
-          console.log(this.weeks[0])
-          console.log(x.dates)
+          for (var y of this.weeks[0]) {
+            let date = moment(y.date).format('YYYY-MM-DD')
+            let selection = []
+            if (x.dates.includes(moment(y.date).format('YYYY-MM-DD'))) {
+              selection.push(x, date)
+            }
+            console.log(selection)
+            this.camperSelection.push(selection)
+          }
         }
       },
       fetchNext () {
@@ -142,22 +149,28 @@
           select.push(moment(val[x][0].date).format('YYYY-MM-DD') + " - " + moment(val[x][val[x].length - 1].date).format('YYYY-MM-DD'))
         }
         this.weekSelection = select
+      },
+      fetchCampDates () {
+        axios.get('/api/camp-dates/')
+          .then((response) => {
+            this.weeks = response.data.weeks
+            this.weekSelection = this.weekSelect(response.data.weeks)
+            this.campStart = response.data.camp_start.date
+            this.campEnd = response.data.camp_end.date
+            this.selectedReadableWeek = this.weekOf(this.selectedWeek)
+            this.fetchReservations()
+          })
+      },
+      fetchReservations () {
+        axios.get('/api/reservations/'+this.tent.id)
+          .then((response) => {
+            this.campers = response.data
+            this.parseCampers(response.data)
+          })
       }
     },
     created () {
-      axios.get('/api/camp-dates/')
-        .then((response) => {
-          this.weeks = response.data.weeks
-          this.weekSelect(response.data.weeks)
-          this.campStart = response.data.camp_start.date
-          this.campEnd = response.data.camp_end.date
-          this.selectedReadableWeek = this.weekOf(this.selectedWeek)
-        })
-      axios.get('/api/reservations/'+this.tent.id)
-        .then((response) => {
-          this.campers = response.data
-          this.camperSelection = this.parseCampers(response.data)
-        })
+      this.fetchCampDates()
     }
   }
 </script>
