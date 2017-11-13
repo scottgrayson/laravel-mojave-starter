@@ -7,6 +7,9 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
+use App\Counselor;
+use App\Tent;
+
 class CamperSchedule extends Mailable
 {
     use Queueable, SerializesModels;
@@ -16,9 +19,14 @@ class CamperSchedule extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public $counselor;
+    public $tent;
+
+    public function __construct(Counselor $counselor, Tent $tent)
     {
-        //
+        $this->counselor = $counselor;
+
+        $this->tent = $tent;
     }
 
     /**
@@ -28,6 +36,8 @@ class CamperSchedule extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.schedule');
+        return $this->markdown('emails.schedule')
+            ->with('counselor', $counselor)
+            ->with('tent', $tent);
     }
 }

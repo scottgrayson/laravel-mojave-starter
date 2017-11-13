@@ -38,7 +38,7 @@ class CounselorReminder implements ShouldQueue
         foreach ($tents as $tent) {
             $counselors = $tent->counselors()->get();
             foreach ($counselors as $counselor) {
-                Mail::to($counselor->user->email)->send(new CamperSchedule());
+                Mail::to($counselor->user->email)->send(new CamperSchedule($counselor, $tent));
             }
         }
     }
