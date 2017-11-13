@@ -1,7 +1,7 @@
 @component('mail::message')
   # Week Of: {{\Carbon\Carbon::now()->startOfWeek()->toFormattedDateString()}}
 
-  Follow the link below to check your tent's schedule.
+  Follow the link below to check {{$tent->name}} schedule.
 
 @component('mail::button', ['url' => ''])
   View Campers

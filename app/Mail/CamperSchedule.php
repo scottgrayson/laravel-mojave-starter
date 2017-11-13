@@ -20,6 +20,7 @@ class CamperSchedule extends Mailable
      * @return void
      */
     public $counselor;
+
     public $tent;
 
     public function __construct(Counselor $counselor, Tent $tent)
@@ -37,7 +38,7 @@ class CamperSchedule extends Mailable
     public function build()
     {
         return $this->markdown('emails.schedule')
-            ->with('counselor', $counselor)
-            ->with('tent', $tent);
+            ->with('counselor', $this->counselor)
+            ->with('tent', $this->tent);
     }
 }
