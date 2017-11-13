@@ -8,5 +8,4 @@ class Tent extends Model
     {
         return $this->hasMany(\App\Counselor::class);
     }
-    
 }
