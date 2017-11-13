@@ -27,7 +27,6 @@
       </div>
       <table class="table table-responsive">
         <tr>
-          <th>#</th>
           <th>Allergies</th>
           <th>Name</th>
           <th>Monday</th>
@@ -38,8 +37,7 @@
         </tr>
         <tr v-for="(camper, key) in camperSelection"
           scope="row">
-          <td>{{key + 1}}</td>
-          <td v-if="camper.allergies !== null">
+          <td v-if="camper[0].allergies !== null">
             <svg id="i-alert" viewBox="0 0 32 32" 
               width="32" 
               height="32" 
@@ -55,8 +53,8 @@
             None
           </td>
           <td>
-            <a :href="'/campers/'+camper.id">
-              {{camper.name}}
+            <a :href="'/campers/'+camper[0].id">
+              {{camper[0].name}}
             </a>
           </td>
           <td>X</td>
@@ -114,6 +112,11 @@
         let selection = {} 
         for (var x of val) {
           selection[x.name] = []
+          selection[x.name].push({
+            name: x.name,
+            id: x.id, 
+            allergies: x.allergies
+          })
           for (var y of this.weeks[0]) {
             let date = moment(y.date).format('YYYY-MM-DD')
             if (x.dates.includes(date)) {
