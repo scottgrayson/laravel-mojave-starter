@@ -2,6 +2,7 @@ pipeline {
   agent any
   environment {
     APP_ENV = 'testing'
+    BRAINTREE_ENV = 'sandbox'
   }
   stages {
     stage('checkout_repo') {
