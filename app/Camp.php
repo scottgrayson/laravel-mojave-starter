@@ -120,7 +120,7 @@ class Camp extends Model
 
         $randomDay = $this->camp_start->addDays(rand(0, $campLength));
 
-        while (!Camp::isOpen($randomDay)) {
+        while (!self::isOpen($randomDay)) {
             $randomDay = $this->camp_start->addDays(rand(0, $campLength));
         }
 
