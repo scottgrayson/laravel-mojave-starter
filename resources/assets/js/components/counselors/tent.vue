@@ -47,7 +47,7 @@
             </a>
           </td>
           <td v-for="day in weeks[selectedWeek]">
-            {{camper.includes(day.date)}}
+            {{camper.includes(day)}}
           </td>
         </tr>
       </table>
@@ -140,10 +140,20 @@
         }
         return select
       },
+      parseWeeks (val) {
+        var select = {} 
+        val.forEach(function (value, i) {
+          select[i] = []
+          value.forEach(function (x, y) {
+            select[i].push(moment(x.date).format('YYYY-MM-DD'))
+          })
+        })
+        return select
+      },
       fetchCampDates () {
         axios.get('/api/camp-dates/')
           .then((response) => {
-            this.weeks = response.data.weeks
+            this.weeks = this.parseWeeks(response.data.weeks) 
             this.weekSelection = this.weekSelect(response.data.weeks)
             this.campStart = response.data.camp_start.date
             this.campEnd = response.data.camp_end.date
