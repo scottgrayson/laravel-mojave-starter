@@ -111,17 +111,17 @@
         return 'Week Of: '+moment(this.weeks[val][0].date).format('MMMM D, YYYY')
       },
       parseCampers (val) {
+        let selection = {} 
         for (var x of val) {
+          selection[x.name] = []
           for (var y of this.weeks[0]) {
             let date = moment(y.date).format('YYYY-MM-DD')
-            let selection = []
-            if (x.dates.includes(moment(y.date).format('YYYY-MM-DD'))) {
-              selection.push(x, date)
+            if (x.dates.includes(date)) {
+              selection[x.name].push(date)
             }
-            console.log(selection)
-            this.camperSelection.push(selection)
           }
         }
+        return selection
       },
       fetchNext () {
         this.selectedWeek += 1
@@ -165,7 +165,7 @@
         axios.get('/api/reservations/'+this.tent.id)
           .then((response) => {
             this.campers = response.data
-            this.parseCampers(response.data)
+            this.camperSelection = this.parseCampers(response.data)
           })
       }
     },
