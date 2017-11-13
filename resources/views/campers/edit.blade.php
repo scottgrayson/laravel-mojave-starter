@@ -36,6 +36,9 @@ $wording = [
   'henna_consent' => [
     'before' => "Henna consent explanation",
   ],
+  'allergies' => [
+    'before' => '<b>Campers with allergies must have a completed paper copy of <a target="_blank" href="/assets/MBDC.medical.pdf">THIS FORM</a> when they attend camp.</b>',
+  ],
 ];
   @endphp
 
