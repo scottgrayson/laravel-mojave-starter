@@ -1,10 +1,10 @@
 @component('mail::message')
-# Introduction
+  # Week Of: {{\Carbon\Carbon::now()->startOfWeek()->toFormattedDateString()}}
 
-The body of your message.
+  Follow the link below to check your tent's schedule.
 
 @component('mail::button', ['url' => ''])
-Button Text
+  View Campers
 @endcomponent
 
 Thanks,<br>
