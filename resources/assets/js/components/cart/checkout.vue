@@ -20,9 +20,10 @@
 
     <br>
 
-    <button @disabled="processing" @click="submit" v-show="!initError" id="submit-button" class="btn btn-primary">
+    <button :disabled="processing || !selectedPaymentOption" @click="submit" v-show="!initError" id="submit-button" class="btn btn-primary">
       Purchase
     </button>
+
     <a href="/cart" class="btn btn-link">
       View Cart
     </a>
@@ -46,6 +47,8 @@ export default {
   data () {
     return {
       initError: '',
+      dropin: '',
+      selectedPaymentOption: '',
       braintree: null,
       processing: false
     }
@@ -75,7 +78,16 @@ export default {
         return
       }
 
+      instance.on('paymentOptionSelected', (event) => {
+        this.selectedPaymentOption = event.paymentOption
+      })
+
+      $('[data-braintree-id=toggle]').click(() => {
+        this.selectedPaymentOption = ''
+      })
+
       this.braintree = instance
+      this.dropin = dropin
     })
   },
 
@@ -93,6 +105,7 @@ export default {
 
       this.braintree.requestPaymentMethod((err, payload) => {
         if (err) {
+          this.processing = false
           swal.close()
           // An appropriate error will be shown in the UI
           return
@@ -104,7 +117,7 @@ export default {
             window.location.href = '/thank-you'
           })
           .catch((error) => {
-            this.processing = true
+            this.processing = false
             swal({
               text: 'Error processing payment.',
               icon: 'error'
