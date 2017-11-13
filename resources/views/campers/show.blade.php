@@ -13,6 +13,11 @@
         <ul>
           <li>{{$camper->allergies}}</li>
         </ul>
+      @else
+        <p class="text-center mt-1">Allergies</p>
+        <ul>
+          <li>None</li>
+        </ul>
       @endif
     </div>
   </div>
