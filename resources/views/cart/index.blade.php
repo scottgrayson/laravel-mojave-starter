@@ -27,13 +27,12 @@
   @else
 
     <span class="lead">
-      Daily rate is:
+      Prices:
     </span>
     <ul>
       @foreach($rates as $rate)
         <li>
-          <b>${{ $rate->price }}</b>
-          ({{ $rate->description }})
+          {{ $rate->description }}
         </li>
       @endforeach
     </ul>

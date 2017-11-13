@@ -31,7 +31,7 @@ class ProductSeeder extends Seeder
             'name' => 'day',
             'slug' => 'day',
             'price' => '65',
-            'description' => 'Daily rate for campers reserving less than 5 days.',
+            'description' => '$65 per day for campers reserving less than 5 days.',
         ]);
 
         \DB::table('products')->insert([
