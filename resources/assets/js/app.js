@@ -10,6 +10,9 @@ require('./bootstrap')
 window.Vue = require('vue')
 window.bus = new Vue()
 
+import { dateFormat } from './filters/index.js'
+Vue.filter('dateFormat', dateFormat)
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

@@ -29,25 +29,14 @@
         <tr>
           <th>Allergies</th>
           <th>Name</th>
-          <th>Monday</th>
-          <th>Tuesday</th>
-          <th>Wednesday</th>
-          <th>Thursday</th>
-          <th>Friday</th>
+          <th v-for="day in weeks[selectedWeek]">
+            {{day.date}}
+          </th>
         </tr>
         <tr v-for="(camper, key) in camperSelection"
           scope="row">
           <td v-if="camper[0].allergies !== null">
-            <svg id="i-alert" viewBox="0 0 32 32" 
-              width="32" 
-              height="32" 
-              fill="none"
-              stroke="currentcolor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2">
-              <path d="M16 3 L30 29 2 29 Z M16 11 L16 19 M16 23 L16 25" />
-            </svg>
+            Allergies
           </td>
           <td v-else>
             None
@@ -57,11 +46,7 @@
               {{camper[0].name}}
             </a>
           </td>
-          <td>X</td>
-          <td>X</td>
-          <td>X</td>
-          <td>X</td>
-          <td>X</td>
+          <td v-for="day in weeks[selectedWeek]">X</td>
         </tr>
       </table>
     </div>
@@ -103,7 +88,6 @@
           this.firstWeek = false
           this.lastWeek = false
         }
-        this.campers = this.parseCampers(this.campers)
       },
       weekOf (val) {
         return 'Week Of: '+moment(this.weeks[val][0].date).format('MMMM D, YYYY')
