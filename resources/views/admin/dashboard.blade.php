@@ -16,10 +16,12 @@ user@dev.com | secret | will be blocked from admin section
 ---
 
 automatic emails will be captured and displayed at http://missbettys.webuildawesomesoftware.com:8025
+(Other sites we are developing have emails show up here too)
 
 ---
 
 Test cards numbers to use for checkout https://developers.braintreepayments.com/guides/credit-cards/testing-go-live/php
+Test paypal account: `admin@dev.com` `secret123`
 
 ---
 
