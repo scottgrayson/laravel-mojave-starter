@@ -1,13 +1,19 @@
 @extends('layouts.app')
 
+@php
+  $page = \App\Page::where('published', 1)->where('uri', '/')->first();
+@endphp
+
+@section('meta')
+  {!! $page->meta_tags !!}
+@endsection
+
 @section('content')
 
-  @php
-    $page = \App\Page::where('published', 1)->where('uri', '/')->first();
-  @endphp
-
   @if ($page)
-    {!! $page->html !!}
+    <div class="page-content">
+      {!! $page->html !!}
+    </div>
   @else
     @component('components.focused')
       <h2 class="text-center">
