@@ -5,7 +5,9 @@
 @endphp
 
 @section('meta')
-  {!! $page->meta_tags !!}
+  @if ($page)
+    {!! $page->meta_tags !!}
+  @endif
 @endsection
 
 @section('content')
