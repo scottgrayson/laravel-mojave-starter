@@ -2,6 +2,8 @@
 
 namespace App\Mail;
 
+use App\Reservation;
+
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -16,9 +18,11 @@ class Invoice extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public $total;
+
+    public function __construct($total = null)
     {
-        //
+        $this->total = $total;
     }
 
     /**
@@ -28,6 +32,7 @@ class Invoice extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.invoice');
+        return $this->markdown('emails.invoice')
+            ->with('total', $this->total);
     }
 }

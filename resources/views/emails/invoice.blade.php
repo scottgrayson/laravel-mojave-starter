@@ -1,7 +1,7 @@
 @component('mail::message')
-# Introduction
+  # Invoice
 
-The body of your message.
+  Thank you for your purchase of {{$total}}
 
 @component('mail::button', ['url' => ''])
 Button Text
