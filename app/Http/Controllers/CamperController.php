@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Camper;
+use App\Mail\EmergencyContact;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use App\Http\Requests\CamperRequest;
 use SEO;
@@ -161,6 +163,10 @@ class CamperController extends Controller
         $item->fill($request->validated());
 
         $changed = $item->isDirty();
+
+        if ($item->allergies) {
+            Mail::to($request->user()->email)->send(new EmergencyContact($request->user(), $item));
+        }
 
         $item->save();
 

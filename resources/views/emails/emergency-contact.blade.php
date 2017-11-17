@@ -1,10 +1,13 @@
 @component('mail::message')
-# Introduction
+# Emergency Contact Reminder
 
-The body of your message.
+Dear {{$user->name}}:  
 
-@component('mail::button', ['url' => ''])
-Button Text
+  You have registered {{$camper->name}} with an allergy condition, please print and complete the attached form before camp begins,
+  campers will not be able to attend until this form has been verified.
+
+@component('mail::button', ['url' => $url])
+  View Form Online
 @endcomponent
 
 Thanks,<br>
