@@ -1,12 +1,15 @@
 @component('mail::message')
   # Invoice
 
-  Thank you for your purchase of {{$total}}
+  Dear {{$user->name}},  
 
-@component('mail::button', ['url' => ''])
-Button Text
+  Thank you for your reservation!
+
+  * Total: {{$total}} 
+
+@component('mail::button', ['url' => $url])
+  View Reservations
 @endcomponent
 
-Thanks,<br>
 {{ config('app.name') }}
 @endcomponent

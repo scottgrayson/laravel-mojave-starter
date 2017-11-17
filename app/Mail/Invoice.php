@@ -9,6 +9,9 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
+use App\User;
+use App\Camper;
+
 class Invoice extends Mailable
 {
     use Queueable, SerializesModels;
@@ -20,9 +23,17 @@ class Invoice extends Mailable
      */
     public $total;
 
-    public function __construct($total = null)
+    public $user;
+
+    public $url;
+
+    public function __construct(User $user, $total = null)
     {
         $this->total = $total;
+
+        $this->user = $user;
+
+        $this->url = route('reservations.index'); 
     }
 
     /**
@@ -33,6 +44,8 @@ class Invoice extends Mailable
     public function build()
     {
         return $this->markdown('emails.invoice')
-            ->with('total', $this->total);
+            ->with('total', $this->total)
+            ->with('user', $this->user)
+            ->with('url', $this->url);
     }
 }
