@@ -92138,6 +92138,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -92154,6 +92155,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   data: function data() {
     return {
       initError: '',
+      dropin: '',
+      selectedPaymentOption: '',
       braintree: null,
       processing: false
     };
@@ -92184,7 +92187,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return;
       }
 
+      instance.on('paymentOptionSelected', function (event) {
+        _this.selectedPaymentOption = event.paymentOption;
+      });
+
+      $('[data-braintree-id=toggle]').click(function () {
+        _this.selectedPaymentOption = '';
+      });
+
       _this.braintree = instance;
+      _this.dropin = dropin;
     });
   },
 
@@ -92205,6 +92217,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       this.braintree.requestPaymentMethod(function (err, payload) {
         if (err) {
+          _this2.processing = false;
           swal.close();
           // An appropriate error will be shown in the UI
           return;
@@ -92214,7 +92227,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         axios.post('/api/payments', payload).then(function () {
           window.location.href = '/thank-you';
         }).catch(function (error) {
-          _this2.processing = true;
+          _this2.processing = false;
           swal({
             text: 'Error processing payment.',
             icon: 'error'
@@ -100156,8 +100169,11 @@ var render = function() {
           }
         ],
         staticClass: "btn btn-primary",
-        attrs: { id: "submit-button" },
-        on: { disabled: _vm.processing, click: _vm.submit }
+        attrs: {
+          disabled: _vm.processing || !_vm.selectedPaymentOption,
+          id: "submit-button"
+        },
+        on: { click: _vm.submit }
       },
       [_vm._v("\n    Purchase\n  ")]
     ),

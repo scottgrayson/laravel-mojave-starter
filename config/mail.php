@@ -120,5 +120,5 @@ return [
         ],
     ],
 
-    'director_email' => env('DIRECTOR_EMAIL'),
+    'director_email' => env('DIRECTOR_EMAIL', 'info@missbettys.com'),
 ];
