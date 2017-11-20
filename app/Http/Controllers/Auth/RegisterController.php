@@ -83,6 +83,6 @@ class RegisterController extends Controller
 
     protected function registered(Request $request, $user)
     {
-        return redirect(session()->pull('from', $this->redirectTo));
+        return redirect()->intended(session()->pull('from', $this->redirectTo));
     }
 }
