@@ -1,11 +1,9 @@
 @extends('layouts.admin')
 
 @section('content')
-  <div class="card">
-    <div class="card-body">
-      @include('crud.show', [
-        'item' => $item,
-      ])
-    </div>
-  </div>
+  @component('components.card')
+    @include('crud.show', [
+      'item' => $item,
+    ])
+  @endcomponent
 @endsection
