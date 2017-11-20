@@ -39,3 +39,7 @@ label.required:after {
   cursor: pointer;
   border-radius: 0;
 }
+
+.breadcrumb {
+  border-bottom: 1px solid $gray-200;
+}

@@ -9689,13 +9689,13 @@ body {
   top: 0;
   bottom: 0;
   left: 0;
-  height: calc(100vh - 51px);
+  height: calc(100vh - 53px);
   z-index: 1000;
   padding: 20px;
   overflow-x: hidden;
   overflow-y: auto;
   /* Scrollable contents if viewport is shorter than content. */
-  border-right: 1px solid #eee;
+  border-right: 1px solid #c2cfd6;
 }
 
 /* Sidebar navigation */
@@ -9712,6 +9712,14 @@ body {
 
 .sidebar .nav-item {
   width: 100%;
+}
+
+.sidebar .nav-item a {
+  color: #536c79;
+}
+
+.sidebar .nav-pills .nav-link.active {
+  background-color: #536c79;
 }
 
 .sidebar .nav-item + .nav-item {
@@ -9812,5 +9820,9 @@ label.required:after {
 .btn {
   cursor: pointer;
   border-radius: 0;
+}
+
+.breadcrumb {
+  border-bottom: 1px solid #c2cfd6;
 }
 
