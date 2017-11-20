@@ -16,7 +16,8 @@
 
 // padding for fixed nav
 body {
-  padding-top: 3.5rem;
+  //height of navbar
+  padding-top: 53px;
 }
 
 // form errors
@@ -36,4 +37,5 @@ label.required:after {
 
 .btn {
   cursor: pointer;
+  border-radius: 0;
 }

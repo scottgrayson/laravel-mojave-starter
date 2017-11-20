@@ -8,8 +8,13 @@
         @include('admin.nav.sidebar')
       </div>
 
-      <main class="col-lg-10 pt-3" role="main">
-        @yield('content')
+      <main class="col-lg-10 p-0" role="main">
+        @include('partials.breadcrumbs')
+
+        <div class="container-fluid">
+          @yield('content')
+        </div>
+
       </main>
     </div>
   </div>
