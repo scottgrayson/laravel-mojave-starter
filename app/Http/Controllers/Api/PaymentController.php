@@ -86,7 +86,6 @@ class PaymentController extends Controller
 
         Cart::destroy();
 
-
         return 'Payment Successful';
     }
 }

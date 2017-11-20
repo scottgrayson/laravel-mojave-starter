@@ -34,8 +34,6 @@ class Invoice extends Mailable
     {
         $this->total = $total;
 
-        dd($payment);
-
         $this->user = $user;
 
         $this->url = route('campers.index');
