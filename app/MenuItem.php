@@ -84,4 +84,9 @@ class MenuItem extends Model
 
         return $this->link;
     }
+
+    public function isActive()
+    {
+        return request()->is(ltrim($this->href, '/') . '*');
+    }
 }

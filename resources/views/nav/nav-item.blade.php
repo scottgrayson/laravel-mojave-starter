@@ -13,7 +13,7 @@
     @endif
     <div class="dropdown-menu {{ $l->name === 'user dropdown' ? 'dropdown-menu-md-right' : '' }}">
       @foreach ($l->children as $c)
-        <a class="dropdown-item {{ (request()->is($c->href.'*')) ? 'active' : '' }}" href="{{ $c->href }}">
+        <a class="dropdown-item {{ $l->isActive() ? 'active' : '' }}" href="{{ $c->href }}">
           {{ title_case($c->label) }}
         </a>
       @endforeach
@@ -36,15 +36,15 @@
 
   @else
 
-    <li class="nav-item {{ (request()->is($l->href.'*')) ? 'active' : '' }}">
-      <a class="nav-link {{ (request()->is($l->href.'*')) ? 'active' : '' }}" href="{{$l->href}}">
+    <li class="nav-item {{ $l->isActive() ? 'active' : '' }}">
+      <a class="nav-link {{ $l->isActive() ? 'active' : '' }}" href="{{$l->href}}">
         {{ title_case($l->label) }}
         @if ($l->href === '/notifications')
           <span class="badge badge-pill badge-danger">
         {{ auth()->user()->unread_notification_count }}
           </span>
         @endif
-        @if (request()->is($l->href.'*'))
+        @if ($l->isActive())
           <span class="sr-only">(current)</span>
         @endif
       </a>
