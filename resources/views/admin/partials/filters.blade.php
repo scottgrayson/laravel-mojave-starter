@@ -12,8 +12,12 @@
     </div>
   @endforeach
 </div>
-{{ Form::submit('Search', ['class' => 'btn btn-primary']) }}
-<a class="ml-1 btn btn-secondary" href="/{{ request()->path() }}">
-  Reset
-</a>
+<div class="row">
+  <div class="col-12">
+    {{ Form::submit('Search', ['class' => 'btn btn-primary']) }}
+    <a class="ml-1 btn btn-secondary" href="/{{ request()->path() }}">
+      Reset
+    </a>
+  </div>
+</div>
 {{ Form::close() }}
