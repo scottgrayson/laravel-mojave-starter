@@ -17,6 +17,12 @@ class UserController extends CrudController
     protected $singular = 'user';
     protected $plural = 'users';
     protected $formRequest = \App\Http\Requests\UserRequest::class;
+    protected $columns = [
+        'id',
+        'name',
+        'email',
+        'created_at'
+    ];
 
     public function store(Request $request)
     {

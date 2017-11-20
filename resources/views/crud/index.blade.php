@@ -82,10 +82,8 @@
     <tbody>
       @foreach ($items as $i)
         <tr>
-          @foreach ($i->getAttributes() as $k => $v)
-            @if (in_array($k, $cols))
-              @include('display.value', ['k' => $k, 'v' => $v, 'item' => $i])
-            @endif
+          @foreach ($cols as $k)
+            @include('display.value', ['k' => $k, 'v' => $i->$k, 'item' => $i])
           @endforeach
           <td>
             <div class="d-flex">
