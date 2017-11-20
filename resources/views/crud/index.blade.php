@@ -46,7 +46,7 @@
     No Results
   </div>
 @else
-  <table class="table">
+  <table class="table table-responsive">
 
     <thead>
       <tr>

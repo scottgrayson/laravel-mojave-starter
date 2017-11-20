@@ -1,7 +1,7 @@
 @php
   $filterCols = preg_replace('/_id$/', '', $cols);
 @endphp
-{{ Form::open(['url' => request()->path(), 'method' => 'get', 'class' => 'form-inline']) }}
+{{ Form::open(['url' => request()->path(), 'method' => 'get']) }}
 <p class="text-muted">
   Prefix based search
 </p>
@@ -12,12 +12,10 @@
     </div>
   @endforeach
 </div>
-<div class="row">
-  <div class="col-12">
-    {{ Form::submit('Search', ['class' => 'btn btn-primary']) }}
-    <a class="ml-1 btn btn-secondary" href="/{{ request()->path() }}">
-      Reset
-    </a>
-  </div>
-</div>
+
+{{ Form::submit('Search', ['class' => 'btn btn-primary']) }}
+<a class="ml-1 btn btn-secondary" href="/{{ request()->path() }}">
+  Reset
+</a>
+
 {{ Form::close() }}
