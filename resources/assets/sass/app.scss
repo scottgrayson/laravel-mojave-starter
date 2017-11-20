@@ -7,12 +7,15 @@
 @import "~select2/dist/css/select2";
 @import "~simplemde/dist/simplemde.min.css";
 
+$sidebar-width: 200px;
+
 //@import "stepper";
 @import "nav";
 @import "footer";
 @import "sidebar";
 @import "notifications";
 @import "icons";
+
 
 // padding for fixed nav
 body {
@@ -42,4 +45,11 @@ label.required:after {
 
 .breadcrumb {
   border-bottom: 1px solid $gray-200;
+}
+
+@include media-breakpoint-up(lg) {
+  .admin-content {
+    position: relative;
+    left: $sidebar-width;
+  }
 }
