@@ -1,16 +1,23 @@
 @extends('layouts.base')
 
 @section('body')
-  @include('admin.nav.top')
-  <div class="container-fluid">
-    <div class="row">
-      <div class="p-0 col-lg-2 d-none d-lg-block">
-        @include('admin.nav.sidebar')
-      </div>
+  <header class="app-header header-fixed">
+    @include('admin.nav.top')
+  </header>
 
-      <main class="col-lg-10 pt-3" role="main">
-        @yield('content')
-      </main>
+  <div class="app-body">
+    <div class="sidebar">
+      @include('admin.nav.sidebar')
     </div>
+
+    <main class="main" role="main">
+      <div class="container-fluid">
+        @yield('content')
+      </div>
+    </main>
   </div>
+
+  <footer class="app-footer">
+    <!-- Footer content here -->
+  </footer>
 @endsection

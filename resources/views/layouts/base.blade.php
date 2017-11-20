@@ -36,7 +36,7 @@
 
   <body>
 
-    <div id="app">
+    <div id="app header-fixed">
       @yield('body')
       @include('flash::message')
     </div>
