@@ -51,5 +51,8 @@ label.required:after {
   .admin-content {
     position: relative;
     left: $sidebar-width;
+    //width: calc(100vw - $sidebar-width);
+    // TODO figure out how to use variable inside calc()
+    width: calc(100vw - 200px);
   }
 }

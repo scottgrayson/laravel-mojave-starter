@@ -9831,6 +9831,7 @@ label.required:after {
   .admin-content {
     position: relative;
     left: 200px;
+    width: calc(100vw - 200px);
   }
 }
 
