@@ -11,7 +11,7 @@
 
 $steps = [
   [
-    'label' => 'Basic Info',
+    'label' => 'Camper Info',
     'href' => route('campers.edit', ['camper' => $item->id, 'step' => 1]),
   ],
   [
@@ -45,7 +45,7 @@ $wording = [
   @endphp
 
 
-  <h1 class="h3">
+  <h1 class="h2">
     Camper Registration
   </h1>
 
@@ -56,6 +56,7 @@ $wording = [
     'steps' => $steps,
   ])
 
+  <br>
 
   {{ Form::model($item, ['method' => 'PUT', 'route' => ["campers.update", $item->id]]) }}
 
