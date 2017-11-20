@@ -26,15 +26,21 @@ class Invoice extends Mailable
 
     public $user;
 
+    public $reservations;
+
     public $payment;
 
     public $url;
 
-    public function __construct(User $user, Payment $payment, $total = null)
+    public function __construct($total = null, User $user, $reservations, Payment $payment)
     {
         $this->total = $total;
 
         $this->user = $user;
+
+        $this->reservations = $reservations;
+
+        $this->payment = $payment;
 
         $this->url = route('campers.index');
     }
@@ -49,6 +55,7 @@ class Invoice extends Mailable
         return $this->markdown('emails.invoice')
             ->with('total', $this->total)
             ->with('user', $this->user)
+            ->with('reservations', $this->reservations)
             ->with('url', $this->url);
     }
 }

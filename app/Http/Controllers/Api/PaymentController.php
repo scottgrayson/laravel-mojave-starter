@@ -71,18 +71,24 @@ class PaymentController extends Controller
                 'amount' => $result->transaction->amount,
                 'type' => 'reservations',
             ]);
-            Mail::to($request->user()->email)->send(new Invoice($request->user(), $payment, $total));
         } else {
             // Handle errors
             \Log::error($result);
             abort(400, 'Failed charging for reservations');
         }
 
+        $reservations = collect();
+
         foreach (CartHelper::pendingReservations() as $i) {
-            Reservation::create(array_merge($i, [
+            $reservation = Reservation::create(array_merge($i, [
                 'payment_id' => $payment->id,
             ]));
+            $reservations->push($reservation);
         }
+
+        $reservations = $reservations->groupBy('camper_id');
+
+        Mail::to($request->user()->email)->send(new Invoice($total, $request->user(), $reservations, $payment));
 
         Cart::destroy();
 
