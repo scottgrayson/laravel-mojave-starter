@@ -1,7 +1,13 @@
 // Bootstrap
 @import "~bootstrap/scss/functions";
-@import "bootstrap.variables";
+@import "_bootstrap-variables";
 @import "~bootstrap/scss/bootstrap";
+
+// CoreUI
+@import "_core-variables";
+@import "_custom";
+@import "style";
+@import "core/core";
 
 // Other Vendor
 @import "~select2/dist/css/select2";
