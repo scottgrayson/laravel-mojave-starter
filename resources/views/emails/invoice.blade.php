@@ -5,7 +5,9 @@
 
   Thank you for your reservation!
 
-  * Total: {{$total}} 
+  * Camper: {{$user->name}}
+  * Dates: {{$user->email}}
+  * Total: $ {{$total}} 
 
 @component('mail::button', ['url' => $url])
   View Reservations

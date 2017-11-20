@@ -11,6 +11,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 use App\User;
 use App\Camper;
+use App\Payment;
 
 class Invoice extends Mailable
 {
@@ -25,15 +26,19 @@ class Invoice extends Mailable
 
     public $user;
 
+    public $payment;
+
     public $url;
 
-    public function __construct(User $user, $total = null)
+    public function __construct(User $user, Payment $payment, $total = null)
     {
         $this->total = $total;
 
+        dd($payment);
+
         $this->user = $user;
 
-        $this->url = route('reservations.index'); 
+        $this->url = route('campers.index'); 
     }
 
     /**

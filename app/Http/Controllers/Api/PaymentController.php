@@ -71,7 +71,7 @@ class PaymentController extends Controller
                 'amount' => $result->transaction->amount,
                 'type' => 'reservations',
             ]);
-            Mail::to($request->user()->email)->send(new Invoice($request->user(), $total));
+            Mail::to($request->user()->email)->send(new Invoice($request->user(), $payment, $total));
         } else {
             // Handle errors
             \Log::error($result);
