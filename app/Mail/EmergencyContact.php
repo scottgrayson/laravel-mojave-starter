@@ -31,7 +31,7 @@ class EmergencyContact extends Mailable
 
         $this->camper = $camper;
 
-        $this->url = url('/assets/MBDC.medical.pdf'); 
+        $this->url = url('/assets/MBDC.medical.pdf');
     }
 
     /**

@@ -38,7 +38,7 @@ class Invoice extends Mailable
 
         $this->user = $user;
 
-        $this->url = route('campers.index'); 
+        $this->url = route('campers.index');
     }
 
     /**
