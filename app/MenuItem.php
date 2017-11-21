@@ -87,6 +87,10 @@ class MenuItem extends Model
 
     public function isActive()
     {
+        if ($this->href === '/') {
+            return false;
+        }
+
         return request()->is(ltrim($this->href, '/') . '*');
     }
 }

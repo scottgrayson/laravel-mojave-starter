@@ -13,7 +13,7 @@
     @endif
     <div class="dropdown-menu {{ $l->name === 'user dropdown' ? 'dropdown-menu-md-right' : '' }}">
       @foreach ($l->children as $c)
-        <a class="dropdown-item {{ $l->isActive() ? 'active' : '' }}" href="{{ $c->href }}">
+        <a class="dropdown-item {{ $c->isActive() ? 'active' : '' }}" href="{{ $c->href }}">
           {{ title_case($c->label) }}
         </a>
       @endforeach
