@@ -11,33 +11,30 @@
       $crumbs []= $segment;
     }
   }
-
-  function isActive($crumb) {
-    return request()->is($crumb);
-  }
-
-  function crumbLabel($crumb) {
-    if (strpos($crumb, '/')) {
-      $parts = explode('/', $crumb);
-      $last = end($parts);
-      return title_case(str_replace('-', ' ', $last));
-    } else {
-      return title_case(str_replace('-', ' ', $crumb));
-    }
-  }
-
 @endphp
+
 <ol class="breadcrumb">
   @foreach ($crumbs as $crumb)
-    @if (!preg_match('/\d/', crumbLabel($crumb)))
+
+    @php
+      if (strpos($crumb, '/')) {
+        $parts = explode('/', $crumb);
+        $last = end($parts);
+        $crumbLabel = title_case(str_replace('-', ' ', $last));
+      } else {
+        $crumbLabel = title_case(str_replace('-', ' ', $crumb));
+      }
+    @endphp
+
+    @if (!preg_match('/\d/', $crumbLabel))
       @if (request()->is($crumb))
         <li class="breadcrumb-item active">
-          {{ crumbLabel($crumb) }}
+          {{ $crumbLabel }}
         </li>
       @else
         <li class="breadcrumb-item">
           <a href="/{{ $crumb }}">
-            {{ crumbLabel($crumb) }}
+            {{ $crumbLabel }}
           </a>
         </li>
       @endif
