@@ -119,7 +119,7 @@ $theme-color-interval: 8% !default;
 //
 // Quickly modify global styling by enabling or disabling optional features.
 
-$enable-rounded:            false !default;
+$enable-rounded:            true !default;
 $enable-shadows:            false !default;
 $enable-gradients:          false !default;
 $enable-transitions:        true !default;
@@ -221,9 +221,9 @@ $line-height-sm:         1.5 !default;
 $border-width: 1px !default;
 $border-color: $gray-200 !default;
 
-$border-radius:          .25rem !default;
-$border-radius-lg:       .3rem !default;
-$border-radius-sm:       .2rem !default;
+$border-radius:          0 !default;
+$border-radius-lg:       0 !default;
+$border-radius-sm:       0 !default;
 
 $component-active-color: theme-color('dark') !default;
 $component-active-bg:    theme-color("light") !default;
