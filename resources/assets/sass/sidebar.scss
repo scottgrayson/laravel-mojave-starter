@@ -32,11 +32,7 @@
 }
 
 .sidebar .nav-item a {
-  color: theme-color('secondary');
-}
-
-.sidebar .nav-pills .nav-link.active {
-  background-color: theme-color('secondary');
+  color: theme-color('dark');
 }
 
 .sidebar .nav-item + .nav-item {
