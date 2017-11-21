@@ -50,8 +50,8 @@
 
   @else
 
-    <li class="nav-item {{ (request()->is($l->href.'*')) ? 'active' : '' }}">
-      <a class="nav-link {{ (request()->is($l->href.'*')) ? 'active' : '' }}" href="{{$l->href}}">
+    <li class="nav-item {{ $l->isActive() ? 'active' : '' }}">
+      <a class="nav-link {{ $l->isActive() ? 'active' : '' }}" href="{{$l->href}}">
         {{ title_case($l->label) }}
         @if ($l->href === '/cart')
           <cart-count class="badge badge-pill badge-danger"
@@ -63,7 +63,7 @@
             {{ auth()->user()->unread_notification_count }}
           </span>
         @endif
-        @if (request()->is($l->href.'*'))
+        @if ($l->isActive())
           <span class="sr-only">(current)</span>
         @endif
       </a>

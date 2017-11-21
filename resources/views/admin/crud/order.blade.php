@@ -1,8 +1,10 @@
 @extends('layouts.admin')
 
 @section('content')
-  @include('crud.order', [
-    'items' => $items,
-    'slug' => $slug,
-  ])
+  @component('components.card')
+    @include('crud.order', [
+      'items' => $items,
+      'slug' => $slug,
+    ])
+  @endcomponent
 @endsection

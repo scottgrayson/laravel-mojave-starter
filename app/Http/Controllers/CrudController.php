@@ -35,10 +35,10 @@ class CrudController extends Controller
         $defaultSort = isset($this->defaultSort) ? $this->defaultSort : 'id';
         $defaultOrder = isset($this->defaultOrder) ? $this->defaultOrder : 'asc';
 
+        // crud index columns
         if ($this->columns) {
             $cols = $this->columns;
         } else {
-            // crud index columns
             $dbCols = collect(\Schema::getColumnListing($this->table));
 
             // global index page table excludes

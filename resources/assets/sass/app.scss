@@ -8,6 +8,8 @@
 @import "~fullcalendar/dist/fullcalendar.min.css";
 @import "~simplemde/dist/simplemde.min.css";
 
+$sidebar-width: 200px;
+
 //@import "stepper";
 @import "nav";
 @import "footer";
@@ -16,9 +18,11 @@
 @import "icons";
 @import "calendar";
 
+
 // padding for fixed nav
 body {
-  padding-top: 3.5rem;
+  //height of navbar
+  padding-top: 53px;
 }
 
 // form errors
@@ -38,6 +42,21 @@ label.required:after {
 
 .btn {
   cursor: pointer;
+  border-radius: 0;
+}
+
+.breadcrumb {
+  border-bottom: 1px solid $gray-200;
+}
+
+@include media-breakpoint-up(lg) {
+  .admin-content {
+    position: relative;
+    left: $sidebar-width;
+    //width: calc(100vw - $sidebar-width);
+    // TODO figure out how to use variable inside calc()
+    width: calc(100vw - 200px);
+  }
 }
 
 .pointer {

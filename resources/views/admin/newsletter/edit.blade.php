@@ -12,25 +12,29 @@
         class="align-self-start btn btn-outline-info">
         Statistics
       </a>
-      </div>
+    </div>
   @endif
 
-  @include('crud.edit', [
-    'fields' => $fields,
-    'slug' => $slug,
-    'model' => $model,
-    'item' => $item,
-  ])
+  @component('components.card')
+    @include('crud.edit', [
+      'fields' => $fields,
+      'slug' => $slug,
+      'model' => $model,
+      'item' => $item,
+    ])
+  @endcomponent
 
   <br>
 
-  <h4>Preview Newsletter</h4>
+  @component('components.card')
 
-  {{ Form::open(['method' => 'POST', 'route' => ['admin.newsletter.preview', $item->id]]) }}
+    <h4>Preview Newsletter</h4>
 
-  {{ Form::bs('email', null, null, ['placeholder' => 'Preview will be sent here'], ['required']) }}
+    {{ Form::open(['method' => 'POST', 'route' => ['admin.newsletter.preview', $item->id]]) }}
 
-  {{ Form::submit('Preview', ['class' => 'btn btn-secondary']) }}
+    {{ Form::bs('email', null, null, ['placeholder' => 'Preview will be sent here'], ['required']) }}
+    {{ Form::submit('Preview', ['class' => 'btn btn-secondary']) }}
 
-  {{ Form::close() }}
+    {{ Form::close() }}
+  @endcomponent
 @endsection
