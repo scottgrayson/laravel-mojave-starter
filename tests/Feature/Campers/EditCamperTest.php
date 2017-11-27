@@ -25,7 +25,7 @@ class EditCamperTest extends TestCase
         $camper->zip = 'zip';
         $camper->school_name = 'school';
         $camper->township = 'township';
-        $camper->phone = '18003334444';
+        $camper->camper_phone = '18003334444';
         $camper->birthdate = '2017-10-10';
         $camper->shirt_size = 'M';
         $camper->save();
@@ -75,7 +75,7 @@ class EditCamperTest extends TestCase
         $camper->zip = 'zip';
         $camper->township = 'township';
         $camper->school_name = 'school';
-        $camper->phone = '18003334444';
+        $camper->camper_phone = '18003334444';
         $camper->birthdate = '2017-10-10';
         $camper->shirt_size = 'M';
 

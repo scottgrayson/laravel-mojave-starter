@@ -19,6 +19,11 @@ class Camper extends Model
         return $this->hasMany(\App\Reservation::class);
     }
 
+    public function getNameAttribute()
+    {
+        return "{$this->first_name} {$this->last_name}";
+    }
+
     public function getStatusAttribute()
     {
         $rules = (new \App\Http\Requests\CamperRequest)->editRules();
