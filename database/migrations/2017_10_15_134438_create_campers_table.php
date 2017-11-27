@@ -29,7 +29,8 @@ class CreateCampersTable extends Migration
                 ->on('tents')
                 ->onDelete('restrict');
             $table->index('tent_id');
-            $table->string('name');
+            $table->string('first_name');
+            $table->string('last_name');
 
             /*
              * Nullable so they can be entered in steps

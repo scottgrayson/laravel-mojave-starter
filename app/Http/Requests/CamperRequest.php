@@ -9,7 +9,8 @@ class CamperRequest extends FormRequest
     public function createRules()
     {
         return [
-            'name' => 'required|string|max:255',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
             'tent_id' => 'required|numeric',
         ];
     }
@@ -35,7 +36,8 @@ class CamperRequest extends FormRequest
     {
         return [
             'user_id' => 'required|numeric',
-            'name' => 'required|string|max:255',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
             'tent_id' => 'required|numeric',
             'address' => 'nullable|string|max:255',
             'city' => 'nullable|string|max:255',
@@ -75,7 +77,8 @@ class CamperRequest extends FormRequest
     {
         return [
             [
-                'name' => 'required|string|max:255',
+                'first_name' => 'required|string|max:255',
+                'last_name' => 'required|string|max:255',
                 'tent_id' => 'required|numeric',
                 'address' => 'required|string|max:255',
                 'city' => 'required|string|max:255',
