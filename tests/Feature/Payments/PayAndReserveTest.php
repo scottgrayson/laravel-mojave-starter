@@ -22,19 +22,21 @@ class PayAndReserveTest extends TestCase
         $tent = factory(Tent::class)->create();
         $user = factory(User::class)->create();
         $camp = factory(Camp::class)->create();
-        $camper = factory(Camper::class)->create([
+        $camper = factory(Camper::class, 3)->create([
             'tent_id' => $tent->id,
             'user_id' => $user->id,
         ]);
 
         $this->be($user);
 
-        Cart::add($product, 1, [
-            'camper_id' => $camper->id,
-            'tent_id' => $tent->id,
-            'product' => $product->slug,
-            'date' => $camp->camp_start->toDateString(),
-        ]);
+        foreach ($camper as $c) {
+            Cart::add($product, 1, [
+                'camper_id' => $c->id,
+                'tent_id' => $tent->id,
+                'product' => $product->slug,
+                'date' => $camp->camp_start->toDateString(),
+            ]);
+        }
 
         $r = $this->post(route('api.payments.store'), [
             'nonce' => 'fake-valid-nonce',
@@ -43,7 +45,7 @@ class PayAndReserveTest extends TestCase
         //$this->feedback($r);
         $r->assertStatus(200);
 
-        $this->assertEquals($user->reservations->count(), 1);
+        $this->assertEquals($user->reservations->count(), 3);
 
         // Assert work party fee NOT paid
         $registrationPayment = Payment::where('user_id', $user->id)

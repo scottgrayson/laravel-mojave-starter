@@ -7,6 +7,8 @@ use App\Helpers\CartHelper;
 use SEO;
 use App\Product;
 use App\Camp;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Invoice;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Braintree_ClientToken;

@@ -11,6 +11,9 @@ use App\Reservation;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Mail\Invoice;
+use Illuminate\Support\Facades\Mail;
+
 class PaymentController extends Controller
 {
     public function store(Request $request)
@@ -20,7 +23,6 @@ class PaymentController extends Controller
         if (!$camp || Cart::content()->isEmpty()) {
             abort(400);
         }
-
         // CreateOrUpdate Customer
         if (!request()->user()->isCustomer() && !request('nonce')) {
             abort(400, 'Payment method is required.');
@@ -75,12 +77,18 @@ class PaymentController extends Controller
             abort(400, 'Failed charging for reservations');
         }
 
+        $reservations = collect();
 
         foreach (CartHelper::pendingReservations() as $i) {
-            Reservation::create(array_merge($i, [
+            $reservation = Reservation::create(array_merge($i, [
                 'payment_id' => $payment->id,
             ]));
+            $reservations->push($reservation);
         }
+
+        $reservations = $reservations->groupBy('camper_id');
+
+        Mail::to($request->user()->email)->send(new Invoice($total, $request->user(), $reservations, $payment));
 
         Cart::destroy();
 
