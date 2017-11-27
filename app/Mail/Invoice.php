@@ -32,7 +32,7 @@ class Invoice extends Mailable
 
     public $url;
 
-    public function __construct($total = null, User $user, $reservations, Payment $payment)
+    public function __construct(User $user, $reservations, Payment $payment, $total = null)
     {
         $this->total = $total;
 
