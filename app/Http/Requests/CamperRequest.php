@@ -57,7 +57,6 @@ class CamperRequest extends FormRequest
             'guardian_work_phone' => 'nullable|phone:AUTO,US',
             'guardian_cell_phone' => 'nullable|phone:AUTO,US',
             'guardian_employer_name' => 'nullable|string|max:255',
-            'guardian_employer_title' => 'nullable|string|max:255',
             'allergies' => 'nullable|string',
             'medical_conditions' => 'nullable|string',
             'physician_name' => 'nullable|string|max:255',
