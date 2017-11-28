@@ -45,7 +45,9 @@
       </div>
     </div>
 
-    <div class="camp-calendar" id='calendar'></div>
+    <div class="camp-calendar" id='calendar1'></div>
+    <br>
+    <div class="camp-calendar" id='calendar2'></div>
 
   </div>
 </template>
@@ -115,21 +117,35 @@ export default {
 
   mounted () {
 
+    const calendar1Config = {
+      weekends: false,
+      height: 'auto',
+      header: {
+        left: 'title',
+        right: '',
+      },
+      fixedWeekCount: false,
+      showNonCurrentDates: false,
+      defaultDate: this.openDays.length ? this.openDays[0] : '',
+      eventTextColor: 'white',
+      eventBorderColor: 'white',
+      //themeSystem: 'bootstrap3',
+      events: (start, end, timezone, callback) => callback(this.events),
+      eventClick: this.handleEventClick
+    }
+
+    const nextMonth = !calendar1Config.defaultDate ? '' : moment(calendar1Config.defaultDate)
+      .add('months', 1)
+      .startOf('month')
+      .format('YYYY-MM-DD')
+
+    const calendar2Config = Object.assign({}, calendar1Config, {
+      defaultDate: nextMonth
+    })
+
     this.$nextTick(() => {
-      $('#calendar').fullCalendar({
-        weekends: false,
-        height: 'auto',
-        header: {
-          left: 'title',
-          right: 'prev,next',
-        },
-        defaultDate: this.openDays.length ? this.openDays[0] : '',
-        eventTextColor: 'white',
-        eventBorderColor: 'white',
-        //themeSystem: 'bootstrap3',
-        events: (start, end, timezone, callback) => callback(this.events),
-        eventClick: this.handleEventClick
-      })
+      $('#calendar1').fullCalendar(calendar1Config)
+      $('#calendar2').fullCalendar(calendar2Config)
 
       this.calendarMounted = true;
     })
@@ -266,7 +282,8 @@ export default {
     },
 
     reloadCalendar () {
-      $('#calendar').fullCalendar('refetchEvents')
+      $('#calendar1').fullCalendar('refetchEvents')
+      $('#calendar2').fullCalendar('refetchEvents')
     },
 
     fetchAvailabilities () {
