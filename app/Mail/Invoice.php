@@ -34,8 +34,12 @@ class Invoice extends Mailable
 
     public $url;
 
-    public function __construct(User $user, $reservations, Payment $payment, $total = null)
+    public $regisration;
+
+    public function __construct(User $user, $reservations, Payment $payment, $total = null, Payment $registration = null)
     {
+        $this->registration = $registration;
+
         $this->total = $total;
 
         $this->user = $user;
@@ -70,6 +74,7 @@ class Invoice extends Mailable
             ->with('total', $this->total)
             ->with('user', $this->user)
             ->with('dates', $this->dates)
+            ->with('registration', $this->registration)
             ->with('url', $this->url);
     }
 }
