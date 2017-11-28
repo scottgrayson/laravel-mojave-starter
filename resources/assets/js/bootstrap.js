@@ -13,6 +13,8 @@ require('bootstrap')
 
 window.select2 = require('select2')
 
+window.swal = require('sweetalert')
+
 import CodeMirror from 'codemirror'
 window.CodeMirror = CodeMirror
 

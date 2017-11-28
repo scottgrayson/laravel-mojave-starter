@@ -30,6 +30,7 @@
         "select2": "^4.0.3",
         "simplemde": "^1.11.2",
         "sortablejs": "^1.6.1",
-        "vue-simplemde": "^0.4.4"
+        "vue-simplemde": "^0.4.4",
+        "sweetalert": "^2.0.8"
     }
 }
