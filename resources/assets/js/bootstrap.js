@@ -25,6 +25,8 @@ window.Sortable = Sortable
 import Moment from 'moment'
 window.moment = Moment
 
+require('./utils/areyousure.js')
+
 /**
  * Next we will register the CSRF Token as a common header with Axios so that
  * all outgoing HTTP requests automatically have it attached. This is just
