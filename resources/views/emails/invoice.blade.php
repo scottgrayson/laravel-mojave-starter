@@ -20,6 +20,7 @@ ${{$total}} was charged to {{$user->name."'s"}} card on {{$payment->created_at->
 @if($registration)
 # Registration Fee
 A registration fee of ${{$registration->amount}} will be charged.  
+* This fee will be refunded if you attend the work-party.
 @endif
 
 @component('mail::button', ['url' => $url])
