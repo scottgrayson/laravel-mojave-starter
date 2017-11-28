@@ -16,7 +16,7 @@
 @endif
 @endforeach
 
-${{$total}} was charged to {{$user->name."'s"}} card on {{$payment->created_at->toDateString()}}
+${{$total}} will be charged to {{$user->name."'s"}} card
 @if($registration)
 # Registration Fee
 A registration fee of ${{$registration->amount}} will be charged.  
