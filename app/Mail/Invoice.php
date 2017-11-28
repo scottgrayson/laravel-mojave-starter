@@ -54,8 +54,6 @@ class Invoice extends Mailable
             ]);
         }
 
-        dd($dates);
-
         $this->dates = $dates;
 
         $this->url = route('campers.index');
@@ -71,7 +69,7 @@ class Invoice extends Mailable
         return $this->markdown('emails.invoice')
             ->with('total', $this->total)
             ->with('user', $this->user)
-            ->with('reservations', $this->reservations)
+            ->with('dates', $this->dates)
             ->with('url', $this->url);
     }
 }
