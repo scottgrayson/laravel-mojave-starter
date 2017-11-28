@@ -90910,6 +90910,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -90980,23 +90982,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   mounted: function mounted() {
     var _this2 = this;
 
+    var calendar1Config = {
+      weekends: false,
+      height: 'auto',
+      header: {
+        left: 'title',
+        right: ''
+      },
+      fixedWeekCount: false,
+      showNonCurrentDates: false,
+      defaultDate: this.openDays.length ? this.openDays[0] : '',
+      eventTextColor: 'white',
+      eventBorderColor: 'white',
+      //themeSystem: 'bootstrap3',
+      events: function events(start, end, timezone, callback) {
+        return callback(_this2.events);
+      },
+      eventClick: this.handleEventClick
+    };
+
+    var nextMonth = !calendar1Config.defaultDate ? '' : moment(calendar1Config.defaultDate).add('months', 1).startOf('month').format('YYYY-MM-DD');
+
+    var calendar2Config = Object.assign({}, calendar1Config, {
+      defaultDate: nextMonth
+    });
+
     this.$nextTick(function () {
-      $('#calendar').fullCalendar({
-        weekends: false,
-        height: 'auto',
-        header: {
-          left: 'title',
-          right: 'prev,next'
-        },
-        defaultDate: _this2.openDays.length ? _this2.openDays[0] : '',
-        eventTextColor: 'white',
-        eventBorderColor: 'white',
-        //themeSystem: 'bootstrap3',
-        events: function events(start, end, timezone, callback) {
-          return callback(_this2.events);
-        },
-        eventClick: _this2.handleEventClick
-      });
+      $('#calendar1').fullCalendar(calendar1Config);
+      $('#calendar2').fullCalendar(calendar2Config);
 
       _this2.calendarMounted = true;
     });
@@ -91127,7 +91140,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.getSelectedDaysFromCart();
     },
     reloadCalendar: function reloadCalendar() {
-      $('#calendar').fullCalendar('refetchEvents');
+      $('#calendar1').fullCalendar('refetchEvents');
+      $('#calendar2').fullCalendar('refetchEvents');
     },
     fetchAvailabilities: function fetchAvailabilities() {
       var _this5 = this;
@@ -91928,7 +91942,11 @@ var render = function() {
           ])
         : _vm._e(),
       _vm._v(" "),
-      _c("div", { staticClass: "camp-calendar", attrs: { id: "calendar" } })
+      _c("div", { staticClass: "camp-calendar", attrs: { id: "calendar1" } }),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("div", { staticClass: "camp-calendar", attrs: { id: "calendar2" } })
     ],
     1
   )
