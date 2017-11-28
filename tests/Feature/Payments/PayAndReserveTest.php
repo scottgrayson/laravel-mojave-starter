@@ -37,12 +37,6 @@ class PayAndReserveTest extends TestCase
                 'date' => $camp->camp_start->toDateString(),
             ]);
         }
-        Cart::add($product, 1, [
-            'camper_id' => $camper->first()->id,
-            'tent_id' => $tent->id,
-            'product' => $product->slug,
-            'date' => $camp->camp_end->toDateString(),
-        ]);
 
         $r = $this->post(route('api.payments.store'), [
             'nonce' => 'fake-valid-nonce',
