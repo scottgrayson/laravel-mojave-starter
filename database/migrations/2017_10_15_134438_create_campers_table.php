@@ -29,7 +29,8 @@ class CreateCampersTable extends Migration
                 ->on('tents')
                 ->onDelete('restrict');
             $table->index('tent_id');
-            $table->string('name');
+            $table->string('first_name');
+            $table->string('last_name');
 
             /*
              * Nullable so they can be entered in steps
@@ -40,7 +41,7 @@ class CreateCampersTable extends Migration
             $table->string('school_name')->nullable();
             $table->string('state')->nullable();
             $table->string('zip')->nullable();
-            $table->string('phone')->nullable();
+            $table->string('camper_phone')->nullable();
             $table->string('birthdate')->nullable();
             $table->string('shirt_size')->nullable();
             $table->text('allergies')->nullable();
@@ -56,8 +57,7 @@ class CreateCampersTable extends Migration
             $table->string('guardian_township')->nullable();
             $table->string('guardian_state')->nullable();
             $table->string('guardian_zip')->nullable();
-            $table->string('guardian_daytime_phone')->nullable();
-            $table->string('guardian_evening_phone')->nullable();
+            $table->string('guardian_home_phone')->nullable();
             $table->string('guardian_work_phone')->nullable();
             $table->string('guardian_cell_phone')->nullable();
             $table->string('guardian_employer_name')->nullable();

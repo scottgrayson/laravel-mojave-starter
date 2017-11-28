@@ -29,7 +29,7 @@ class CartHelper
                 $rate = $days->first()->model->price;
 
                 return (object) [
-                    'name' => $camper->name,
+                    'name' => $camper->first_name . ' ' . $camper->last_name,
                     'qty' => $days->count(),
                     'rate' => $rate,
                     'subtotal' => $days->count() * $rate,

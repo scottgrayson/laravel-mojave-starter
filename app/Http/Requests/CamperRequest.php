@@ -9,7 +9,8 @@ class CamperRequest extends FormRequest
     public function createRules()
     {
         return [
-            'name' => 'required|string|max:255',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
             'tent_id' => 'required|numeric',
         ];
     }
@@ -35,14 +36,15 @@ class CamperRequest extends FormRequest
     {
         return [
             'user_id' => 'required|numeric',
-            'name' => 'required|string|max:255',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
             'tent_id' => 'required|numeric',
             'address' => 'nullable|string|max:255',
             'city' => 'nullable|string|max:255',
             'township' => 'nullable|string|max:255',
             'state' => 'nullable|string|max:255',
             'zip' => 'nullable|string|max:255',
-            'phone' => 'nullable|phone:AUTO,US',
+            'camper_phone' => 'nullable|phone:AUTO,US',
             'birthdate' => 'nullable|date',
             'shirt_size' => 'required|in:S,M,L,XL',
             'guardian_name' => 'nullable|string|max:255',
@@ -52,12 +54,10 @@ class CamperRequest extends FormRequest
             'guardian_township' => 'nullable|string|max:255',
             'guardian_state' => 'nullable|string|max:255',
             'guardian_zip' => 'nullable|string|max:255',
-            'guardian_daytime_phone' => 'nullable|phone:AUTO,US',
-            'guardian_evening_phone' => 'nullable|phone:AUTO,US',
+            'guardian_home_phone' => 'nullable|phone:AUTO,US',
             'guardian_work_phone' => 'nullable|phone:AUTO,US',
             'guardian_cell_phone' => 'nullable|phone:AUTO,US',
             'guardian_employer_name' => 'nullable|string|max:255',
-            'guardian_employer_title' => 'nullable|string|max:255',
             'allergies' => 'nullable|string',
             'medical_conditions' => 'nullable|string',
             'physician_name' => 'nullable|string|max:255',
@@ -76,7 +76,8 @@ class CamperRequest extends FormRequest
     {
         return [
             [
-                'name' => 'required|string|max:255',
+                'first_name' => 'required|string|max:255',
+                'last_name' => 'required|string|max:255',
                 'tent_id' => 'required|numeric',
                 'address' => 'required|string|max:255',
                 'city' => 'required|string|max:255',
@@ -84,7 +85,7 @@ class CamperRequest extends FormRequest
                 'township' => 'required|string|max:255',
                 'state' => 'required|string|max:255',
                 'zip' => 'required|string|max:255',
-                'phone' => 'required|phone:AUTO,US',
+                'camper_phone' => 'required|phone:AUTO,US',
                 'birthdate' => 'required|date',
                 'shirt_size' => 'required|in:S,M,L,XL',
             ], [
@@ -95,8 +96,7 @@ class CamperRequest extends FormRequest
                 'guardian_township' => 'required|string|max:255',
                 'guardian_state' => 'required|string|max:255',
                 'guardian_zip' => 'required|string|max:255',
-                'guardian_daytime_phone' => 'required|phone:AUTO,US',
-                'guardian_evening_phone' => 'required|phone:AUTO,US',
+                'guardian_home_phone' => 'required|phone:AUTO,US',
                 'guardian_work_phone' => 'required|phone:AUTO,US',
                 'guardian_cell_phone' => 'required|phone:AUTO,US',
                 'guardian_employer_name' => 'required|string|max:255',

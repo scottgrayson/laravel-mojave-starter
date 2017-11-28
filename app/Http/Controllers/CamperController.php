@@ -100,7 +100,8 @@ class CamperController extends Controller
 
         // PREFILL
         $doNotPrefill = [
-            'name',
+            'first_name',
+            'last_name',
             'tent_id',
             'birthdate',
             'allergies',
