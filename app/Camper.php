@@ -4,6 +4,10 @@ namespace App;
 
 class Camper extends Model
 {
+    protected $dates = [
+        'birthdate'
+    ];
+
     public function tent()
     {
         return $this->belongsTo(\App\Tent::class);
