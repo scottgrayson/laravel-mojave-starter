@@ -47,8 +47,14 @@ class Invoice extends Mailable
         $dates = collect();
 
         foreach ($reservations as $r) {
-            $dates->push($r->pluck('date'));
+            $camper = Camper::find($r->pluck('camper_id'));
+            $dates->push([
+                'dates' => $r->pluck('date'),
+                'camper' => $camper->pluck('name'),
+            ]);
         }
+
+        dd($dates);
 
         $this->dates = $dates;
 
