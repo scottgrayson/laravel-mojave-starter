@@ -28,6 +28,8 @@ class Invoice extends Mailable
 
     public $reservations;
 
+    public $dates;
+
     public $payment;
 
     public $url;
@@ -41,6 +43,14 @@ class Invoice extends Mailable
         $this->reservations = $reservations;
 
         $this->payment = $payment;
+
+        $dates = collect();
+
+        foreach($reservations as $r) {
+            $dates->push($r->pluck('date'));
+        }
+
+        $this->dates = $dates;
 
         $this->url = route('campers.index');
     }
