@@ -36,6 +36,7 @@ class PaymentController extends Controller
             }
         }
 
+        $registration = null;
         // Pay Registration Fee
         if (!request()->user()->hasPaidRegistrationFee() && Cart::content()->count() >= 5) {
             $registrationFee = Product::where('slug', 'registration-fee')->firstOrFail();
@@ -51,6 +52,7 @@ class PaymentController extends Controller
                     'amount' => $result->transaction->amount,
                     'type' => 'registration_fee',
                 ]);
+                $registration = $payment;
             } else {
                 // Handle errors
                 \Log::error($result);
@@ -88,7 +90,7 @@ class PaymentController extends Controller
 
         $reservations = $reservations->groupBy('camper_id');
 
-        Mail::to($request->user()->email)->send(new Invoice($request->user(), $reservations, $payment, $total));
+        Mail::to($request->user()->email)->send(new Invoice($request->user(), $reservations, $payment, $total, $registration));
 
         Cart::destroy();
 
