@@ -59,6 +59,7 @@ label.required:after {
   }
 }
 
+<<<<<<< HEAD
 .pointer {
   cursor: pointer;
 }
@@ -74,4 +75,8 @@ label.required:after {
   margin: 1rem auto;
   max-height: 50vh;
   max-width: 100%;
+}
+
+input[type=date] {
+  min-height: $input-height-inner;
 }

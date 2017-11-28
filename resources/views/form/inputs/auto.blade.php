@@ -94,7 +94,11 @@
     echo '</label>';
   } elseif ($type === 'file') {
     // files dont have value
-    echo Form::file($name, array_merge(['class' => $inputclass], $attributes));
+    echo Form::file($name, array_merge(['class' => $inputClass], $attributes));
+  } elseif ($type === 'date') {
+    // date needs to be in yyyy-MM-dd format for ios
+    $value = $item ? $item->$name->format('Y-m-d') : '';
+    echo Form::date($name, $value, array_merge(['class' => $inputClass], $attributes));
   } else {
     echo Form::$type($name, $value, array_merge(['class' => $inputClass], $attributes), $item);
   }
