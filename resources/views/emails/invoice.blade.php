@@ -19,7 +19,7 @@
 ${{$total}} was charged to {{$user->name."'s"}} card on {{$payment->created_at->toDateString()}}
 @if($registration)
 # Registration Fee
-A registration fee of ${{$registration->amount}} has been charged.  
+A registration fee of ${{$registration->amount}} will be charged.  
 @endif
 
 @component('mail::button', ['url' => $url])
