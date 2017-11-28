@@ -46,7 +46,7 @@ class Invoice extends Mailable
 
         $dates = collect();
 
-        foreach($reservations as $r) {
+        foreach ($reservations as $r) {
             $dates->push($r->pluck('date'));
         }
 
