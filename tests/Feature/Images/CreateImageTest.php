@@ -8,13 +8,13 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
-class CreateNewsletterTest extends TestCase
+class CreateImageTest extends TestCase
 {
     use WithoutMiddleware;
 
     public function testCreatingImage()
     {
-        Storage::fake('uploads');
+        Storage::fake('public');
 
         $response = $this->json('POST', route('admin.images.store'), [
             'file' => UploadedFile::fake()->image('avatar.jpg'),
@@ -25,8 +25,5 @@ class CreateNewsletterTest extends TestCase
 
         $image = Image::first();
         $this->assertNotNull($image->file);
-
-        // Assert the file was stored...
-        Storage::disk('uploads')->assertExists($image->file->path);
     }
 }
