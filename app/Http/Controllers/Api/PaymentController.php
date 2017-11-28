@@ -88,7 +88,7 @@ class PaymentController extends Controller
 
         $reservations = $reservations->groupBy('camper_id');
 
-        Mail::to($request->user()->email)->send(new Invoice($total, $request->user(), $reservations, $payment));
+        Mail::to($request->user()->email)->send(new Invoice($request->user(), $reservations, $payment, $total));
 
         Cart::destroy();
 
