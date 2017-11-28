@@ -56,3 +56,7 @@ label.required:after {
     width: calc(100vw - 200px);
   }
 }
+
+input[type=date] {
+  min-height: $input-height-inner;
+}
