@@ -66,48 +66,68 @@ class CrudController extends Controller
         }
 
         $relations = collect(preg_replace('/_id$/', '', preg_grep('/_id$/', $cols)))
-            ->map(
-                function ($c) {
-                    return camel_case($c);
-                }
-            )->toArray();
+            ->map(function ($c) {
+                return camel_case($c);
+            })
+            ->toArray();
 
         $sort = request('sort', $defaultSort);
+
+        $sortTable = null;
+        if ($sort === 'parent') {
+            $sortRelation = $this->model;
+            $sortTable = $this->table;
+            $sortColumn = $this->model::label();
+            $sortSql = 'parent.' . $sortColumn;
+        } elseif (in_array(camel_case($sort), $relations)) {
+            $sortRelation = '\\App\\'.studly_case($sort);
+            $sortTable = str_plural($sort);
+            $sortColumn = $sortRelation::label();
+            $sortSql = $sortTable . '.' . $sortColumn;
+        } else {
+            $sortSql = $sort;
+        }
+
         $order = request('order', $defaultOrder);
 
         $items = $this->model::with($relations)
-            ->where(
-                function ($q) use ($request, $relations, $cols) {
-                    $wheres = collect($request->query())
-                        ->filter(
-                            function ($v, $k) {
-                                return $v && strpos($k, 'q_') === 0;
-                            }
-                        )
-                        ->mapWithKeys(
-                            function ($v, $k) {
-                                return [ str_replace('q_', '', $k) => $v ];
+            ->when(isset($sortRelation), function ($q) use ($sortTable, $sortSql) {
+                if ($sortTable === $this->table) {
+                    $q->leftJoin($this->table.' as parent', $this->table.'.parent_id', '=', 'parent.id');
+                } else {
+                    $q->leftJoin($sortTable, $this->table.'.'.str_singular($sortTable).'_id', '=', $sortTable.'.id');
+                }
+                $q->addSelect($this->table.'.*', $sortSql);
+            })
+            ->where(function ($q) use ($request, $relations, $cols) {
+                $wheres = collect($request->query())
+                    ->filter(function ($v, $k) {
+                        return $v && strpos($k, 'q_') === 0;
+                    })
+                    ->mapWithKeys(function ($v, $k) {
+                        return [ str_replace('q_', '', $k) => $v ];
+                    });
+                foreach ($wheres as $k => $v) {
+                    if (in_array(camel_case($k), $relations)) {
+                        $class = '\\App\\'.studly_case($k);
+                        $q->whereHas(
+                            camel_case($k),
+                            function ($q) use ($class, $v) {
+                                $q->where($class::label(), 'ilike', $v.'%');
                             }
                         );
-                    foreach ($wheres as $k => $v) {
-                        if (in_array(camel_case($k), $relations)) {
-                            $class = '\\App\\'.studly_case($k);
-                            $q->whereHas(
-                                camel_case($k),
-                                function ($q) use ($class, $v) {
-                                    $q->where($class::label(), 'ilike', $v.'%');
-                                }
-                            );
-                        } else {
-                            if (in_array($k, $cols)) {
-                                // check to make sure it is a col to avoid injection
-                                $q->whereRaw("cast ({$k} as varchar) ilike ?", [$v.'%']);
-                            }
+                    } else {
+                        if (in_array($k, $cols)) {
+                            // check to make sure it is a col to avoid injection
+                            $q->whereRaw("cast ({$k} as varchar) ilike ?", [$v.'%']);
                         }
                     }
                 }
+            })
+            ->orderBy(
+                $sortSql,
+                $order
             )
-            ->orderBy($sort, $order)
             ->paginate(config('settings.paginate'));
 
         SEO::setTitle(title_case($this->plural));
