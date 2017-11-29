@@ -20,7 +20,7 @@ class CreateImagesTable extends Migration
                 ->unsigned()
                 ->references('id')
                 ->on('users');
-            $table->string('file_id')
+            $table->integer('file_id')
                 ->unsigned()
                 ->references('id')
                 ->on('files')

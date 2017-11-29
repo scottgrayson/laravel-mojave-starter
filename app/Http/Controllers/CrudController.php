@@ -73,9 +73,22 @@ class CrudController extends Controller
         )->toArray();
 
         $sort = request('sort', $defaultSort);
+
+        $sortTable = null;
+        if (in_array(camel_case($sort), $relations)) {
+            $sortRelation = '\\App\\'.studly_case($sort);
+            $sortTable = str_plural($sort);
+            $sortColumn = $sortRelation::label();
+            $sort = $sortTable . '.' . $sortColumn;
+        }
+
         $order = request('order', $defaultOrder);
 
         $items = $this->model::with($relations)
+            ->when(isset($sortRelation), function ($q) use ($sortTable, $sort) {
+                $q->leftJoin($sortTable, $this->table.'.'.str_singular($sortTable).'_id', '=', $sortTable.'.id')
+                    ->addSelect($this->table.'.*', $sort);
+            })
             ->where(
                 function ($q) use ($request, $relations, $cols) {
                     $wheres = collect($request->query())
