@@ -10,16 +10,19 @@
         $applied = collect($query)->reduce(function ($acc, $i) use ($flipped) {
           if ($key = isset($flipped[$i]) ? $flipped[$i] : false) {
             if (strpos($key, 'q_') === false) {
-              return "{$acc} {$key}={$i}";
-            } else {
               $key = str_replace('q_', '', $key);
-              return "{$acc} {$key}={$i}*";
             }
+            return array_merge($acc, ["{$key}={$i}*"]);
           }
-        }, '');
+        }, []);
       ?>
-      <span class="pl-1 text-muted">
-        Applied: {{ $applied }}
+      <span class="pl-1 text-muted d-none d-md-inline">
+        Applied:
+        @foreach ($applied as $a)
+          <span style="font-size:85%" class="badge text-muted badge-pill badge-light">
+            {{ $a }}
+          </span>
+        @endforeach
       </span>
     @endif
   </div>
