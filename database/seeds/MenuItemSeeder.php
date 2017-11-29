@@ -18,6 +18,8 @@ class MenuItemSeeder extends Seeder
         foreach ($this->menus() as $menu) {
             $this->createMenuItem($menu);
         }
+
+        \Artisan::call('cache:clear');
     }
 
     protected function createMenuItem($i, $parent_id = null)
@@ -281,6 +283,8 @@ class MenuItemSeeder extends Seeder
                     ],
                     [ 'name' => 'calendar' ],
                     $this->pageItem('contact'),
+                    [ 'name' => 'login' ],
+                    [ 'name' => 'register' ],
                 ],
             ],
             [
@@ -298,8 +302,10 @@ class MenuItemSeeder extends Seeder
                     ],
                     [ 'name' => 'calendar' ],
                     $this->pageItem('contact'),
-                    $this->pageItem('my account'),
+                    [ 'name' => 'campers' ],
                     [ 'name' => 'cart' ],
+                    [ 'name' => 'notifications' ],
+                    [ 'name' => 'settings' ],
                     [ 'name' => 'logout' ],
                 ],
             ],
