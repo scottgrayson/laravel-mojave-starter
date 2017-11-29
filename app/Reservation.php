@@ -4,6 +4,10 @@ namespace App;
 
 class Reservation extends Model
 {
+    protected $dates = [
+        'date'
+    ];
+
     public function camper()
     {
         return $this->belongsTo(\App\Camper::class);
