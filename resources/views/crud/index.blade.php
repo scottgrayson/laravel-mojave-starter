@@ -59,25 +59,25 @@
           <th>
             @php
               $c = str_replace('_id', '', $c);
-        $currentOrder = $sort === $c ? $order : '';
-        $nextOrder = $currentOrder === 'asc' ? 'desc' : 'asc';
-        $sortLink = '/' . request()->path() . '?' . http_build_query(array_merge(
-          request()->query(),
-          ['sort' => $c, 'order' => $nextOrder]
-        ));
-      @endphp
-      <a class="d-inline-flex align-items-center text-dark" href="{{ $sortLink }}">
-        {{ title_case(str_replace('_', ' ', preg_replace('/(_id)|(_at)$/', '', $c))) }}
-        @if($currentOrder === 'asc')
-          @svg('arrow-bottom', 'ml-1 sm s4')
-        @elseif($currentOrder === 'desc')
-          @svg('arrow-top', 'ml-1 sm s4')
-        @endif
-      </a>
-    </th>
-  @endforeach
-  <th class="text-muted">Actions</th>
-</tr>
+              $currentOrder = $sort === $c ? $order : '';
+              $nextOrder = $currentOrder === 'asc' ? 'desc' : 'asc';
+              $sortLink = '/' . request()->path() . '?' . http_build_query(array_merge(
+                request()->query(),
+                ['sort' => $c, 'order' => $nextOrder]
+              ));
+            @endphp
+            <a class="d-inline-flex align-items-center text-dark" href="{{ $sortLink }}">
+              {{ title_case(str_replace('_', ' ', preg_replace('/(_id)|(_at)$/', '', $c))) }}
+              @if($currentOrder === 'asc')
+                @svg('arrow-bottom', 'ml-1 sm s4')
+              @elseif($currentOrder === 'desc')
+                @svg('arrow-top', 'ml-1 sm s4')
+              @endif
+            </a>
+          </th>
+        @endforeach
+        <th class="text-muted">Actions</th>
+      </tr>
     </thead>
 
     <tbody>
