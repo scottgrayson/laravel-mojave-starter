@@ -10078,3 +10078,7 @@ label.required:after {
   max-width: 100%;
 }
 
+input[type=date] {
+  min-height: 2.09375rem;
+}
+
