@@ -12,7 +12,7 @@
             if (strpos($key, 'q_') === false) {
               $key = str_replace('q_', '', $key);
             }
-            return array_merge($acc, ["{$key}={$i}*"]);
+            return array_merge($acc, ["{$key}={$i}"]);
           }
         }, []);
       ?>
