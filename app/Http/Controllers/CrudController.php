@@ -70,7 +70,7 @@ class CrudController extends Controller
                 function ($c) {
                     return camel_case($c);
                 }
-            )->toArray();
+        )->toArray();
 
         $sort = request('sort', $defaultSort);
 
@@ -107,12 +107,12 @@ class CrudController extends Controller
                             function ($v, $k) {
                                 return $v && strpos($k, 'q_') === 0;
                             }
-                        )
+                    )
                         ->mapWithKeys(
                             function ($v, $k) {
                                 return [ str_replace('q_', '', $k) => $v ];
                             }
-                        );
+                    );
                     foreach ($wheres as $k => $v) {
                         if (in_array(camel_case($k), $relations)) {
                             $class = '\\App\\'.studly_case($k);
