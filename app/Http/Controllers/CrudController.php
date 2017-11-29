@@ -66,11 +66,10 @@ class CrudController extends Controller
         }
 
         $relations = collect(preg_replace('/_id$/', '', preg_grep('/_id$/', $cols)))
-            ->map(
-                function ($c) {
-                    return camel_case($c);
-                }
-        )->toArray();
+            ->map(function ($c) {
+                return camel_case($c);
+            })
+            ->toArray();
 
         $sort = request('sort', $defaultSort);
 
@@ -100,37 +99,31 @@ class CrudController extends Controller
                 }
                 $q->addSelect($this->table.'.*', $sortSql);
             })
-            ->where(
-                function ($q) use ($request, $relations, $cols) {
-                    $wheres = collect($request->query())
-                        ->filter(
-                            function ($v, $k) {
-                                return $v && strpos($k, 'q_') === 0;
+            ->where(function ($q) use ($request, $relations, $cols) {
+                $wheres = collect($request->query())
+                    ->filter(function ($v, $k) {
+                        return $v && strpos($k, 'q_') === 0;
+                    })
+                    ->mapWithKeys(function ($v, $k) {
+                        return [ str_replace('q_', '', $k) => $v ];
+                    });
+                foreach ($wheres as $k => $v) {
+                    if (in_array(camel_case($k), $relations)) {
+                        $class = '\\App\\'.studly_case($k);
+                        $q->whereHas(
+                            camel_case($k),
+                            function ($q) use ($class, $v) {
+                                $q->where($class::label(), 'ilike', $v.'%');
                             }
-                    )
-                        ->mapWithKeys(
-                            function ($v, $k) {
-                                return [ str_replace('q_', '', $k) => $v ];
-                            }
-                    );
-                    foreach ($wheres as $k => $v) {
-                        if (in_array(camel_case($k), $relations)) {
-                            $class = '\\App\\'.studly_case($k);
-                            $q->whereHas(
-                                camel_case($k),
-                                function ($q) use ($class, $v) {
-                                    $q->where($class::label(), 'ilike', $v.'%');
-                                }
-                            );
-                        } else {
-                            if (in_array($k, $cols)) {
-                                // check to make sure it is a col to avoid injection
-                                $q->whereRaw("cast ({$k} as varchar) ilike ?", [$v.'%']);
-                            }
+                        );
+                    } else {
+                        if (in_array($k, $cols)) {
+                            // check to make sure it is a col to avoid injection
+                            $q->whereRaw("cast ({$k} as varchar) ilike ?", [$v.'%']);
                         }
                     }
                 }
-        )
+            })
             ->orderBy(
                 $sortSql,
                 $order
