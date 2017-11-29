@@ -75,3 +75,7 @@ label.required:after {
   max-height: 50vh;
   max-width: 100%;
 }
+
+input[type=date] {
+  min-height: $input-height-inner;
+}

@@ -10,16 +10,19 @@
         $applied = collect($query)->reduce(function ($acc, $i) use ($flipped) {
           if ($key = isset($flipped[$i]) ? $flipped[$i] : false) {
             if (strpos($key, 'q_') === false) {
-              return "{$acc} {$key}={$i}";
-            } else {
               $key = str_replace('q_', '', $key);
-              return "{$acc} {$key}={$i}*";
             }
+            return array_merge($acc, ["{$key}={$i}*"]);
           }
-        }, '');
+        }, []);
       ?>
-      <span class="pl-1 text-muted">
-        Applied: {{ $applied }}
+      <span class="pl-1 text-muted d-none d-md-inline">
+        Applied:
+        @foreach ($applied as $a)
+          <span style="font-size:85%" class="badge text-muted badge-pill badge-light">
+            {{ $a }}
+          </span>
+        @endforeach
       </span>
     @endif
   </div>
@@ -31,10 +34,10 @@
       </a>
     @endif
     @if (\Route::has('admin.'.$slug.'.create'))
-    <a href="{{ '/' . request()->path() . '/create' }}"
-      class="btn btn-primary">
-      New
-    </a>
+      <a href="{{ '/' . request()->path() . '/create' }}"
+        class="btn btn-primary">
+        New
+      </a>
     @endif
   </div>
 </div>
@@ -54,33 +57,27 @@
       <tr>
         @foreach ($cols as $c)
           <th>
-            {{-- cant sort by relations --}}
-            @if(strpos($c, '_id') === false)
-              @php
-                $currentOrder = $sort === $c ? $order : '';
-                $nextOrder = $currentOrder === 'asc' ? 'desc' : 'asc';
-                $sortLink = '/' . request()->path() . '?' . http_build_query(array_merge(
-                  request()->query(),
-                  ['sort' => $c, 'order' => $nextOrder]
-                ));
-              @endphp
-              <a class="d-inline-flex align-items-center text-dark" href="{{ $sortLink }}">
-                {{ title_case(str_replace('_', ' ', preg_replace('/(_id)|(_at)$/', '', $c))) }}
-                @if($currentOrder === 'asc')
-                  @svg('arrow-bottom', 'ml-1 sm s4')
-                @elseif($currentOrder === 'desc')
-                  @svg('arrow-top', 'ml-1 sm s4')
-                @endif
-              </a>
-            @else
-              <span class="text-muted">
-                {{ title_case(str_replace('_', ' ', preg_replace('/(_id)|(_at)$/', '', $c))) }}
-              </span>
-            @endif
-          </th>
-        @endforeach
-        <th class="text-muted">Actions</th>
-      </tr>
+            @php
+              $c = str_replace('_id', '', $c);
+        $currentOrder = $sort === $c ? $order : '';
+        $nextOrder = $currentOrder === 'asc' ? 'desc' : 'asc';
+        $sortLink = '/' . request()->path() . '?' . http_build_query(array_merge(
+          request()->query(),
+          ['sort' => $c, 'order' => $nextOrder]
+        ));
+      @endphp
+      <a class="d-inline-flex align-items-center text-dark" href="{{ $sortLink }}">
+        {{ title_case(str_replace('_', ' ', preg_replace('/(_id)|(_at)$/', '', $c))) }}
+        @if($currentOrder === 'asc')
+          @svg('arrow-bottom', 'ml-1 sm s4')
+        @elseif($currentOrder === 'desc')
+          @svg('arrow-top', 'ml-1 sm s4')
+        @endif
+      </a>
+    </th>
+  @endforeach
+  <th class="text-muted">Actions</th>
+</tr>
     </thead>
 
     <tbody>
