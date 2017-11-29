@@ -75,19 +75,30 @@ class CrudController extends Controller
         $sort = request('sort', $defaultSort);
 
         $sortTable = null;
-        if (in_array(camel_case($sort), $relations)) {
+        if ($sort === 'parent') {
+            $sortRelation = $this->model;
+            $sortTable = $this->table;
+            $sortColumn = $this->model::label();
+            $sortSql = 'parent.' . $sortColumn;
+        } elseif (in_array(camel_case($sort), $relations)) {
             $sortRelation = '\\App\\'.studly_case($sort);
             $sortTable = str_plural($sort);
             $sortColumn = $sortRelation::label();
-            $sort = $sortTable . '.' . $sortColumn;
+            $sortSql = $sortTable . '.' . $sortColumn;
+        } else {
+            $sortSql = $sort;
         }
 
         $order = request('order', $defaultOrder);
 
         $items = $this->model::with($relations)
-            ->when(isset($sortRelation), function ($q) use ($sortTable, $sort) {
-                $q->leftJoin($sortTable, $this->table.'.'.str_singular($sortTable).'_id', '=', $sortTable.'.id')
-                    ->addSelect($this->table.'.*', $sort);
+            ->when(isset($sortRelation), function ($q) use ($sortTable, $sortSql) {
+                if ($sortTable === $this->table) {
+                    $q->leftJoin($this->table.' as parent', $this->table.'.parent_id', '=', 'parent.id');
+                } else {
+                    $q->leftJoin($sortTable, $this->table.'.'.str_singular($sortTable).'_id', '=', $sortTable.'.id');
+                }
+                $q->addSelect($this->table.'.*', $sortSql);
             })
             ->where(
                 function ($q) use ($request, $relations, $cols) {
@@ -120,7 +131,7 @@ class CrudController extends Controller
                 }
         )
             ->orderBy(
-                $sort,
+                $sortSql,
                 $order
             )
             ->paginate(config('settings.paginate'));

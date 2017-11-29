@@ -52,9 +52,8 @@
       <tr>
         @foreach ($cols as $c)
           <th>
-            {{-- cant sort by relations --}}
-            @if(strpos($c, '_id') === false)
-              @php
+            @php
+              $c = str_replace('_id', '', $c);
                 $currentOrder = $sort === $c ? $order : '';
         $nextOrder = $currentOrder === 'asc' ? 'desc' : 'asc';
         $sortLink = '/' . request()->path() . '?' . http_build_query(array_merge(
@@ -70,10 +69,7 @@
           @svg('arrow-top', 'ml-1 sm s4')
         @endif
       </a>
-    @else
-      {{ title_case(str_replace('_', ' ', preg_replace('/(_id)|(_at)$/', '', $c))) }}
-    @endif
-  </th>
+    </th>
 @endforeach
 <th>Actions</th>
       </tr>
