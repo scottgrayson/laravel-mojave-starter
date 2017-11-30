@@ -17,6 +17,7 @@ class CreateEventsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('emoji');
+            $table->string('link');
             $table->date('date');
             $table->timestamps();
         });
