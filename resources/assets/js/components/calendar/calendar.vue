@@ -52,10 +52,12 @@
     <br>
 
     <h4>Events</h4>
-    <ul>
+    <ul style="list-style:none">
       <li v-for="e in eventTypes">
-        <span class="pr-2">{{ e.emoji }}</span>
-        <b>{{ e.name }}</b>
+        <span class="pr-2">{{ e.event_type.emoji }}</span>
+        <a :href="e.event_type.link">
+          <b>{{ e.event_type.name }}</b>
+        </a>
       </li>
     </ul>
 
@@ -312,8 +314,8 @@ export default {
         .then(res => {
           this.otherEvents = res.data.map(event => {
             return Object.assign(event, {
-              title: event.emoji,
-              start: event.date + ' 23:00:00',
+              title: event.event_type.emoji,
+              start: event.date,
               backgroundColor: 'transparent',
               className: 'cal-emoji'
             })
@@ -390,7 +392,7 @@ export default {
 
     eventTypes () {
       return this.otherEvents.reduce((acc, e) => {
-        if (acc.find(el => e.name === el.name)) {
+        if (acc.find(el => e.event_type_id === el.event_type_id)) {
           return acc
         }
         return acc.concat(e)

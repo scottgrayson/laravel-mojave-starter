@@ -16,9 +16,9 @@ class EventSeeder extends Seeder
 
         // keyed by dow
         $options = [
-            5 => ['name' => 'Theater', 'emoji' => '🎭'],
-            4 => ['name' => 'Cookout', 'emoji' => '🍴'],
-            2 => ['name' => 'Tye Dye', 'emoji' => '👕']
+            5 => factory(\App\EventType::class)->create(['name' => 'Theater', 'emoji' => '🎭']),
+            4 => factory(\App\EventType::class)->create(['name' => 'Cookout', 'emoji' => '🍴']),
+            2 => factory(\App\EventType::class)->create(['name' => 'Tye Dye', 'emoji' => '👕']),
         ];
 
         foreach ($camp->openDays() as $day) {
@@ -26,8 +26,7 @@ class EventSeeder extends Seeder
             if (isset($options[$dow])) {
                 $type = $options[$dow];
                 factory(\App\Event::class)->create([
-                    'name' => $type['name'],
-                    'emoji' => $type['emoji'],
+                    'event_type_id' => $type->id,
                     'date' => $day->toDateString(),
                 ]);
             }

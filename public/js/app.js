@@ -90922,6 +90922,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -91168,8 +91170,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       axios.get('/api/events').then(function (res) {
         _this6.otherEvents = res.data.map(function (event) {
           return Object.assign(event, {
-            title: event.emoji,
-            start: event.date + ' 23:00:00',
+            title: event.event_type.emoji,
+            start: event.date,
             backgroundColor: 'transparent',
             className: 'cal-emoji'
           });
@@ -91243,7 +91245,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     eventTypes: function eventTypes() {
       return this.otherEvents.reduce(function (acc, e) {
         if (acc.find(function (el) {
-          return e.name === el.name;
+          return e.event_type_id === el.event_type_id;
         })) {
           return acc;
         }
@@ -91990,11 +91992,16 @@ var render = function() {
       _vm._v(" "),
       _c(
         "ul",
+        { staticStyle: { "list-style": "none" } },
         _vm._l(_vm.eventTypes, function(e) {
           return _c("li", [
-            _c("span", { staticClass: "pr-2" }, [_vm._v(_vm._s(e.emoji))]),
+            _c("span", { staticClass: "pr-2" }, [
+              _vm._v(_vm._s(e.event_type.emoji))
+            ]),
             _vm._v(" "),
-            _c("b", [_vm._v(_vm._s(e.name))])
+            _c("a", { attrs: { href: e.event_type.link } }, [
+              _c("b", [_vm._v(_vm._s(e.event_type.name))])
+            ])
           ])
         })
       )
