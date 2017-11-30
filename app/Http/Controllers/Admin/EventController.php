@@ -11,8 +11,7 @@ class EventController extends CrudController
     protected $formRequest = \App\Http\Requests\EventRequest::class;
     protected $columns = [
         'id',
-        'name',
-        'emoji',
+        'event_type_id',
         'date',
     ];
 }

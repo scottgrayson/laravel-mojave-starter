@@ -4,6 +4,7 @@ Route::get('/', 'DashboardController@dashboard')->name('dashboard');
 
 Route::resource('users', 'UserController', ['except' => ['show']]);
 Route::resource('camps', 'CampController', ['except' => ['show']]);
+Route::resource('event-types', 'EventTypeController', ['except' => ['show']]);
 Route::resource('events', 'EventController', ['except' => ['show']]);
 Route::resource('reservations', 'ReservationController', ['except' => ['show']]);
 Route::resource('payments', 'PaymentController', ['only' => ['index', 'show', 'destroy']]);

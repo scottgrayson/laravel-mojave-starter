@@ -41,6 +41,17 @@ class BladeServiceProvider extends ServiceProvider
         );
 
         \Form::component(
+            'emoji',
+            'form.inputs.emoji',
+            [
+            'name',
+            'value' => null,
+            'attributes' => [],
+            'item' => null,
+            ]
+        );
+
+        \Form::component(
             'editor',
             'form.inputs.editor',
             [
