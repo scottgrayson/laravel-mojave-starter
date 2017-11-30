@@ -27,7 +27,7 @@ window.Sortable = require('sortablejs')
 
 require('./utils/areyousure.js')
 
-require('emojioneArea')
+require('emojionearea')
 
 /**
  * Next we will register the CSRF Token as a common header with Axios so that
