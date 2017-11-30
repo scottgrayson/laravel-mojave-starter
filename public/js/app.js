@@ -92725,7 +92725,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       eventBorderColor: 'white',
       //themeSystem: 'bootstrap3',
       events: function events(start, end, timezone, callback) {
-        return callback(_this2.otherEvents.concat(_this2.events));
+        callback(_this2.otherEvents.concat(_this2.events));
       },
       eventClick: this.handleEventClick
     };

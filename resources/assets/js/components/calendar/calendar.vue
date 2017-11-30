@@ -144,9 +144,9 @@ export default {
       eventTextColor: 'white',
       eventBorderColor: 'white',
       //themeSystem: 'bootstrap3',
-      events: (start, end, timezone, callback) => callback(
-        this.otherEvents.concat(this.events)
-      ),
+      events: (start, end, timezone, callback) => {
+        callback(this.otherEvents.concat(this.events))
+      },
       eventClick: this.handleEventClick
     }
 
