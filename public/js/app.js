@@ -90912,6 +90912,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -90947,6 +90957,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       selectedDays: [],
       availabilities: [],
       cartItems: [],
+      otherEvents: [],
       calendarMounted: false
     };
   },
@@ -90977,6 +90988,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     }
 
     this.fetchAvailabilities();
+    this.fetchOtherEvents();
     this.fetchCart();
   },
   mounted: function mounted() {
@@ -90996,7 +91008,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       eventBorderColor: 'white',
       //themeSystem: 'bootstrap3',
       events: function events(start, end, timezone, callback) {
-        return callback(_this2.events);
+        return callback(_this2.otherEvents.concat(_this2.events));
       },
       eventClick: this.handleEventClick
     };
@@ -91150,6 +91162,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this5.availabilities = res.data;
       });
     },
+    fetchOtherEvents: function fetchOtherEvents() {
+      var _this6 = this;
+
+      axios.get('/api/events').then(function (res) {
+        _this6.otherEvents = res.data.map(function (event) {
+          return Object.assign(event, {
+            title: event.emoji,
+            start: event.date + ' 23:00:00',
+            backgroundColor: 'transparent',
+            className: 'cal-emoji'
+          });
+        });
+      });
+    },
     fetchCart: function fetchCart() {
       axios.get('/api/cart-items').then(this.parseCartResponse);
     }
@@ -91157,62 +91183,72 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   computed: {
     events: function events() {
-      var _this6 = this;
+      var _this7 = this;
 
       return this.openDays.map(function (date) {
 
-        var reserved = _this6.reservations.find(function (r) {
-          return r.date == date && r.camper_id == _this6.query.camper;
+        var reserved = _this7.reservations.find(function (r) {
+          return r.date == date && r.camper_id == _this7.query.camper;
         });
         if (reserved) {
           return {
             title: 'Reserved',
             reserved: true,
             start: date,
-            className: 'badge badge-success'
+            className: 'cal-badge bg-success'
           };
         }
 
-        var filled = _this6.availabilities.find(function (r) {
-          return r.date == date && r.tent_id == _this6.query.tent && r.tent_limit <= r.campers;
+        var filled = _this7.availabilities.find(function (r) {
+          return r.date == date && r.tent_id == _this7.query.tent && r.tent_limit <= r.campers;
         });
         if (filled) {
           return {
             start: date,
             title: 'No Openings',
-            className: 'badge badge-light text-dark'
+            className: 'cal-badge bg-light text-dark'
           };
         }
 
-        var selected = _this6.selectedDays.indexOf(date) !== -1;
+        var selected = _this7.selectedDays.indexOf(date) !== -1;
         if (selected) {
           return {
             start: date,
             title: 'Selected',
             openings: true,
             selected: true,
-            className: 'badge badge-primary pointer'
+            className: 'cal-badge bg-primary pointer'
           };
         }
 
-        var available = _this6.availabilities.find(function (r) {
-          return r.date == date && r.tent_id == _this6.query.tent;
+        var available = _this7.availabilities.find(function (r) {
+          return r.date == date && r.tent_id == _this7.query.tent;
         });
         if (available) {
           return {
             start: date,
             title: 'Available',
             openings: true,
-            className: 'badge badge-secondary pointer'
+            className: 'cal-badge bg-secondary pointer'
           };
         }
 
         return {
           title: 'Camp',
-          className: 'badge badge-secondary',
+          className: 'cal-badge bg-secondary',
           start: date
         };
       });
+    },
+    eventTypes: function eventTypes() {
+      return this.otherEvents.reduce(function (acc, e) {
+        if (acc.find(function (el) {
+          return e.name === el.name;
+        })) {
+          return acc;
+        }
+        return acc.concat(e);
+      }, []);
     },
     daysReserved: function daysReserved() {
       return this.events.filter(function (e) {
@@ -91225,17 +91261,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
     },
     selectedCamper: function selectedCamper() {
-      var _this7 = this;
+      var _this8 = this;
 
       return this.campers.find(function (c) {
-        return c.id == _this7.query.camper;
+        return c.id == _this8.query.camper;
       });
     },
     selectedTent: function selectedTent() {
-      var _this8 = this;
+      var _this9 = this;
 
       return this.tents.find(function (t) {
-        return t.id == _this8.query.tent;
+        return t.id == _this9.query.tent;
       });
     }
 
@@ -91777,7 +91813,7 @@ var render = function() {
                 _vm._v(" "),
                 _vm._l(_vm.campers, function(c) {
                   return _c("option", { domProps: { value: c.id } }, [
-                    _vm._v(_vm._s(c.name))
+                    _vm._v(_vm._s(c.first_name) + " " + _vm._s(c.last_name))
                   ])
                 })
               ],
@@ -91932,7 +91968,7 @@ var render = function() {
                 _c(
                   "button",
                   {
-                    staticClass: "btn btn-sm btn-secondary",
+                    staticClass: "btn btn-sm btn-primary",
                     on: { click: _vm.addToCart }
                   },
                   [_vm._v("\n          Update Cart\n        ")]
@@ -91946,7 +91982,22 @@ var render = function() {
       _vm._v(" "),
       _c("br"),
       _vm._v(" "),
-      _c("div", { staticClass: "camp-calendar", attrs: { id: "calendar2" } })
+      _c("div", { staticClass: "camp-calendar", attrs: { id: "calendar2" } }),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("h4", [_vm._v("Events")]),
+      _vm._v(" "),
+      _c(
+        "ul",
+        _vm._l(_vm.eventTypes, function(e) {
+          return _c("li", [
+            _c("span", { staticClass: "pr-2" }, [_vm._v(_vm._s(e.emoji))]),
+            _vm._v(" "),
+            _c("b", [_vm._v(_vm._s(e.name))])
+          ])
+        })
+      )
     ],
     1
   )

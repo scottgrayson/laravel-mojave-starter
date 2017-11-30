@@ -10086,3 +10086,20 @@ input[type=date] {
   min-height: 2.09375rem;
 }
 
+.cal-badge {
+  text-align: center;
+  padding: 0.25rem;
+  margin: 0.25rem;
+}
+
+.cal-emoji {
+  font-size: 1.5rem;
+  position: absolute;
+  top: 0;
+  border: none;
+}
+
+.cal-emoji .fc-time {
+  display: none;
+}
+

@@ -14,10 +14,23 @@ class EventSeeder extends Seeder
     {
         $camp = \App\Camp::current();
 
+        // keyed by dow
+        $options = [
+            5 => ['name' => 'Theater', 'emoji' => '🎭'],
+            4 => ['name' => 'Cookout', 'emoji' => '🍴'],
+            2 => ['name' => 'Tye Dye', 'emoji' => '👕']
+        ];
+
         foreach ($camp->openDays() as $day) {
-            factory(\App\Event::class)->create([
-                'date' => $day->toDateString(),
-            ]);
+            $dow = $day->dayOfWeek;
+            if (isset($options[$dow])) {
+                $type = $options[$dow];
+                factory(\App\Event::class)->create([
+                    'name' => $type['name'],
+                    'emoji' => $type['emoji'],
+                    'date' => $day->toDateString(),
+                ]);
+            }
         }
     }
 }

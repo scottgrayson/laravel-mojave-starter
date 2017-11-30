@@ -38,7 +38,7 @@
           <button @click="selectNone" class="btn btn-sm btn-secondary">
             None
           </button>
-          <button @click="addToCart" class="btn btn-sm btn-secondary">
+          <button @click="addToCart" class="btn btn-sm btn-primary">
             Update Cart
           </button>
         </div>
@@ -48,6 +48,16 @@
     <div class="camp-calendar" id='calendar1'></div>
     <br>
     <div class="camp-calendar" id='calendar2'></div>
+
+    <br>
+
+    <h4>Events</h4>
+    <ul>
+      <li v-for="e in eventTypes">
+        <span class="pr-2">{{ e.emoji }}</span>
+        <b>{{ e.name }}</b>
+      </li>
+    </ul>
 
   </div>
 </template>
@@ -87,6 +97,7 @@ export default {
       selectedDays: [],
       availabilities: [],
       cartItems: [],
+      otherEvents: [],
       calendarMounted: false,
     }
   },
@@ -112,6 +123,7 @@ export default {
     }
 
     this.fetchAvailabilities()
+    this.fetchOtherEvents()
     this.fetchCart()
   },
 
@@ -130,7 +142,9 @@ export default {
       eventTextColor: 'white',
       eventBorderColor: 'white',
       //themeSystem: 'bootstrap3',
-      events: (start, end, timezone, callback) => callback(this.events),
+      events: (start, end, timezone, callback) => callback(
+        this.otherEvents.concat(this.events)
+      ),
       eventClick: this.handleEventClick
     }
 
@@ -293,6 +307,20 @@ export default {
         })
     },
 
+    fetchOtherEvents () {
+      axios.get('/api/events')
+        .then(res => {
+          this.otherEvents = res.data.map(event => {
+            return Object.assign(event, {
+              title: event.emoji,
+              start: event.date + ' 23:00:00',
+              backgroundColor: 'transparent',
+              className: 'cal-emoji'
+            })
+          })
+        })
+    },
+
     fetchCart () {
       axios.get('/api/cart-items')
         .then(this.parseCartResponse)
@@ -314,7 +342,7 @@ export default {
             title: 'Reserved',
             reserved: true,
             start: date,
-            className: 'badge badge-success'
+            className: 'cal-badge bg-success'
           }
         }
 
@@ -325,7 +353,7 @@ export default {
           return {
             start: date,
             title: 'No Openings',
-            className: 'badge badge-light text-dark'
+            className: 'cal-badge bg-light text-dark'
           }
         }
 
@@ -336,7 +364,7 @@ export default {
             title: 'Selected',
             openings: true,
             selected: true,
-            className: 'badge badge-primary pointer'
+            className: 'cal-badge bg-primary pointer'
           }
         }
 
@@ -348,16 +376,25 @@ export default {
             start: date,
             title: 'Available',
             openings: true,
-            className: 'badge badge-secondary pointer'
+            className: 'cal-badge bg-secondary pointer'
           }
         }
 
         return {
           title: 'Camp',
-          className: 'badge badge-secondary',
+          className: 'cal-badge bg-secondary',
           start: date
         }
       })
+    },
+
+    eventTypes () {
+      return this.otherEvents.reduce((acc, e) => {
+        if (acc.find(el => e.name === el.name)) {
+          return acc
+        }
+        return acc.concat(e)
+      }, [])
     },
 
     daysReserved () {
