@@ -19,6 +19,8 @@
     $type = 'textarea';
   } elseif (in_array('date', $rules)) {
     $type = 'date';
+  } elseif (strpos($name, 'emoji') > -1) {
+    $type = 'emoji';
   } elseif (in_array($name, ['meta_tags'])) {
     $type = 'code';
   } elseif (in_array($name, ['body', 'content'])) {

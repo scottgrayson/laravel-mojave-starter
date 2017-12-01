@@ -5,7 +5,7 @@
       <div class="col-sm">
         <select @change="handleCamperUpdate" :value="camper" class="col-sm form-control">
           <option :value="0">No Camper Selected</option>
-          <option v-for="c in campers" :value="c.id">{{ c.name }}</option>
+          <option v-for="c in campers" :value="c.id">{{ c.first_name }} {{ c.last_name }}</option>
         </select>
       </div>
     </div>

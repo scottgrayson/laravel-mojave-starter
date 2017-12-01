@@ -99,6 +99,14 @@ class MenuItemSeeder extends Seeder
                         'link' => '/admin/camps',
                     ],
                     [
+                        'name' => 'event types',
+                        'link' => '/admin/event-types',
+                    ],
+                    [
+                        'name' => 'events',
+                        'link' => '/admin/events',
+                    ],
+                    [
                         'name' => 'tents',
                         'link' => '/admin/tents',
                     ],
@@ -162,6 +170,14 @@ class MenuItemSeeder extends Seeder
                     [
                         'name' => 'camp dates',
                         'link' => '/admin/camps',
+                    ],
+                    [
+                        'name' => 'event types',
+                        'link' => '/admin/event-types',
+                    ],
+                    [
+                        'name' => 'events',
+                        'link' => '/admin/events',
                     ],
                     [
                         'name' => 'tents',

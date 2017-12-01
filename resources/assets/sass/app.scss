@@ -7,6 +7,8 @@
 @import "~select2/dist/css/select2";
 @import "~fullcalendar/dist/fullcalendar.min.css";
 @import "~simplemde/dist/simplemde.min.css";
+@import "~emojionearea/dist/emojionearea.min.css";
+
 
 $sidebar-width: 200px;
 
@@ -78,4 +80,20 @@ label.required:after {
 
 input[type=date] {
   min-height: $input-height-inner;
+}
+
+.cal-badge {
+  text-align: center;
+  padding: 0.25rem;
+  margin: 0.25rem;
+}
+
+.cal-emoji {
+  font-size: 1.5rem;
+  position: absolute;
+  top: 0;
+  border: none;
+}
+.cal-emoji .fc-time {
+  display: none;
 }
