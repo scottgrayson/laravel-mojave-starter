@@ -46,15 +46,15 @@ class PayAndReserveTest extends TestCase
         ]);
 
         TentLimit::create([
-            'tent_id' => $tent_id,
+            'tent_id' => $tent->id,
             'date' => $day,
-            'limit' => 1,
+            'camper_limit' => 1,
         ]);
 
         $this->be($user);
 
         Cart::add($product, 1, [
-            'camper_id' => $c->id,
+            'camper_id' => $camper->id,
             'tent_id' => $tent->id,
             'product' => $product->slug,
             'date' => $day,
