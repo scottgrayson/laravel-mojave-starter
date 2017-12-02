@@ -110,8 +110,8 @@ class CartHelper
 
                 Cart::remove($i->rowId);
             }
-
-            return count($outOfStock) ? $outOfStock : false;
         }
+
+        return count($outOfStock) ? $outOfStock : false;
     }
 }

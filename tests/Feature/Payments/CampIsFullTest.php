@@ -15,9 +15,51 @@ use App\Payment;
 use Cart;
 use Carbon\Carbon;
 
-class PayAndReserveTest extends TestCase
+class CampIsFullTest extends TestCase
 {
-    public function testPayingAndReservingCamperDays()
+    public function testCampIsFullDuringCheckout()
+    {
+        $product = factory(Product::class)->create(['slug' => 'day']);
+        $registrationFee = factory(Product::class)->create(['slug' => 'registration-fee']);
+        $tent = factory(Tent::class)->create(['camper_limit' => 0]);
+        $tent2 = factory(Tent::class)->create(['camper_limit' => 0]);
+        $user = factory(User::class)->create();
+        $camp = factory(Camp::class)->create();
+        $camper = factory(Camper::class)->create([
+            'tent_id' => $tent->id,
+            'user_id' => $user->id,
+        ]);
+        $otherCamper = factory(Camper::class)->create([
+            'tent_id' => $tent2->id,
+            'user_id' => $user->id,
+        ]);
+
+        $day = $camp->randomCampDay();
+        $this->be($user);
+
+        foreach (Camper::all() as $c) {
+            foreach ($camp->openDays() as $d) {
+                Cart::add($product, 1, [
+                    'camper_id' => $c->id,
+                    'tent_id' => $c->tent_id,
+                    'product' => $product->slug,
+                    'date' => $d,
+                ]);
+            }
+        }
+
+        $r = $this->get(route('checkout.index'));
+
+        $r->assertStatus(302);
+
+        $this->assertEquals(0, Cart::count());
+
+        $r->assertRedirect(route('cart.index'));
+
+        $r->assertSessionHas('flash_notification');
+    }
+
+    public function testCampIsFullDuringPayment()
     {
         $product = factory(Product::class)->create(['slug' => 'day']);
         $registrationFee = factory(Product::class)->create(['slug' => 'registration-fee']);

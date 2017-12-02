@@ -23,6 +23,13 @@ class CheckoutController extends Controller
             return redirect(route('cart.index'));
         }
 
+        if ($outOfStock = CartHelper::outOfStock()) {
+            $removedString = $this->outOfStockString($outOfStock);
+            flash("The following days are not available and have been removed from your cart: ${removedString}")->error();
+
+            return redirect(route('cart.index'));
+        }
+
         $amount = CartHelper::total();
 
         if (request()->user()->isCustomer()) {
@@ -37,5 +44,22 @@ class CheckoutController extends Controller
             'amount' => $amount,
             'clientToken' => $clientToken,
         ]);
+    }
+
+    protected function outOfStockString($arr)
+    {
+        $tent = collect($arr)->groupBy('tent');
+
+        $string = '';
+
+        foreach ($tent as $t => $days) {
+            $dayString = $days->map(function ($d) {
+                return $d['date']->format('Y-m-d');
+            })->implode(', ');
+
+            $string .= $t . ': ' . $dayString . '. ';
+        }
+
+        return $string;
     }
 }
