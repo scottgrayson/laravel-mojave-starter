@@ -103,6 +103,10 @@ class MenuItemSeeder extends Seeder
                         'link' => '/admin/tents',
                     ],
                     [
+                        'name' => 'tent limits',
+                        'link' => '/admin/tent-limits',
+                    ],
+                    [
                         'name' => 'pages',
                         'link' => '/admin/pages',
                     ],
@@ -166,6 +170,10 @@ class MenuItemSeeder extends Seeder
                     [
                         'name' => 'tents',
                         'link' => '/admin/tents',
+                    ],
+                    [
+                        'name' => 'tent limits',
+                        'link' => '/admin/tent-limits',
                     ],
                     [
                         'name' => 'pages',
