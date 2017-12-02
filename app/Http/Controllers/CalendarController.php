@@ -24,7 +24,7 @@ class CalendarController extends Controller
                 return [
                     'camper_id' => $r->camper_id,
                     'tent_id' => $r->tent_id,
-                    'date' => $r->date,
+                    'date' => $r->date->toDateString(),
                 ];
             });
 
