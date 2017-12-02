@@ -64,7 +64,9 @@ class PayAndReserveTest extends TestCase
             'nonce' => 'fake-valid-nonce',
         ]);
 
-        $r->assertStatus(200);
+        $r->assertStatus(400);
+
+        $this->assertEquals(0, Cart::count());
 
         $this->assertEquals($user->reservations->count(), 1);
     }

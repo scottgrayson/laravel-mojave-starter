@@ -3,6 +3,9 @@
 namespace App\Helpers;
 
 use Cart;
+use App\Tent;
+use App\TentLimit;
+use App\Reservation;
 use App\Product;
 use App\Camp;
 
@@ -105,7 +108,7 @@ class CartHelper
             if ($numReserved >= $limit) {
                 $outOfStock []= ['date' => $i->options->date, 'tent' => $tent->name];
 
-                Cart::remove($i->id);
+                Cart::remove($i->rowId);
             }
 
             return count($outOfStock) ? $outOfStock : false;
