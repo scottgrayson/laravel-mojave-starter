@@ -28,7 +28,7 @@
             {{ availableDays.length }}/{{ openDays.length }} Days Available for {{ selectedTent.name }}
           </p>
           <p v-if="query.camper">
-            {{ selectedDays.length }}/{{ availableDays.length }} Days Selected for {{ selectedCamper.name }}
+            {{ selectedDays.length }}/{{ availableDays.length }} Days Selected for {{ selectedCamper.first_name }}
           </p>
         </div>
         <div class="col-md text-right">
@@ -244,7 +244,7 @@ export default {
     addToCart () {
       if (this.canReserve()) {
         const title = 'Reserve ' + this.selectedDays.length + ' Days?'
-        const text =  `${this.selectedCamper.name} in ${this.selectedTent.name}`
+        const text =  `${this.selectedCamper.first_name} in ${this.selectedTent.name}`
 
         swal({
           title: title,
