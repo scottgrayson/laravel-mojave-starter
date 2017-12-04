@@ -92,15 +92,15 @@
 
     <hr>
 
-    <a href="/checkout" class="btn btn-primary">
+    <a href="/checkout" class="btn btn-primary my-2">
       Checkout
     </a>
 
-    <a data-method="delete" type="delete" href="/cart" class="btn btn-secondary">
+    <a data-method="delete" type="delete" href="/cart" class="btn btn-secondary my-2">
       Reset Cart
     </a>
 
-    <a href="/calendar" class="d-none d-sm-inline btn btn-link">
+    <a href="/calendar" class="d-none d-sm-inline btn btn-link my-2">
       Add More Reservations
     </a>
 

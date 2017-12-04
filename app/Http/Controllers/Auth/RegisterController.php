@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -78,5 +79,10 @@ class RegisterController extends Controller
         Mail::to($user)->send(new Welcome($user));
 
         return $user;
+    }
+
+    protected function registered(Request $request, $user)
+    {
+        return redirect()->intended(session()->pull('from', $this->redirectTo));
     }
 }

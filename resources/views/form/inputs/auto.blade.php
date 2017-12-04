@@ -19,6 +19,8 @@
     $type = 'textarea';
   } elseif (in_array('date', $rules)) {
     $type = 'date';
+  } elseif (strpos($name, 'emoji') > -1) {
+    $type = 'emoji';
   } elseif (in_array($name, ['meta_tags'])) {
     $type = 'code';
   } elseif (in_array($name, ['body', 'content'])) {
@@ -94,7 +96,10 @@
     echo '</label>';
   } elseif ($type === 'file') {
     // files dont have value
-    echo Form::file($name, array_merge(['class' => $inputclass], $attributes));
+    echo Form::file($name, array_merge(['class' => $inputClass], $attributes));
+  } elseif ($type === 'date') {
+    $value = $item && $item->$name ? $item->$name->format('Y-m-d') : '';
+    echo Form::date($name, $value, array_merge(['class' => $inputClass], $attributes));
   } else {
     echo Form::$type($name, $value, array_merge(['class' => $inputClass], $attributes), $item);
   }

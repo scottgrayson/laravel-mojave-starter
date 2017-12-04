@@ -11,6 +11,9 @@ use App\Reservation;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Mail\Invoice;
+use Illuminate\Support\Facades\Mail;
+
 class PaymentController extends Controller
 {
     public function store(Request $request)
@@ -19,6 +22,10 @@ class PaymentController extends Controller
 
         if (!$camp || Cart::content()->isEmpty()) {
             abort(400);
+        }
+
+        if ($outOfStock = CartHelper::outOfStock()) {
+            abort(400, 'Some days in your cart are no longer available');
         }
 
         // CreateOrUpdate Customer
@@ -34,6 +41,7 @@ class PaymentController extends Controller
             }
         }
 
+        $registration = null;
         // Pay Registration Fee
         if (!request()->user()->hasPaidRegistrationFee() && Cart::content()->count() >= 5) {
             $registrationFee = Product::where('slug', 'registration-fee')->firstOrFail();
@@ -49,6 +57,7 @@ class PaymentController extends Controller
                     'amount' => $result->transaction->amount,
                     'type' => 'registration_fee',
                 ]);
+                $registration = $payment;
             } else {
                 // Handle errors
                 \Log::error($result);
@@ -75,12 +84,18 @@ class PaymentController extends Controller
             abort(400, 'Failed charging for reservations');
         }
 
+        $reservations = collect();
 
         foreach (CartHelper::pendingReservations() as $i) {
-            Reservation::create(array_merge($i, [
+            $reservation = Reservation::create(array_merge($i, [
                 'payment_id' => $payment->id,
             ]));
+            $reservations->push($reservation);
         }
+
+        $reservations = $reservations->groupBy('camper_id');
+
+        Mail::to($request->user()->email)->send(new Invoice($request->user(), $reservations, $payment, $total, $registration));
 
         Cart::destroy();
 

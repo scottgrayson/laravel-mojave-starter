@@ -29,8 +29,11 @@ mix.js('resources/assets/js/app.js', 'public/js')
 
   .sass('resources/assets/sass/app.scss', 'public/css')
 
-mix.browserSync(process.env.APP_URL)
+mix.browserSync({
+  proxy: process.env.APP_URL,
+  notify: false
+})
 
-if (mix.config.inProduction) {
+if (mix.inProduction()) {
   mix.version()
 }

@@ -28,7 +28,7 @@
             {{ availableDays.length }}/{{ openDays.length }} Days Available for {{ selectedTent.name }}
           </p>
           <p v-if="query.camper">
-            {{ selectedDays.length }}/{{ availableDays.length }} Days Selected for {{ selectedCamper.name }}
+            {{ selectedDays.length }}/{{ availableDays.length }} Days Selected for {{ selectedCamper.first_name }}
           </p>
         </div>
         <div class="col-md text-right">
@@ -38,14 +38,28 @@
           <button @click="selectNone" class="btn btn-sm btn-secondary">
             None
           </button>
-          <button @click="addToCart" class="btn btn-sm btn-secondary">
+          <button @click="addToCart" class="btn btn-sm btn-primary">
             Update Cart
           </button>
         </div>
       </div>
     </div>
 
-    <div class="camp-calendar" id='calendar'></div>
+    <div class="camp-calendar" id='calendar1'></div>
+    <br>
+    <div class="camp-calendar" id='calendar2'></div>
+
+    <br>
+
+    <h4>Events</h4>
+    <ul style="list-style:none">
+      <li v-for="e in eventTypes">
+        <span class="pr-2">{{ e.event_type.emoji }}</span>
+        <a :href="e.event_type.link">
+          <b>{{ e.event_type.name }}</b>
+        </a>
+      </li>
+    </ul>
 
   </div>
 </template>
@@ -85,6 +99,7 @@ export default {
       selectedDays: [],
       availabilities: [],
       cartItems: [],
+      otherEvents: [],
       calendarMounted: false,
     }
   },
@@ -110,26 +125,43 @@ export default {
     }
 
     this.fetchAvailabilities()
+    this.fetchOtherEvents()
     this.fetchCart()
   },
 
   mounted () {
 
+    const calendar1Config = {
+      weekends: false,
+      height: 'auto',
+      header: {
+        left: 'title',
+        right: '',
+      },
+      fixedWeekCount: false,
+      showNonCurrentDates: false,
+      defaultDate: this.openDays.length ? this.openDays[0] : '',
+      eventTextColor: 'white',
+      eventBorderColor: 'white',
+      //themeSystem: 'bootstrap3',
+      events: (start, end, timezone, callback) => {
+        callback(this.otherEvents.concat(this.events))
+      },
+      eventClick: this.handleEventClick
+    }
+
+    const nextMonth = !calendar1Config.defaultDate ? '' : moment(calendar1Config.defaultDate)
+      .add('months', 1)
+      .startOf('month')
+      .format('YYYY-MM-DD')
+
+    const calendar2Config = Object.assign({}, calendar1Config, {
+      defaultDate: nextMonth
+    })
+
     this.$nextTick(() => {
-      $('#calendar').fullCalendar({
-        weekends: false,
-        height: 'auto',
-        header: {
-          left: 'title',
-          right: 'prev,next',
-        },
-        defaultDate: this.openDays.length ? this.openDays[0] : '',
-        eventTextColor: 'white',
-        eventBorderColor: 'white',
-        //themeSystem: 'bootstrap3',
-        events: (start, end, timezone, callback) => callback(this.events),
-        eventClick: this.handleEventClick
-      })
+      $('#calendar1').fullCalendar(calendar1Config)
+      $('#calendar2').fullCalendar(calendar2Config)
 
       this.calendarMounted = true;
     })
@@ -212,7 +244,7 @@ export default {
     addToCart () {
       if (this.canReserve()) {
         const title = 'Reserve ' + this.selectedDays.length + ' Days?'
-        const text =  `${this.selectedCamper.name} in ${this.selectedTent.name}`
+        const text =  `${this.selectedCamper.first_name} in ${this.selectedTent.name}`
 
         swal({
           title: title,
@@ -266,13 +298,28 @@ export default {
     },
 
     reloadCalendar () {
-      $('#calendar').fullCalendar('refetchEvents')
+      $('#calendar1').fullCalendar('refetchEvents')
+      $('#calendar2').fullCalendar('refetchEvents')
     },
 
     fetchAvailabilities () {
       axios.get('/api/availabilities')
         .then(res => {
           this.availabilities = res.data
+        })
+    },
+
+    fetchOtherEvents () {
+      axios.get('/api/events')
+        .then(res => {
+          this.otherEvents = res.data.map(event => {
+            return Object.assign(event, {
+              title: event.event_type.emoji,
+              start: event.date,
+              backgroundColor: 'transparent',
+              className: 'cal-emoji'
+            })
+          })
         })
     },
 
@@ -297,7 +344,7 @@ export default {
             title: 'Reserved',
             reserved: true,
             start: date,
-            className: 'badge badge-success'
+            className: 'cal-badge bg-success'
           }
         }
 
@@ -308,7 +355,7 @@ export default {
           return {
             start: date,
             title: 'No Openings',
-            className: 'badge badge-light text-dark'
+            className: 'cal-badge bg-light text-dark'
           }
         }
 
@@ -319,7 +366,7 @@ export default {
             title: 'Selected',
             openings: true,
             selected: true,
-            className: 'badge badge-primary pointer'
+            className: 'cal-badge bg-primary pointer'
           }
         }
 
@@ -331,16 +378,25 @@ export default {
             start: date,
             title: 'Available',
             openings: true,
-            className: 'badge badge-secondary pointer'
+            className: 'cal-badge bg-secondary pointer'
           }
         }
 
         return {
           title: 'Camp',
-          className: 'badge badge-secondary',
+          className: 'cal-badge bg-secondary',
           start: date
         }
       })
+    },
+
+    eventTypes () {
+      return this.otherEvents.reduce((acc, e) => {
+        if (acc.find(el => e.event_type_id === el.event_type_id)) {
+          return acc
+        }
+        return acc.concat(e)
+      }, [])
     },
 
     daysReserved () {

@@ -20,7 +20,7 @@
 
     <br>
 
-    <button :disabled="processing || !selectedPaymentOption" @click="submit" v-show="!initError" id="submit-button" class="btn btn-primary">
+    <button @click="submit" v-show="!initError" id="submit-button" class="btn btn-primary">
       Purchase
     </button>
 

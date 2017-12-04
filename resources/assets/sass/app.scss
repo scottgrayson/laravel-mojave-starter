@@ -7,6 +7,10 @@
 @import "~select2/dist/css/select2";
 @import "~fullcalendar/dist/fullcalendar.min.css";
 @import "~simplemde/dist/simplemde.min.css";
+@import "~emojionearea/dist/emojionearea.min.css";
+
+
+$sidebar-width: 200px;
 
 //@import "stepper";
 @import "nav";
@@ -16,9 +20,11 @@
 @import "icons";
 @import "calendar";
 
+
 // padding for fixed nav
 body {
-  padding-top: 3.5rem;
+  //height of navbar
+  padding-top: 53px;
 }
 
 // form errors
@@ -38,8 +44,56 @@ label.required:after {
 
 .btn {
   cursor: pointer;
+  border-radius: 0;
+}
+
+.breadcrumb {
+  border-bottom: 1px solid $gray-200;
+}
+
+@include media-breakpoint-up(lg) {
+  .admin-content {
+    position: relative;
+    left: $sidebar-width;
+    //width: calc(100vw - $sidebar-width);
+    // TODO figure out how to use variable inside calc()
+    width: calc(100vw - 200px);
+  }
 }
 
 .pointer {
   cursor: pointer;
+}
+
+.page-content {
+  font-size: 1.125rem;
+  margin: 0 auto;
+  padding-bottom: 2rem;
+  max-width: 800px;
+}
+.page-content img {
+  display: block;
+  margin: 1rem auto;
+  max-height: 50vh;
+  max-width: 100%;
+}
+
+input[type=date] {
+  min-height: $input-height-inner;
+}
+
+.cal-badge {
+  text-align: center;
+  padding: 0.25rem;
+  margin: 0.25rem;
+}
+
+.cal-emoji {
+  font-size: 1.5rem;
+  position: absolute;
+  top: 0;
+  border: none;
+}
+.cal-emoji .fc-time {
+  display: none;
 }

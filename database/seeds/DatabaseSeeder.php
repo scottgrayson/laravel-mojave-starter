@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TentSeeder::class);
         $this->call(CamperSeeder::class);
         $this->call(CounselorSeeder::class);
+        $this->call(EventSeeder::class);
         $this->call(ReservationSeeder::class);
     }
 }

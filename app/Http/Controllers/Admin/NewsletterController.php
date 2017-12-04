@@ -54,7 +54,7 @@ class NewsletterController extends CrudController
 
         flash('Newsletter sent')->success();
 
-        return redirect('/admin/newletter');
+        return redirect()->back();
     }
 
     public function preview($id)

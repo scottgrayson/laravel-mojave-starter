@@ -13,7 +13,8 @@ class CamperController extends CrudController
         'id',
         'user_id',
         'tent_id',
-        'name',
+        'first_name',
+        'last_name',
     ];
 
     /*

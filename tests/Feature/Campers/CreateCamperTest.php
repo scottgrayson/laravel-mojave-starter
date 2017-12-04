@@ -22,7 +22,7 @@ class CreateCamperTest extends TestCase
 
         $r = $this->post(route('campers.store'), $camper->toArray());
 
-        $this->assertEquals($user->campers()->first()->name, $camper->name);
+        $this->assertEquals($user->campers()->first()->first_name, $camper->first_name);
         $this->assertEquals($camper->tent()->count(), 1);
     }
 }

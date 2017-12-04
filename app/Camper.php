@@ -4,6 +4,10 @@ namespace App;
 
 class Camper extends Model
 {
+    protected $dates = [
+        'birthdate'
+    ];
+
     public function tent()
     {
         return $this->belongsTo(\App\Tent::class);
@@ -17,6 +21,11 @@ class Camper extends Model
     public function reservations()
     {
         return $this->hasMany(\App\Reservation::class);
+    }
+
+    public function getNameAttribute()
+    {
+        return "{$this->first_name} {$this->last_name}";
     }
 
     public function getStatusAttribute()
