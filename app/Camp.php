@@ -57,7 +57,6 @@ class Camp extends Model
         $reservations = Reservation::select(
             \DB::raw("count(*) as campers"),
             "camper_limit as tent_limit",
-            "camper_limit as tent_limit",
             "tents.name as tent_name",
             "tent_id",
             "date"
