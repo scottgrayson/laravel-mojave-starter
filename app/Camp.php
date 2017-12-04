@@ -4,6 +4,7 @@ namespace App;
 
 use App\Reservation;
 use App\Camp;
+use App\TentLimit;
 use Carbon\Carbon;
 
 class Camp extends Model
@@ -66,6 +67,8 @@ class Camp extends Model
         ->groupBy('camper_limit', 'tents.name', 'date', 'tent_id')
         ->get();
 
+        $tentLimits = TentLimit::all();
+
         // Merge with all dates available in camp
         // Excluding weekends and july 4th
         $availabilities = [];
@@ -78,11 +81,16 @@ class Camp extends Model
                     ->where('tent_id', $t->id)
                     ->first();
 
+                $limitOverride = $tentLimits->where('tent_id', $t->id)
+                    ->first(function ($l) use ($d) {
+                        return $d->isSameDay($l->date);
+                    });
+
                 $availabilities []= [
                     'date' => $d->toDateString(),
                     'tent_id' => $t->id,
                     'tent_name' => $t->name,
-                    'tent_limit' => (int) $t->camper_limit,
+                    'tent_limit' => $limitOverride ? (int) $limitOverride->camper_limit : (int) $t->camper_limit,
                     'campers' => $reserved ? (int) $reserved->campers : 0,
                 ];
             }

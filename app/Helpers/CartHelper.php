@@ -3,6 +3,9 @@
 namespace App\Helpers;
 
 use Cart;
+use App\Tent;
+use App\TentLimit;
+use App\Reservation;
 use App\Product;
 use App\Camp;
 
@@ -82,5 +85,33 @@ class CartHelper
                 'date' => $i->options->date,
             ];
         })->toArray();
+    }
+
+    // This could be slow. dont run it often.
+    public static function outOfStock()
+    {
+        $outOfStock = [];
+
+        foreach (Cart::content() as $i) {
+            $tent = Tent::findOrFail($i->options->tent_id);
+
+            $numReserved = Reservation::where('date', $i->options->date)
+                ->where('tent_id', $tent->id)
+                ->count();
+
+            $limitOverride = TentLimit::where('date', $i->options->date)
+                ->where('tent_id', $tent->id)
+                ->first();
+
+            $limit = $limitOverride ? $limitOverride->camper_limit : $tent->camper_limit;
+
+            if ($numReserved >= $limit) {
+                $outOfStock []= ['date' => $i->options->date, 'tent' => $tent->name];
+
+                Cart::remove($i->rowId);
+            }
+        }
+
+        return count($outOfStock) ? $outOfStock : false;
     }
 }

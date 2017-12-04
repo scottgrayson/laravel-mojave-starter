@@ -9,7 +9,7 @@
         $flipped = array_flip($query);
         $applied = collect($query)->reduce(function ($acc, $i) use ($flipped) {
           if ($key = isset($flipped[$i]) ? $flipped[$i] : false) {
-            if (strpos($key, 'q_') === false) {
+            if (strpos($key, 'q_') !== false) {
               $key = str_replace('q_', '', $key);
             }
             return array_merge($acc, ["{$key}={$i}"]);
