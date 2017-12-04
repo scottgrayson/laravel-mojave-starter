@@ -29,8 +29,8 @@
         <tr>
           <th>Allergies</th>
           <th>Name</th>
-          <th v-for="day in weeks[selectedWeek]">
-            {{ day.date | dateFormat('ddd') }}
+          <th>
+            Reservations
           </th>
         </tr>
         <tr v-for="(camper, key) in campers"
@@ -46,8 +46,8 @@
               {{camper.name}}
             </a>
           </td>
-          <td v-for="day in weeks[selectedWeek]">
-            {{camper.dates.includes(day)}}
+          <td>
+            1
           </td>
         </tr>
       </table>
@@ -68,7 +68,6 @@
         weeks: [],
         weekSelection: [],
         campers: {},
-        camperSelection: [],
         campStart: '',
         campEnd: '',
         firstWeek: true,
@@ -90,27 +89,10 @@
           this.firstWeek = false
           this.lastWeek = false
         }
+        this.daySelect(val)
       },
       weekOf (val) {
         return 'Week Of: '+moment(this.weeks[val][0]).format('MMMM D, YYYY')
-      },
-      parseCampers (val) {
-        let selection = {} 
-        for (var x of val) {
-          selection[x.name] = []
-          selection[x.name].push({
-            name: x.name,
-            id: x.id, 
-            allergies: x.allergies
-          })
-          for (var y of this.weeks[0]) {
-            let date = moment(y.date).format('YYYY-MM-DD')
-            if (x.dates.includes(date)) {
-              selection[x.name].push(date)
-            }
-          }
-        }
-        return selection
       },
       fetchNext () {
         this.selectedWeek += 1
