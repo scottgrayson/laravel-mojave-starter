@@ -33,21 +33,21 @@
             {{ day.date | dateFormat('ddd') }}
           </th>
         </tr>
-        <tr v-for="(camper, key) in camperSelection"
+        <tr v-for="(camper, key) in campers"
           scope="row">
-          <td v-if="camper[0].allergies !== null">
+          <td v-if="camper.allergies !== null">
             Allergies
           </td>
           <td v-else>
             None
           </td>
           <td>
-            <a :href="'/campers/'+camper[0].id">
-              {{camper[0].name}}
+            <a :href="'/campers/'+camper.id">
+              {{camper.name}}
             </a>
           </td>
           <td v-for="day in weeks[selectedWeek]">
-            {{camper.includes(day)}}
+            {{camper.dates.includes(day)}}
           </td>
         </tr>
       </table>
@@ -92,7 +92,7 @@
         }
       },
       weekOf (val) {
-        return 'Week Of: '+moment(this.weeks[val][0].date).format('MMMM D, YYYY')
+        return 'Week Of: '+moment(this.weeks[val][0]).format('MMMM D, YYYY')
       },
       parseCampers (val) {
         let selection = {} 
