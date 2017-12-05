@@ -89,7 +89,6 @@
           this.firstWeek = false
           this.lastWeek = false
         }
-        this.daySelect(val)
       },
       weekOf (val) {
         return 'Week Of: '+moment(this.weeks[val][0]).format('MMMM D, YYYY')
