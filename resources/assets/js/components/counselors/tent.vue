@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <h1 class="text-center pt-3">{{tent.name}}</h1>
+    <!--h1 class="text-center pt-3">{{tent.name}}</h1-->
     <div class="card-body">
       <div class="d-flex flex-row justify-content-between align-items-center mb-3">
         <a class="btn btn-outline-secondary"
@@ -33,7 +33,7 @@
             Reservations
           </th>
         </tr>
-        <tr v-for="(camper, key) in campers"
+        <tr v-for="(camper, key) in camperSelection"
           scope="row">
           <td v-if="camper.allergies !== null">
             Allergies
@@ -67,6 +67,7 @@
       return {
         weeks: [],
         weekSelection: [],
+        camperSelection: {},
         campers: {},
         campStart: '',
         campEnd: '',
@@ -77,8 +78,27 @@
       }
     },
     methods: {
+      parseCampers () {
+        let selection = Object()
+        selection.week = this.selectedWeek
+        for (const camper of this.campers) {
+          selection[camper.name] = {
+            dates: {}
+          } 
+          for (const x of this.weeks[this.selectedWeek]) {
+            for (const date of camper.dates) {
+              let y = moment(date.date).format('YYYY-MM-DD')
+              if (x === y) {
+                selection[camper.name].dates[x] = true
+              }
+            }
+          }
+        }
+        this.camperSelection = selection
+      },
       setWeek (val) {
         this.selectedWeek = val
+        this.parseCampers()
         if (val === 0) {
           this.firstWeek = true
           this.lastWeek = false
@@ -95,6 +115,7 @@
       },
       fetchNext () {
         this.selectedWeek += 1
+        this.parseCampers()
         if (this.selectedWeek === (Object.keys(this.weeks).length - 1)) {
           this.lastWeek = true
         } else {
@@ -105,6 +126,7 @@
       },
       fetchPrevious () {
         this.selectedWeek -= 1
+        this.parseCampers()
         if (this.selectedWeek === 0) {
           this.firstWeek = true
         } else {
@@ -146,7 +168,9 @@
         axios.get('/api/reservations/'+this.tent.id)
           .then((response) => {
             this.campers = response.data
-            this.camperSelection = this.parseCampers(response.data)
+            this.$nextTick(() => {
+              this.parseCampers()
+            })
           })
       }
     },
