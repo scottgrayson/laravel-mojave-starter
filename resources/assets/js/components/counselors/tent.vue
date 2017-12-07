@@ -27,27 +27,20 @@
       </div>
       <table class="table table-responsive">
         <tr>
-          <th>Allergies</th>
           <th>Name</th>
           <th>
             Reservations
           </th>
         </tr>
-        <tr v-for="(camper, key) in camperSelection"
+        <tr v-for="(camper, key) in campers"
           scope="row">
-          <td v-if="camper.allergies !== null">
-            Allergies
-          </td>
-          <td v-else>
-            None
-          </td>
           <td>
             <a :href="'/campers/'+camper.id">
               {{camper.name}}
             </a>
           </td>
           <td>
-            1
+            {{camper.dates[0].date}}
           </td>
         </tr>
       </table>
@@ -78,19 +71,22 @@
       }
     },
     methods: {
-      parseCampers () {
+      parseCampers (week) {
+        console.log(week)
+        function parseDate (val) {
+          return moment(val.date).format('YYYY-MM-DD')
+        }
         let selection = Object()
-        selection.week = this.selectedWeek
         for (const camper of this.campers) {
           selection[camper.name] = {
-            dates: {}
-          } 
-          for (const x of this.weeks[this.selectedWeek]) {
-            for (const date of camper.dates) {
-              let y = moment(date.date).format('YYYY-MM-DD')
-              if (x === y) {
-                selection[camper.name].dates[x] = true
-              }
+            dates: {
+              [week]: []
+            }
+          }
+          let dates = camper.dates.map(parseDate)
+          for (const x of this.weeks[week]) {
+            if (dates.includes(x)) {
+              selection[camper.name].dates[week].push(x)
             }
           }
         }
@@ -98,7 +94,7 @@
       },
       setWeek (val) {
         this.selectedWeek = val
-        this.parseCampers()
+        this.parseCampers(val)
         if (val === 0) {
           this.firstWeek = true
           this.lastWeek = false
@@ -115,7 +111,7 @@
       },
       fetchNext () {
         this.selectedWeek += 1
-        this.parseCampers()
+        this.parseCampers(this.selectedWeek)
         if (this.selectedWeek === (Object.keys(this.weeks).length - 1)) {
           this.lastWeek = true
         } else {
@@ -126,7 +122,7 @@
       },
       fetchPrevious () {
         this.selectedWeek -= 1
-        this.parseCampers()
+        this.parseCampers(this.selectedWeek)
         if (this.selectedWeek === 0) {
           this.firstWeek = true
         } else {
@@ -169,7 +165,7 @@
           .then((response) => {
             this.campers = response.data
             this.$nextTick(() => {
-              this.parseCampers()
+              this.parseCampers(0)
             })
           })
       }
