@@ -92819,7 +92819,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       if (this.canReserve()) {
         var title = 'Reserve ' + this.selectedDays.length + ' Days?';
-        var text = this.selectedCamper.name + ' in ' + this.selectedTent.name;
+        var text = this.selectedCamper.first_name + ' in ' + this.selectedTent.name;
 
         swal({
           title: title,
@@ -93656,7 +93656,7 @@ var render = function() {
                           "/" +
                           _vm._s(_vm.availableDays.length) +
                           " Days Selected for " +
-                          _vm._s(_vm.selectedCamper.name) +
+                          _vm._s(_vm.selectedCamper.first_name) +
                           "\n        "
                       )
                     ])
@@ -101960,10 +101960,7 @@ var render = function() {
           }
         ],
         staticClass: "btn btn-primary",
-        attrs: {
-          disabled: _vm.processing || !_vm.selectedPaymentOption,
-          id: "submit-button"
-        },
+        attrs: { id: "submit-button" },
         on: { click: _vm.submit }
       },
       [_vm._v("\n    Purchase\n  ")]
