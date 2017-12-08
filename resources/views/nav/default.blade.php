@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light bg-light navbar-bordered fixed-top">
+<nav class="navbar navbar-expand-md transparent navbar-dark bg-dark navbar-bordered fixed-top">
   <div class="container">
     <a class="navbar-brand" href="/">
       <img height="40px" src="{{ asset('uploads/desert_logo.svg') }}"/>
