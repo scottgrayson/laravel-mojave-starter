@@ -10006,11 +10006,11 @@ div.alert-notify {
   padding-bottom: 2px;
   cursor: pointer;
   background-color: transparent;
-  color: #29363d;
+  /*color: #29363d;*/
 }
 
 .btn-icon:hover {
-  color: #1a2226;
+  /*color: #1a2226;*/
 }
 
 .fc-event.badge {

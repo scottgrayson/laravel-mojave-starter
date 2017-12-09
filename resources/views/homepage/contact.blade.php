@@ -21,6 +21,8 @@
         Join Our Newsletter
       </h4>
       @include('newsletter.create-form')
+
+      <br>
     </div>
 
     <div class="col-sm">
