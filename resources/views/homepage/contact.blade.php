@@ -2,9 +2,9 @@
 
   <div class="row">
     <div class="col-sm">
-      <h2>
+      <h4>
         Address
-      </h2>
+      </h4>
       <p>
         Pickering Grove Park 
       </p>
@@ -14,6 +14,13 @@
       <p>
         Chester Springs, PA 19425
       </p>
+
+      <br>
+
+      <h4>
+        Join Our Newsletter
+      </h4>
+      @include('newsletter.create-form')
     </div>
 
     <div class="col-sm">

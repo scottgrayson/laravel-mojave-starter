@@ -10107,3 +10107,15 @@ input[type=date] {
   margin: 0 -15px;
 }
 
+.homepage-carousel .carousel-item {
+  -webkit-filter: brightness(85%);
+          filter: brightness(85%);
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+}
+
+.homepage-carousel .carousel-caption {
+  bottom: calc(50% - 150px);
+}
+
