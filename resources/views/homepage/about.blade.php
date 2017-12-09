@@ -6,7 +6,7 @@
       </h2>
 
       <div class="break-word">
-        {!! $content or 'description here' !!}
+        {!! $content !!}
       </div>
 
       <div class="m-3 d-flex justify-content-center">

@@ -19,7 +19,7 @@
     </div>
 
     <div class="pb-4">
-      @include('homepage.about', ['content' => $page->content])
+      @include('homepage.about', ['content' => $page ? $page->content : 'description'])
     </div>
 
     <div class="pb-4">
