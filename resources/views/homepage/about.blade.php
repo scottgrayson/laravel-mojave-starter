@@ -5,7 +5,9 @@
         About Us
       </h2>
 
-      {!! $content or 'description here' !!}
+      <div class="break-word">
+        {!! $content or 'description here' !!}
+      </div>
 
       <div class="m-3 d-flex justify-content-center">
         <a href="/about" class="btn btn-primary">
