@@ -24,7 +24,7 @@ $sidebar-width: 200px;
 // padding for fixed nav
 body {
   //height of navbar
-  padding-top: 53px;
+  //padding-top: 53px;
 }
 
 // form errors
@@ -96,4 +96,27 @@ input[type=date] {
 }
 .cal-emoji .fc-time {
   display: none;
+}
+
+.transparent {
+  opacity: 0.9;
+}
+
+.homepage-carousel {
+  margin: 0 -15px;
+}
+
+.homepage-carousel .carousel-item {
+  filter: brightness(85%);
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+}
+
+.homepage-carousel .carousel-caption {
+  bottom: calc(50% - 150px);
+}
+
+.break-word {
+  word-wrap: break-word;
 }

@@ -273,15 +273,11 @@ class MenuItemSeeder extends Seeder
                     [
                         'name' => 'activities',
                         'children' => [
-                            $this->pageItem('your tent'),
                             $this->pageItem('wood shop'),
                             $this->pageItem('art barn'),
                             $this->pageItem('clay barn'),
                             $this->pageItem('museum'),
                             $this->pageItem('theatre'),
-                            $this->pageItem('creek'),
-                            $this->pageItem('games and contests'),
-                            $this->pageItem('special events'),
                         ],
                     ],
                     [

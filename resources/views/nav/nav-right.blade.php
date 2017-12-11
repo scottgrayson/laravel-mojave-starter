@@ -14,7 +14,7 @@
 
   @foreach(\App\MenuItem::childrenOf('nav right guest') as $item)
     @if ($item->name === 'login button')
-      <a class="btn btn-outline-secondary" href="{{ url('/login') }}">
+      <a class="ml-2 btn btn-secondary" href="{{ url('/login') }}">
         Login
       </a>
     @else
