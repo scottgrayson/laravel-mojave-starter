@@ -49,6 +49,8 @@
 </template>
 
 <script>
+  import Query from '../../utils/query'
+
   export default {
     props: {
       tent: {
@@ -58,6 +60,9 @@
     },
     data () {
       return {
+        query: new Query({
+          sortBy: 'week'
+        }),
         weeks: [],
         weekSelection: [],
         camperSelection: {},
@@ -161,7 +166,7 @@
           })
       },
       fetchReservations () {
-        axios.get('/api/reservations/'+this.tent.id)
+        axios.get('/api/reservations/'+this.tent.id+'?q='+this.query)
           .then((response) => {
             this.campers = response.data
             this.$nextTick(() => {

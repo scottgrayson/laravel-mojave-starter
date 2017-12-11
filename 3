@@ -30,8 +30,11 @@ class ReservationController extends Controller
 
     public function tentReservations(Request $request, $tent)
     {
+        $result = DB::table('reservations')->select('WEEK(`date`), GROUP BY WEEK(`date`)');
+
+        return $result;
         $result = Reservation::where('tent_id', $tent)->get()
-            ->groupBy(DB::raw('WEEK(`date`)'));
+            ->groupBy('camper_id');
 
         $x = $result->map(function ($item, $key) {
             $camper = Camper::find($key);
