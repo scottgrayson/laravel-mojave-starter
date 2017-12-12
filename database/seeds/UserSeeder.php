@@ -11,8 +11,6 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        \DB::statement('truncate users cascade');
-
         // Dev testing accounts
         $exist = \App\User::where('email', 'admin@dev.com')->first();
 
