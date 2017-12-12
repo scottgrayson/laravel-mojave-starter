@@ -11,8 +11,6 @@ class CounselorSeeder extends Seeder
      */
     public function run()
     {
-        \DB::statement('truncate counselors cascade');
-
         $userCount = \App\User::count();
         $tentCount = \App\Tent::count();
 

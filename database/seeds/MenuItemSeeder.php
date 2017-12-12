@@ -13,10 +13,10 @@ class MenuItemSeeder extends Seeder
      */
     public function run()
     {
-        \DB::statement('truncate menu_items cascade');
-
-        foreach ($this->menus() as $menu) {
-            $this->createMenuItem($menu);
+        if (!MenuItem::count()) {
+            foreach ($this->menus() as $menu) {
+                $this->createMenuItem($menu);
+            }
         }
 
         \Artisan::call('cache:clear');
