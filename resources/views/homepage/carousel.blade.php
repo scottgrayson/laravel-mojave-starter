@@ -15,6 +15,7 @@
   <div class="carousel-caption">
     <h1>Miss Betty's Day Camp</h1>
     <p>Chester Springs, PA</p>
+    <p><i>Since 1963</i></p>
     <a class="btn-lg btn btn-primary" href="/campers">Enroll</a>
   </div>
 
