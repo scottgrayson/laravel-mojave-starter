@@ -1,8 +1,8 @@
 <div class="container">
-  <div class="row m-5 mt-1">
+  <div class="row my-5">
     <div class="col">
       <p class="lead text-center">Activities</p>
-      <div class="d-flex flex-column flex-lg-row align-items-center">
+      <div class="d-flex flex-column flex-lg-row align-items-center card border-bottom-0">
         <a href="/your-tent" class="p-5 text-center">
           <p class="lead card-text">Your Tent</p>
           @svg('tent', 'svg-camp-icon')
@@ -24,7 +24,7 @@
           @svg('fishing-rod', 'svg-camp-icon')
         </a>
       </div>
-      <div class="d-flex flex-column flex-lg-row align-items-center">
+      <div class="d-flex flex-column flex-lg-row align-items-center card border-top-0">
         <a href="/theatre" class="p-5 text-center">
           <p class="lead">Theatre</p>
           @svg('flashlight', 'svg-camp-icon')

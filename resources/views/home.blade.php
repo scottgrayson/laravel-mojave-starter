@@ -12,7 +12,7 @@
 
 @section('body')
   @include('nav.default')
-  <div class="container-fluid">
+  <div class="container-fluid svg-background">
 
     <div>
       @include('homepage.carousel')

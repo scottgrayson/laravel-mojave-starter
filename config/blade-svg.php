@@ -175,4 +175,5 @@ fishing-rod.svg
 flashlight.svg
 map.svg
 picnic.svg
+swiss-army-knife.svg
  */
