@@ -1,18 +1,5 @@
 <div class="container">
-  <div class="row">
-    <div class="col">
-      <div class="card">
-      <div class="break-word card-body">
-
-      <h2 class="card-title">
-        About Us
-      </h2>
-        {!! $content !!}
-      </div>
-    </div>
-    </div>
-  </div>
-  <div class="row">
+  <div class="row m-5 mt-1">
     <div class="col">
       <div class="d-flex flex-column flex-lg-row align-items-center">
         <a href="/your-tent" class="p-2 text-center">
@@ -21,7 +8,6 @@
         </a>
         <a href="/wood-shop" class="p-2 text-center">
           <p class="lead">Wood Shop</p>
-
           @svg('lodge', 'svg-camp-icon')
         </a>
         <a href="/art-barn" class="p-2 text-center">
@@ -52,6 +38,47 @@
           <p class="lead">Events</p>
           @svg('marshmallow', 'svg-camp-icon')
         </a>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="card" style="min-height: 500px;">
+        <div class="break-word card-body d-flex flex-column align-items-start">
+          <p class="card-title align-top">
+            <strong>
+              About Us
+            </strong>
+          </p>
+          {!! $content !!}
+          <div class="mt-auto">
+            <p>
+              <strong>Address</strong>
+              <br>
+              Pickering Grove Park 
+              <br>
+              Route 113 (between Yellow Springs and Pikeland Road)
+              <br>
+              Chester Springs, PA 19425
+            </p>
+            <strong>
+              Join Our Newsletter
+            </strong>
+            @include('newsletter.create-form')
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="col-sm">
+        <div class="embed-responsive embed-responsive-1by1">
+          <iframe
+            width="400"
+            height="400"
+            frameborder="0" style="border:0"
+            src="https://www.google.com/maps/embed/v1/place?key={{ config('services.google.maps_key') }}&q=pickering+grove+park" allowfullscreen>
+          </iframe>
+        </div>
       </div>
     </div>
   </div>

@@ -14,16 +14,12 @@
   @include('nav.default')
   <div class="container-fluid">
 
-    <div class="pb-4">
+    <div>
       @include('homepage.carousel')
     </div>
 
     <div class="pb-4">
       @include('homepage.about', ['content' => $page ? $page->html : 'description'])
-    </div>
-
-    <div class="pb-4">
-      @include('homepage.contact')
     </div>
 
   </div>
