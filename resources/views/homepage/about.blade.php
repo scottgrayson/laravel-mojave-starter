@@ -43,7 +43,7 @@
   </div>
   <div class="row">
     <div class="col">
-      <div class="card" style="min-height: 500px;">
+      <div class="card" style="min-height: 510px;">
         <div class="break-word card-body d-flex flex-column align-items-start">
           <p class="card-title align-top">
             <strong>
@@ -71,13 +71,15 @@
     </div>
     <div class="col">
       <div class="col-sm">
-        <div class="embed-responsive embed-responsive-1by1">
-          <iframe
-            width="400"
-            height="400"
-            frameborder="0" style="border:0"
-            src="https://www.google.com/maps/embed/v1/place?key={{ config('services.google.maps_key') }}&q=pickering+grove+park" allowfullscreen>
-          </iframe>
+        <div class="card">
+          <div class="embed-responsive embed-responsive-1by1">
+            <iframe
+              width="400"
+              height="400"
+              frameborder="0" style="border:0"
+              src="https://www.google.com/maps/embed/v1/place?key={{ config('services.google.maps_key') }}&q=pickering+grove+park" allowfullscreen>
+            </iframe>
+          </div>
         </div>
       </div>
     </div>
