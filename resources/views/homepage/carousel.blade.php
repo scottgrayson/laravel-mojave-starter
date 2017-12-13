@@ -12,10 +12,11 @@
     <div class="carousel-item" style="background-image:url('/img/claybarn.jpg')" alt="Third slide">
     </div>
   </div>
-  <div class="carousel-caption">
+  <div class="site-caption carousel-caption">
+  {{--<div class="card card-body bg-dark transparent carousel-caption">--}}
     <h1>Miss Betty's Day Camp</h1>
-    <p>Chester Springs, PA</p>
-    <p><i>Since 1963</i></p>
+    <h5>Chester Springs, PA</h5>
+    <h5><i>Since 1963</i></h5>
     <a class="btn-lg btn btn-primary" href="/campers">Enroll</a>
   </div>
 

@@ -107,7 +107,7 @@ input[type=date] {
 }
 
 .homepage-carousel .carousel-item {
-  filter: brightness(85%);
+  //filter: brightness(85%);
   height: 100%;
   width: 100%;
   background-size: cover;
@@ -115,6 +115,9 @@ input[type=date] {
 
 .homepage-carousel .carousel-caption {
   bottom: calc(50% - 150px);
+  background-color: rgba(0,0,0,.4);
+  border-radius: 4px;
+  box-shadow:0 0 10px 10px rgba(0,0,0,0.4);
 }
 
 .break-word {
