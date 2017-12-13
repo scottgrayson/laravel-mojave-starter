@@ -41,7 +41,7 @@
       </div>
     </div>
   </div>
-  <div class="row">
+  <div class="row d-flex flex-column flex-lg-row">
     <div class="col">
       <div class="card" style="min-height: 510px;">
         <div class="break-word card-body d-flex flex-column align-items-start">
