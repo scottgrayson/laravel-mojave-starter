@@ -7,7 +7,7 @@ return [
          */
         'defaults'       => [
             'title'        => env('APP_NAME', 'Laravel'), // set false to total remove
-            'description'  => env('APP_DESCRIPTION', 'Laravel'), // set false to total remove
+            'description'  => env('APP_NAME', 'Laravel'), // set false to total remove
             'separator'    => ' - ',
             'keywords'     => [],
             'canonical'    => false, // Set null for using Url::current(), set false to total remove
@@ -30,7 +30,7 @@ return [
          */
         'defaults' => [
             'title'        => env('APP_NAME', 'Laravel'), // set false to total remove
-            'description'  => env('APP_DESCRIPTION', 'Laravel'), // set false to total remove
+            'description'  => env('APP_NAME', 'Laravel'), // set false to total remove
             'url'         => false, // Set null for using Url::current(), set false to total remove
             'type'        => false,
             'site_name'   => false,
