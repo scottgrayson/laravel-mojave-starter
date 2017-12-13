@@ -1,18 +1,23 @@
-# Bug
+Bug
+===
 
 1. Steps
 2. To
 3. Reproduce
 
-## What happened
+What happened
+===
 this happened
 
-## What did you expect to happen
+What did you expect to happen
+===
 this should have happened
 
-## Screenshots
+Screenshots
+===
 
-# Feature
+Feature
+===
 
 Detailed description of what should be completed
 
