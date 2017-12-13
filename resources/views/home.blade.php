@@ -18,7 +18,7 @@
       @include('homepage.carousel')
     </div>
 
-    <div class="pb-4">
+    <div class="mb-5 pb-5">
       @include('homepage.about', ['content' => $page ? $page->html : 'description'])
     </div>
 
