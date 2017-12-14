@@ -18,7 +18,7 @@
       Select a tent{{ campers.length ? ' or camper' : '' }} to view openings
     </div>
 
-    <div class="alert px-0" v-if="query.tent && availableDays.length">
+    <div class="alert px-0" v-if="query.tent && availableDays.length && user.length">
       <h4>
         Reserve By Day
       </h4>
@@ -72,6 +72,10 @@ export default {
   components: { tentCamperSelect },
 
   props: {
+    user: {
+      type: Boolean,
+      required: true
+    },
     tents: {
       type: Array,
       required: true
