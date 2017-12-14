@@ -37,7 +37,7 @@ class ReservationController extends Controller
             ->get();
 
         $x = $result->map(function ($item, $key) use ($tent) {
-            foreach($item as $y) {
+            foreach ($item as $y) {
                 $z = Reservation::where('tent_id', $tent)
                     ->where('date', $item->date)
                     ->get();
