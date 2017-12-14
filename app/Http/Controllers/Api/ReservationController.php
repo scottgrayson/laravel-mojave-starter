@@ -42,10 +42,21 @@ class ReservationController extends Controller
                     ->where('date', $item->date)
                     ->get();
             }
-            return [
+            return collect([
                 'date' => $z->pluck('date'),
-                'camper' => Camper::find($z->pluck('camper_id'))
+                'campers' => Camper::find($z->pluck('camper_id'))
+            ]);
+        });
+
+        $x = $x->map(function ($item, $key) {
+            return [
+                'campers' => $item->pull('campers'),
+                'date' => $item->pull('date')->first()
             ];
+        });
+
+        $x = $x->keyBy(function ($x) {
+            return Carbon::parse($x['date'])->format('Y-m-d');
         });
 
         return $x;
