@@ -16,7 +16,7 @@
   {{--<div class="card card-body bg-dark transparent carousel-caption">--}}
     <h1>Miss Betty's Day Camp</h1>
     <h5>Chester Springs, PA</h5>
-    <h5><i>Since 1963</i></h5>
+    <h5><i>Since 1949</i></h5>
     <a class="btn-lg btn btn-primary" href="{{ auth()->check() ? '/campers' : '/register' }}">
       Enroll
     </a>
