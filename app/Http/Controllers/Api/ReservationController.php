@@ -42,13 +42,10 @@ class ReservationController extends Controller
                     ->where('date', $item->date)
                     ->get();
             }
-            $z = $z->map(function ($item) {
-                return [
-                    'reservation' => $item->pluck('date'),
-                    'camper' => Camper::find($item->camper_id),
-                ];
-            });
-            return $z;
+            return [
+                'date' => $z->pluck('date'),
+                'camper' => Camper::find($z->pluck('camper_id'))
+            ];
         });
 
         return $x;
