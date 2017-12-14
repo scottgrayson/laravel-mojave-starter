@@ -22,7 +22,7 @@
       <h4>
         Reserve By Day
       </h4>
-      <div class="row align-items-center" v-if="user">
+      <div class="row align-items-center">
         <div class="col-md text-muted">
           <p>
             {{ availableDays.length }}/{{ openDays.length }} Days Available for {{ selectedTent.name }}
@@ -32,13 +32,13 @@
           </p>
         </div>
         <div class="col-md text-right">
-          <button @click="selectAll" class="btn btn-sm btn-secondary">
+          <button @click="selectAll" class="btn btn-sm btn-secondary" :disabled="user === false">
             All
           </button>
-          <button @click="selectNone" class="btn btn-sm btn-secondary">
+          <button @click="selectNone" class="btn btn-sm btn-secondary" :disabled="user === false">
             None
           </button>
-          <button @click="addToCart" class="btn btn-sm btn-primary">
+          <button @click="addToCart" class="btn btn-sm btn-primary" :disabled="user === false">
             Update Cart
           </button>
         </div>
@@ -72,10 +72,6 @@ export default {
   components: { tentCamperSelect },
 
   props: {
-    user: {
-      type: Object,
-      required: true
-    },
     tents: {
       type: Array,
       required: true
@@ -109,6 +105,7 @@ export default {
   },
 
   created () {
+    console.log(window.User)
     if (location.search) {
       this.query.parse(location.search)
 
@@ -337,6 +334,12 @@ export default {
 
   computed: {
 
+    user () {
+      if (window.User) {
+        return true
+      }
+      return false
+    },
     events () {
       return this.openDays.map(date => {
 
