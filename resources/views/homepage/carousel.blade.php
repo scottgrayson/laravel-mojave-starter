@@ -4,7 +4,7 @@
     <li data-target="#carousel" data-slide-to="1"></li>
     <li data-target="#carousel" data-slide-to="2"></li>
   </ol>
-  <div style="height:100vh" class="carousel-inner">
+  <div class="carousel-inner" style="height:80vh;">
     <div class="carousel-item active" style="background-image:url('/img/circle.jpg')" alt="First slide">
     </div>
     <div class="carousel-item" style="background-image:url('/img/woodshop.jpg')" alt="Second slide">
@@ -21,6 +21,5 @@
       Enroll
     </a>
   </div>
-
 </div>
 

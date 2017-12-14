@@ -334,7 +334,15 @@ class MenuItemSeeder extends Seeder
                 'children' => [
                     $this->pageItem('about'),
                     $this->pageItem('contact'),
+                    [
+                        'name' => 'email',
+                        'link' => 'mailto:missbettysdaycamp@yahoo.com',
+                    ],
                     [ 'name' => 'newsletter' ],
+                    [ 
+                        'name' => 'facebook',
+                        'link' => 'https://www.facebook.com/missbettysdaycamp/',
+                    ],
                 ],
             ],
         ];

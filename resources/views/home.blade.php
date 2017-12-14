@@ -12,18 +12,14 @@
 
 @section('body')
   @include('nav.default')
-  <div class="container-fluid">
+  <div class="container-fluid svg-background">
 
-    <div class="pb-4">
+    <div>
       @include('homepage.carousel')
     </div>
 
-    <div class="pb-4">
+    <div class="mb-5 pb-5">
       @include('homepage.about', ['content' => $page ? $page->html : 'description'])
-    </div>
-
-    <div class="pb-4">
-      @include('homepage.contact')
     </div>
 
   </div>
