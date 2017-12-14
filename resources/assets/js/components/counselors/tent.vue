@@ -27,7 +27,9 @@
       </div>
       <table class="table">
         <tr>
-          <th>Name</th>
+          <th>
+            Date
+          </th>
         </tr>
       </table>
     </div>
@@ -58,7 +60,15 @@
     },
     methods: {
       parseCampers (week) {
-        console.log(week)
+        let selection = []
+        const keys = Object.keys(this.campers)
+        const weeks = Object.values(this.weeks[week])
+        for (const x of weeks) {
+          if (keys.includes(x)) {
+            selection.push(this.campers[x])
+          }
+        }
+        this.camperSelection = selection
       },
       setWeek (val) {
         this.selectedWeek = val
@@ -78,8 +88,9 @@
         return 'Week Of: '+moment(this.weeks[val][0]).format('MMMM D, YYYY')
       },
       fetchNext () {
-        this.selectedWeek += 1
-        this.parseCampers(this.selectedWeek)
+        const week = this.selectedWeek += 1
+        this.selectedWeek = week
+        this.parseCampers(week)
         if (this.selectedWeek === (Object.keys(this.weeks).length - 1)) {
           this.lastWeek = true
         } else {
@@ -132,6 +143,9 @@
         axios.get('/api/reservations/'+this.tent.id)
           .then((response) => {
             this.campers = response.data
+            this.$nextTick(() => {
+              this.parseCampers(0)
+            })
           })
       }
     },
