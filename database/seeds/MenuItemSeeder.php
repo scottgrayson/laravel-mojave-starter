@@ -336,7 +336,7 @@ class MenuItemSeeder extends Seeder
                     $this->pageItem('contact'),
                     [
                         'name' => 'email',
-                        'link' => 'mailto:missbettysdaycamp@yahoo.com',
+                        'link' => 'mailto:'.config('mail.from.address'),
                     ],
                     [ 'name' => 'newsletter' ],
                     [ 
