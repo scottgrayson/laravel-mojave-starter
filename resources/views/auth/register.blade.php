@@ -2,18 +2,18 @@
 
 @section('content')
   @component('components.focused')
-    @php
-      echo Form::open(['route' => 'register']);
+    <h1 class="h4">Register</h1>
 
-      echo Form::bs('email');
-      echo Form::bs('name');
-      echo Form::bs('password');
-      echo Form::bs('password_confirmation');
+      {{ Form::open(['route' => 'register']) }}
 
-      echo Form::submit('Login', ['class' => 'btn btn-primary mr-2']);
-      echo link_to_route('login', 'Have an account?');
+      {{ Form::bs('email') }}
+      {{ Form::bs('name') }}
+      {{ Form::bs('password') }}
+      {{ Form::bs('password_confirmation') }}
 
-      echo Form::close();
-    @endphp
+      {{ Form::submit('Register', ['class' => 'btn btn-primary mr-2']) }}
+      {{ link_to_route('login', 'Have an account? Login here.') }}
+
+      {{ Form::close() }}
   @endcomponent
 @endsection
