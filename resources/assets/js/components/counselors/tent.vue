@@ -60,9 +60,6 @@
     },
     data () {
       return {
-        query: new Query({
-          sortBy: 'week'
-        }),
         weeks: [],
         weekSelection: [],
         camperSelection: {},
@@ -78,24 +75,6 @@
     methods: {
       parseCampers (week) {
         console.log(week)
-        function parseDate (val) {
-          return moment(val.date).format('YYYY-MM-DD')
-        }
-        let selection = Object()
-        for (const camper of this.campers) {
-          selection[camper.name] = {
-            dates: {
-              [week]: []
-            }
-          }
-          let dates = camper.dates.map(parseDate)
-          for (const x of this.weeks[week]) {
-            if (dates.includes(x)) {
-              selection[camper.name].dates[week].push(x)
-            }
-          }
-        }
-        this.camperSelection = selection
       },
       setWeek (val) {
         this.selectedWeek = val
@@ -166,12 +145,9 @@
           })
       },
       fetchReservations () {
-        axios.get('/api/reservations/'+this.tent.id+'?q='+this.query)
+        axios.get('/api/reservations/'+this.tent.id)
           .then((response) => {
             this.campers = response.data
-            this.$nextTick(() => {
-              this.parseCampers(0)
-            })
           })
       }
     },
