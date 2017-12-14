@@ -2,14 +2,14 @@
   <div class="card">
     <!--h1 class="text-center pt-3">{{tent.name}}</h1-->
     <div class="card-body">
-      <div class="d-flex flex-row justify-content-between align-items-center mb-3">
-        <a class="btn btn-outline-secondary"
+      <div class="d-flex flex-column flex-lg-row justify-content-between align-items-center mb-3">
+        <a class="btn btn-outline-secondary m-1"
           @click="fetchPrevious"
           :class="[firstWeek ? 'disabled' : '']">
           Previous
         </a>
         <div class="dropdown">
-          <button class="btn btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown">
+          <button class="btn btn-outline-primary dropdown-toggle m-1" type="button" data-toggle="dropdown">
             {{selectedReadableWeek}}
           </button>
           <div class="dropdown-menu">
@@ -19,7 +19,7 @@
             </a>
           </div>
         </div>
-        <a class="btn btn-outline-secondary"
+        <a class="btn btn-outline-secondary m-1"
           :class="[lastWeek ? 'disabled' : '']"
           @click="fetchNext">
           Next
