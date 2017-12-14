@@ -18,11 +18,11 @@
       Select a tent{{ campers.length ? ' or camper' : '' }} to view openings
     </div>
 
-    <div class="alert px-0" v-if="query.tent && availableDays.length && user.length">
+    <div class="alert px-0" v-if="query.tent && availableDays.length">
       <h4>
         Reserve By Day
       </h4>
-      <div class="row align-items-center">
+      <div class="row align-items-center" v-if="user">
         <div class="col-md text-muted">
           <p>
             {{ availableDays.length }}/{{ openDays.length }} Days Available for {{ selectedTent.name }}
@@ -73,7 +73,7 @@ export default {
 
   props: {
     user: {
-      type: Boolean,
+      type: Object,
       required: true
     },
     tents: {
