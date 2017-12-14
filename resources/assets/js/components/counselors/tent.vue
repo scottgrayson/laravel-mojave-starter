@@ -5,7 +5,7 @@
       <div class="d-flex flex-column flex-lg-row justify-content-between align-items-center mb-3">
         <a class="btn btn-outline-secondary m-1"
           @click="fetchPrevious"
-          :class="[firstWeek ? 'disabled' : '']">
+          :class="[firstWeek === true ? 'disabled' : '']">
           Previous
         </a>
         <div class="dropdown">
@@ -20,28 +20,14 @@
           </div>
         </div>
         <a class="btn btn-outline-secondary m-1"
-          :class="[lastWeek ? 'disabled' : '']"
+          :class="[lastWeek === true ? 'disabled' : '']"
           @click="fetchNext">
           Next
         </a>
       </div>
-      <table class="table table-responsive">
+      <table class="table">
         <tr>
           <th>Name</th>
-          <th>
-            Reservations
-          </th>
-        </tr>
-        <tr v-for="(camper, key) in campers"
-          scope="row">
-          <td>
-            <a :href="'/campers/'+camper.id">
-              {{camper.name}}
-            </a>
-          </td>
-          <td>
-            {{camper.dates[0].date}}
-          </td>
         </tr>
       </table>
     </div>
@@ -49,8 +35,6 @@
 </template>
 
 <script>
-  import Query from '../../utils/query'
-
   export default {
     props: {
       tent: {
