@@ -229,7 +229,10 @@ class MenuItemSeeder extends Seeder
             [
                 'name' => 'nav right guest',
                 'children' => [
-                    [ 'name' => 'register' ],
+                    [
+                        'name' => 'registration',
+                        'link' => '/register',
+                    ],
                     [
                         'name' => 'login button',
                         'link' => '/login',
@@ -279,10 +282,6 @@ class MenuItemSeeder extends Seeder
                             $this->pageItem('museum'),
                             $this->pageItem('theatre'),
                         ],
-                    ],
-                    [
-                        'name' => 'Registration',
-                        'link' => '/campers',
                     ],
                     [ 'name' => 'calendar' ],
                     $this->pageItem('contact'),
