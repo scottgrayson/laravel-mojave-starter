@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.base')
 
 @php
   $page = \App\Page::where('published', 1)->where('uri', '/')->first();
@@ -10,24 +10,26 @@
   @endif
 @endsection
 
-@section('content')
+@section('body')
+  @include('nav.default')
+  <div class="container-fluid svg-background">
 
-  @if ($page)
-    <div class="page-content">
-      {!! $page->html !!}
+    <div>
+      @include('homepage.carousel')
     </div>
-  @else
-    @component('components.focused')
-      <h2 class="text-center">
-        Welcome {{ auth()->check() ? auth()->user()->name : 'to ' . config('app.name') }}
 
-        @if (!auth()->check())
-          <a class="btn btn-primary" href="/register">
-            Sign Up
-          </a>
-        @endif
-      </h2>
-    @endcomponent
-  @endif
+    <div class="mb-5 pb-5">
+      @include('homepage.about', ['content' => $page ? $page->html : 'description'])
+    </div>
 
+  </div>
+  @include('footer.default')
+@endsection
+
+@section('style')
+  <style>
+    body {
+      background-color: white;
+    }
+  </style>
 @endsection

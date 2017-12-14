@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-  <div class="d-flex justify-content-between">
+  <div class="d-flex align-items-center justify-content-between">
     <h1 class="h3">
       My Campers
     </h1>

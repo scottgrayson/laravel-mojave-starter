@@ -11,7 +11,7 @@ class ProductSeeder extends Seeder
      */
     public function run()
     {
-        \DB::statement('truncate products cascade');
+        \DB::table('products')->truncate();
 
         \DB::table('products')->insert([
             'name' => 'full rate',

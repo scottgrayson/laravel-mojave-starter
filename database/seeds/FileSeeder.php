@@ -11,8 +11,6 @@ class FileSeeder extends Seeder
      */
     public function run()
     {
-        \DB::statement('truncate files cascade');
-
         // if developer doesnt have s3 setup,
         // use public driver so the files work on the site
         if (config('filesystems.default') === 'local') {

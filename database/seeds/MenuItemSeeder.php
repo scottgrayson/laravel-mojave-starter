@@ -13,10 +13,10 @@ class MenuItemSeeder extends Seeder
      */
     public function run()
     {
-        \DB::statement('truncate menu_items cascade');
-
-        foreach ($this->menus() as $menu) {
-            $this->createMenuItem($menu);
+        if (!MenuItem::count()) {
+            foreach ($this->menus() as $menu) {
+                $this->createMenuItem($menu);
+            }
         }
 
         \Artisan::call('cache:clear');
@@ -273,15 +273,11 @@ class MenuItemSeeder extends Seeder
                     [
                         'name' => 'activities',
                         'children' => [
-                            $this->pageItem('your tent'),
                             $this->pageItem('wood shop'),
                             $this->pageItem('art barn'),
                             $this->pageItem('clay barn'),
                             $this->pageItem('museum'),
                             $this->pageItem('theatre'),
-                            $this->pageItem('creek'),
-                            $this->pageItem('games and contests'),
-                            $this->pageItem('special events'),
                         ],
                     ],
                     [
@@ -338,7 +334,15 @@ class MenuItemSeeder extends Seeder
                 'children' => [
                     $this->pageItem('about'),
                     $this->pageItem('contact'),
+                    [
+                        'name' => 'email',
+                        'link' => 'mailto:'.config('mail.from.address'),
+                    ],
                     [ 'name' => 'newsletter' ],
+                    [ 
+                        'name' => 'facebook',
+                        'link' => 'https://www.facebook.com/missbettysdaycamp/',
+                    ],
                 ],
             ],
         ];
