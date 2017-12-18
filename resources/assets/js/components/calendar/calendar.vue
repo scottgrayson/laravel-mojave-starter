@@ -3,6 +3,7 @@
     <h1 class="h2">
       Camp Calendar
     </h1>
+    <hr>
 
     <tent-camper-select
       :tent="query.tent"
@@ -19,10 +20,10 @@
     </div>
 
     <div class="alert px-0" v-if="query.tent && availableDays.length">
-      <h4>
+      <h4 v-if="user">
         Reserve By Day
       </h4>
-      <div class="row align-items-center">
+      <div class="row align-items-center" v-if="user">
         <div class="col-md text-muted">
           <p>
             {{ availableDays.length }}/{{ openDays.length }} Days Available for {{ selectedTent.name }}
@@ -105,7 +106,6 @@ export default {
   },
 
   created () {
-    console.log(window.User)
     if (location.search) {
       this.query.parse(location.search)
 
@@ -227,6 +227,20 @@ export default {
     },
 
     handleEventClick(event) {
+      if (!window.User) {
+        swal({
+          title: 'Cannot Reserve',
+          text: 'You must login/register before you can reserve.',
+          icon: 'error',
+          buttons: ['Cancel', 'Login/Register'],
+        })
+          .then(wantsRedirect => {
+            if (wantsRedirect) {
+              window.location.href = '/login'
+            }
+          })
+        return false
+      }
       if (!event.openings) {
         // no click events for non reservable
         return
@@ -333,7 +347,6 @@ export default {
   },
 
   computed: {
-
     user () {
       if (window.User) {
         return true

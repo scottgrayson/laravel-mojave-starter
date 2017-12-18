@@ -12,9 +12,11 @@
 
     <br>
 
-    <div class="row align-items-center">
+    <div class="flex-column">
+      <p class="lead">
       <label class="col-sm" for="tent-select">Openings for:</label>
-      <div class="col-sm">
+    </p>
+      <div class="col-lg-6 col-sm">
         <select @change="handleTentUpdate" :value="tent" class="form-control" id="tent-select">
           <option :value="0">No Tent Selected</option>
           <option v-for="t in tents" :value="t.id">{{ t.name }}</option>
