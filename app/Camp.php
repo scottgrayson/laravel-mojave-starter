@@ -134,4 +134,13 @@ class Camp extends Model
 
         return $randomDay;
     }
+
+    public function weeks()
+    {
+        $range = $this->openDays()->groupBy(function ($item, $key) {
+            return $item->weekOfYear;
+        })->values();
+
+        return $range;
+    }
 }

@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
   <div class="row bg-white pb-5 mx-auto" style="width: 80vw;">
     <div class="col m-5">
       <p class="lead text-center">Activities</p>
@@ -42,6 +42,8 @@
       </div>
     </div>
   </div>
+</div>
+<div class="container">
   <div class="row">
     <div class="col-md-12 col-lg-6 pb-4">
       <div class="card">

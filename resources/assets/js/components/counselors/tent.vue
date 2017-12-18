@@ -1,0 +1,194 @@
+<template>
+  <div class="card">
+    <!--h1 class="text-center pt-3">{{tent.name}}</h1-->
+    <div class="card-body">
+      <div class="d-flex flex-column flex-lg-row justify-content-between align-items-center mb-3">
+        <a class="btn btn-outline-secondary m-1"
+          @click="fetchPrevious"
+          :class="[firstWeek === true ? 'disabled' : '']">
+          Previous
+        </a>
+        <div class="dropdown">
+          <button class="btn btn-outline-primary dropdown-toggle m-1" type="button" data-toggle="dropdown">
+            {{selectedReadableWeek}}
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" v-for="(value, key) in weekSelection"
+              @click="setWeek(key), selectedReadableWeek = weekOf(key)">
+              {{value}}
+            </a>
+          </div>
+        </div>
+        <a class="btn btn-outline-secondary m-1"
+          :class="[lastWeek === true ? 'disabled' : '']"
+          @click="fetchNext">
+          Next
+        </a>
+      </div>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">
+              Day
+            </th>
+            <th scope="col">
+              Reservations
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(x, key) in this.camperSelection">
+            <td scope="row" style="width: 225px;">
+              <a data-toggle="collapse" @click="collapse(x, key)" :href="key">
+                {{x.date.date | dateFormat('dddd')}}
+              </a>
+              <small>
+                {{x.date.date | dateFormat('YYYY-MM-DD')}}
+              </small>
+            </td>
+            <td scope="row" class="btn btn-link" style="width: 100%;"
+              @click="collapse(x, key)">
+              <p class="text-center">
+                {{x.campers.length}} Campers
+              </span>
+              <div :id="key" class="collapse" role="tabpanel" aria-labelledby="headingOne"
+                :class="[ key === 0 ? 'show' : '']"
+                data-parent="#accordion">
+                <ul class="list-group">
+                  <li class="list-group-item" v-for="camper in x.campers">
+                    <a :href="/campers/+camper.id">
+                      {{camper.first_name}} {{camper.last_name}}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</template>
+
+<script>
+export default {
+  props: {
+    tent: {
+      required: true,
+      type: Object
+    }
+  },
+  data () {
+    return {
+      weeks: [],
+      weekSelection: [],
+      camperSelection: {},
+      campers: {},
+      campStart: '',
+      campEnd: '',
+      firstWeek: true,
+      lastWeek: false,
+      selectedWeek: 0,
+      selectedReadableWeek: ''
+    }
+  },
+  methods: {
+    collapse (x, key) {
+      $('#' + key).toggle()
+    },
+    parseCampers (week) {
+      let selection = []
+      const keys = Object.keys(this.campers)
+      const weeks = Object.values(this.weeks[week])
+      for (const x of weeks) {
+        if (keys.includes(x)) {
+          selection.push(this.campers[x])
+        }
+      }
+      this.camperSelection = selection
+    },
+    setWeek (val) {
+      this.selectedWeek = val
+      this.parseCampers(val)
+      if (val === 0) {
+        this.firstWeek = true
+        this.lastWeek = false
+      } else if (val === (this.weeks.length - 1)) {
+        this.firstWeek = false
+        this.lastWeek = true
+      } else {
+        this.firstWeek = false
+        this.lastWeek = false
+      }
+    },
+    weekOf (val) {
+      return 'Week Of: '+moment(this.weeks[val][0]).format('MMMM D, YYYY')
+    },
+    fetchNext () {
+      const week = this.selectedWeek += 1
+      this.selectedWeek = week
+      this.parseCampers(week)
+      if (this.selectedWeek === (Object.keys(this.weeks).length - 1)) {
+        this.lastWeek = true
+      } else {
+        this.firstWeek = false
+        this.lastWeek = false
+      }
+      this.selectedReadableWeek = this.weekOf(this.selectedWeek)
+    },
+    fetchPrevious () {
+      this.selectedWeek -= 1
+      this.parseCampers(this.selectedWeek)
+      if (this.selectedWeek === 0) {
+        this.firstWeek = true
+      } else {
+        this.firstWeek = false
+        this.lastWeek = false
+      }
+      this.selectedReadableWeek = this.weekOf(this.selectedWeek)
+    },
+    weekSelect (val) {
+      var select = []
+      for (const x in val) {
+        select.push(moment(val[x][0].date).format('YYYY-MM-DD') + 
+          " - " + moment(val[x][val[x].length - 1].date).format('YYYY-MM-DD'))
+      }
+      return select
+    },
+    parseWeeks (val) {
+      var select = {} 
+      val.forEach(function (value, i) {
+        select[i] = []
+        value.forEach(function (x, y) {
+          select[i].push(moment(x.date).format('YYYY-MM-DD'))
+        })
+      })
+      return select
+    },
+    fetchCampDates () {
+      axios.get('/api/camp-dates/')
+        .then((response) => {
+          this.weeks = this.parseWeeks(response.data.weeks) 
+          this.weekSelection = this.weekSelect(response.data.weeks)
+          this.campStart = response.data.camp_start.date
+          this.campEnd = response.data.camp_end.date
+          this.selectedReadableWeek = this.weekOf(this.selectedWeek)
+          this.fetchReservations()
+        })
+    },
+    fetchReservations () {
+      axios.get('/api/reservations/'+this.tent.id)
+        .then((response) => {
+          this.campers = response.data
+          this.$nextTick(() => {
+            this.parseCampers(0)
+          })
+        })
+    }
+  },
+  created () {
+    this.fetchCampDates()
+  }
+}
+</script>

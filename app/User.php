@@ -9,6 +9,8 @@ use App\Notifications\InviteUser;
 use App\Traits\Customer;
 use Spatie\Permission\Traits\HasRoles;
 
+use App\Counselor;
+
 class User extends Authenticatable
 {
     use HasRoles, Notifiable, Customer;
@@ -80,5 +82,17 @@ class User extends Authenticatable
     public function isAdmin()
     {
         return $this->hasRole('admin');
+    }
+
+    public function counselor()
+    {
+        return $this->hasOne(\App\Counselor::class);
+    }
+
+    public function isCounselor()
+    {
+        $counselor = Counselor::where('user_id', $this->id)
+            ->count();
+        return $counselor > 0 ? true : false;
     }
 }

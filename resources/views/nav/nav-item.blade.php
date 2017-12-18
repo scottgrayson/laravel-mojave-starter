@@ -12,6 +12,11 @@
       </a>
     @endif
     <div class="dropdown-menu {{ $l->name === 'user dropdown' ? 'dropdown-menu-md-right' : '' }}">
+
+      @if (auth()->user() && auth()->user()->isCounselor())
+        <a class="dropdown-item" href="/my-tent">My Tent</a>
+      @endif
+
       @foreach ($l->children as $c)
         @if ($c->href === '/logout')
 

@@ -13,6 +13,12 @@ use Illuminate\Http\Request;
 |
  */
 
+Route::get('/reservations/{tent}', 'ReservationController@tentReservations');
+
+Route::get('/tents/{tent}/campers', 'TentController@campers');
+
+Route::resource('cart-items', 'CartItemController');
+Route::resource('camp-dates', 'CampDateController');
 Route::resource('reservations', 'ReservationController', ['only' => ['index']]);
 Route::resource('availabilities', 'AvailabilityController', ['only' => ['index']]);
 Route::resource('events', 'EventController', ['only' => ['index']]);

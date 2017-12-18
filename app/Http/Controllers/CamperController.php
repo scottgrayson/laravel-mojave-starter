@@ -206,4 +206,11 @@ class CamperController extends Controller
 
         return redirect(route("campers.index"));
     }
+    public function show($id)
+    {
+        $camper = Camper::findOrFail($id);
+
+        return view('campers.show')
+            ->with('camper', $camper);
+    }
 }
