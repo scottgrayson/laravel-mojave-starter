@@ -49,7 +49,7 @@
             <td scope="row" class="btn btn-link" style="width: 100%;"
               @click="collapse(x, key)">
               <p class="text-center">
-                {{x.campers.length}}
+                {{x.campers.length}} Campers
               </span>
               <div :id="key" class="collapse" role="tabpanel" aria-labelledby="headingOne"
                 :class="[ key === 0 ? 'show' : '']"
