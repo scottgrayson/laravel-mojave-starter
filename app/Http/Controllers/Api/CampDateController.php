@@ -10,9 +10,10 @@ class CampDateController extends Controller
 {
     public function index()
     {
-        $start = Camp::current()->camp_start;
-        $end = Camp::current()->camp_end;
-        $weeks = Camp::current()->weeks();
+        $current = Camp::current();
+        $start = $current->camp_start;
+        $end = $current->camp_end;
+        $weeks = $current->weeks();
 
         return [
             'camp_start' => $start,
