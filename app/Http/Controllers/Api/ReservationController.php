@@ -30,7 +30,7 @@ class ReservationController extends Controller
 
     public function tentReservations(Request $request, $tent)
     {
-        $result = DB::table('reservations')->where('tent_id', $tent)
+        $result = Reservation::where('tent_id', $tent)
             ->select(DB::raw('DATE(date) as date'), DB::raw('count(*) as reservations'))
             ->groupBy('date')
             ->orderBy('date', 'asc')

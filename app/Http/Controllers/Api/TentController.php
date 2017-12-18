@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class TentController extends Controller
 {
-    public function show(Request $request, $id)
+    public function campers(Request $request, $id)
     {
         $result = Tent::find($id)->campers;
 
