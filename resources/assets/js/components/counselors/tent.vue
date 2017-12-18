@@ -25,36 +25,42 @@
           Next
         </a>
       </div>
-      <table class="table">
+      <table class="table table-bordered">
         <thead>
           <tr>
-            <th>
-              Date
+            <th scope="col">
+              Day
             </th>
-            <th>
+            <th scope="col">
               Reservations
             </th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="(x, key) in this.camperSelection">
-            <td>
+            <td scope="row" style="width: 225px;">
               <a data-toggle="collapse" @click="collapse(x, key)" :href="key">
-                {{x.date.date | dateFormat('YYYY-MM-DD')}}
+                {{x.date.date | dateFormat('dddd')}}
               </a>
+              <small>
+                {{x.date.date | dateFormat('YYYY-MM-DD')}}
+              </small>
             </td>
-            <td>
-              <span id="count">
+            <td scope="row" class="btn btn-link" style="width: 100%;"
+              @click="collapse(x, key)">
+              <p class="text-center">
                 {{x.campers.length}}
               </span>
-              <div :id="key" class="collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
-                <div class="card-body">
-                  <ul class="list-group">
-                    <li class="list-group-item" v-for="camper in x.campers">
+              <div :id="key" class="collapse" role="tabpanel" aria-labelledby="headingOne"
+                :class="[ key === 0 ? 'show' : '']"
+                data-parent="#accordion">
+                <ul class="list-group">
+                  <li class="list-group-item" v-for="camper in x.campers">
+                    <a :href="/campers/+camper.id">
                       {{camper.first_name}} {{camper.last_name}}
-                    </li>
-                  </ul>
-                </div>
+                    </a>
+                  </li>
+                </ul>
               </div>
             </td>
           </tr>
@@ -89,7 +95,6 @@ export default {
   },
   methods: {
     collapse (x, key) {
-      $('#count').toggle()
       $('#' + key).toggle()
     },
     parseCampers (week) {
