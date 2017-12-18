@@ -193,11 +193,7 @@ class CrudController extends Controller
             app($this->formRequest);
         }
 
-        $data = $this->handleFileUploads();
-
-        $fields = $this->getFieldsFromRules(new $this->formRequest);
-
-        $data = array_intersect_key($data, $fields->toArray());
+        $data = $this->getValidated();
 
         $item = $this->model::create($data);
 
@@ -272,11 +268,7 @@ class CrudController extends Controller
             app($this->formRequest);
         }
 
-        $data = $this->handleFileUploads();
-
-        $fields = $this->getFieldsFromRules(new $this->formRequest);
-
-        $data = array_intersect_key($data, $fields->toArray());
+        $data = $this->getValidated();
 
         $item->update($data);
 
@@ -285,6 +277,7 @@ class CrudController extends Controller
         if (request()->is('admin*')) {
             return redirect(route("admin.$this->slug.edit", $item->id));
         }
+
         return redirect(route("$this->slug.edit", $item->id));
     }
 

@@ -54,7 +54,7 @@ class Controller extends BaseController
 
     protected function getFieldsFromRules($request)
     {
-        return collect(($request)->rules())
+        $rules = collect(($request)->rules())
             ->mapWithKeys(
                 function ($rules, $name) {
                     if (gettype($rules) === 'string') {
@@ -64,5 +64,25 @@ class Controller extends BaseController
                 }
             );
 
+        return $rules;
+    }
+
+    public function getValidated()
+    {
+        $data = $this->handleFileUploads();
+
+        $fields = $this->getFieldsFromRules(new $this->formRequest);
+
+        if (isset($data['image_id'])) {
+            $fields = $fields->merge(['image_id' => []]);
+        }
+
+        if (isset($data['file_id'])) {
+            $fields = $fields->merge(['file_id' => []]);
+        }
+
+        $data = array_intersect_key($data, $fields->toArray());
+
+        return $data;
     }
 }
