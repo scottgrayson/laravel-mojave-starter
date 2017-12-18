@@ -229,7 +229,10 @@ class MenuItemSeeder extends Seeder
             [
                 'name' => 'nav right guest',
                 'children' => [
-                    [ 'name' => 'register' ],
+                    [
+                        'name' => 'registration',
+                        'link' => '/register',
+                    ],
                     [
                         'name' => 'login button',
                         'link' => '/login',
@@ -263,7 +266,6 @@ class MenuItemSeeder extends Seeder
                         'children' => [
                             $this->pageItem('about'),
                             $this->pageItem('history'),
-                            $this->pageItem('special events'),
                             $this->pageItem('tuition information'),
                             $this->pageItem('work parties'),
                             $this->pageItem('rules and regulations'),
@@ -273,16 +275,16 @@ class MenuItemSeeder extends Seeder
                     [
                         'name' => 'activities',
                         'children' => [
+                            $this->pageItem('your tent'),
                             $this->pageItem('wood shop'),
                             $this->pageItem('art barn'),
                             $this->pageItem('clay barn'),
                             $this->pageItem('museum'),
                             $this->pageItem('theatre'),
+                            $this->pageItem('creek'),
+                            $this->pageItem('games and contests'),
+                            $this->pageItem('special events'),
                         ],
-                    ],
-                    [
-                        'name' => 'Registration',
-                        'link' => '/campers',
                     ],
                     [ 'name' => 'calendar' ],
                     $this->pageItem('contact'),

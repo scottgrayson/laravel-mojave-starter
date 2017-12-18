@@ -1,8 +1,8 @@
 <div class="container">
-  <div class="row my-5">
-    <div class="col">
+  <div class="row bg-white pb-5 mx-auto" style="width: 80vw;">
+    <div class="col m-5">
       <p class="lead text-center">Activities</p>
-      <div class="row flex-wrap justify-content-around">
+      <div class="row p-0 flex-wrap justify-content-center">
         <a href="/your-tent" class="card activity-card">
           <p class="lead">Your Tent</p>
           @svg('tent', 'svg-camp-icon')
