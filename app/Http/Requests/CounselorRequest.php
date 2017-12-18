@@ -10,7 +10,6 @@ class CounselorRequest extends FormRequest
             'user_id' => 'required|numeric',
             'tent_id' => 'required|numeric',
             'head_counselor' => 'boolean',
-            'year' => 'numeric',
         ];
     }
 }

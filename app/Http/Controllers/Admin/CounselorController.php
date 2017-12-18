@@ -12,7 +12,6 @@ class CounselorController extends CrudController
     protected $columns = [
         'id',
         'head_counselor',
-        'year',
         'user_id',
         'tent_id',
     ];
