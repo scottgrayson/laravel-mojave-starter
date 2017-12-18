@@ -18,9 +18,6 @@ class CreateCounselorsTable extends Migration
 
             $table->boolean('head_counselor')
                 ->default(false);
-            $table->integer('year')
-                ->nullable();
-
             $table->integer('user_id')
                 ->unsigned();
             $table->foreign('user_id')
