@@ -59,6 +59,10 @@ class PageSeeder extends Seeder
             [ 'name' => 'special areas' ],
             [ 'name' => 'history' ],
             [ 'name' => 'activities' ],
+
+            // For PayPal
+            [ 'name' => 'privacy' ],
+            [ 'name' => 'terms' ],
         ];
     }
 }
