@@ -1,9 +1,6 @@
 <template>
   <div>
-    <h1 class="h2">
-      Camp Calendar
-    </h1>
-
+    <p class="lead text-center">Calendar</p>
     <tent-camper-select
       :tent="query.tent"
       :camper="query.camper"
@@ -18,8 +15,8 @@
       Select a tent{{ campers.length ? ' or camper' : '' }} to view openings
     </div>
 
-    <div class="alert px-0" v-if="query.tent && availableDays.length">
-      <h4>
+    <div class="alert px-0" v-if="query.tent && availableDays.length && user">
+      <h4 v-if="user">
         Reserve By Day
       </h4>
       <div class="row align-items-center">
@@ -32,13 +29,13 @@
           </p>
         </div>
         <div class="col-md text-right">
-          <button @click="selectAll" class="btn btn-sm btn-secondary">
+          <button @click="selectAll" class="btn btn-sm btn-secondary" :disabled="user === false">
             All
           </button>
-          <button @click="selectNone" class="btn btn-sm btn-secondary">
+          <button @click="selectNone" class="btn btn-sm btn-secondary" :disabled="user === false">
             None
           </button>
-          <button @click="addToCart" class="btn btn-sm btn-primary">
+          <button @click="addToCart" class="btn btn-sm btn-primary" :disabled="user === false">
             Update Cart
           </button>
         </div>
@@ -135,8 +132,9 @@ export default {
       weekends: false,
       height: 'auto',
       header: {
-        left: 'title',
-        right: '',
+        left: 'prev next',
+        center: 'title',
+        right: 'month agendaWeek agendaDay',
       },
       fixedWeekCount: false,
       showNonCurrentDates: false,
@@ -156,6 +154,11 @@ export default {
       .format('YYYY-MM-DD')
 
     const calendar2Config = Object.assign({}, calendar1Config, {
+      header: {
+        left: '',
+        center: 'title',
+        right: '',
+      },
       defaultDate: nextMonth
     })
 
@@ -226,6 +229,20 @@ export default {
     },
 
     handleEventClick(event) {
+      if (!window.User) {
+        swal({
+          title: 'Cannot Reserve',
+          text: 'You must login/register before you can reserve.',
+          icon: 'error',
+          buttons: ['Cancel', 'Login/Register'],
+        })
+          .then(wantsRedirect => {
+            if (wantsRedirect) {
+              window.location.href = '/login'
+            }
+          })
+        return false
+      }
       if (!event.openings) {
         // no click events for non reservable
         return
@@ -332,7 +349,12 @@ export default {
   },
 
   computed: {
-
+    user () {
+      if (window.User) {
+        return true
+      }
+      return false
+    },
     events () {
       return this.openDays.map(date => {
 
