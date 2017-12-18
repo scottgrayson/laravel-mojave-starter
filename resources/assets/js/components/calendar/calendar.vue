@@ -1,10 +1,6 @@
 <template>
   <div>
-    <h1 class="h2">
-      Camp Calendar
-    </h1>
-    <hr>
-
+    <p class="lead text-center">Calendar</p>
     <tent-camper-select
       :tent="query.tent"
       :camper="query.camper"
@@ -19,11 +15,11 @@
       Select a tent{{ campers.length ? ' or camper' : '' }} to view openings
     </div>
 
-    <div class="alert px-0" v-if="query.tent && availableDays.length">
+    <div class="alert px-0" v-if="query.tent && availableDays.length && user">
       <h4 v-if="user">
         Reserve By Day
       </h4>
-      <div class="row align-items-center" v-if="user">
+      <div class="row align-items-center">
         <div class="col-md text-muted">
           <p>
             {{ availableDays.length }}/{{ openDays.length }} Days Available for {{ selectedTent.name }}
@@ -136,8 +132,9 @@ export default {
       weekends: false,
       height: 'auto',
       header: {
-        left: 'title',
-        right: '',
+        left: 'prev next',
+        center: 'title',
+        right: 'month agendaWeek agendaDay',
       },
       fixedWeekCount: false,
       showNonCurrentDates: false,
@@ -157,6 +154,11 @@ export default {
       .format('YYYY-MM-DD')
 
     const calendar2Config = Object.assign({}, calendar1Config, {
+      header: {
+        left: '',
+        center: 'title',
+        right: '',
+      },
       defaultDate: nextMonth
     })
 
