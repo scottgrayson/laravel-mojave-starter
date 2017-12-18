@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
   <div class="row bg-white pb-5 mx-auto" style="width: 80vw;">
     <div class="col m-5">
       <p class="lead text-center">Activities</p>
