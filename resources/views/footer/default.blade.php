@@ -2,7 +2,7 @@
   <div class="container h-100">
     <div class="row h-100">
       <div class="col h-100 d-none d-md-flex align-items-center">
-        @svg('swiss-army-knife', 'svg-nav-icon')
+        <img height="100px" src="{{ asset('img/logo.png') }}"/>
         <h4 class="d-inline text-white pl-3">
           {{ config('app.name') }}
         </h4>
