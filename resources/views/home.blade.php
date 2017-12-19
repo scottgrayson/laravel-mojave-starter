@@ -13,7 +13,7 @@
 @section('body')
   @include('nav.default')
 
-    <section id="carousel">
+    <section id="home-carousel">
       @include('homepage.carousel')
     </section>
 
