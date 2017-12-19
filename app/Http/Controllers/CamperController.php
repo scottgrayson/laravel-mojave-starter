@@ -100,7 +100,8 @@ class CamperController extends Controller
 
         // PREFILL
         $doNotPrefill = [
-            'name',
+            'first_name',
+            'last_name',
             'tent_id',
             'birthdate',
             'allergies',
@@ -204,5 +205,12 @@ class CamperController extends Controller
         flash('Camper deleted.')->success();
 
         return redirect(route("campers.index"));
+    }
+    public function show($id)
+    {
+        $camper = Camper::findOrFail($id);
+
+        return view('campers.show')
+            ->with('camper', $camper);
     }
 }

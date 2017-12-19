@@ -50,7 +50,7 @@
         <tbody>
           @foreach($reservations as $r)
             <tr>
-              <td>{{ $r->camper->name }}</td>
+              <td>{{ $r->camper->first_name . ' ' . $r->camper->last_name }}</td>
               <td>{{ $r->tent->name }}</td>
               <td>{{ $r->date }}</td>
             </tr>

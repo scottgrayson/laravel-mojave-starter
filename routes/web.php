@@ -27,6 +27,7 @@ Route::get('newsletters/open/{id}', 'NewsletterTrackingController@open');
 Route::get('calendar', 'CalendarController@index')->name('calendar.index');
 
 Route::middleware('auth')->group(function () {
+    Route::get('my-tent', 'CounselorController@myTent');
     Route::get('notifications/mark-read', 'NotificationController@markAllRead');
 
     Route::resource('notifications', 'NotificationController', [
@@ -40,6 +41,8 @@ Route::middleware('auth')->group(function () {
     ]);
 
     Route::resource('campers', 'CamperController');
+
+    Route::get('forms', 'FormController@index')->name('forms');
 
     Route::delete('cart', 'CartController@destroy')->name('cart.destroy');
 

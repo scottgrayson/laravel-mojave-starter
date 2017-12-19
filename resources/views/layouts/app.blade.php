@@ -2,8 +2,7 @@
 
 @section('body')
   @include('nav.default')
-  <div class="mt-5 container">
-    <vue-socket></vue-socket>
+  <div style="padding-top:115px" class="container bg-white">
     @yield('content')
   </div>
   @include('footer.default')

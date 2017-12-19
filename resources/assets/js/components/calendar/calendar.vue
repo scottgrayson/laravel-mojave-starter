@@ -1,9 +1,6 @@
 <template>
   <div>
-    <h1 class="h2">
-      Camp Calendar
-    </h1>
-
+    <p class="lead text-center">Calendar</p>
     <tent-camper-select
       :tent="query.tent"
       :camper="query.camper"
@@ -18,8 +15,8 @@
       Select a tent{{ campers.length ? ' or camper' : '' }} to view openings
     </div>
 
-    <div class="alert px-0" v-if="query.tent && availableDays.length">
-      <h4>
+    <div class="alert px-0" v-if="query.tent && availableDays.length && user">
+      <h4 v-if="user">
         Reserve By Day
       </h4>
       <div class="row align-items-center">
@@ -28,17 +25,17 @@
             {{ availableDays.length }}/{{ openDays.length }} Days Available for {{ selectedTent.name }}
           </p>
           <p v-if="query.camper">
-            {{ selectedDays.length }}/{{ availableDays.length }} Days Selected for {{ selectedCamper.name }}
+            {{ selectedDays.length }}/{{ availableDays.length }} Days Selected for {{ selectedCamper.first_name }}
           </p>
         </div>
         <div class="col-md text-right">
-          <button @click="selectAll" class="btn btn-sm btn-secondary">
+          <button @click="selectAll" class="btn btn-sm btn-secondary" :disabled="user === false">
             All
           </button>
-          <button @click="selectNone" class="btn btn-sm btn-secondary">
+          <button @click="selectNone" class="btn btn-sm btn-secondary" :disabled="user === false">
             None
           </button>
-          <button @click="addToCart" class="btn btn-sm btn-secondary">
+          <button @click="addToCart" class="btn btn-sm btn-primary" :disabled="user === false">
             Update Cart
           </button>
         </div>
@@ -48,6 +45,18 @@
     <div class="camp-calendar" id='calendar1'></div>
     <br>
     <div class="camp-calendar" id='calendar2'></div>
+
+    <br>
+
+    <h4>Events</h4>
+    <ul style="list-style:none">
+      <li v-for="e in eventTypes">
+        <span class="pr-2">{{ e.event_type.emoji }}</span>
+        <a :href="e.event_type.link">
+          <b>{{ e.event_type.name }}</b>
+        </a>
+      </li>
+    </ul>
 
   </div>
 </template>
@@ -87,6 +96,7 @@ export default {
       selectedDays: [],
       availabilities: [],
       cartItems: [],
+      otherEvents: [],
       calendarMounted: false,
     }
   },
@@ -112,6 +122,7 @@ export default {
     }
 
     this.fetchAvailabilities()
+    this.fetchOtherEvents()
     this.fetchCart()
   },
 
@@ -121,8 +132,9 @@ export default {
       weekends: false,
       height: 'auto',
       header: {
-        left: 'title',
-        right: '',
+        left: 'prev next',
+        center: 'title',
+        right: 'month agendaWeek agendaDay',
       },
       fixedWeekCount: false,
       showNonCurrentDates: false,
@@ -130,7 +142,9 @@ export default {
       eventTextColor: 'white',
       eventBorderColor: 'white',
       //themeSystem: 'bootstrap3',
-      events: (start, end, timezone, callback) => callback(this.events),
+      events: (start, end, timezone, callback) => {
+        callback(this.otherEvents.concat(this.events))
+      },
       eventClick: this.handleEventClick
     }
 
@@ -140,6 +154,11 @@ export default {
       .format('YYYY-MM-DD')
 
     const calendar2Config = Object.assign({}, calendar1Config, {
+      header: {
+        left: '',
+        center: 'title',
+        right: '',
+      },
       defaultDate: nextMonth
     })
 
@@ -210,6 +229,20 @@ export default {
     },
 
     handleEventClick(event) {
+      if (!window.User) {
+        swal({
+          title: 'Cannot Reserve',
+          text: 'You must login/register before you can reserve.',
+          icon: 'error',
+          buttons: ['Cancel', 'Login/Register'],
+        })
+          .then(wantsRedirect => {
+            if (wantsRedirect) {
+              window.location.href = '/login'
+            }
+          })
+        return false
+      }
       if (!event.openings) {
         // no click events for non reservable
         return
@@ -228,7 +261,7 @@ export default {
     addToCart () {
       if (this.canReserve()) {
         const title = 'Reserve ' + this.selectedDays.length + ' Days?'
-        const text =  `${this.selectedCamper.name} in ${this.selectedTent.name}`
+        const text =  `${this.selectedCamper.first_name} in ${this.selectedTent.name}`
 
         swal({
           title: title,
@@ -293,6 +326,20 @@ export default {
         })
     },
 
+    fetchOtherEvents () {
+      axios.get('/api/events')
+        .then(res => {
+          this.otherEvents = res.data.map(event => {
+            return Object.assign(event, {
+              title: event.event_type.emoji,
+              start: event.date,
+              backgroundColor: 'transparent',
+              className: 'cal-emoji'
+            })
+          })
+        })
+    },
+
     fetchCart () {
       axios.get('/api/cart-items')
         .then(this.parseCartResponse)
@@ -302,7 +349,12 @@ export default {
   },
 
   computed: {
-
+    user () {
+      if (window.User) {
+        return true
+      }
+      return false
+    },
     events () {
       return this.openDays.map(date => {
 
@@ -314,7 +366,7 @@ export default {
             title: 'Reserved',
             reserved: true,
             start: date,
-            className: 'badge badge-success'
+            className: 'cal-badge bg-success'
           }
         }
 
@@ -325,7 +377,7 @@ export default {
           return {
             start: date,
             title: 'No Openings',
-            className: 'badge badge-light text-dark'
+            className: 'cal-badge bg-light text-dark'
           }
         }
 
@@ -336,7 +388,7 @@ export default {
             title: 'Selected',
             openings: true,
             selected: true,
-            className: 'badge badge-primary pointer'
+            className: 'cal-badge bg-primary pointer'
           }
         }
 
@@ -348,16 +400,25 @@ export default {
             start: date,
             title: 'Available',
             openings: true,
-            className: 'badge badge-secondary pointer'
+            className: 'cal-badge bg-secondary pointer'
           }
         }
 
         return {
           title: 'Camp',
-          className: 'badge badge-secondary',
+          className: 'cal-badge bg-secondary',
           start: date
         }
       })
+    },
+
+    eventTypes () {
+      return this.otherEvents.reduce((acc, e) => {
+        if (acc.find(el => e.event_type_id === el.event_type_id)) {
+          return acc
+        }
+        return acc.concat(e)
+      }, [])
     },
 
     daysReserved () {

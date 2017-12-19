@@ -13,11 +13,13 @@ class MenuItemSeeder extends Seeder
      */
     public function run()
     {
-        \DB::statement('truncate menu_items cascade');
-
-        foreach ($this->menus() as $menu) {
-            $this->createMenuItem($menu);
+        if (!MenuItem::count()) {
+            foreach ($this->menus() as $menu) {
+                $this->createMenuItem($menu);
+            }
         }
+
+        \Artisan::call('cache:clear');
     }
 
     protected function createMenuItem($i, $parent_id = null)
@@ -97,8 +99,20 @@ class MenuItemSeeder extends Seeder
                         'link' => '/admin/camps',
                     ],
                     [
+                        'name' => 'event types',
+                        'link' => '/admin/event-types',
+                    ],
+                    [
+                        'name' => 'events',
+                        'link' => '/admin/events',
+                    ],
+                    [
                         'name' => 'tents',
                         'link' => '/admin/tents',
+                    ],
+                    [
+                        'name' => 'tent limits',
+                        'link' => '/admin/tent-limits',
                     ],
                     [
                         'name' => 'pages',
@@ -162,8 +176,20 @@ class MenuItemSeeder extends Seeder
                         'link' => '/admin/camps',
                     ],
                     [
+                        'name' => 'event types',
+                        'link' => '/admin/event-types',
+                    ],
+                    [
+                        'name' => 'events',
+                        'link' => '/admin/events',
+                    ],
+                    [
                         'name' => 'tents',
                         'link' => '/admin/tents',
+                    ],
+                    [
+                        'name' => 'tent limits',
+                        'link' => '/admin/tent-limits',
                     ],
                     [
                         'name' => 'pages',
@@ -203,7 +229,10 @@ class MenuItemSeeder extends Seeder
             [
                 'name' => 'nav right guest',
                 'children' => [
-                    [ 'name' => 'register' ],
+                    [
+                        'name' => 'registration',
+                        'link' => '/register',
+                    ],
                     [
                         'name' => 'login button',
                         'link' => '/login',
@@ -237,7 +266,6 @@ class MenuItemSeeder extends Seeder
                         'children' => [
                             $this->pageItem('about'),
                             $this->pageItem('history'),
-                            $this->pageItem('special events'),
                             $this->pageItem('tuition information'),
                             $this->pageItem('work parties'),
                             $this->pageItem('rules and regulations'),
@@ -258,10 +286,6 @@ class MenuItemSeeder extends Seeder
                             $this->pageItem('special events'),
                         ],
                     ],
-                    [
-                        'name' => 'Registration',
-                        'link' => '/campers',
-                    ],
                     [ 'name' => 'calendar' ],
                     $this->pageItem('contact'),
                 ],
@@ -281,6 +305,8 @@ class MenuItemSeeder extends Seeder
                     ],
                     [ 'name' => 'calendar' ],
                     $this->pageItem('contact'),
+                    [ 'name' => 'login' ],
+                    [ 'name' => 'register' ],
                 ],
             ],
             [
@@ -298,8 +324,10 @@ class MenuItemSeeder extends Seeder
                     ],
                     [ 'name' => 'calendar' ],
                     $this->pageItem('contact'),
-                    $this->pageItem('my account'),
+                    [ 'name' => 'campers' ],
                     [ 'name' => 'cart' ],
+                    [ 'name' => 'notifications' ],
+                    [ 'name' => 'settings' ],
                     [ 'name' => 'logout' ],
                 ],
             ],
@@ -308,7 +336,15 @@ class MenuItemSeeder extends Seeder
                 'children' => [
                     $this->pageItem('about'),
                     $this->pageItem('contact'),
+                    [
+                        'name' => 'email',
+                        'link' => 'mailto:'.config('mail.from.address'),
+                    ],
                     [ 'name' => 'newsletter' ],
+                    [ 
+                        'name' => 'facebook',
+                        'link' => 'https://www.facebook.com/missbettysdaycamp/',
+                    ],
                 ],
             ],
         ];

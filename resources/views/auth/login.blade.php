@@ -6,16 +6,17 @@
       Login
     </h4>
 
-    <?php
-      echo Form::open(['route' => 'login']);
+      {{ Form::open(['route' => 'login']) }}
 
-      echo Form::bs('email');
-      echo Form::bs('password');
+      {{ Form::bs('email') }}
+      {{ Form::bs('password') }}
 
-      echo Form::submit('Login', ['class' => 'btn btn-primary mr-2']);
-      echo link_to_route('password.request', 'Forgot your password?');
+      {{ Form::submit('Login', ['class' => 'btn btn-primary mr-2']) }}
+      {{ link_to_route('register', 'Register new account') }}
+      <p class="mt-2">
+        {{ link_to_route('password.request', 'Forgot your password?') }}
+      </p>
 
-      echo Form::close();
-    ?>
+      {{ Form::close() }}
   @endcomponent
 @endsection

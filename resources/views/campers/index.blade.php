@@ -1,11 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-  <div class="d-flex justify-content-between">
+  <div class="d-flex align-items-center justify-content-between">
     <h1 class="h3">
       My Campers
     </h1>
-
+    <a href="{{ route('forms') }}"
+      class="btn btn-secondary ml-auto mr-2">
+      Forms
+    </a>
     <a href="{{ route('campers.create') }}"
       class="btn btn-primary">
       Add Camper

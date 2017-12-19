@@ -23,6 +23,11 @@ class PaymentController extends Controller
         if (!$camp || Cart::content()->isEmpty()) {
             abort(400);
         }
+
+        if ($outOfStock = CartHelper::outOfStock()) {
+            abort(400, 'Some days in your cart are no longer available');
+        }
+
         // CreateOrUpdate Customer
         if (!request()->user()->isCustomer() && !request('nonce')) {
             abort(400, 'Payment method is required.');

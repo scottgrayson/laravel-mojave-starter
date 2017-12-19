@@ -1,11 +1,11 @@
-<footer class="footer bg-light">
+<footer class="footer bg-dark">
   <div class="container h-100">
     <div class="row h-100">
       <div class="col h-100 d-none d-md-flex align-items-center">
-        <img height="80px" src="{{ asset('uploads/desert_logo.svg') }}"/>
-        <h3 class="d-inline pl-3">
+        <img height="100px" src="{{ asset('img/logo.png') }}"/>
+        <h4 class="d-inline text-white pl-3">
           {{ config('app.name') }}
-        </h3>
+        </h4>
       </div>
       <div class="col h-100">
         <nav class="nav h-100 justify-content-end align-items-center">

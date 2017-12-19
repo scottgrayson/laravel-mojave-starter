@@ -27,8 +27,7 @@ class CreateFilesTable extends Migration
                 ->nullable();
             $table->string('bucket')
                 ->nullable();
-            $table->text('path')
-                ->unique();
+            $table->text('path');
             $table->string('mimetype');
             $table->double('size');
             $table->timestamps();

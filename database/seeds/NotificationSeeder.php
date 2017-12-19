@@ -13,8 +13,6 @@ class NotificationSeeder extends Seeder
      */
     public function run()
     {
-        \DB::statement('truncate notifications cascade');
-
         $users = \App\User::where('id', 1)->orWhere('id', 2)->get();
 
         foreach ($users as $u) {

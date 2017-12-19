@@ -16,12 +16,33 @@
   @endif
 
   @component('components.card')
-    @include('crud.edit', [
-      'fields' => $fields,
-      'slug' => $slug,
-      'model' => $model,
-      'item' => $item,
-    ])
+    {{ Form::model($item, ['method' => 'PUT', 'route' => ["admin.newsletters.update", $item->id]]) }}
+
+    @foreach ($fields as $name => $rules)
+      @if (View::exists('form.inputs.'.$slug.'.'.$name))
+        @include('form.inputs.'.$slug.'.'.$name)
+      @else
+        {{ Form::bs($name, null, null, [], $rules, $model, $item) }}
+      @endif
+    @endforeach
+
+    {{ Form::submit('Update', ['class' => 'btn btn-primary']) }}
+
+    {{ Form::close() }}
+
+    <br>
+
+    @if(!$item->sent_at)
+      <h4>Send Newsletter</h4>
+      <p class="lead">
+        @svg('alert', 'lg text-top')
+        Emails will be sent to all subscribers when you click send
+      </p>
+      {{ Form::open(['method' => 'POST', 'route' => ['admin.newsletter.send', $item->id]]) }}
+      {{ Form::submit('Send', ['class' => 'btn btn-primary']) }}
+      {{ Form::close() }}
+    @endif
+
   @endcomponent
 
   <br>

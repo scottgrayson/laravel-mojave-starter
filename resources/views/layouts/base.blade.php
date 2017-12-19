@@ -34,7 +34,7 @@
 
   </head>
 
-  <body>
+  <body class="svg-background">
 
     <div id="app">
       @yield('body')

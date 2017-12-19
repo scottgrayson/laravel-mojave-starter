@@ -2,7 +2,7 @@
 
   <li class="nav-item dropdown">
     @if ($l->name === 'user dropdown')
-      <button data-toggle="dropdown" class="dropdown-toggle btn btn-icon mb-2 mb-md-0 mr-2">
+      <button data-toggle="dropdown" class="nav-link dropdown-toggle btn btn-icon mb-2 mb-md-0 mr-2">
         @svg('user', 'xl')
       </button>
     @else
@@ -12,6 +12,11 @@
       </a>
     @endif
     <div class="dropdown-menu {{ $l->name === 'user dropdown' ? 'dropdown-menu-md-right' : '' }}">
+
+      @if (auth()->user() && auth()->user()->isCounselor())
+        <a class="dropdown-item" href="/my-tent">My Tent</a>
+      @endif
+
       @foreach ($l->children as $c)
         @if ($c->href === '/logout')
 

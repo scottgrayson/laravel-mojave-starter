@@ -13,7 +13,7 @@ return [
     |
      */
 
-    'svg_path' => 'node_modules/bytesize-icons/dist/icons',
+    'svg_path' => 'resources/assets/svg/icons',
 
     /*
     |--------------------------------------------------------------------------
@@ -163,4 +163,17 @@ user.svg
 video.svg
 volume.svg
 work.svg
+compass-1.svg
+tent.svg
+lodge.svg
+marshmallow.svg
+mountain.svg
+rafting.svg
+cabin.svg
+canoe.svg
+fishing-rod.svg
+flashlight.svg
+map.svg
+picnic.svg
+swiss-army-knife.svg
  */

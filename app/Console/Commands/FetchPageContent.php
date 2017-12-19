@@ -84,7 +84,7 @@ class FetchPageContent extends Command
                     'name' => $title ? $title : $uri,
                     'title' => $title,
                     'meta_description' => $description,
-                    'content' => $markdown,
+                    'content' => $uri === '/' ? 'admin managed content' : $markdown,
                     'published' => 1,
                 ]
             );

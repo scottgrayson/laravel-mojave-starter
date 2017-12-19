@@ -11,8 +11,6 @@ class CounselorSeeder extends Seeder
      */
     public function run()
     {
-        \DB::statement('truncate counselors cascade');
-
         $userCount = \App\User::count();
         $tentCount = \App\Tent::count();
 
@@ -20,7 +18,6 @@ class CounselorSeeder extends Seeder
             ->each(function ($i, $key) use ($userCount, $tentCount) {
                 $i->user_id = rand(1, $userCount);
                 $i->tent_id = rand(1, $tentCount);
-                $i->camp_year = \Carbon\Carbon::now()->year;
             })->toArray();
 
         \DB::table('counselors')->insert($counselors);

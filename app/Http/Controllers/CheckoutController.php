@@ -7,6 +7,7 @@ use App\Helpers\CartHelper;
 use SEO;
 use App\Product;
 use App\Camp;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Invoice;
 use App\Http\Controllers\Controller;
@@ -20,6 +21,15 @@ class CheckoutController extends Controller
         SEO::setTitle('Checkout');
 
         if (Cart::content()->isEmpty()) {
+            return redirect(route('cart.index'));
+        }
+
+        if ($outOfStock = CartHelper::outOfStock()) {
+            $removedString = $this->outOfStockString($outOfStock);
+            flash("<b>The following days are not available and have been removed from your cart</b>${removedString}")
+                ->important()
+                ->error();
+
             return redirect(route('cart.index'));
         }
 
@@ -37,5 +47,22 @@ class CheckoutController extends Controller
             'amount' => $amount,
             'clientToken' => $clientToken,
         ]);
+    }
+
+    protected function outOfStockString($arr)
+    {
+        $tent = collect($arr)->groupBy('tent');
+
+        $string = '<br>';
+
+        foreach ($tent as $t => $days) {
+            $dayString = $days->map(function ($d) {
+                return Carbon::parse($d['date'])->format('Y-m-d');
+            })->implode(', ');
+
+            $string .= $t . ': ' . $dayString . '<br>';
+        }
+
+        return $string;
     }
 }

@@ -24,7 +24,7 @@ class CalendarController extends Controller
                 return [
                     'camper_id' => $r->camper_id,
                     'tent_id' => $r->tent_id,
-                    'date' => $r->date,
+                    'date' => $r->date->toDateString(),
                 ];
             });
 
@@ -35,7 +35,7 @@ class CalendarController extends Controller
 
         return view('calendar.index', [
             'reservations' => $reservations,
-            'tents' => \App\Tent::all(),
+            'tents' => \App\Tent::orderBy('name')->get(),
             'campers' => auth()->check() ? auth()->user()->campers : collect([]),
             'openDays' => $openDays,
         ]);
