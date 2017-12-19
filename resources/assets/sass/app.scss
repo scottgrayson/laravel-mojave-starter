@@ -14,6 +14,7 @@ $sidebar-width: 200px;
 
 //@import "stepper";
 @import "nav";
+@import "home";
 @import "footer";
 @import "sidebar";
 @import "notifications";
@@ -102,7 +103,7 @@ input[type=date] {
 }
 
 .homepage-carousel {
-  margin: 0 -15px;
+  /* margin: 0 -15px; */
 }
 
 .homepage-carousel .carousel-item {

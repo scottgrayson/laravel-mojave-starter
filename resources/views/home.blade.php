@@ -12,17 +12,13 @@
 
 @section('body')
   @include('nav.default')
-  <div class="container-fluid svg-background">
 
-    <div>
+    <section id="carousel">
       @include('homepage.carousel')
-    </div>
+    </section>
 
-    <div class="mb-5 pb-5">
-      @include('homepage.about', ['content' => $page ? $page->html : 'description'])
-    </div>
+    @include('homepage.about', ['content' => $page ? $page->html : 'description'])
 
-  </div>
   @include('footer.default')
 @endsection
 
