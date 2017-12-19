@@ -1,6 +1,6 @@
 <section id="activities">
   <div class="container">
-    <div class="row pb-5 mx-auto" style="width: 80vw;">
+    <div class="row pb-5 mx-auto">
       <div class="col m-5">
         <p class="lead text-center">Activities</p>
         <div class="row p-0 flex-wrap justify-content-center">
