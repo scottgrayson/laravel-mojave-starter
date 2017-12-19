@@ -82,7 +82,7 @@
                 width="400"
                 height="400"
                 frameborder="0" style="border:0"
-                src="https://www.google.com/maps/embed/v1/place?key={{ config('services.google.maps_key') }}&q=pickering+grove+park" allowfullscreen>
+                src="https://www.google.com/maps/embed/v1/place?key={{ config('services.google.maps_key') }}&q=pickering+grove+park&zoom=11" allowfullscreen>
               </iframe>
             </div>
         </div>
