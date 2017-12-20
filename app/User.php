@@ -95,4 +95,9 @@ class User extends Authenticatable
             ->count();
         return $counselor > 0 ? true : false;
     }
+
+    public function invoices()
+    {
+        return $this->hasMany(\App\Invoice::class);
+    }
 }
