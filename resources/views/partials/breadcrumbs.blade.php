@@ -13,7 +13,8 @@
   }
 @endphp
 
-<ol class="breadcrumb">
+<ol class="breadcrumb flex-colum align-items-center" id="navBread">
+  @include('partials.sidebar-toggle')
   @foreach ($crumbs as $crumb)
 
     @php
@@ -40,4 +41,6 @@
       @endif
     @endif
   @endforeach
+
 </ol>
+

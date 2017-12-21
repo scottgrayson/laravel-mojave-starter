@@ -6,7 +6,7 @@
     @include('admin.nav.sidebar')
   </div>
 
-  <main class="admin-content" role="main">
+  <main class="admin-content" role="main" id="admin-main">
     @include('partials.breadcrumbs')
 
     <div class="container-fluid">
