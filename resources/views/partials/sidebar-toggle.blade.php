@@ -4,7 +4,7 @@
 
 @section('scripts')
   <script>
-    var toggled = true;
+    var toggled = false;
     function toggleNav() {
       if (toggled) {
         document.getElementById("sideNav").style.width = "200px";
