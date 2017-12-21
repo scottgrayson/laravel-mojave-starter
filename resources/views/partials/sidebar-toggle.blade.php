@@ -1,4 +1,4 @@
-<a href="#" onclick="toggleNav()" class="pt-2 btn btn-link">
+<a href="#" onclick="toggleNav()" class="btn btn-link">
   @svg('menu', 's3')
 </a>
 
