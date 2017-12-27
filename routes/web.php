@@ -34,6 +34,10 @@ Route::middleware('auth')->group(function () {
         'only' => ['index', 'show'],
     ]);
 
+    Route::resource('invoice', 'InvoiceController', [
+        'only' => ['index', 'show'],
+    ]);
+
     // Users
     Route::get('settings', 'UserController@settings')->name('settings');
     Route::resource('users', 'UserController', [

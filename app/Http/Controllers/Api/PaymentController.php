@@ -98,10 +98,6 @@ class PaymentController extends Controller
 
         $invoice = Invoice::create([
             'user_id' => $request->user()->id,
-            'payment' => $payment,
-            'reservations' => $reservations,
-            'total' => $payment->amount,
-            'registration_fee' => $registration,
         ]);
 
         dd($invoice);
