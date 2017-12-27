@@ -32,7 +32,7 @@ class InvoiceEmail extends Mailable
 
         $this->total = $invoice->total;
 
-        $this->user = $invoice->user->get();
+        $this->user = $invoice->user;
 
         $this->reservations = $invoice->reservations;
 
