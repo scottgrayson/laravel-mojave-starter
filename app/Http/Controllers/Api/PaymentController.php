@@ -12,7 +12,7 @@ use App\Reservation;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Mail\Invoice as InvoiceEmail;
+use App\Mail\InvoiceEmail;
 use Illuminate\Support\Facades\Mail;
 
 class PaymentController extends Controller

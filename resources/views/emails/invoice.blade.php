@@ -1,7 +1,7 @@
 @component('mail::message')
   # Invoice
 
-  Dear {{$user->name}},  
+  Dear {{$user->pluck('name')}},  
 
   Thank you for your reservation!
 
@@ -16,7 +16,7 @@
 @endif
 @endforeach
 
-${{$total}} will be charged to {{$user->name."'s"}} card
+${{$total}} will be charged to {{$user->pluck('name')."'s"}} card
 @if($registration)
 # Registration Fee
 A registration fee of ${{$registration->amount}} will be charged.  

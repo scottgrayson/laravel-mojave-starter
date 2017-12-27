@@ -11,9 +11,9 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 use App\User;
 use App\Camper;
-use App\Payment;
+use App\Invoice;
 
-class Invoice extends Mailable
+class InvoiceEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -22,39 +22,29 @@ class Invoice extends Mailable
      *
      * @return void
      */
-    public $total;
+    public $invoice;
 
-    public $user;
-
-    public $reservations;
-
-    public $dates;
-
-    public $payment;
-
-    public $url;
-
-    public $regisration;
-
-    public function __construct(User $user, $reservations, Payment $payment, $total = null, Payment $registration = null)
+    public function __construct(Invoice $invoice)
     {
-        $this->registration = $registration;
+        $this->invoice = $invoice;
 
-        $this->total = $total;
+        $this->registration = $invoice->registration_fee;
 
-        $this->user = $user;
+        $this->total = $invoice->total;
 
-        $this->reservations = $reservations;
+        $this->user = $invoice->user->get();
 
-        $this->payment = $payment;
+        $this->reservations = $invoice->reservations;
+
+        $this->payment = $invoice->total;
 
         $dates = collect();
 
-        foreach ($reservations as $r) {
+        foreach ($this->reservations as $r) {
             $camper = Camper::find($r->pluck('camper_id'));
             $dates->push([
                 'dates' => $r->pluck('date'),
-                'camper' => $camper->pluck('name'),
+                'camper' => $camper->pluck('first_name'),
             ]);
         }
 

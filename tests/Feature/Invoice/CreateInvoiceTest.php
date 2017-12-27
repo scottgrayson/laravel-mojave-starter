@@ -4,13 +4,14 @@ namespace Tests\Feature\Invoice;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
+
+use Cart;
 use App\Camp;
 use App\Camper;
 use App\Product;
 use App\User;
 use App\Tent;
 use App\Payment;
-use Cart;
 use App\Invoice;
 use Carbon\Carbon;
 
