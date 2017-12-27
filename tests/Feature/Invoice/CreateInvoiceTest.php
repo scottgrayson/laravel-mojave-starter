@@ -3,6 +3,8 @@
 namespace Tests\Feature\Invoice;
 
 use Tests\TestCase;
+use App\Mail\InvoiceEmail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 
 use Cart;
@@ -19,6 +21,8 @@ class CreateInvoiceTest extends TestCase
 {
     public function testCreatingInvoice()
     {
+        Mail::fake();
+
         $product = factory(Product::class)->create(['slug' => 'day']);
         $registrationFee = factory(Product::class)->create(['slug' => 'registration-fee']);
         $tent = factory(Tent::class)->create();
@@ -47,14 +51,14 @@ class CreateInvoiceTest extends TestCase
         //$this->feedback($r);
         $r->assertStatus(200);
 
-        $this->assertEquals($user->reservations->count(), 3);
+        $this->assertEquals($user->invoices->count(), 1);
 
-        // Assert work party fee NOT paid
-        $registrationPayment = Payment::where('user_id', $user->id)
-            ->where('type', 'registration_fee')
-            ->count();
+        $invoice = $user->invoices->first();
 
-        $this->assertEquals($registrationPayment, 0);
+        Mail::assertSent(InvoiceEmail::class, function ($mail) use ($invoice, $user) {
+            return $mail->invoice->id === $invoice->id &&
+                $mail->hasTo($user->email);
+        });
     }
 }
 ?>
