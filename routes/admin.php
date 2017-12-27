@@ -3,6 +3,7 @@
 Route::get('/', 'DashboardController@dashboard')->name('dashboard');
 
 Route::resource('users', 'UserController', ['except' => ['show']]);
+Route::resource('invoices', 'InvoiceController');
 Route::resource('camps', 'CampController', ['except' => ['show']]);
 Route::resource('event-types', 'EventTypeController', ['except' => ['show']]);
 Route::resource('events', 'EventController', ['except' => ['show']]);

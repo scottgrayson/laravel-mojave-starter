@@ -83,6 +83,10 @@ class MenuItemSeeder extends Seeder
                         'link' => '/admin/campers',
                     ],
                     [
+                        'name' => 'invoices',
+                        'link' => '/admin/invoices',
+                    ],
+                    [
                         'name' => 'reservations',
                         'link' => '/admin/reservations',
                     ],
@@ -150,6 +154,10 @@ class MenuItemSeeder extends Seeder
                     [
                         'name' => 'users',
                         'link' => '/admin/users',
+                    ],
+                    [
+                        'name' => 'invoices',
+                        'link' => '/admin/invoices',
                     ],
                     [
                         'name' => 'counselors',
