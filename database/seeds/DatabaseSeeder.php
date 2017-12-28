@@ -11,22 +11,31 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(RolePermissionSeeder::class);
-        $this->call(UserSeeder::class);
-        $this->call(FileSeeder::class);
-        $this->call(ImageSeeder::class);
-        $this->call(NotificationSeeder::class);
-        $this->call(PageSeeder::class);
-        $this->call(MenuItemSeeder::class);
-        $this->call(NewsletterSeeder::class);
+        if (app()->environment('production')) {
+            $this->call(RolePermissionSeeder::class);
+            $this->call(PageSeeder::class);
+            $this->call(MenuItemSeeder::class);
+            $this->call(CampSeeder::class);
+            $this->call(ProductSeeder::class);
+            $this->call(TentSeeder::class);
+        } else {
+            $this->call(RolePermissionSeeder::class);
+            $this->call(UserSeeder::class);
+            $this->call(FileSeeder::class);
+            $this->call(ImageSeeder::class);
+            $this->call(NotificationSeeder::class);
+            $this->call(PageSeeder::class);
+            $this->call(MenuItemSeeder::class);
+            $this->call(NewsletterSeeder::class);
 
-        // Miss Betty's Day Camp
-        $this->call(CampSeeder::class);
-        $this->call(ProductSeeder::class);
-        $this->call(TentSeeder::class);
-        $this->call(CamperSeeder::class);
-        $this->call(CounselorSeeder::class);
-        $this->call(EventSeeder::class);
-        $this->call(ReservationSeeder::class);
+            // Miss Betty's Day Camp
+            $this->call(CampSeeder::class);
+            $this->call(ProductSeeder::class);
+            $this->call(TentSeeder::class);
+            $this->call(CamperSeeder::class);
+            $this->call(CounselorSeeder::class);
+            $this->call(EventSeeder::class);
+            $this->call(ReservationSeeder::class);
+        }
     }
 }
