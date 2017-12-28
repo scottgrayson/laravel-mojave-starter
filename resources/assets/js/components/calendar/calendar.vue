@@ -42,9 +42,14 @@
       </div>
     </div>
 
-    <div class="camp-calendar" id='calendar1'></div>
-    <br>
-    <div class="camp-calendar" id='calendar2'></div>
+    <div class="row">
+      <div class="col-lg mb-3">
+        <div class="camp-calendar" id='calendar1'></div>
+      </div>
+      <div class="col-lg">
+        <div class="camp-calendar" id='calendar2'></div>
+      </div>
+    </div>
 
     <br>
 
@@ -52,9 +57,10 @@
     <ul style="list-style:none">
       <li v-for="e in eventTypes">
         <span class="pr-2">{{ e.event_type.emoji }}</span>
-        <a :href="e.event_type.link">
+        <a v-if="e.event_type && e.event_type.link" :href="e.event_type.link">
           <b>{{ e.event_type.name }}</b>
         </a>
+        <b v-else>{{ e.event_type.name }}</b>
       </li>
     </ul>
 
@@ -132,9 +138,8 @@ export default {
       weekends: false,
       height: 'auto',
       header: {
-        left: 'prev next',
-        center: 'title',
-        right: 'month agendaWeek agendaDay',
+        left: 'title',
+        right: false
       },
       fixedWeekCount: false,
       showNonCurrentDates: false,
@@ -154,11 +159,6 @@ export default {
       .format('YYYY-MM-DD')
 
     const calendar2Config = Object.assign({}, calendar1Config, {
-      header: {
-        left: '',
-        center: 'title',
-        right: '',
-      },
       defaultDate: nextMonth
     })
 
@@ -412,14 +412,14 @@ export default {
       })
     },
 
-    eventTypes () {
-      return this.otherEvents.reduce((acc, e) => {
-        if (acc.find(el => e.event_type_id === el.event_type_id)) {
-          return acc
-        }
-        return acc.concat(e)
-      }, [])
-    },
+      eventTypes () {
+        return this.otherEvents.reduce((acc, e) => {
+          if (acc.find(el => e.event_type_id === el.event_type_id)) {
+            return acc
+          }
+          return acc.concat(e)
+        }, [])
+      },
 
     daysReserved () {
       return this.events.filter(e => e.reserved)
