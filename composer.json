@@ -24,6 +24,7 @@
         "pusher/pusher-php-server": "~2.6",
         "ramsey/uuid": "^3.5",
         "rollbar/rollbar-laravel": "^2.2",
+        "spatie/laravel-backup": "^5.1",
         "spatie/laravel-permission": "^2.5"
     },
     "require-dev": {
