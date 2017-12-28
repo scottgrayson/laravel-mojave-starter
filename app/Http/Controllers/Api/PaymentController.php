@@ -103,7 +103,7 @@ class PaymentController extends Controller
         ]);
 
         foreach ($reservations as $r) {
-            $invoice->reservations()->sync($r->pluck('id'));
+            $invoice->reservations()->attach($r->pluck('id'));
         }
 
         Mail::to($request->user()->email)->send(new InvoiceEmail($invoice));
