@@ -34,16 +34,19 @@ class InvoiceEmail extends Mailable
 
         $this->user = $invoice->user;
 
-        $this->reservations = $invoice->reservations;
+        $res = json_decode($invoice->reservations);
+
+        $this->reservations = collect($res);
 
         $this->payment = $invoice->total;
 
         $dates = collect();
 
         foreach ($this->reservations as $r) {
-            $camper = Camper::find($r->pluck('camper_id'));
+            $x = collect($r);
+            $camper = Camper::find($x->pluck('camper_id'));
             $dates->push([
-                'dates' => $r->pluck('date'),
+                'dates' => $x->pluck('date'),
                 'camper' => $camper->pluck('first_name'),
             ]);
         }
