@@ -99,9 +99,12 @@ class PaymentController extends Controller
         $invoice = Invoice::create([
             'user_id' => $request->user()->id,
             'total' => $total,
-            'reservations' => $reservations,
             'registration_fee' => $registration | false,
         ]);
+
+        foreach ($reservations as $r) {
+            $invoice->reservations()->sync($r->pluck('id'));
+        }
 
         Mail::to($request->user()->email)->send(new InvoiceEmail($invoice));
 

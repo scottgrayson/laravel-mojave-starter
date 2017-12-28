@@ -2,6 +2,6 @@
 
 @section('content')
   <div>
-    {{$invoice->reservations}}
+    {{$invoice}}
   </div>
 @endsection

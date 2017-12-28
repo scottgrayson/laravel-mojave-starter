@@ -6,7 +6,7 @@
   Thank you for your reservation!
 
 @foreach($dates as $d)
-- You reserved {{$d['camper']->all()[0]}} for:
+- You reserved {{$d['camper']}} for:
 @if ($d['dates']->count() >= 5)
   - {{$d['dates']->count() . ' days'}}
 @else

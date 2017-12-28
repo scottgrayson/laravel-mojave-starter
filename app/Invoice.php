@@ -8,4 +8,10 @@ class Invoice extends Model
     {
         return $this->belongsTo(\App\User::class);
     }
+
+    public function reservations()
+    {
+        return $this->belongsToMany(\App\Reservation::class)
+            ->withTimestamps();
+    }
 }

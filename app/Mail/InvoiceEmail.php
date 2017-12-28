@@ -34,9 +34,7 @@ class InvoiceEmail extends Mailable
 
         $this->user = $invoice->user;
 
-        $res = json_decode($invoice->reservations);
-
-        $this->reservations = collect($res);
+        $this->reservations = $invoice->reservations;
 
         $this->payment = $invoice->total;
 
