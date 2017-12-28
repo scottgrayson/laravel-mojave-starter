@@ -107,6 +107,9 @@ class PaymentController extends Controller
 
         Cart::destroy();
 
-        return 'Payment Successful';
+        return response()->json([
+            'message' => 'Payment Successful',
+            'invoice_id' => $invoice->id,
+        ]);
     }
 }
