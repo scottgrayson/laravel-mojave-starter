@@ -57,7 +57,10 @@
     <ul style="list-style:none">
       <li v-for="e in eventTypes">
         <span class="pr-2">{{ e.event_type.emoji }}</span>
-        <b>{{ e.event_type.name }}</b>
+        <a v-if="e.event_type && e.event_type.link" :href="e.event_type.link">
+          <b>{{ e.event_type.name }}</b>
+        </a>
+        <b v-else>{{ e.event_type.name }}</b>
       </li>
     </ul>
 
@@ -352,71 +355,71 @@ export default {
       }
       return false
     },
-      events () {
-        return this.openDays.map(date => {
+    events () {
+      return this.openDays.map(date => {
 
-          const reserved = this.reservations.find(r => {
-            return r.date == date && r.camper_id == this.query.camper
-          })
-          if (reserved) {
-            return {
-              title: 'Reserved',
-              reserved: true,
-              start: date,
-              className: 'cal-badge bg-success'
-            }
-          }
-
-          const filled = this.availabilities.find(r => {
-            return r.date == date && r.tent_id == this.query.tent && r.tent_limit <= r.campers
-          })
-          if (filled) {
-            return {
-              start: date,
-              title: 'No Openings',
-              className: 'cal-badge bg-light text-dark'
-            }
-          }
-
-          const selected = this.selectedDays.indexOf(date) !== -1
-          if (selected) {
-            return {
-              start: date,
-              title: 'Selected',
-              openings: true,
-              selected: true,
-              className: 'cal-badge bg-primary pointer'
-            }
-          }
-
-          const available = this.availabilities.find(r => {
-            return r.date == date && r.tent_id == this.query.tent
-          })
-          if (available) {
-            return {
-              start: date,
-              title: 'Available',
-              openings: true,
-              className: 'cal-badge bg-secondary pointer'
-            }
-          }
-
-          return {
-            title: 'Camp',
-            className: 'cal-badge bg-secondary',
-            start: date
-          }
+        const reserved = this.reservations.find(r => {
+          return r.date == date && r.camper_id == this.query.camper
         })
-      },
-
-    eventTypes () {
-      return this.otherEvents.reduce((acc, e) => {
-        if (acc.find(el => e.event_type_id === el.event_type_id)) {
-          return acc
+        if (reserved) {
+          return {
+            title: 'Reserved',
+            reserved: true,
+            start: date,
+            className: 'cal-badge bg-success'
+          }
         }
-        return acc.concat(e)
-      }, [])
+
+        const filled = this.availabilities.find(r => {
+          return r.date == date && r.tent_id == this.query.tent && r.tent_limit <= r.campers
+        })
+        if (filled) {
+          return {
+            start: date,
+            title: 'No Openings',
+            className: 'cal-badge bg-light text-dark'
+          }
+        }
+
+        const selected = this.selectedDays.indexOf(date) !== -1
+        if (selected) {
+          return {
+            start: date,
+            title: 'Selected',
+            openings: true,
+            selected: true,
+            className: 'cal-badge bg-primary pointer'
+          }
+        }
+
+        const available = this.availabilities.find(r => {
+          return r.date == date && r.tent_id == this.query.tent
+        })
+        if (available) {
+          return {
+            start: date,
+            title: 'Available',
+            openings: true,
+            className: 'cal-badge bg-secondary pointer'
+          }
+        }
+
+        return {
+          title: 'Camp',
+          className: 'cal-badge bg-secondary',
+          start: date
+        }
+      })
     },
+
+      eventTypes () {
+        return this.otherEvents.reduce((acc, e) => {
+          if (acc.find(el => e.event_type_id === el.event_type_id)) {
+            return acc
+          }
+          return acc.concat(e)
+        }, [])
+      },
 
     daysReserved () {
       return this.events.filter(e => e.reserved)

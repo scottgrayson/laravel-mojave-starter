@@ -92675,6 +92675,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -93763,7 +93766,11 @@ var render = function() {
               _vm._v(_vm._s(e.event_type.emoji))
             ]),
             _vm._v(" "),
-            _c("b", [_vm._v(_vm._s(e.event_type.name))])
+            e.event_type && e.event_type.link
+              ? _c("a", { attrs: { href: e.event_type.link } }, [
+                  _c("b", [_vm._v(_vm._s(e.event_type.name))])
+                ])
+              : _c("b", [_vm._v(_vm._s(e.event_type.name))])
           ])
         })
       )
