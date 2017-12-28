@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
         'only' => ['index', 'show'],
     ]);
 
-    Route::resource('invoice', 'InvoiceController', [
+    Route::resource('invoices', 'InvoiceController', [
         'only' => ['index', 'show'],
     ]);
 

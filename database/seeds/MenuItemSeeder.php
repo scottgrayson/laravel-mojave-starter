@@ -255,6 +255,7 @@ class MenuItemSeeder extends Seeder
                         'name' => 'user dropdown',
                         'children' => [
                             [ 'name' => 'notifications' ],
+                            [ 'name' => 'invoices' ],
                             [ 'name' => 'settings' ],
                             [ 'name' => 'campers' ],
                             [ 'name' => 'logout' ],
@@ -335,6 +336,7 @@ class MenuItemSeeder extends Seeder
                     [ 'name' => 'campers' ],
                     [ 'name' => 'cart' ],
                     [ 'name' => 'notifications' ],
+                    [ 'name' => 'invoices' ],
                     [ 'name' => 'settings' ],
                     [ 'name' => 'logout' ],
                 ],

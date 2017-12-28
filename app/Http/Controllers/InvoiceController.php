@@ -12,11 +12,11 @@ class InvoiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $invoices = $user->invoices();
+        $invoices = $request->user()->invoices()->paginate(5);
 
-        return $invoices;
+        return view('invoices.index', ['invoices' => $invoices]);
     }
 
     /**
@@ -48,7 +48,9 @@ class InvoiceController extends Controller
      */
     public function show($id)
     {
-        //
+        $invoice = Invoice::find($id);
+
+        return view('invoices.show', ['invoice' => $invoice]);
     }
 
     /**
