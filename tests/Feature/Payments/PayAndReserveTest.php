@@ -15,6 +15,8 @@ use Carbon\Carbon;
 
 class PayAndReserveTest extends TestCase
 {
+    use WithoutMiddleware;
+
     public function testPayingAndReservingCamperDays()
     {
         $product = factory(Product::class)->create(['slug' => 'day']);
