@@ -13,8 +13,8 @@ class CampSeeder extends Seeder
     public function run()
     {
         $upcomingJune = Carbon::now() > Carbon::parse('June')
-            ? Carbon::parse('June 15')->addYears(1)
-            : Carbon::parse('June 15');
+            ? Carbon::parse('June 16')->addYears(1)
+            : Carbon::parse('June 16');
 
         $start_dates = [
             $upcomingJune->copy()->subYears(1),
