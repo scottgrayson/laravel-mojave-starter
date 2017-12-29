@@ -18,7 +18,7 @@
             {{$i->created_at->toDayDateTimeString()}}
         </a></td>
         <td scope="row">$ {{$i->total}}</td>
-        <td scope="row">{{\App\Camper::find($i->reservations->first()->camper_id)->first_name}}</td>
+        <td scope="row">{{$i->reservations->first()->camper->first_name}}</td>
       </tr>
     @endforeach
   </tbody>
