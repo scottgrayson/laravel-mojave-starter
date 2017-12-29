@@ -19,7 +19,7 @@
 ${{$total}} will be charged to {{$user->name."s"}} card
 @if($registration)
 # Registration Fee
-A registration fee of ${{$registration->amount}} will be charged.  
+A registration fee of ${{$registration}} will be charged.  
 * This fee will be refunded if you attend the work-party.
 @endif
 

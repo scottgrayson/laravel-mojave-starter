@@ -17,6 +17,7 @@ class CreateInvoicesTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->integer('total')
+                ->unsigned()
                 ->nullable();
             $table->boolean('registration_fee')
                 ->default(false);

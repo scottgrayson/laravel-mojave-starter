@@ -99,7 +99,7 @@ class PaymentController extends Controller
         $invoice = Invoice::create([
             'user_id' => $request->user()->id,
             'total' => $total,
-            'registration_fee' => $registration | false,
+            'registration_fee' => $registration ? true : false,
         ]);
 
         foreach ($reservations as $r) {
@@ -112,7 +112,6 @@ class PaymentController extends Controller
 
         return response()->json([
             'message' => 'Payment Successful',
-            'invoice_id' => $invoice->id,
         ]);
     }
 }
