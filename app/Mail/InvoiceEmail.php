@@ -24,34 +24,15 @@ class InvoiceEmail extends Mailable
      */
     public $invoice;
 
+    public $user;
+
     public function __construct(Invoice $invoice)
     {
         $this->invoice = $invoice;
 
-        $this->registration = $invoice->registration_fee;
-
-        $this->total = $invoice->total;
-
         $this->user = $invoice->user;
 
-        $this->reservations = $invoice->reservations;
-
-        $this->payment = $invoice->total;
-
-        $dates = collect();
-
-        foreach ($this->reservations as $r) {
-            $x = collect($r);
-            $camper = Camper::find($x->pluck('camper_id'));
-            $dates->push([
-                'dates' => $x->pluck('date'),
-                'camper' => $camper->pluck('first_name'),
-            ]);
-        }
-
-        $this->dates = $dates;
-
-        $this->url = route('campers.index');
+        $this->url = route('invoices.show', $invoice);
     }
 
     /**
@@ -62,10 +43,8 @@ class InvoiceEmail extends Mailable
     public function build()
     {
         return $this->markdown('emails.invoice')
-            ->with('total', $this->total)
+            ->with('invoice', $this->invoice)
             ->with('user', $this->user)
-            ->with('dates', $this->dates)
-            ->with('registration', $this->registration)
             ->with('url', $this->url);
     }
 }

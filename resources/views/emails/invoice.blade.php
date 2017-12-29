@@ -5,22 +5,13 @@
 
   Thank you for your reservation!
 
-@foreach($dates as $d)
-- You reserved {{$d['camper']}} for:
-@if ($d['dates']->count() >= 5)
-  - {{$d['dates']->count() . ' days'}}
-@else
-@foreach($d['dates'] as $x)
-  - {{$x}}  
-@endforeach
-@endif
-@endforeach
+  - You reserved {{$invoice->reservations->first()->camper->first_name}} for: {{$invoice->reservations->count() . ' days'}}
 
-${{$total}} will be charged to {{$user->name."s"}} card
-@if($registration)
-# Registration Fee
-A registration fee of ${{$registration}} will be charged.  
-* This fee will be refunded if you attend the work-party.
+${{$invoice->total}} will be charged to {{$user->name."s"}} card
+@if($invoice->registration_fee)
+  # Registration Fee
+  A registration fee of $150 will be charged.  
+  * This fee will be refunded if you attend the work-party.
 @endif
 
 @component('mail::button', ['url' => $url])
