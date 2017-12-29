@@ -4,6 +4,10 @@ namespace App;
 
 class Invoice extends Model
 {
+    protected $dates = [
+        'createad_at'
+    ];
+
     public function user()
     {
         return $this->belongsTo(\App\User::class);
