@@ -7,7 +7,7 @@
 
   - You reserved {{$invoice->reservations->first()->camper->first_name}} for: {{$invoice->reservations->count() . ' days'}}
 
-${{$invoice->total}} will be charged to {{$user->name."s"}} card
+${{$invoice->total}} will be charged to {{$user->name."'s"}} card.
 @if($invoice->registration_fee)
   # Registration Fee
   A registration fee of $150 will be charged.  
