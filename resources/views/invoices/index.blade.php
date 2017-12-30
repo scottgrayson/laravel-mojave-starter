@@ -8,6 +8,7 @@
         <th scope="col">Date</th>
         <th scope="col">Total</th>
         <th scope="col">Camper</th>
+        <th scope="col">Camp Year</th>
       </tr>
     </thead>
     <tbody>
@@ -19,6 +20,7 @@
         </a></td>
         <td scope="row">$ {{$i->total}}</td>
         <td scope="row">{{$i->reservations->first()->camper->first_name}}</td>
+        <td scope="row">{{$i->reservations->first()->payment->camp->camp_start->format('Y')}}</td>
       </tr>
     @endforeach
   </tbody>
