@@ -10,6 +10,7 @@
         "braintree/braintree_php": "^3.25",
         "erusev/parsedown": "^1.6",
         "fideloper/proxy": "~3.3",
+        "fzaninotto/faker": "~1.4",
         "gloudemans/shoppingcart": "^2.4",
         "guzzlehttp/guzzle": "^6.3",
         "imangazaliev/didom": "^1.12",
@@ -24,13 +25,13 @@
         "pusher/pusher-php-server": "~2.6",
         "ramsey/uuid": "^3.5",
         "rollbar/rollbar-laravel": "^2.2",
+        "spatie/laravel-backup": "^5.1",
         "spatie/laravel-permission": "^2.5"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.0",
         "codedungeon/phpunit-result-printer": "^0.4.4",
         "filp/whoops": "~2.0",
-        "fzaninotto/faker": "~1.4",
         "laravel/dusk": "^2.0",
         "mockery/mockery": "0.9.*",
         "phpunit/phpunit": "~6.0",

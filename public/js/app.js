@@ -91780,9 +91780,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       weekends: false,
       height: 'auto',
       header: {
-        left: 'prev next',
-        center: 'title',
-        right: 'month agendaWeek agendaDay'
+        left: 'title',
+        right: false
       },
       fixedWeekCount: false,
       showNonCurrentDates: false,
@@ -91799,11 +91798,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     var nextMonth = !calendar1Config.defaultDate ? '' : moment(calendar1Config.defaultDate).add('months', 1).startOf('month').format('YYYY-MM-DD');
 
     var calendar2Config = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_assign___default()({}, calendar1Config, {
-      header: {
-        left: '',
-        center: 'title',
-        right: ''
-      },
       defaultDate: nextMonth
     });
 
@@ -93574,11 +93568,7 @@ var render = function() {
           ])
         : _vm._e(),
       _vm._v(" "),
-      _c("div", { staticClass: "camp-calendar", attrs: { id: "calendar1" } }),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("div", { staticClass: "camp-calendar", attrs: { id: "calendar2" } }),
+      _vm._m(0),
       _vm._v(" "),
       _c("br"),
       _vm._v(" "),
@@ -93593,9 +93583,11 @@ var render = function() {
               _vm._v(_vm._s(e.event_type.emoji))
             ]),
             _vm._v(" "),
-            _c("a", { attrs: { href: e.event_type.link } }, [
-              _c("b", [_vm._v(_vm._s(e.event_type.name))])
-            ])
+            e.event_type && e.event_type.link
+              ? _c("a", { attrs: { href: e.event_type.link } }, [
+                  _c("b", [_vm._v(_vm._s(e.event_type.name))])
+                ])
+              : _c("b", [_vm._v(_vm._s(e.event_type.name))])
           ])
         })
       )
@@ -93603,7 +93595,22 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-lg mb-3" }, [
+        _c("div", { staticClass: "camp-calendar", attrs: { id: "calendar1" } })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-lg" }, [
+        _c("div", { staticClass: "camp-calendar", attrs: { id: "calendar2" } })
+      ])
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

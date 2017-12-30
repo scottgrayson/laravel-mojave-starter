@@ -37,6 +37,7 @@ class PageSeeder extends Seeder
                 'name' => 'home',
                 'uri' => '/',
             ],
+            [ 'name' => 'employment' ],
             [ 'name' => 'thank-you' ],
             [ 'name' => 'about' ],
             [ 'name' => 'contact' ],

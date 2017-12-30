@@ -344,8 +344,7 @@ class MenuItemSeeder extends Seeder
             [
                 'name' => 'footer',
                 'children' => [
-                    $this->pageItem('about'),
-                    $this->pageItem('contact'),
+                    $this->pageItem('employment'),
                     [
                         'name' => 'email',
                         'link' => 'mailto:'.config('mail.from.address'),
