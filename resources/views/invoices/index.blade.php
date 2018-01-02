@@ -5,7 +5,7 @@
   <table class="table table-responsive-md border border-top-0">
     <thead>
       <tr>
-        <th scope="col">#</th>
+        <th scope="col">ID</th>
         <th scope="col">Date</th>
         <th scope="col">Total</th>
         <th scope="col">Camper</th>
@@ -16,7 +16,7 @@
     <tbody>
     @foreach($invoices as $i)
       <tr>
-        <td scope="row">{{$loop->iteration}}</td>
+        <td scope="row">{{$i->id}}</td>
         <td scope="row"><a href="{{route('invoices.show', $i)}}">
             {{$i->created_at->toDayDateTimeString()}}
         </a></td>

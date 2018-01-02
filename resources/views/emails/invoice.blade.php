@@ -5,7 +5,7 @@
 
   Thank you for your {{str_plural('reservation', $invoice->reservations->count())}}
 
-  - You reserved {{$invoice->reservations->first()->camper->first_name}} for: {{$invoice->reservations->count() . ' days'}}
+  - You reserved {{$invoice->reservations->first()->camper->first_name}} for: {{$invoice->reservations->count()}} {{str_plural('day', $invoice->reservations->count())}}
 
 ${{$invoice->total}} will be charged to {{$user->name."'s"}} card.
 @if($invoice->registration_fee)
