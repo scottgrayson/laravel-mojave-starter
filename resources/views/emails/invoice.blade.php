@@ -14,6 +14,10 @@ ${{$invoice->total}} will be charged to {{$user->name."'s"}} card.
   * This fee will be refunded if you attend the work-party.
 @endif
 
+<p class="text-center">
+  EIN: EIN: 20-1292071
+</p>
+
 @component('mail::button', ['url' => $url])
   View Reservations
 @endcomponent
