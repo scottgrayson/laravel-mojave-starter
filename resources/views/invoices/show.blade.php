@@ -14,19 +14,16 @@
       <p class="text-center">
         {{$invoice->reservations->count()}} {{str_plural('Reservation', $invoice->reservations->count())}}
       </p>
-      <div class="d-flex justify-content-center">
-        <p class="mr-4">
-          From: {{$invoice->reservations->first()->date->toFormattedDateString()}}
-        </p>
-        <p>
-          To: {{$invoice->reservations->last()->date->toFormattedDateString()}}
-        </p>
-      </div>
-      <div class="mx-auto">
-        <a class="btn btn-link" href="{{ route('invoices.show', ['invoice' => $invoice])}}">
-        Download: @svg('download')
-      </a>
-      </div>
+      <ul class="list-group py-2">
+        @foreach($invoice->reservations as $reservation)
+          <li class="list-group-item text-center">
+            {{$reservation->date->toFormattedDateString()}}
+          </li>
+        @endforeach
+      </ul>
+      <p class="text-center lead">
+        EIN: 20-1292071
+      </p>
     </div>
   </div>
 @endsection

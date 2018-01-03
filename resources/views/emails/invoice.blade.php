@@ -15,7 +15,7 @@ ${{$invoice->total}} will be charged to {{$user->name."'s"}} card.
 @endif
 
 <p class="text-center">
-  EIN: EIN: 20-1292071
+  EIN: 20-1292071
 </p>
 
 @component('mail::button', ['url' => $url])
