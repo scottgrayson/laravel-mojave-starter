@@ -33,5 +33,3 @@ Route::resource('newsletter-subscribers', 'NewsletterSubscriberController', [
     'except' => ['show'],
 ]);
 Route::resource('newsletters', 'NewsletterController');
-
-Route::impersonate();

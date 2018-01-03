@@ -23,11 +23,14 @@ class ImpersonateUserTest extends TestCase
         $otherUser = factory(\App\User::class)->create();
 
         $this->be($otherUser);
-        $res = $this->get(route('admin.impersonate', $user->id));
+        $res = $this->get(route('impersonate', $user->id));
         $this->assertEquals(auth()->user()->id, $otherUser->id);
 
         $this->be($admin);
-        $res = $this->get(route('admin.impersonate', $user->id));
+        $res = $this->get(route('impersonate', $user->id));
         $this->assertEquals(auth()->user()->id, $user->id);
+
+        $res = $this->get(route('impersonate.leave'));
+        $this->assertEquals(auth()->user()->id, $admin->id);
     }
 }
