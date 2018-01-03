@@ -20,6 +20,12 @@
       @foreach ($l->children as $c)
         @if ($c->href === '/logout')
 
+          @impersonating
+          <a class="dropdown-item" href="{{ route('impersonate.leave') }}">
+            Leave impersonation
+          </a>
+        @endImpersonating
+
           <a class="dropdown-item" href="{{ url('/logout') }}"
             onclick="event.preventDefault();
             document.getElementById('logout-form').submit();">
