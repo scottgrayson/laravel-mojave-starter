@@ -20,6 +20,12 @@
       @foreach ($l->children as $c)
         @if ($c->href === '/logout')
 
+          @impersonating
+            <a class="dropdown-item" href="{{ route('impersonate.leave') }}">
+              Leave Impersonation
+            </a>
+          @endImpersonating
+
           <a class="dropdown-item" href="{{ url('/logout') }}"
             onclick="event.preventDefault();
             document.getElementById('logout-form').submit();">
@@ -43,11 +49,21 @@
 
   @if ($l->href === '/logout')
 
-    <a class="nav-link" href="{{ url('/logout') }}"
-      onclick="event.preventDefault();
-      document.getElementById('logout-form').submit();">
-      Logout
-    </a>
+    @impersonating
+      <li class="nav-item {{ $l->isActive() ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('impersonate.leave') }}">
+          Leave Impersonation
+        </a>
+      </li>
+    @endImpersonating
+
+    <li class="nav-item {{ $l->isActive() ? 'active' : '' }}">
+      <a class="nav-link" href="{{ url('/logout') }}"
+        onclick="event.preventDefault();
+        document.getElementById('logout-form').submit();">
+        Logout
+      </a>
+    </li>
 
     <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
       {{ csrf_field() }}
