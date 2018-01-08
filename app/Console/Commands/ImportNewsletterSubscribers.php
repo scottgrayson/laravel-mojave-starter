@@ -3,6 +3,8 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use League\Csv\Reader;
+use App\NewsletterSubscriber;
 
 class ImportNewsletterSubscribers extends Command
 {
@@ -11,14 +13,14 @@ class ImportNewsletterSubscribers extends Command
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'subscribers:import {filename=newsletter_subscribers.csv}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'import subscribers';
 
     /**
      * Create a new command instance.
@@ -37,6 +39,18 @@ class ImportNewsletterSubscribers extends Command
      */
     public function handle()
     {
-        //
+        $filepath = storage_path($this->argument('filename'));
+
+        $csv = Reader::createFromPath($filepath, 'r');
+
+        $csv->setHeaderOffset(0);
+
+        $rows = $csv->getRecords();
+
+        foreach ($rows as $row) {
+            $email = $row['Email address - other'];
+
+            NewsletterSubscriber::firstOrCreate(['email' => $email]);
+        }
     }
 }
