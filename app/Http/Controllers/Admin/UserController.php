@@ -57,4 +57,13 @@ class UserController extends CrudController
                 ]
             );
     }
+
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
+
+        return view('admin.users.show', [
+            'user' => $user,
+        ]);
+    }
 }
