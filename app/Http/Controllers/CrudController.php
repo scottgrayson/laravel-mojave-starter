@@ -113,13 +113,13 @@ class CrudController extends Controller
                         $q->whereHas(
                             camel_case($k),
                             function ($q) use ($class, $v) {
-                                $q->where($class::label(), 'ilike', $v.'%');
+                                $q->where($class::label(), 'like', $v.'%');
                             }
                         );
                     } else {
                         if (in_array($k, $cols)) {
                             // check to make sure it is a col to avoid injection
-                            $q->whereRaw("cast ({$k} as varchar) ilike ?", [$v.'%']);
+                            $q->whereRaw("cast ({$k} as varchar) like ?", [$v.'%']);
                         }
                     }
                 }
