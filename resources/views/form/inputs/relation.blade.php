@@ -38,7 +38,7 @@
     if (!isset($attributes['required']) && !isset($attributes['multiple'])) {
       $attributes['placeholder'] = 'None';
     }
-    $options = $relation::pluck($relation::label(), 'id');
+    $options = $relation::all()->pluck($relation::label(), 'id');
     echo Form::select(
       $name . (isset($attributes['multiple']) ? '[]' : ''),
       $options,

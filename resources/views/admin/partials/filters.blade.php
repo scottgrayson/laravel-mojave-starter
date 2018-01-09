@@ -1,5 +1,8 @@
 @php
-  $filterCols = preg_replace('/_id$/', '', $cols);
+  $filterCols = collect(preg_replace('/_id$/', '', $cols))
+    ->filter(function ($col) {
+      return $col != 'camper';
+    })->toArray();
 @endphp
 {{ Form::open(['url' => request()->path(), 'method' => 'get']) }}
 <p class="text-muted">
