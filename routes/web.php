@@ -57,4 +57,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('checkout', 'CheckoutController', [
         'only' => ['index', 'store']
     ]);
+
+    Route::impersonate();
 });

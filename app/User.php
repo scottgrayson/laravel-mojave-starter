@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Lab404\Impersonate\Models\Impersonate;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Auth\Notifications\ResetPassword;
@@ -13,7 +14,7 @@ use App\Counselor;
 
 class User extends Authenticatable
 {
-    use HasRoles, Notifiable, Customer;
+    use HasRoles, Notifiable, Impersonate, Customer;
 
     protected $guarded = ['id'];
 
@@ -99,5 +100,15 @@ class User extends Authenticatable
     public function invoices()
     {
         return $this->hasMany(\App\Invoice::class);
+    }
+
+    public function canImpersonate()
+    {
+        return $this->hasRole('admin');
+    }
+
+    public function canBeImpersonated()
+    {
+        return !$this->hasRole('admin');
     }
 }
