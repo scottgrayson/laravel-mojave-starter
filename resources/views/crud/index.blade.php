@@ -70,7 +70,7 @@
               {{ title_case(str_replace('_', ' ', preg_replace('/(_id)|(_at)$/', '', $c))) }}
               @if($currentOrder === 'asc')
                 @svg('arrow-bottom', 'ml-1 sm s4')
-              @else
+              @elseif($currentOrder === 'desc')
                 @svg('arrow-top', 'ml-1 sm s4')
               @endif
             </a>
