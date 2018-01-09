@@ -9,7 +9,7 @@ use App\Product;
 use App\Camp;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\Invoice;
+use App\Mail\InvoiceEmail;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Braintree_ClientToken;

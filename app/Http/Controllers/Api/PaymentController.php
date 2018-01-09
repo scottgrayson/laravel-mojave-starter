@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Helpers\CartHelper;
 use App\Camp;
+use App\Invoice;
 use App\Product;
 use App\Payment;
 use Cart;
@@ -11,7 +12,7 @@ use App\Reservation;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Mail\Invoice;
+use App\Mail\InvoiceEmail;
 use Illuminate\Support\Facades\Mail;
 
 class PaymentController extends Controller
@@ -95,10 +96,23 @@ class PaymentController extends Controller
 
         $reservations = $reservations->groupBy('camper_id');
 
-        Mail::to($request->user()->email)->send(new Invoice($request->user(), $reservations, $payment, $total, $registration));
+        $invoice = Invoice::create([
+            'user_id' => $request->user()->id,
+            'total' => $total,
+            'registration_fee' => $registration ? true : false,
+        ]);
+
+        foreach ($reservations as $r) {
+            $invoice->reservations()->attach($r->pluck('id'));
+        }
+
+        Mail::to($request->user()->email)->send(new InvoiceEmail($invoice));
 
         Cart::destroy();
 
-        return 'Payment Successful';
+        return response()->json([
+            'message' => 'Payment Successful',
+            'invoice_id' => $invoice->id,
+        ]);
     }
 }

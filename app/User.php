@@ -97,6 +97,11 @@ class User extends Authenticatable
         return $counselor > 0 ? true : false;
     }
 
+    public function invoices()
+    {
+        return $this->hasMany(\App\Invoice::class);
+    }
+
     public function canImpersonate()
     {
         return $this->hasRole('admin');

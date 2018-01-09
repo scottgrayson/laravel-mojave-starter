@@ -3,25 +3,20 @@
 
   Dear {{$user->name}},  
 
-  Thank you for your reservation!
+  Thank you for your {{str_plural('reservation', $invoice->reservations->count())}}
 
-@foreach($dates as $d)
-- You reserved {{$d['camper']->all()[0]}} for:
-@if ($d['dates']->count() >= 5)
-  - {{$d['dates']->count() . ' days'}}
-@else
-@foreach($d['dates'] as $x)
-  - {{$x}}  
-@endforeach
-@endif
-@endforeach
+  - You reserved {{$invoice->reservations->first()->camper->first_name}} for: {{$invoice->reservations->count()}} {{str_plural('day', $invoice->reservations->count())}}
 
-${{$total}} will be charged to {{$user->name."'s"}} card
-@if($registration)
-# Registration Fee
-A registration fee of ${{$registration->amount}} will be charged.  
-* This fee will be refunded if you attend the work-party.
+${{$invoice->total}} will be charged to {{$user->name."'s"}} card.
+@if($invoice->registration_fee)
+  # Registration Fee
+  A registration fee of $150 will be charged.  
+  * This fee will be refunded if you attend the work-party.
 @endif
+
+<p class="text-center">
+  EIN: 20-1292071
+</p>
 
 @component('mail::button', ['url' => $url])
   View Reservations
