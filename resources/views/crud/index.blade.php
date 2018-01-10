@@ -51,9 +51,9 @@
     No Results
   </div>
 @else
-  <table class="table table-responsive">
+  <table class="table table-bordered table-responsive-md">
 
-    <thead>
+    <thead class="bg-dark">
       <tr>
         @foreach ($cols as $c)
           <th>
@@ -66,7 +66,7 @@
                 ['sort' => $c, 'order' => $nextOrder]
               ));
             @endphp
-            <a class="d-inline-flex align-items-center text-dark" href="{{ $sortLink }}">
+            <a class="d-inline-flex align-items-center text-white" href="{{ $sortLink }}">
               {{ title_case(str_replace('_', ' ', preg_replace('/(_id)|(_at)$/', '', $c))) }}
               @if($currentOrder === 'asc')
                 @svg('arrow-bottom', 'ml-1 sm s4')
