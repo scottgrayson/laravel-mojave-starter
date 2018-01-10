@@ -15,7 +15,8 @@ class Invoice extends Model
 
     public function reservations()
     {
-        return $this->belongsToMany(\App\Reservation::class, 
+        return $this->belongsToMany(
+            \App\Reservation::class,
             'invoice_reservations',
             'invoice_id',
             'reservation_id'
