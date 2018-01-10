@@ -119,7 +119,7 @@ class CrudController extends Controller
                     } else {
                         if (in_array($k, $cols)) {
                             // check to make sure it is a col to avoid injection
-                            $q->whereRaw("cast ({$k} as varchar) like ?", [$v.'%']);
+                            $q->whereRaw("cast({$k} as char) like ?", [$v.'%']);
                         }
                     }
                 }
