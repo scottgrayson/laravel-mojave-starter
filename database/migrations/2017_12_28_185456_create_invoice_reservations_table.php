@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateInvoiceReservationTable extends Migration
+class CreateInvoiceReservationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateInvoiceReservationTable extends Migration
      */
     public function up()
     {
-        Schema::create('invoice_reservation', function (Blueprint $table) {
+        Schema::create('invoice_reservations', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('invoice_id')
                 ->unsigned()
