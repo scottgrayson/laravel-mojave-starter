@@ -2,13 +2,21 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
+
 class UserRequest extends FormRequest
 {
     public function editRules()
     {
         return [
             'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
+            'email' => [
+                'required',
+                'email',
+                'max:255',
+                // ignore current user
+                Rule::unique('users')->ignore(request()->user()->id)
+            ]
         ];
     }
 
@@ -24,7 +32,13 @@ class UserRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
+            'email' => [
+                'required',
+                'email',
+                'max:255',
+                // ignore the user being edited
+                Rule::unique('users')->ignore($this->route('user'))
+            ]
         ];
     }
 }
