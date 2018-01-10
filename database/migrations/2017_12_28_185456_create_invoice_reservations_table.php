@@ -6,6 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateInvoiceReservationsTable extends Migration
 {
+    const TABLE = 'invoice_reservations';
     /**
      * Run the migrations.
      *
@@ -13,7 +14,7 @@ class CreateInvoiceReservationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('invoice_reservations', function (Blueprint $table) {
+        Schema::create(self::TABLE, function (Blueprint $table) {
             $table->increments('id');
             $table->integer('invoice_id')
                 ->unsigned()
@@ -40,6 +41,6 @@ class CreateInvoiceReservationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('invoice_reservations');
+        Schema::dropIfExists(self::TABLE);
     }
 }
