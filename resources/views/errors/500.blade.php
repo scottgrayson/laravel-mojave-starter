@@ -4,11 +4,11 @@
   @component('components.focused')
 
     <h1>
-      404
+      500
     </h1>
 
     <p class="lead">
-      The page you were looking for could not be found.
+      It's not you, it's me.
     </p>
 
   @endcomponent
