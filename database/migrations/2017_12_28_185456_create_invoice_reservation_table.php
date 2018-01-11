@@ -4,9 +4,9 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateInvoiceReservationsTable extends Migration
+class CreateInvoiceReservationTable extends Migration
 {
-    const TABLE = 'invoice_reservations';
+    const TABLE = 'invoice_reservation';
     /**
      * Run the migrations.
      *

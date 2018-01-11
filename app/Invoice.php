@@ -17,7 +17,7 @@ class Invoice extends Model
     {
         return $this->belongsToMany(
             \App\Reservation::class,
-            'invoice_reservations',
+            'invoice_reservation',
             'invoice_id',
             'reservation_id'
         )->withTimestamps();
