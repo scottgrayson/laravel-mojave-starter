@@ -65,7 +65,7 @@ class NewsletterSubscriberController extends Controller
         );
     }
 
-    public function destroy(NewsletterSubscriberRequest $request)
+    public function destroy(Request $request)
     {
         $email = request('email');
         $sub = NewsletterSubscriber::where('email', $email)->first();

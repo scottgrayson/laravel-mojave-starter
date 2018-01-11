@@ -18,6 +18,8 @@ class UnsubTest extends TestCase
             'email' => $subscriber->email,
         ]);
 
+        //$this->feedback($response);
+
         $empty = NewsletterSubscriber::where('email', 'newsletter@test.com')
             ->first();
 
