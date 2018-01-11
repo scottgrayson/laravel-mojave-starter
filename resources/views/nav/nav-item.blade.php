@@ -26,6 +26,10 @@
             </a>
           @endImpersonating
 
+          @if (Auth::user()->hasRole('admin'))
+          <a class="dropdown-item" href="/admin">Admin</a>
+          @endif
+
           <a class="dropdown-item" href="{{ url('/logout') }}"
             onclick="event.preventDefault();
             document.getElementById('logout-form').submit();">
