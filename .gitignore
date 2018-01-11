@@ -15,3 +15,4 @@ yarn-error.log
 .env
 package-lock.json
 yarn.lock
+public/sitemap.xml
