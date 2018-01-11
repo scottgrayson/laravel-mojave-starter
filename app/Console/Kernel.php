@@ -16,6 +16,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         Commands\FetchPageContent::class,
         Commands\GrantAdmin::class,
+        Commands\GenerateSitemap::class,
     ];
 
     /**
@@ -30,6 +31,8 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('backup:clean')->daily()->at('01:00');
         $schedule->command('backup:run')->daily()->at('02:00');
+
+        $schedule->command('sitemap:generate')->daily()->at('00:00');
     }
 
     /**
