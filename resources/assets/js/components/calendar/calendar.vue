@@ -5,13 +5,11 @@
     </div>
     <!-- replace with computed property -->
     <!--div class="alert px-0" v-if="query.tent && availableDays.length && user"-->
-    <h4 class="text-center">
+    <p class="lead text-center">
       Reservations
-    </h4>
+    </p>
     <div class="row">
-
       <div class="col">
-
         <div v-for="camper in campers" class="card m-1"
           :class="[selectedCamper.id === camper.id ? 'border-primary' : '']">
           <div class="card-body">
@@ -19,7 +17,7 @@
               {{camper.first_name}}
             </p>
             <p class="m-0">
-              - Days Available for {{ tents[camper.tent_id].name }}
+              - Days Available for {{}}
               <span class="badge badge-primary">{{ availableDays.length }}/{{ openDays.length }}</span>
             </p>
             <p class="m-0">
@@ -37,9 +35,33 @@
           :tents="tents"
           @update="handleTentCamperUpdate"
           ></tent-camper-select>
+        <div class="my-2">
+          <div v-if="!daysAdded" class="alert alert-secondary">
+            Select Days For: {{selectedCamper.first_name}} 
+          </div>
+          <div v-if="daysAdded && !reservedDays" class="alert alert-success">
+            Checkout To Reserve Your Days
+          </div>
+          <div v-if="daysAdded && reservedDays" class="alert alert-success">
+            Checkout To Reserve Additional Days For: {{selectedCamper.first_name}}
+          </div>
+        </div>
+
+        <div class="d-flex align-items-around">
+          <button @click="selectAll" class="btn btn-sm btn-outline-secondary m-1" :disabled="user === false">
+            All
+          </button>
+          <button @click="selectNone" class="btn btn-sm btn-outline-secondary m-1" :disabled="user === false">
+            None
+          </button>
+          <button @click="addToCart" class="btn btn-sm btn-success m-1" :disabled="user === false">
+            Checkout<i class="fa fa-cart"></i>
+          </button>
+        </div>
       </div>
     </div>
     <!--/div-->
+    <hr>
     <div class="row">
       <div class="col-lg mb-3">
         <div class="camp-calendar" id='calendar1'></div>
@@ -61,29 +83,7 @@
     </ul>
   </div>
 
-  <!--div class="my-2">
-  <div v-if="!daysAdded" class="alert alert-secondary">
-    Select Days To Reserve
-  </div>
-  <div v-if="daysAdded && !reservedDays" class="alert alert-success">
-    Checkout To Reserve Your Days
-  </div>
-  <div v-if="daysAdded && reservedDays" class="alert alert-success">
-    Checkout To Reserve Additional Days
-  </div>
-  </div-->
 
-  <!--div class="d-flex align-items-around">
-  <button @click="selectAll" class="btn btn-sm btn-outline-secondary" :disabled="user === false">
-    All
-  </button>
-  <button @click="selectNone" class="btn btn-sm btn-outline-secondary" :disabled="user === false">
-    None
-  </button>
-  <button @click="addToCart" class="btn btn-sm btn-success" :disabled="user === false">
-    Checkout<i class="fa fa-cart"></i>
-  </button>
-  </div-->
 
 </template>
 
@@ -375,68 +375,68 @@ export default {
       reservedDays () {
         return this.daysReserved.length > 0
       },
-    user () {
-      if (window.User) {
-        return true
-      }
-      return false
-    },
-      events () {
-        return this.openDays.map(date => {
-
-          const reserved = this.reservations.find(r => {
-            return r.date == date && r.camper_id == this.query.camper
-          })
-          if (reserved) {
-            return {
-              title: 'Reserved',
-              reserved: true,
-              start: date,
-              className: 'cal-badge bg-success'
-            }
-          }
-
-          const filled = this.availabilities.find(r => {
-            return r.date == date && r.tent_id == this.query.tent && r.tent_limit <= r.campers
-          })
-          if (filled) {
-            return {
-              start: date,
-              title: 'No Openings',
-              className: 'cal-badge bg-light text-dark'
-            }
-          }
-
-          const selected = this.selectedDays.indexOf(date) !== -1
-          if (selected) {
-            return {
-              start: date,
-              title: 'Selected',
-              openings: true,
-              selected: true,
-              className: 'cal-badge bg-primary pointer'
-            }
-          }
-
-          const available = this.availabilities.find(r => {
-            return r.date == date && r.tent_id == this.query.tent
-          })
-          if (available) {
-            return {
-              start: date,
-              title: 'Available',
-              openings: true,
-              className: 'cal-badge bg-secondary pointer'
-            }
-          }
-
-          return {
-            title: 'Camp',
-            className: 'cal-badge bg-secondary',
-            start: date
-          }
-        })
+      user () {
+        if (window.User) {
+          return true
+        }
+        return false
       },
+    events () {
+      return this.openDays.map(date => {
+
+        const reserved = this.reservations.find(r => {
+          return r.date == date && r.camper_id == this.query.camper
+        })
+        if (reserved) {
+          return {
+            title: 'Reserved',
+            reserved: true,
+            start: date,
+            className: 'cal-badge bg-success'
+          }
+        }
+
+        const filled = this.availabilities.find(r => {
+          return r.date == date && r.tent_id == this.query.tent && r.tent_limit <= r.campers
+        })
+        if (filled) {
+          return {
+            start: date,
+            title: 'No Openings',
+            className: 'cal-badge bg-light text-dark'
+          }
+        }
+
+        const selected = this.selectedDays.indexOf(date) !== -1
+        if (selected) {
+          return {
+            start: date,
+            title: 'Selected',
+            openings: true,
+            selected: true,
+            className: 'cal-badge bg-primary pointer'
+          }
+        }
+
+        const available = this.availabilities.find(r => {
+          return r.date == date && r.tent_id == this.query.tent
+        })
+        if (available) {
+          return {
+            start: date,
+            title: 'Available',
+            openings: true,
+            className: 'cal-badge bg-secondary pointer'
+          }
+        }
+
+        return {
+          title: 'Camp',
+          className: 'cal-badge bg-secondary',
+          start: date
+        }
+      })
+    },
 
       eventTypes () {
         return this.otherEvents.reduce((acc, e) => {
