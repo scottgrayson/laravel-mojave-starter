@@ -30,8 +30,6 @@ class UserSeeder extends Seeder
             ]);
         }
 
-        $user->save();
-
         // Seed 50 more users
         factory(\App\User::class, 50)->create()
             ->each(function ($u) {

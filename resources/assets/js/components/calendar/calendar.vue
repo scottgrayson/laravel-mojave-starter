@@ -1,47 +1,45 @@
 <template>
   <div>
-    <p class="lead text-center">Calendar</p>
-    <tent-camper-select
-      :tent="query.tent"
-      :camper="query.camper"
-      :campers="campers"
-      :tents="tents"
-      @update="handleTentCamperUpdate"
-      ></tent-camper-select>
-
-    <br>
-
     <div v-show="!query.tent" class="text-center text-muted alert px-0">
       Select a tent{{ campers.length ? ' or camper' : '' }} to view openings
     </div>
+    <!-- replace with computed property -->
+    <!--div class="alert px-0" v-if="query.tent && availableDays.length && user"-->
+    <h4 class="text-center">
+      Reservations
+    </h4>
+    <div class="row">
 
-    <div class="alert px-0" v-if="query.tent && availableDays.length && user">
-      <h4 v-if="user">
-        Reserve By Day
-      </h4>
-      <div class="row align-items-center">
-        <div class="col-md text-muted">
-          <p>
-            {{ availableDays.length }}/{{ openDays.length }} Days Available for {{ selectedTent.name }}
-          </p>
-          <p v-if="query.camper">
-            {{ selectedDays.length }}/{{ availableDays.length }} Days Selected for {{ selectedCamper.first_name }}
-          </p>
-        </div>
-        <div class="col-md text-right">
-          <button @click="selectAll" class="btn btn-sm btn-secondary" :disabled="user === false">
-            All
-          </button>
-          <button @click="selectNone" class="btn btn-sm btn-secondary" :disabled="user === false">
-            None
-          </button>
-          <button @click="addToCart" class="btn btn-sm btn-primary" :disabled="user === false">
-            Update Cart
-          </button>
+      <div class="col">
+
+        <div v-for="camper in campers" class="card m-1"
+          :class="[selectedCamper.id === camper.id ? 'border-primary' : '']">
+          <div class="card-body">
+            <p class="m-0">
+              {{camper.first_name}}
+            </p>
+            <p class="m-0">
+              - Days Available for {{ tents[camper.tent_id].name }}
+              <span class="badge badge-primary">{{ availableDays.length }}/{{ openDays.length }}</span>
+            </p>
+            <p class="m-0">
+              - Days Reserved
+              <span class="badge badge-success">{{ availableDays.length }}/{{ openDays.length }}</span>
+            </p>
+          </div>
         </div>
       </div>
+      <div class="col">
+        <tent-camper-select
+          :tent="query.tent"
+          :camper="query.camper"
+          :campers="campers"
+          :tents="tents"
+          @update="handleTentCamperUpdate"
+          ></tent-camper-select>
+      </div>
     </div>
-
+    <!--/div-->
     <div class="row">
       <div class="col-lg mb-3">
         <div class="camp-calendar" id='calendar1'></div>
@@ -50,9 +48,7 @@
         <div class="camp-calendar" id='calendar2'></div>
       </div>
     </div>
-
     <br>
-
     <h4>Events</h4>
     <ul style="list-style:none">
       <li v-for="e in eventTypes">
@@ -63,8 +59,32 @@
         <b v-else>{{ e.event_type.name }}</b>
       </li>
     </ul>
-
   </div>
+
+  <!--div class="my-2">
+  <div v-if="!daysAdded" class="alert alert-secondary">
+    Select Days To Reserve
+  </div>
+  <div v-if="daysAdded && !reservedDays" class="alert alert-success">
+    Checkout To Reserve Your Days
+  </div>
+  <div v-if="daysAdded && reservedDays" class="alert alert-success">
+    Checkout To Reserve Additional Days
+  </div>
+  </div-->
+
+  <!--div class="d-flex align-items-around">
+  <button @click="selectAll" class="btn btn-sm btn-outline-secondary" :disabled="user === false">
+    All
+  </button>
+  <button @click="selectNone" class="btn btn-sm btn-outline-secondary" :disabled="user === false">
+    None
+  </button>
+  <button @click="addToCart" class="btn btn-sm btn-success" :disabled="user === false">
+    Checkout<i class="fa fa-cart"></i>
+  </button>
+  </div-->
+
 </template>
 
 <script>
@@ -349,68 +369,74 @@ export default {
   },
 
   computed: {
+    daysAdded () {
+      return this.selectedDays.length > 0
+    },
+      reservedDays () {
+        return this.daysReserved.length > 0
+      },
     user () {
       if (window.User) {
         return true
       }
       return false
     },
-    events () {
-      return this.openDays.map(date => {
+      events () {
+        return this.openDays.map(date => {
 
-        const reserved = this.reservations.find(r => {
-          return r.date == date && r.camper_id == this.query.camper
+          const reserved = this.reservations.find(r => {
+            return r.date == date && r.camper_id == this.query.camper
+          })
+          if (reserved) {
+            return {
+              title: 'Reserved',
+              reserved: true,
+              start: date,
+              className: 'cal-badge bg-success'
+            }
+          }
+
+          const filled = this.availabilities.find(r => {
+            return r.date == date && r.tent_id == this.query.tent && r.tent_limit <= r.campers
+          })
+          if (filled) {
+            return {
+              start: date,
+              title: 'No Openings',
+              className: 'cal-badge bg-light text-dark'
+            }
+          }
+
+          const selected = this.selectedDays.indexOf(date) !== -1
+          if (selected) {
+            return {
+              start: date,
+              title: 'Selected',
+              openings: true,
+              selected: true,
+              className: 'cal-badge bg-primary pointer'
+            }
+          }
+
+          const available = this.availabilities.find(r => {
+            return r.date == date && r.tent_id == this.query.tent
+          })
+          if (available) {
+            return {
+              start: date,
+              title: 'Available',
+              openings: true,
+              className: 'cal-badge bg-secondary pointer'
+            }
+          }
+
+          return {
+            title: 'Camp',
+            className: 'cal-badge bg-secondary',
+            start: date
+          }
         })
-        if (reserved) {
-          return {
-            title: 'Reserved',
-            reserved: true,
-            start: date,
-            className: 'cal-badge bg-success'
-          }
-        }
-
-        const filled = this.availabilities.find(r => {
-          return r.date == date && r.tent_id == this.query.tent && r.tent_limit <= r.campers
-        })
-        if (filled) {
-          return {
-            start: date,
-            title: 'No Openings',
-            className: 'cal-badge bg-light text-dark'
-          }
-        }
-
-        const selected = this.selectedDays.indexOf(date) !== -1
-        if (selected) {
-          return {
-            start: date,
-            title: 'Selected',
-            openings: true,
-            selected: true,
-            className: 'cal-badge bg-primary pointer'
-          }
-        }
-
-        const available = this.availabilities.find(r => {
-          return r.date == date && r.tent_id == this.query.tent
-        })
-        if (available) {
-          return {
-            start: date,
-            title: 'Available',
-            openings: true,
-            className: 'cal-badge bg-secondary pointer'
-          }
-        }
-
-        return {
-          title: 'Camp',
-          className: 'cal-badge bg-secondary',
-          start: date
-        }
-      })
-    },
+      },
 
       eventTypes () {
         return this.otherEvents.reduce((acc, e) => {
@@ -421,21 +447,21 @@ export default {
         }, [])
       },
 
-    daysReserved () {
-      return this.events.filter(e => e.reserved)
-    },
+      daysReserved () {
+        return this.events.filter(e => e.reserved)
+      },
 
-    availableDays () {
-      return this.events.filter(e => e.openings)
-    },
+      availableDays () {
+        return this.events.filter(e => e.openings)
+      },
 
-    selectedCamper () {
-      return this.campers.find(c => c.id == this.query.camper)
-    },
+      selectedCamper () {
+        return this.campers.find(c => c.id == this.query.camper)
+      },
 
-    selectedTent () {
-      return this.tents.find(t => t.id == this.query.tent)
-    }
+      selectedTent () {
+        return this.tents.find(t => t.id == this.query.tent)
+      }
 
     // end computed
   }
