@@ -9,7 +9,7 @@
       Reservations
     </p>
     <div class="row">
-      <div class="col">
+      <div class="col" v-show="selectedCamper">
         <div v-for="camper in campers" class="card m-1"
           :class="[selectedCamper.id === camper.id ? 'border-primary' : '']">
           <div class="card-body">
@@ -17,7 +17,7 @@
               {{camper.first_name}}
             </p>
             <p class="m-0">
-              - Days Available for {{}}
+              - Days Available for {{tents.find(t => t.id == camper.tent_id).name}}
               <span class="badge badge-primary">{{ availableDays.length }}/{{ openDays.length }}</span>
             </p>
             <p class="m-0">
@@ -28,36 +28,40 @@
         </div>
       </div>
       <div class="col">
-        <tent-camper-select
-          :tent="query.tent"
-          :camper="query.camper"
-          :campers="campers"
-          :tents="tents"
-          @update="handleTentCamperUpdate"
-          ></tent-camper-select>
-        <div class="my-2">
-          <div v-if="!daysAdded" class="alert alert-secondary">
-            Select Days For: {{selectedCamper.first_name}} 
-          </div>
-          <div v-if="daysAdded && !reservedDays" class="alert alert-success">
-            Checkout To Reserve Your Days
-          </div>
-          <div v-if="daysAdded && reservedDays" class="alert alert-success">
-            Checkout To Reserve Additional Days For: {{selectedCamper.first_name}}
+        <div class="card">
+          <div class="card-body">
+            <tent-camper-select
+              :tent="query.tent"
+              :camper="query.camper"
+              :campers="campers"
+              :tents="tents"
+              @update="handleTentCamperUpdate"
+              ></tent-camper-select>
+            <div class="my-2">
+              <div v-if="!daysAdded && selectedCamper" class="alert alert-secondary">
+                Select Days For: {{this.selectedCamper.first_name}} 
+              </div>
+              <div v-if="daysAdded && !reservedDays" class="alert alert-success">
+                Checkout To Reserve Your Days
+              </div>
+              <div v-if="daysAdded && reservedDays" class="alert alert-success">
+                Checkout To Reserve Additional Days For: {{selectedCamper.first_name}}
+              </div>
+            </div>
+            <div class="d-flex align-items-around">
+              <button @click="selectAll" class="btn btn-sm btn-outline-secondary m-1" :disabled="user === false">
+                All
+              </button>
+              <button @click="selectNone" class="btn btn-sm btn-outline-secondary m-1" :disabled="user === false">
+                None
+              </button>
+              <button @click="addToCart" class="btn btn-sm btn-success m-1" :disabled="user === false">
+                Checkout<i class="fa fa-cart"></i>
+              </button>
+            </div>
           </div>
         </div>
 
-        <div class="d-flex align-items-around">
-          <button @click="selectAll" class="btn btn-sm btn-outline-secondary m-1" :disabled="user === false">
-            All
-          </button>
-          <button @click="selectNone" class="btn btn-sm btn-outline-secondary m-1" :disabled="user === false">
-            None
-          </button>
-          <button @click="addToCart" class="btn btn-sm btn-success m-1" :disabled="user === false">
-            Checkout<i class="fa fa-cart"></i>
-          </button>
-        </div>
       </div>
     </div>
     <!--/div-->
@@ -447,9 +451,9 @@ export default {
         }, [])
       },
 
-      daysReserved () {
-        return this.events.filter(e => e.reserved)
-      },
+    daysReserved () {
+      return this.events.filter(e => e.reserved)
+    },
 
       availableDays () {
         return this.events.filter(e => e.openings)
@@ -459,9 +463,9 @@ export default {
         return this.campers.find(c => c.id == this.query.camper)
       },
 
-      selectedTent () {
-        return this.tents.find(t => t.id == this.query.tent)
-      }
+    selectedTent () {
+      return this.tents.find(t => t.id == this.query.tent)
+    }
 
     // end computed
   }
