@@ -9,7 +9,7 @@
       Reservations
     </p>
     <div class="row">
-      <div class="col" v-show="selectedCamper">
+      <div class="col">
         <div v-for="camper in campers" class="card m-1"
           :class="[selectedCamper.id === camper.id ? 'border-primary' : '']">
           <div class="card-body">
@@ -39,7 +39,7 @@
               ></tent-camper-select>
             <div class="my-2">
               <div v-if="!daysAdded && selectedCamper" class="alert alert-secondary">
-                Select Days For: {{this.selectedCamper.first_name}} 
+                Select Days For: {{selectedCamper.first_name}} 
               </div>
               <div v-if="daysAdded && !reservedDays" class="alert alert-success">
                 Checkout To Reserve Your Days
