@@ -10,8 +10,7 @@
     </p>
     <div class="row">
       <div class="col">
-        <div v-for="camper in campers" class="card m-1"
-          :class="[selectedCamper.id === camper.id ? 'border-primary' : '']">
+        <div v-for="camper in campers" class="card m-1">
           <div class="card-body">
             <p class="m-0">
               {{camper.first_name}}
@@ -49,14 +48,16 @@
               </div>
             </div>
             <div class="d-flex align-items-around">
-              <button @click="selectAll" class="btn btn-sm btn-outline-secondary m-1" :disabled="user === false">
-                All
-              </button>
-              <button @click="selectNone" class="btn btn-sm btn-outline-secondary m-1" :disabled="user === false">
-                None
-              </button>
-              <button @click="addToCart" class="btn btn-sm btn-success m-1" :disabled="user === false">
-                Checkout<i class="fa fa-cart"></i>
+              <div class="btn-group m-1">
+                <button @click="selectAll" class="btn btn-sm btn-outline-secondary" :disabled="user === false">
+                  All
+                </button>
+                <button @click="selectNone" class="btn btn-sm btn-outline-secondary" :disabled="user === false">
+                  None
+                </button>
+              </div>
+              <button @click="addToCart" class="ml-auto btn btn-sm btn-success m-1" :disabled="user === false">
+                Checkout
               </button>
             </div>
           </div>
