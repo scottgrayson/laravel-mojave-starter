@@ -3,7 +3,7 @@
   @if(auth()->user()->campers()->count() == 0)
     <div class="alert alert-info mt-0 mb-0 text-center">
       Register Your Kid's For Camp
-      <a href="/registration">Here</a>
+      <a href="/campers/create">Here</a>
     </div>
 
   @elseif(auth()->user()->reservations()->count() == 0)
