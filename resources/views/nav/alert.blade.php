@@ -1,4 +1,4 @@
-<div class="container-fluid m-0" style="padding-bottom: 5px; padding-top:98px; padding-right: 0px; padding-left: 0px;">
+<div class="container-fluid m-0" style="padding-top:98px; padding-right: 0px; padding-left: 0px;">
 
   @if(auth()->user()->campers()->count() == 0)
     <div class="alert alert-info mt-0 mb-0 text-center">
