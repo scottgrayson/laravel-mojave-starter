@@ -49,6 +49,10 @@
             </div>
             <div class="d-flex align-items-around">
               <div class="btn-group m-1">
+                <a class="btn btn-sm btn-link disabled">
+                  Select
+                </a>
+                </small>
                 <button @click="selectAll" class="btn btn-sm btn-outline-secondary" :disabled="user === false">
                   All
                 </button>
