@@ -1,14 +1,6 @@
 <template>
   <div>
-    <div v-show="!query.tent" class="text-center text-muted alert px-0">
-      Select a tent{{ campers.length ? ' or camper' : '' }} to view openings
-    </div>
-    <!-- replace with computed property -->
-    <!--div class="alert px-0" v-if="query.tent && availableDays.length && user"-->
-    <p class="lead text-center">
-      Reservations
-    </p>
-    <div class="row">
+    <div v-if="campers.length && user" class="row pt-3">
       <div class="col">
         <div v-for="camper in campers" class="card m-1">
           <div class="card-body">
@@ -45,6 +37,9 @@
               </div>
               <div v-if="daysAdded && reservedDays" class="alert alert-success">
                 Checkout To Reserve Additional Days For: {{selectedCamper.first_name}}
+              </div>
+              <div v-if="!daysAdded && !selectedCamper" class="alert alert-info">
+                Select Camper To Add Days
               </div>
             </div>
             <div class="d-flex align-items-around">
@@ -378,18 +373,22 @@ export default {
   },
 
   computed: {
+
     daysAdded () {
       return this.selectedDays.length > 0
     },
-      reservedDays () {
-        return this.daysReserved.length > 0
-      },
-      user () {
-        if (window.User) {
-          return true
-        }
-        return false
-      },
+
+    reservedDays () {
+      return this.daysReserved.length > 0
+    },
+
+    user () {
+      if (window.User) {
+        return true
+      }
+      return false
+    },
+
     events () {
       return this.openDays.map(date => {
 
@@ -447,26 +446,26 @@ export default {
       })
     },
 
-      eventTypes () {
-        return this.otherEvents.reduce((acc, e) => {
-          if (acc.find(el => e.event_type_id === el.event_type_id)) {
-            return acc
-          }
-          return acc.concat(e)
-        }, [])
-      },
+    eventTypes () {
+      return this.otherEvents.reduce((acc, e) => {
+        if (acc.find(el => e.event_type_id === el.event_type_id)) {
+          return acc
+        }
+        return acc.concat(e)
+      }, [])
+    },
 
     daysReserved () {
       return this.events.filter(e => e.reserved)
     },
 
-      availableDays () {
-        return this.events.filter(e => e.openings)
-      },
+    availableDays () {
+      return this.events.filter(e => e.openings)
+    },
 
-      selectedCamper () {
-        return this.campers.find(c => c.id == this.query.camper)
-      },
+    selectedCamper () {
+      return this.campers.find(c => c.id == this.query.camper)
+    },
 
     selectedTent () {
       return this.tents.find(t => t.id == this.query.tent)
