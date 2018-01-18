@@ -13,7 +13,7 @@
             </p>
             <p class="m-0">
               - Days Reserved
-              <span class="badge badge-success">{{ availableDays.length }}/{{ openDays.length }}</span>
+              <span class="badge badge-success">{{ daysReserved.length }}/{{ openDays.length }}</span>
             </p>
           </div>
         </div>

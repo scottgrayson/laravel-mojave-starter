@@ -2,18 +2,24 @@
 
 @section('content')
   @component('components.focused')
-    <h1 class="h4">Register</h1>
+    <div class="card mt-4">
+      <div class="card-header">
+        <h1 class="h4">Register</h1>
+      </div>
+      <div class="card-body">
 
-      {{ Form::open(['route' => 'register']) }}
+        {{ Form::open(['route' => 'register']) }}
 
-      {{ Form::bs('email') }}
-      {{ Form::bs('name') }}
-      {{ Form::bs('password') }}
-      {{ Form::bs('password_confirmation') }}
+        {{ Form::bs('email') }}
+        {{ Form::bs('name') }}
+        {{ Form::bs('password') }}
+        {{ Form::bs('password_confirmation') }}
 
-      {{ Form::submit('Register', ['class' => 'btn btn-primary mr-2']) }}
-      {{ link_to_route('login', 'Have an account? Login here.') }}
+        {{ Form::submit('Register', ['class' => 'btn btn-primary mr-2']) }}
+        {{ link_to_route('login', 'Have an account? Login here.') }}
 
-      {{ Form::close() }}
+        {{ Form::close() }}
+      </div>
+    </div>
   @endcomponent
 @endsection
