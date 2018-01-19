@@ -26,20 +26,54 @@ class EditCamperTest extends TestCase
         $camper->school_name = 'school';
         $camper->township = 'township';
         $camper->camper_phone = '18003334444';
-        $camper->birthdate = '2017-10-10';
         $camper->shirt_size = 'M';
         $camper->save();
+
+        $data = $camper->toArray();
+        $data['birthdate'] = '2017-10-10';
 
         $this->be($user);
         $r = $this->get(route('campers.edit', $camper->id));
         $r->assertStatus(302);
 
-        $r = $this->put(route('campers.update', $camper->id), $camper->toArray());
+        $r = $this->put(route('campers.update', $camper->id), $data);
 
         $this->assertEquals($user->campers()->first()->shirt_size, $camper->shirt_size);
         $this->assertEquals($user->campers()->first()->first_name, $camper->first_name);
         $this->assertEquals($user->campers()->first()->last_name, $camper->last_name);
         $this->assertEquals($user->campers()->first()->address, $camper->address);
+    }
+
+    public function testInvalidDate()
+    {
+        $user = factory(User::class)->create();
+        $tent = factory(Tent::class)->create();
+        $camper = factory(Camper::class)->create([
+            'tent_id' => $tent->id,
+            'user_id' => $user->id,
+        ]);
+        $camper->first_name = 'Updated';
+        $camper->last_name = 'Name';
+        $camper->address = 'Updated Address';
+        $camper->city = 'city';
+        $camper->state = 'state';
+        $camper->zip = 'zip';
+        $camper->school_name = 'school';
+        $camper->township = 'township';
+        $camper->camper_phone = '18003334444';
+        $camper->shirt_size = 'M';
+        $camper->save();
+
+        $data = $camper->toArray();
+        $data['birthdate'] = '02/09/2011';
+
+        $this->be($user);
+        $r = $this->get(route('campers.edit', $camper->id));
+        $r->assertStatus(302);
+
+        $r = $this->put(route('campers.update', $camper->id), $data);
+
+        $this->assertNull($user->campers()->first()->birthdate);
     }
 
     public function testLastStepRedirect()
@@ -76,14 +110,16 @@ class EditCamperTest extends TestCase
         $camper->township = 'township';
         $camper->school_name = 'school';
         $camper->camper_phone = '18003334444';
-        $camper->birthdate = '2017-10-10';
         $camper->shirt_size = 'M';
+
+        $data = $camper->toArray();
+        $data['birthdate'] = '2017-10-10';
 
         $this->be($user);
         $r = $this->get(route('campers.edit', $camper->id));
         $r->assertStatus(403);
 
-        $r = $this->put(route('campers.update', $camper->id), $camper->toArray());
+        $r = $this->put(route('campers.update', $camper->id), $data);
         $r->assertStatus(403);
 
         $this->assertNotEquals($otheruser->campers()->first()->first_name, $camper->first_name);
