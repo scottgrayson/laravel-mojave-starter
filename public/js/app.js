@@ -91162,6 +91162,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -91435,6 +91459,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
 
   computed: {
+    daysAdded: function daysAdded() {
+      return this.selectedDays.length > 0;
+    },
+    reservedDays: function reservedDays() {
+      return this.daysReserved.length > 0;
+    },
     user: function user() {
       if (window.User) {
         return true;
@@ -92048,11 +92078,7 @@ var render = function() {
   return _c("div", { staticClass: "row" }, [
     _vm.campers.length
       ? _c("div", { staticClass: "col-lg-6 offset-col-6" }, [
-          _c(
-            "label",
-            { staticClass: "col-sm", attrs: { for: "tent-select" } },
-            [_vm._v("Select a camper to make reservations.")]
-          ),
+          _c("label", { attrs: { for: "tent-select" } }, [_vm._v("Camper:")]),
           _vm._v(" "),
           _c(
             "select",
@@ -92080,9 +92106,7 @@ var render = function() {
     _c("br"),
     _vm._v(" "),
     _c("div", { staticClass: "col-lg-6" }, [
-      _c("label", { staticClass: "col-sm", attrs: { for: "tent-select" } }, [
-        _vm._v("Openings for:")
-      ]),
+      _c("label", { attrs: { for: "tent-select" } }, [_vm._v("Tent:")]),
       _vm._v(" "),
       _c(
         "select",
@@ -92126,141 +92150,182 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("p", { staticClass: "lead text-center" }, [_vm._v("Calendar")]),
-      _vm._v(" "),
-      _c("tent-camper-select", {
-        attrs: {
-          tent: _vm.query.tent,
-          camper: _vm.query.camper,
-          campers: _vm.campers,
-          tents: _vm.tents
-        },
-        on: { update: _vm.handleTentCamperUpdate }
-      }),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value: !_vm.query.tent,
-              expression: "!query.tent"
-            }
-          ],
-          staticClass: "text-center text-muted alert px-0"
-        },
-        [
-          _vm._v(
-            "\n    Select a tent" +
-              _vm._s(_vm.campers.length ? " or camper" : "") +
-              " to view openings\n  "
-          )
-        ]
-      ),
-      _vm._v(" "),
-      _vm.query.tent && _vm.availableDays.length && _vm.user
-        ? _c("div", { staticClass: "alert px-0" }, [
-            _vm.user
-              ? _c("h4", [_vm._v("\n      Reserve By Day\n    ")])
-              : _vm._e(),
-            _vm._v(" "),
-            _c("div", { staticClass: "row align-items-center" }, [
-              _c("div", { staticClass: "col-md text-muted" }, [
-                _c("p", [
-                  _vm._v(
-                    "\n          " +
-                      _vm._s(_vm.availableDays.length) +
-                      "/" +
-                      _vm._s(_vm.openDays.length) +
-                      " Days Available for " +
-                      _vm._s(_vm.selectedTent.name) +
-                      "\n        "
-                  )
-                ]),
-                _vm._v(" "),
-                _vm.query.camper
-                  ? _c("p", [
+  return _c("div", [
+    _vm.campers.length && _vm.user
+      ? _c("div", { staticClass: "row pt-3" }, [
+          _c(
+            "div",
+            { staticClass: "col" },
+            _vm._l(_vm.campers, function(camper) {
+              return _c("div", { staticClass: "card m-1" }, [
+                _c("div", { staticClass: "card-body" }, [
+                  _c("p", { staticClass: "m-0" }, [
+                    _vm._v(
+                      "\n            " +
+                        _vm._s(camper.first_name) +
+                        "\n          "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "m-0" }, [
+                    _vm._v(
+                      "\n            - Days Available for " +
+                        _vm._s(
+                          _vm.tents.find(function(t) {
+                            return t.id == camper.tent_id
+                          }).name
+                        ) +
+                        "\n            "
+                    ),
+                    _c("span", { staticClass: "badge badge-primary" }, [
                       _vm._v(
-                        "\n          " +
-                          _vm._s(_vm.selectedDays.length) +
+                        _vm._s(_vm.availableDays.length) +
                           "/" +
-                          _vm._s(_vm.availableDays.length) +
-                          " Days Selected for " +
-                          _vm._s(_vm.selectedCamper.first_name) +
-                          "\n        "
+                          _vm._s(_vm.openDays.length)
                       )
                     ])
-                  : _vm._e()
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md text-right" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-sm btn-secondary",
-                    attrs: { disabled: _vm.user === false },
-                    on: { click: _vm.selectAll }
-                  },
-                  [_vm._v("\n          All\n        ")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-sm btn-secondary",
-                    attrs: { disabled: _vm.user === false },
-                    on: { click: _vm.selectNone }
-                  },
-                  [_vm._v("\n          None\n        ")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-sm btn-primary",
-                    attrs: { disabled: _vm.user === false },
-                    on: { click: _vm.addToCart }
-                  },
-                  [_vm._v("\n          Update Cart\n        ")]
-                )
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "m-0" }, [
+                    _vm._v("\n            - Days Reserved\n            "),
+                    _c("span", { staticClass: "badge badge-success" }, [
+                      _vm._v(
+                        _vm._s(_vm.daysReserved.length) +
+                          "/" +
+                          _vm._s(_vm.openDays.length)
+                      )
+                    ])
+                  ])
+                ])
               ])
+            })
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "col" }, [
+            _c("div", { staticClass: "card" }, [
+              _c(
+                "div",
+                { staticClass: "card-body" },
+                [
+                  _c("tent-camper-select", {
+                    attrs: {
+                      tent: _vm.query.tent,
+                      camper: _vm.query.camper,
+                      campers: _vm.campers,
+                      tents: _vm.tents
+                    },
+                    on: { update: _vm.handleTentCamperUpdate }
+                  }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "my-2" }, [
+                    !_vm.daysAdded && _vm.selectedCamper
+                      ? _c("div", { staticClass: "alert alert-secondary" }, [
+                          _vm._v(
+                            "\n              Select Days For: " +
+                              _vm._s(_vm.selectedCamper.first_name) +
+                              " \n            "
+                          )
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.daysAdded && !_vm.reservedDays
+                      ? _c("div", { staticClass: "alert alert-success" }, [
+                          _vm._v(
+                            "\n              Checkout To Reserve Your Days\n            "
+                          )
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.daysAdded && _vm.reservedDays
+                      ? _c("div", { staticClass: "alert alert-success" }, [
+                          _vm._v(
+                            "\n              Checkout To Reserve Additional Days For: " +
+                              _vm._s(_vm.selectedCamper.first_name) +
+                              "\n            "
+                          )
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    !_vm.daysAdded && !_vm.selectedCamper
+                      ? _c("div", { staticClass: "alert alert-info" }, [
+                          _vm._v(
+                            "\n              Select Camper To Add Days\n            "
+                          )
+                        ])
+                      : _vm._e()
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "d-flex align-items-around" }, [
+                    _c("div", { staticClass: "btn-group m-1" }, [
+                      _c("a", { staticClass: "btn btn-sm btn-link disabled" }, [
+                        _vm._v("\n                Select\n              ")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-sm btn-outline-secondary",
+                          attrs: { disabled: _vm.user === false },
+                          on: { click: _vm.selectAll }
+                        },
+                        [_vm._v("\n                All\n              ")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-sm btn-outline-secondary",
+                          attrs: { disabled: _vm.user === false },
+                          on: { click: _vm.selectNone }
+                        },
+                        [_vm._v("\n                None\n              ")]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "ml-auto btn btn-sm btn-success m-1",
+                        attrs: { disabled: _vm.user === false },
+                        on: { click: _vm.addToCart }
+                      },
+                      [_vm._v("\n              Checkout\n            ")]
+                    )
+                  ])
+                ],
+                1
+              )
             ])
           ])
-        : _vm._e(),
-      _vm._v(" "),
-      _vm._m(0),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("h4", [_vm._v("Events")]),
-      _vm._v(" "),
-      _c(
-        "ul",
-        { staticStyle: { "list-style": "none" } },
-        _vm._l(_vm.eventTypes, function(e) {
-          return _c("li", [
-            _c("span", { staticClass: "pr-2" }, [
-              _vm._v(_vm._s(e.event_type.emoji))
-            ]),
-            _vm._v(" "),
-            e.event_type && e.event_type.link
-              ? _c("a", { attrs: { href: e.event_type.link } }, [
-                  _c("b", [_vm._v(_vm._s(e.event_type.name))])
-                ])
-              : _c("b", [_vm._v(_vm._s(e.event_type.name))])
-          ])
-        })
-      )
-    ],
-    1
-  )
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _c("hr"),
+    _vm._v(" "),
+    _vm._m(0),
+    _vm._v(" "),
+    _c("br"),
+    _vm._v(" "),
+    _c("h4", [_vm._v("Events")]),
+    _vm._v(" "),
+    _c(
+      "ul",
+      { staticStyle: { "list-style": "none" } },
+      _vm._l(_vm.eventTypes, function(e) {
+        return _c("li", [
+          _c("span", { staticClass: "pr-2" }, [
+            _vm._v(_vm._s(e.event_type.emoji))
+          ]),
+          _vm._v(" "),
+          e.event_type && e.event_type.link
+            ? _c("a", { attrs: { href: e.event_type.link } }, [
+                _c("b", [_vm._v(_vm._s(e.event_type.name))])
+              ])
+            : _c("b", [_vm._v(_vm._s(e.event_type.name))])
+        ])
+      })
+    )
+  ])
 }
 var staticRenderFns = [
   function() {
