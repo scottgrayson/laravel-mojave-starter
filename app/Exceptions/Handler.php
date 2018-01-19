@@ -41,7 +41,10 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $exception)
     {
-        \Log::error($exception); //rollbar
+        if ($this->shouldReport($exception)) {
+            \Log::error($exception); //rollbar
+        }
+
         parent::report($exception);
     }
 
