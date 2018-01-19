@@ -45,7 +45,7 @@ class CamperRequest extends FormRequest
             'state' => 'nullable|string|max:255',
             'zip' => 'nullable|string|max:255',
             'camper_phone' => 'nullable|phone:AUTO,US',
-            'birthdate' => 'nullable|date',
+            'birthdate' => 'nullable|date_format:"Y-m-d"',
             'shirt_size' => 'required|in:S,M,L,XL',
             'guardian_name' => 'nullable|string|max:255',
             'guardian_email' => 'nullable|email',
@@ -86,7 +86,7 @@ class CamperRequest extends FormRequest
                 'state' => 'required|string|max:255',
                 'zip' => 'required|string|max:255',
                 'camper_phone' => 'required|phone:AUTO,US',
-                'birthdate' => 'required|date',
+                'birthdate' => 'required|date_format:"Y-m-d"',
                 'shirt_size' => 'required|in:S,M,L,XL',
             ], [
                 'guardian_name' => 'required|string|max:255',

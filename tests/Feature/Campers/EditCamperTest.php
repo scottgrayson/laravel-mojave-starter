@@ -42,6 +42,36 @@ class EditCamperTest extends TestCase
         $this->assertEquals($user->campers()->first()->address, $camper->address);
     }
 
+    public function testInvalidDate()
+    {
+        $user = factory(User::class)->create();
+        $tent = factory(Tent::class)->create();
+        $camper = factory(Camper::class)->create([
+            'tent_id' => $tent->id,
+            'user_id' => $user->id,
+        ]);
+        $camper->first_name = 'Updated';
+        $camper->last_name = 'Name';
+        $camper->address = 'Updated Address';
+        $camper->city = 'city';
+        $camper->state = 'state';
+        $camper->zip = 'zip';
+        $camper->school_name = 'school';
+        $camper->township = 'township';
+        $camper->camper_phone = '18003334444';
+        $camper->birthdate = '02/09/2011';
+        $camper->shirt_size = 'M';
+        $camper->save();
+
+        $this->be($user);
+        $r = $this->get(route('campers.edit', $camper->id));
+        $r->assertStatus(302);
+
+        $r = $this->put(route('campers.update', $camper->id), $camper->toArray());
+
+        $this->assertNull($user->campers()->first()->birthdate);
+    }
+
     public function testLastStepRedirect()
     {
         $user = factory(User::class)->create();
@@ -84,6 +114,7 @@ class EditCamperTest extends TestCase
         $r->assertStatus(403);
 
         $r = $this->put(route('campers.update', $camper->id), $camper->toArray());
+        $this->feedback($r);
         $r->assertStatus(403);
 
         $this->assertNotEquals($otheruser->campers()->first()->first_name, $camper->first_name);
