@@ -99,7 +99,7 @@
     echo Form::file($name, array_merge(['class' => $inputClass], $attributes));
   } elseif ($type === 'date') {
     $value = $item && $item->$name ? $item->$name->format('Y-m-d') : '';
-    echo Form::date($name, $value, array_merge(['class' => $inputClass], $attributes));
+    echo Form::date($name, $value, array_merge(['pattern' => "[0-9]{4}-[0-9]{2}-[0-9]{2}" 'class' => $inputClass], $attributes));
   } else {
     echo Form::$type($name, $value, array_merge(['class' => $inputClass], $attributes), $item);
   }
