@@ -28,3 +28,6 @@
     </div>
   </div>
 </nav>
+@if(Auth::user())
+  @include('nav.alert')
+@endif
