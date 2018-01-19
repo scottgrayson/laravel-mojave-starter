@@ -42,6 +42,7 @@ return [
         'access_token' => env('ROLLBAR_TOKEN'),
         'level' => env('ROLLBAR_LEVEL', 'error'),
         'js_token' => env('ROLLBAR_TOKEN_JS'),
+        'person_fn' => 'get_rollbar_person',
     ],
 
     'pusher' => [
