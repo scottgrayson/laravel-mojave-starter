@@ -49,7 +49,9 @@
   </head>
 
   <body class="svg-background">
-
+    @if(Auth::user())
+      @include('nav.alert')
+    @endif
     <div id="app">
       @yield('body')
       @include('flash::message')

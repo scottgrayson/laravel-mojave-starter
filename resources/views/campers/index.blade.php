@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-  <div class="d-flex align-items-center justify-content-between">
+  <div class="d-flex align-items-center justify-content-between mt-3">
     <h1 class="h3">
       My Campers
     </h1>
     <a href="{{ route('forms') }}"
-      class="btn btn-secondary ml-auto mr-2">
+      class="btn btn-outline-primary mr-auto ml-2">
       Forms
     </a>
     <a href="{{ route('campers.create') }}"
@@ -19,10 +19,10 @@
 
   @if($items && $items->count())
     <table class="table">
-      <thead>
+      <thead class="thead-light">
         <tr>
-          <th>Camper</th>
-          <th class="d-none d-sm-table-cell">Status</th>
+          <th>Name</th>
+          <th class="d-none d-sm-table-cell">Reservations</th>
           <th class="text-right">Actions</th>
         </tr>
       </thead>
@@ -37,22 +37,22 @@
             </td>
             <td class="d-flex justify-content-end">
               <a href="{{ route('calendar.index', ['camper' =>  $i->id]) }}"
-                class="btn btn-sm btn-secondary">
+                class="btn btn-sm btn-outline-primary">
                 @svg('calendar', 'text-top')
                 <span class="d-none d-md-inline">
-                  Reservations
+                  Add Days
                 </span>
               </a>
               <a href="{{ route('campers.edit', $i->id) }}"
-                class="mx-1 btn btn-sm btn-secondary">
+                class="mx-1 btn btn-sm btn-outline-primary">
                 @svg('edit', 'text-top')
                 <span class="d-none d-md-inline">
-                  Registration
+                  Update
                 </span>
               </a>
               <a href="{{ route('campers.destroy', $i->id) }}"
                 data-method="delete"
-                class="btn btn-sm btn-secondary">
+                class="btn btn-sm btn-outline-primary">
                 @svg('trash', 'text-top')
                 <span class="d-none d-md-inline">
                   Delete

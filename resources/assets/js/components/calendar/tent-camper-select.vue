@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div v-if="campers.length" class="col-lg-6 offset-col-6">
-      <label class="col-sm" for="tent-select">Select a camper to make reservations.</label>
+      <label for="tent-select">Camper:</label>
       <select @change="handleCamperUpdate" :value="camper" class="col-sm form-control">
         <option :value="0">No Camper Selected</option>
         <option v-for="c in campers" :value="c.id">{{ c.first_name }} {{ c.last_name }}</option>
@@ -11,7 +11,7 @@
     <br>
 
     <div class="col-lg-6">
-      <label class="col-sm" for="tent-select">Openings for:</label>
+      <label for="tent-select">Tent:</label>
       <select placeholder="Select Tent" @change="handleTentUpdate" :value="tent" class="form-control" id="tent-select">
         <option :value="0">No Tent Selected</option>
         <option v-for="t in tents" :value="t.id">{{ t.name }}</option>

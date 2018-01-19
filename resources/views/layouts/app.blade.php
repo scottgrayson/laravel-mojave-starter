@@ -2,7 +2,7 @@
 
 @section('body')
   @include('nav.default')
-  <div style="padding-top:115px" class="container bg-white">
+  <div class="container bg-white" style="padding-top: 50px;">
     @yield('content')
   </div>
   @include('footer.default')
