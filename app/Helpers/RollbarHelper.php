@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Helpers;
-
-class RollbarHelper
-{
-    public static function get_rollbar_person()
+// This file is loaded with HelperServiceProvider
+//
+if (! function_exists('get_rollbar_person')) {
+    function get_rollbar_person()
     {
         if (Auth::user()) {
             return [
