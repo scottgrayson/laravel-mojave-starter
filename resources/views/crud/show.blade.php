@@ -1,1 +1,1 @@
-{{ dump($item->toArray()) }}
+{{ dump(collect($item->toArray())) }}
