@@ -10,7 +10,7 @@ Route::resource('events', 'EventController', ['except' => ['show']]);
 Route::resource('reservations', 'ReservationController', ['except' => ['show']]);
 Route::resource('payments', 'PaymentController', ['only' => ['index', 'show', 'destroy']]);
 Route::resource('refunds', 'RefundController', ['only' => ['index', 'store']]);
-Route::resource('campers', 'CamperController');
+Route::resource('campers', 'CamperController', ['except' => ['show']]);
 Route::resource('tents', 'TentController', ['except' => ['show']]);
 Route::resource('tent-limits', 'TentLimitController', ['except' => ['show']]);
 Route::resource('images', 'ImageController');
