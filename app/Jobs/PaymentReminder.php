@@ -29,6 +29,7 @@ class PaymentReminder implements ShouldQueue
      */
     public function handle()
     {
-        //
+        //TODO: 2 emails, one for users with campers and no reservations
+        //one email for users with no campers
     }
 }
