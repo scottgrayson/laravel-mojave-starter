@@ -3,10 +3,7 @@
 namespace App\Jobs;
 
 use App\User;
-use App\Camper;
-use App\Reservations;
 
-use App\Mail\PaymentReminder as Reminder;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
@@ -14,7 +11,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class PaymentReminder implements ShouldQueue
+class ReservationReminder implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -27,8 +24,7 @@ class PaymentReminder implements ShouldQueue
 
     public function __construct()
     {
-        $this->users = $users = User::whereHas('campers')->whereDoesntHave('reservations')->get();
-        //
+        $this->users = $users = User::whereDoesntHas('campers')->get();
     }
 
     /**
@@ -36,10 +32,9 @@ class PaymentReminder implements ShouldQueue
      *
      * @return void
      */
+
     public function handle()
     {
-        //TODO: 2 emails, one for users with campers and no reservations
-        //one email for users with no campers
         foreach($this->users as $user) {
             Mail::to($user->email)->send(new Reminder());
         }
