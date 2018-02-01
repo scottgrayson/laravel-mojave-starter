@@ -27,7 +27,7 @@ class InvoiceEmail extends Mailable
 
     public $user;
 
-    public $registration_fee;
+    public $registration;
 
     public function __construct(Invoice $invoice)
     {
@@ -35,9 +35,7 @@ class InvoiceEmail extends Mailable
 
         $this->user = $invoice->user;
 
-        $this->registration_fee = Product::where('name', 'Registration Fee')->get();
-
-        dd($this->registration_fee);
+        $registration = Product::where('slug', 'registration-fee')->get();
 
         $this->url = route('invoices.show', $invoice);
     }
@@ -50,7 +48,7 @@ class InvoiceEmail extends Mailable
     public function build()
     {
         return $this->markdown('emails.invoice')
-            ->with('registration_fee', $this->registration_fee)
+            ->with('registration', $this->registration)
             ->with('invoice', $this->invoice)
             ->with('user', $this->user)
             ->with('url', $this->url);
