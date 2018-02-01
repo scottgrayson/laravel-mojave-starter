@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class PaymentReminder extends Mailable
+class ReservationReminder extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -30,6 +30,6 @@ class PaymentReminder extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.payments.reminder');
+        return $this->markdown('emails.payments.reservation-reminder');
     }
 }
