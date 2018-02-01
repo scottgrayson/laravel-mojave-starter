@@ -4,6 +4,8 @@ namespace App\Console;
 
 use App\Jobs\CounselorReminder;
 use App\Jobs\PaymentReminder;
+use App\Jobs\ReservationReminder;
+
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -30,6 +32,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->job(new CounselorReminder)->sundays()->at('12:00');
         $schedule->job(new PaymentReminder)->sundays()->at('01:00');
+        $schedule->job(new ReservationReminder)->sundays()->at('02:00');
 
         $schedule->command('backup:clean')->daily()->at('01:00');
         $schedule->command('backup:run')->daily()->at('02:00');

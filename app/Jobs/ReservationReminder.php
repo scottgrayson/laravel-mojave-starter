@@ -24,7 +24,7 @@ class ReservationReminder implements ShouldQueue
 
     public function __construct()
     {
-        $this->users = $users = User::whereDoesntHas('campers')->get();
+        $this->users = $users = User::whereDoesntHave('campers')->get();
     }
 
     /**
