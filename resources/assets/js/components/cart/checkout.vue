@@ -114,8 +114,7 @@ export default {
         // Submit payload.nonce to your server
         axios.post('/api/payments', payload)
           .then((response) => {
-            console.log(response)
-            return
+            window.location.href = '/invoices/'+response.data.invoice_id
           })
           .catch((error) => {
             this.processing = false

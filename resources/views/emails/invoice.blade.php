@@ -10,7 +10,7 @@
 ${{$invoice->total}} will be charged to {{$user->name."'s"}} card.
 @if($invoice->registration_fee)
   # Registration Fee
-  A registration fee of {{$registration->pluck('price')}} will be charged.  
+  A registration fee of ${{$registration}} will be charged.  
   * This fee will be refunded if you attend the work-party.
 @endif
 
