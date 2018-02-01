@@ -2,6 +2,10 @@
 
 namespace App\Jobs;
 
+use App\User;
+use App\Camper;
+use App\Reservations;
+
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -31,5 +35,8 @@ class PaymentReminder implements ShouldQueue
     {
         //TODO: 2 emails, one for users with campers and no reservations
         //one email for users with no campers
+        $registered = User::whereHas('campers')->whereDoesntHave('reservations')->get();
+
+        $unregistered = User::whereDoesntHave('campers')->get();
     }
 }
