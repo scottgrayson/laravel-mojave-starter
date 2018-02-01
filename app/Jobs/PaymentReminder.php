@@ -27,8 +27,7 @@ class PaymentReminder implements ShouldQueue
 
     public function __construct()
     {
-        $this->users = $users = User::whereHas('campers')->whereDoesntHave('reservations')->get();
-        //
+        $this->users = $users = User::whereDoesntHave('reserations')->whereHas('campers')->get();
     }
 
     /**
