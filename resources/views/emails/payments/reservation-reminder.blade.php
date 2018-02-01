@@ -1,9 +1,10 @@
 @component('mail::message')
-# Introduction
+# Registration
 
-The body of your message.
+Dear {{$user->name}}, camp registration closes {{$camp->camp_end->diffForHumans()}},
+we noticed you haven't completed enrollment for your campers, follow the link below to reserve camp dates
 
-@component('mail::button', ['url' => ''])
+@component('mail::button', ['url' => $url])
 Button Text
 @endcomponent
 
