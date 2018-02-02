@@ -19,15 +19,13 @@ class ReservationReminderTest extends TestCase
     {
         Mail::fake();
 
-        $user = User::create();
-        $user2 = User::create();
-        $tent = Tent::create();
+        $user = factory(User::class)->create();
+        $user2 = factory(User::class)->create();
+        $tent = factory(Tent::class)->create();
         $camper = factory(Camper::class)->create([
             'tent_id' => $tent->id,
             'user_id' => $user->id,
         ]);
-
-        dd($camper);
 
         ReservationReminder::dispatch();
 
