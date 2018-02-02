@@ -12,6 +12,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use App\User;
 use App\Camper;
 use App\Invoice;
+use App\Product;
 
 class InvoiceEmail extends Mailable
 {
@@ -26,11 +27,17 @@ class InvoiceEmail extends Mailable
 
     public $user;
 
+    public $registration;
+
     public function __construct(Invoice $invoice)
     {
         $this->invoice = $invoice;
 
         $this->user = $invoice->user;
+
+        $registration = Product::where('slug', 'registration-fee')->firstOrFail();
+
+        $this->registration = $registration->price;
 
         $this->url = route('invoices.show', $invoice);
     }
@@ -43,6 +50,7 @@ class InvoiceEmail extends Mailable
     public function build()
     {
         return $this->markdown('emails.invoice')
+            ->with('registration', $this->registration)
             ->with('invoice', $this->invoice)
             ->with('user', $this->user)
             ->with('url', $this->url);
