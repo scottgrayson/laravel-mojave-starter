@@ -6,6 +6,9 @@ pipeline {
       BRAINTREE_MERCHANT_ID = credentials('BETTY_BRAINTREE_MERCHANT_ID')
       BRAINTREE_PUBLIC_KEY = credentials('BETTY_BRAINTREE_PUBLIC_KEY')
       BRAINTREE_PRIVATE_KEY = credentials('BETTY_BRAINTREE_PRIVATE_KEY')
+      DB_DATABASE = credentials(' BETTY_DB_DATABASE')
+      DB_USERNAME = credentials('BETTY_DB_USERNAME')
+      DB_PASSWORD = credentials(' BETTY_DB_PASSWORD')
     }
   stages {
     stage('checkout_repo') {
