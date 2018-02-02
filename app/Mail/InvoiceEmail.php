@@ -35,9 +35,9 @@ class InvoiceEmail extends Mailable
 
         $this->user = $invoice->user;
 
-        $registration = Product::where('slug', 'registration-fee')->first()->price;
+        $registration = Product::where('slug', 'registration-fee')->firstOrFail();
 
-        $this->registration = $registration;
+        $this->registration = $registration->price;
 
         $this->url = route('invoices.show', $invoice);
     }
