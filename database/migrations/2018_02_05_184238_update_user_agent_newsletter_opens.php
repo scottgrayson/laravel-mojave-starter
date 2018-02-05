@@ -14,7 +14,7 @@ class UpdateUserAgentNewsletterOpens extends Migration
     public function up()
     {
         Schema::table('newsletter_opens', function (Blueprint $table) {
-            $table->string('user_agent', 500)->change();
+            $table->text('user_agent')->change();
         });
     }
 
@@ -26,7 +26,7 @@ class UpdateUserAgentNewsletterOpens extends Migration
     public function down()
     {
         Schema::table('newsletter_opens', function (Blueprint $table) {
-            $table->string('user_agent', 255)->change();
+            $table->string('user_agent')->change();
         });
     }
 }
