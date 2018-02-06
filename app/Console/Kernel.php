@@ -2,6 +2,8 @@
 
 namespace App\Console;
 
+use App\Camp;
+
 use App\Jobs\CounselorReminder;
 use App\Jobs\PaymentReminder;
 use App\Jobs\ReservationReminder;
@@ -31,9 +33,15 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->job(new CounselorReminder)->sundays()->at('12:00');
-        $schedule->job(new PaymentReminder)->sundays()->at('01:00');
-        $schedule->job(new ReservationReminder)->daily()->at('03:00');
 
+        // If camp starts within 60 days begin sending reservation reminders;
+        if (Camp::current()->camp_start->diffInDays(today()) <= 60) {
+            // TODO: get users with campers but no reservations and send them reservation reminders;
+            $users = User::with('campers')->get();
+            $schedule->job(new ReservationReminder)->daily()->at('04:00');
+            // TODO #2: get users with campers/reservations but no payments and send them paymetn reminders;
+            $schedule->job(new PaymentReminder)->sundays()->at('01:00');
+        }
         $schedule->command('backup:clean')->daily()->at('01:00');
         $schedule->command('backup:run')->daily()->at('02:00');
 
