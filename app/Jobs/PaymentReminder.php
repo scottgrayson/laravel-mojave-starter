@@ -6,7 +6,7 @@ use App\User;
 use App\Camper;
 use App\Reservations;
 
-use App\Mail\PaymentReminder as Reminder;
+use App\Mail\PaymentReminderMail as Reminder;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;

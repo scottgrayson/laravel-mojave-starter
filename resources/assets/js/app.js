@@ -9,6 +9,7 @@ require('./bootstrap')
 
 window.Vue = require('vue')
 window.bus = new Vue()
+Vue.config.performance = true
 
 import { dateFormat } from './filters/index.js'
 Vue.filter('dateFormat', dateFormat)
