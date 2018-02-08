@@ -40,8 +40,6 @@ class PaymentReminder implements ShouldQueue
      */
     public function handle()
     {
-        //TODO: 2 emails, one for users with campers and no reservations
-        //one email for users with no campers
         foreach($this->users as $user) {
             Mail::to($user->email)->send(new Reminder($user));
         }
