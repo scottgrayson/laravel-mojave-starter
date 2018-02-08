@@ -33,13 +33,15 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->job(new CounselorReminder)->sundays()->at('12:00');
-
-        // If camp starts within 60 days begin sending reservation reminders;
         if (Camp::current()->camp_start->diffInDays(today()) <= 60) {
-            // TODO: get users with campers but no reservations and send them reservation reminders;
-            $users = User::with('campers')->get();
-            $schedule->job(new ReservationReminder)->daily()->at('04:00');
-            // TODO #2: get users with campers/reservations but no payments and send them paymetn reminders;
+            $reservationUsers = User::has('campers')
+                ->doesntHave('reservations')
+                ->first();
+            $schedule->job(new ReservationReminder)->sundays()->at('04:00');
+
+            $paymentUsers = User::has('reservations')
+                ->doesntHave('payments')
+                ->first();
             $schedule->job(new PaymentReminder)->sundays()->at('01:00');
         }
         $schedule->command('backup:clean')->daily()->at('01:00');
