@@ -2,12 +2,16 @@
 
 namespace App\Console\Commands;
 
+use App\Jobs\PaymentReminder;
+use App\Jobs\ReservationReminder;
+
 use Illuminate\Console\Command;
 
 class ReminderEmails extends Command
 {
     /**
      * The name and signature of the console command.
+     *
      *
      * @var string
      */
@@ -37,6 +41,10 @@ class ReminderEmails extends Command
      */
     public function handle()
     {
-        //
+        if ($this->argument('type') === 'payments') {
+            PaymentReminder::dispatch();
+        } elseif ($this->argument('type') === 'reservations') {
+            ReservationReminder::dispatch();
+        }
     }
 }
