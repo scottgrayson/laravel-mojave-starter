@@ -2,13 +2,15 @@
 
 namespace Tests\Feature\Payments;
 
-use Tests\TestCase;
+use Tests\TestCase;;
+use App\Reservation;
 use App\Camper;
 use App\User;
 use App\Tent;
 
 use App\Mail\PaymentReminderMail as Reminder;
 use App\Jobs\PaymentReminder;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Carbon\Carbon;
 
@@ -22,6 +24,12 @@ class PaymentReminderTest extends TestCase
         $user2 = factory(User::class)->create();
         $tent = factory(Tent::class)->create();
         $camper = factory(Camper::class)->create([
+            'tent_id' => $tent->id,
+            'user_id' => $user->id,
+        ]);
+
+        $res = factory(Reservation::class)->create([
+            'camper_id' => $camper->id,
             'tent_id' => $tent->id,
             'user_id' => $user->id,
         ]);
