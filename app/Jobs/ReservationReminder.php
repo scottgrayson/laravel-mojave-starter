@@ -5,6 +5,7 @@ namespace App\Jobs;
 use App\User;
 use App\Mail\ReservationReminderMail as Reminder;
 
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;

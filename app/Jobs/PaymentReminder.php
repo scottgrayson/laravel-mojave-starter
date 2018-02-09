@@ -8,6 +8,7 @@ use App\Reservations;
 
 use App\Mail\PaymentReminderMail as Reminder;
 
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
