@@ -1,4 +1,3 @@
-
 @component('mail::message')
 # Registration
 
@@ -7,7 +6,7 @@ we noticed you haven't completed payment for your reservations,
 follow the link below to finish reservation. 
 
 @component('mail::button', ['url' => $url])
-Button Text
+  Complete Reservations
 @endcomponent
 
 Thanks,<br>
