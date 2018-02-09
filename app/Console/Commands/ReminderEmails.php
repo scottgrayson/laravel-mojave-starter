@@ -2,6 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Camp;
+
 use App\Jobs\PaymentReminder;
 use App\Jobs\ReservationReminder;
 
@@ -41,10 +43,12 @@ class ReminderEmails extends Command
      */
     public function handle()
     {
-        if ($this->argument('type') === 'payments') {
-            PaymentReminder::dispatch();
-        } elseif ($this->argument('type') === 'reservations') {
-            ReservationReminder::dispatch();
+        if (Camp::current()->camp_start->diffInDays(today()) <= 60) {
+            if ($this->argument('type') === 'payments') {
+                PaymentReminder::dispatch();
+            } elseif ($this->argument('type') === 'reservations') {
+                ReservationReminder::dispatch();
+            }
         }
     }
 }
