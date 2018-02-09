@@ -37,7 +37,6 @@ class ReservationReminder implements ShouldQueue
      *
      * @return void
      */
-
     public function handle()
     {
         foreach ($this->users as $user) {
