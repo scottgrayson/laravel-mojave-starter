@@ -28,10 +28,9 @@ class PaymentReminderTest extends TestCase
             'user_id' => $user->id,
         ]);
 
-        $res = factory(Reservation::class)->create([
-            'camper_id' => $camper->id,
-            'tent_id' => $tent->id,
-            'user_id' => $user->id,
+        $this->be($user);
+
+        $this->json('POST', route('reservations.create', [
         ]);
 
         PaymentReminder::dispatch();
