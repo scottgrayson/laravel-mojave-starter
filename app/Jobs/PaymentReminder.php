@@ -41,7 +41,7 @@ class PaymentReminder implements ShouldQueue
      */
     public function handle()
     {
-        foreach($this->users as $user) {
+        foreach ($this->users as $user) {
             Mail::to($user->email)->send(new Reminder($user));
         }
     }
