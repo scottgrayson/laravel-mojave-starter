@@ -26,7 +26,7 @@ class SendNewsletterText extends TestCase
         $this->post(route('admin.newsletter.send', $newsletter->id))
             ->assertStatus(302);
 
-        Mail::assertQueued(MailNewsletter::class, function($mail) {
+        Mail::assertQueued(MailNewsletter::class, function ($mail) {
             return $mail->hasTo('newsletter@test.com');
         });
     }

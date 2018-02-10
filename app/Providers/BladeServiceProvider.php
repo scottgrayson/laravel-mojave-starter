@@ -14,7 +14,9 @@ class BladeServiceProvider extends ServiceProvider
     public function boot()
     {
         \Form::component(
-            'bs', 'form.inputs.auto', [
+            'bs',
+            'form.inputs.auto',
+            [
             'name',
             'type' => null,
             'value' => null,
@@ -26,7 +28,9 @@ class BladeServiceProvider extends ServiceProvider
         );
 
         \Form::component(
-            'relation', 'form.inputs.relation', [
+            'relation',
+            'form.inputs.relation',
+            [
             'name',
             'value' => null,
             'relation' => null,
@@ -36,7 +40,9 @@ class BladeServiceProvider extends ServiceProvider
         );
 
         \Form::component(
-            'editor', 'form.inputs.editor', [
+            'editor',
+            'form.inputs.editor',
+            [
             'name',
             'value' => null,
             'attributes' => [],
@@ -45,7 +51,9 @@ class BladeServiceProvider extends ServiceProvider
         );
 
         \Form::component(
-            'code', 'form.inputs.code', [
+            'code',
+            'form.inputs.code',
+            [
             'name',
             'value' => null,
             'attributes' => [],

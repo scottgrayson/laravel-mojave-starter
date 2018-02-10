@@ -26,11 +26,13 @@ Route::delete('newsletter/unsubscribe', 'NewsletterSubscriberController@destroy'
 Route::get('newsletters/short/{slug}', 'NewsletterTrackingController@link');
 Route::get('newsletters/open/{id}', 'NewsletterTrackingController@open');
 
-Route::middleware('auth')->group( function () {
+Route::middleware('auth')->group(function () {
     Route::get('notifications/mark-read', 'NotificationController@markAllRead');
 
     Route::resource(
-        'notifications', 'NotificationController', [
+        'notifications',
+        'NotificationController',
+        [
             'only' => ['index', 'show'],
         ]
     );
@@ -38,7 +40,9 @@ Route::middleware('auth')->group( function () {
     // Users
     Route::get('settings', 'UserController@settings')->name('settings');
     Route::resource(
-        'users', 'UserController', [
+        'users',
+        'UserController',
+        [
             'only' => ['update'],
         ]
     );

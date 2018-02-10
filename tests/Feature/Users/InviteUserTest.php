@@ -33,9 +33,10 @@ class InviteUserTest extends TestCase
         $this->assertNotNull($u);
         $this->assertNotNull($u->password);
 
-        Notification::assertSentTo($u,
+        Notification::assertSentTo(
+            $u,
             InviteUser::class,
-            function($notification) use ($u) {
+            function ($notification) use ($u) {
                 $res = $this->post(route('password.request'), [
                     'token' => $notification->token,
                     'email' => $u->email,
@@ -45,6 +46,7 @@ class InviteUserTest extends TestCase
 
                 $res->assertRedirect(route('home'));
                 return true;
-            });
+            }
+        );
     }
 }

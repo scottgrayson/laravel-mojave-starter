@@ -41,7 +41,8 @@ class InviteUser extends Notification
         return (new MailMessage)
             ->subject('You have been invited to create an account')
             ->markdown(
-                'mail.invite-user', [
+                'mail.invite-user',
+                [
                 'url' => url(config('app.url').route('password.reset', ['token' => $this->token, 'email' => $notifiable->email], false)),
                 ]
             );
