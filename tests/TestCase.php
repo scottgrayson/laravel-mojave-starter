@@ -9,13 +9,15 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication, DatabaseMigrations;
 
-    protected function createAdminRole() {
+    protected function createAdminRole()
+    {
         \Artisan::call('db:seed', [
             '--class' => 'RolePermissionSeeder'
         ]);
     }
 
-    protected function feedback($response) {
+    protected function feedback($response)
+    {
         if (get_class($response->baseResponse) === 'Illuminate\Http\RedirectResponse') {
             dump($response->baseResponse->getSession());
         } else {

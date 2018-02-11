@@ -43,6 +43,5 @@ class NewsletterSeeder extends Seeder
             ->toArray();
 
         DB::table('newsletter_clicks')->insert($clicks);
-
     }
 }

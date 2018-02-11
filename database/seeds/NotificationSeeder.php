@@ -19,7 +19,7 @@ class NotificationSeeder extends Seeder
 
         foreach ($users as $u) {
             for ($i = 0; $i < 100; $i++) {
-               $u->notify(new TestNotification());
+                $u->notify(new TestNotification());
             }
         }
 
@@ -27,8 +27,8 @@ class NotificationSeeder extends Seeder
 
         foreach ($notifications as $n) {
             \DB::table('notifications')->where('id', $n->id)->update([
-                'read_at' => rand(0,1) ? Carbon::now()->toDateTimeString() : null,
-                'created_at' => Carbon::now()->subHours(rand(0,100))->toDateTimeString(),
+                'read_at' => rand(0, 1) ? Carbon::now()->toDateTimeString() : null,
+                'created_at' => Carbon::now()->subHours(rand(0, 100))->toDateTimeString(),
             ]);
         }
     }

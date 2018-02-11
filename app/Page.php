@@ -26,5 +26,4 @@ class Page extends Model
     {
         return property_exists($this, 'layout') && $this->layout ? $this->layout : 'app';
     }
-
 }
