@@ -61,4 +61,3 @@ class CreateInvoiceTest extends TestCase
         });
     }
 }
-?>

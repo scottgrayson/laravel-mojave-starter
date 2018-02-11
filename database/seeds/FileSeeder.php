@@ -18,7 +18,8 @@ class FileSeeder extends Seeder
             \Artisan::call('storage:link');
         }
 
-        function localToStorage () {
+        function localToStorage()
+        {
             return function ($filepath) {
                 if (!Storage::exists('uploads/'.$filepath)) {
                     $r = Storage::put(

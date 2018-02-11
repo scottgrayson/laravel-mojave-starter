@@ -13,7 +13,7 @@ class TentSeeder extends Seeder
     {
         $tents = [];
 
-        foreach([1,2,3,4,5,6] as $grade) {
+        foreach ([1,2,3,4,5,6] as $grade) {
             foreach (['m', 'f'] as $sex) {
                 $tents []= [
                     'name' => $grade . $this->ordinal_suffix($grade) . ' Grade ' . ($sex === 'm' ? 'Boys' : 'Girls'),
@@ -27,13 +27,17 @@ class TentSeeder extends Seeder
         DB::table('tents')->insert($tents);
     }
 
-    public function ordinal_suffix($num){
+    public function ordinal_suffix($num)
+    {
         $num = $num % 100; // protect against large numbers
-        if($num < 11 || $num > 13){
-            switch($num % 10){
-            case 1: return 'st';
-            case 2: return 'nd';
-            case 3: return 'rd';
+        if ($num < 11 || $num > 13) {
+            switch ($num % 10) {
+                case 1:
+                    return 'st';
+                case 2:
+                    return 'nd';
+                case 3:
+                    return 'rd';
             }
         }
         return 'th';

@@ -350,7 +350,7 @@ class MenuItemSeeder extends Seeder
                         'link' => 'mailto:'.config('mail.from.address'),
                     ],
                     [ 'name' => 'newsletter' ],
-                    [ 
+                    [
                         'name' => 'facebook',
                         'link' => 'https://www.facebook.com/missbettysdaycamp/',
                     ],
