@@ -28,8 +28,8 @@ class ReservationReminder implements ShouldQueue
     public function __construct()
     {
         $users = User::whereHas('campers', function ($query) {
-            $query->where('created_at', '<=', Carbon::now()->addDays(1));
-        })->doesntHave('reservations')->get();
+            $query->whereDate('created_at', [Carbon::today(), Carbon::yesterday()]);
+        })->get();
 
         $this->users = $users;
     }
