@@ -17,6 +17,7 @@ class ReservationReminderTest extends TestCase
 {
     public function testSendingReminder()
     {
+        Mail::fake();
 
         $user = factory(User::class)->create();
         $user2 = factory(User::class)->create();
@@ -28,5 +29,9 @@ class ReservationReminderTest extends TestCase
 
         ReservationReminder::dispatch();
 
+        Mail::assertSent(Reminder::class, function($mail) use ($user) {
+            return $mail->user->id === $user->id;
+        });
+        Mail::assertSent(Reminder::class, 1);
     }
 }
