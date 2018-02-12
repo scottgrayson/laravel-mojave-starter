@@ -13,7 +13,7 @@ use App\Jobs\NewCamperReminder;
 
 use Illuminate\Support\Facades\Mail;
 
-class ReservationReminderTest extends TestCase
+class NewCamperReminderTest extends TestCase
 {
     public function testSendingReminder()
     {
