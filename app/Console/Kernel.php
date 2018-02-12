@@ -32,8 +32,9 @@ class Kernel extends ConsoleKernel
     {
         $schedule->job(new CounselorReminder)->sundays()->at('12:00');
 
-        $schedule->command('reminder:reservations')->daily()->at('11:00');
-        $schedule->command('reminder:payment')->daily()->at('12:00');
+        $schedule->command('reminder:reservations')->cron('0 12 1 3 *');
+        $schedule->command('reminder:reservations')->cron('0 12 1 4 *');
+        $schedule->command('reminder:reservations')->cront('0 12 */7 5 *');
 
         $schedule->command('backup:clean')->daily()->at('01:00');
         $schedule->command('backup:run')->daily()->at('02:00');
