@@ -6,7 +6,7 @@ use App\User;
 use App\Camper;
 use App\Reservations;
 
-use App\Mail\PaymentReminderMail as Reminder;
+use App\Mail\ReservationReminderMail as Reminder;
 
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Bus\Queueable;

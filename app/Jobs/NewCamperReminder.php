@@ -3,7 +3,7 @@
 namespace App\Jobs;
 
 use App\User;
-use App\Mail\ReservationReminderMail as Reminder;
+use App\Mail\NewCamperReminderMail as Reminder;
 
 use Carbon\Carbon;
 

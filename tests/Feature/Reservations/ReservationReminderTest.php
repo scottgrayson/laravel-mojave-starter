@@ -27,7 +27,7 @@ class ReservationReminderTest extends TestCase
             'user_id' => $user->id,
         ]);
 
-        ReservationReminder::dispatch();
+        NewCamperReminder::dispatch();
 
         Mail::assertSent(Reminder::class, function($mail) use ($user) {
             return $mail->user->id === $user->id;

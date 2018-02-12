@@ -21,17 +21,13 @@ class ReservationReminderMail extends Mailable
      */
     public $user;
 
-    public $camp;
-
-    public $url;
-
     public function __construct(User $user)
     {
         $this->user = $user;
 
         $this->camp = Camp::current();
 
-        $this->url = route('calendar.index');
+        $this->url = route('cart.index');
     }
 
     /**
@@ -41,9 +37,9 @@ class ReservationReminderMail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.payments.reservation-reminder')
+        return $this->markdown('emails.payments.reminder')
+            ->with('user', $this->user)
             ->with('camp', $this->camp)
-            ->with('url', $this->url)
-            ->with('user', $this->user);
+            ->with('url', $this->url);
     }
 }
