@@ -13,18 +13,6 @@
 
 Auth::routes();
 
-Route::get('/payment-reminder', function () {
-    $user = App\User::first();
-
-    return new App\Mail\PaymentReminderMail($user);
-});
-
-Route::get('/reservation-reminder', function () {
-    $user = App\User::first();
-
-    return new App\Mail\ReservationReminderMail($user);
-});
-
 Route::get('/', 'HomeController@index')->name('home');
 
 // Newsletter Subscribe
