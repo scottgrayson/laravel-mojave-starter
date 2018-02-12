@@ -150,3 +150,11 @@ input[type=date] {
   height: 10rem;
   width: 10rem;
 }
+
+.alert-subnav {
+  margin-top: 98px;
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: -98px;
+  z-index: 999;
+}

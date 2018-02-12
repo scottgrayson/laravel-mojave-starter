@@ -1,4 +1,4 @@
-@extends('layouts.'.$page->layout)
+@extends('layouts.' . $page->layout ?: 'app')
 
 @section('meta')
   {!! $page->meta_tags !!}
