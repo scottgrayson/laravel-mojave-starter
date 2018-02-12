@@ -30,9 +30,6 @@ class PaymentReminderTest extends TestCase
 
         $this->be($user);
 
-        $this->json('POST', route('reservations.create', [
-        ]);
-
         PaymentReminder::dispatch();
 
         Mail::assertSent(Reminder::class, function($mail) use ($user) {
