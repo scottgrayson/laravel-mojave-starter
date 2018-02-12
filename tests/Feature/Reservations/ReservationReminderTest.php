@@ -8,8 +8,8 @@ use App\Camper;
 use App\User;
 use App\Tent;
 
-use App\Mail\ReservationReminderMail as Reminder;
-use App\Jobs\ReservationReminder;
+use App\Mail\NewCamperReminderMail as Reminder;
+use App\Jobs\NewCamperReminder;
 
 use Illuminate\Support\Facades\Mail;
 

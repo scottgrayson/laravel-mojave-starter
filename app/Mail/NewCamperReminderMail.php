@@ -10,7 +10,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class ReservationReminderMail extends Mailable
+class NewCamperReminderMail extends Mailable
 {
     use Queueable, SerializesModels;
 
