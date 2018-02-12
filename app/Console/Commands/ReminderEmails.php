@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use Carbon\Carbon;
 use App\Camp;
 
 use App\Jobs\PaymentReminder;
@@ -17,7 +18,7 @@ class ReminderEmails extends Command
      *
      * @var string
      */
-    protected $signature = 'reminder:send {type}';
+    protected $signature = 'reminder:send';
 
     /**
      * The console command description.
@@ -43,10 +44,16 @@ class ReminderEmails extends Command
      */
     public function handle()
     {
-        if ($this->argument('type') === 'payments') {
+        $current = Camp::current();
+
+        if (Carbon::today()->diffInDays($current->camp_start) === 60) {
             PaymentReminder::dispatch();
-        } elseif ($this->argument('type') === 'reservations') {
-            ReservationReminder::dispatch();
+        } elseif (Carbon::today()->diffInDays($current->camp_start) === 30) {
+            PaymentReminder::dispatch();
+        } elseif (Carbon::now()->month === 2 && Carbon::now()->dayOfWeek == Carbon::MONDAY) {
+            PaymentReminder::dispatch();
         }
+
+        ReservationReminder::dispatch();
     }
 }
