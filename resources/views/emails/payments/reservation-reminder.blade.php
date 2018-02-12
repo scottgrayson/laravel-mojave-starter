@@ -1,8 +1,10 @@
 @component('mail::message')
 # Complete Reservations
 
-Dear {{$user->name}}, camp registration closes {{$camp->camp_start->diffForHumans()}},
-we noticed you haven't completed enrollment for your campers, follow the link below to reserve camp dates
+Dear {{$user->name}},
+
+Thank you for taking the first steps in registering your child(ren) for Miss Betty's Day Camp this summer. 
+Camp fills up quickly and we don't want them to lose their spot. Please log back on to missbettysdaycamp.org to select dates and make payment for your Camper.
 
 @component('mail::button', ['url' => $url])
   Enroll
