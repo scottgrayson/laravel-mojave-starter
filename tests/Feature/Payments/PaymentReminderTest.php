@@ -9,7 +9,7 @@ use App\User;
 use App\Tent;
 
 use App\Mail\PaymentReminderMail as Reminder;
-use App\Jobs\PaymentReminder;
+use App\Jobs\ReservationReminder;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Carbon\Carbon;
@@ -30,7 +30,7 @@ class PaymentReminderTest extends TestCase
 
         $this->be($user);
 
-        PaymentReminder::dispatch();
+        ReservationReminder::dispatch();
 
         Mail::assertSent(Reminder::class, function($mail) use ($user) {
             return $mail->user->id === $user->id;

@@ -3,10 +3,9 @@
 namespace App\Jobs;
 
 use App\User;
-use App\Camper;
-use App\Reservations;
+use App\Mail\ReservationReminderMail as Reminder;
 
-use App\Mail\PaymentReminderMail as Reminder;
+use Carbon\Carbon;
 
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Bus\Queueable;
@@ -15,7 +14,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class PaymentReminder implements ShouldQueue
+class NewCamperReminder implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -28,9 +27,9 @@ class PaymentReminder implements ShouldQueue
 
     public function __construct()
     {
-        $users = User::has('campers')
-            ->doesntHave('reservations')
-            ->get();
+        $users = User::whereHas('campers', function ($query) {
+            $query->whereBetween('created_at', [Carbon::now()->subHours(24), Carbon::now()]);
+        })->get();
 
         $this->users = $users;
     }

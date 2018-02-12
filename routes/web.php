@@ -13,12 +13,6 @@
 
 Auth::routes();
 
-Route::get('/mailable', function () {
-    $user = App\User::find(1);
-
-    return new App\Mail\ReservationReminderMail($user);
-});
-
 Route::get('/', 'HomeController@index')->name('home');
 
 // Newsletter Subscribe

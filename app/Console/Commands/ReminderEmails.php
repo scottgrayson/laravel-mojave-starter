@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use Carbon\Carbon;
 use App\Camp;
 
-use App\Jobs\PaymentReminder;
+use App\Jobs\NewCamperReminder;
 use App\Jobs\ReservationReminder;
 
 use Illuminate\Console\Command;
@@ -47,13 +47,13 @@ class ReminderEmails extends Command
         $current = Camp::current();
 
         if (Carbon::today()->diffInDays($current->camp_start) === 60) {
-            PaymentReminder::dispatch();
+            ReservationReminder::dispatch();
         } elseif (Carbon::today()->diffInDays($current->camp_start) === 30) {
-            PaymentReminder::dispatch();
+            ReservationReminder::dispatch();
         } elseif (Carbon::now()->month === 5 && Carbon::now()->dayOfWeek == Carbon::MONDAY) {
-            PaymentReminder::dispatch();
+            ReservationReminder::dispatch();
         }
 
-        ReservationReminder::dispatch();
+        NewCamperRegistration::dispatch();
     }
 }
