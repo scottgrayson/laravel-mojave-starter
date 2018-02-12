@@ -32,11 +32,6 @@ class Kernel extends ConsoleKernel
     {
         $schedule->job(new CounselorReminder)->sundays()->at('12:00');
 
-        /*if (Camp::current()->camp_start->diffInDays(today()) <= 60) {
-            $schedule->job(new ReservationReminder)->sundays()->at('02:00');
-            $schedule->job(new PaymentReminder)->sundays()->at('01:00');
-        }*/
-
         $schedule->command('reminder:reservations')->daily()->at('11:00');
         $schedule->command('reminder:payment')->daily()->at('12:00');
 

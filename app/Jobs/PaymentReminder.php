@@ -28,10 +28,10 @@ class PaymentReminder implements ShouldQueue
 
     public function __construct()
     {
-        $paymentUsers = User::has('reservations')
+        $users = User::has('reservations')
             ->doesntHave('payments')
             ->get();
-        $this->users = $paymentUsers;
+        $this->users = $users;
     }
 
     /**
