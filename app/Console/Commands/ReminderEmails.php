@@ -43,12 +43,10 @@ class ReminderEmails extends Command
      */
     public function handle()
     {
-        if (Camp::current()->camp_start->diffInDays(today()) <= 60) {
-            if ($this->argument('type') === 'payments') {
-                PaymentReminder::dispatch();
-            } elseif ($this->argument('type') === 'reservations') {
-                ReservationReminder::dispatch();
-            }
+        if ($this->argument('type') === 'payments') {
+            PaymentReminder::dispatch();
+        } elseif ($this->argument('type') === 'reservations') {
+            ReservationReminder::dispatch();
         }
     }
 }
