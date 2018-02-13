@@ -2,8 +2,6 @@
 
 namespace App\Console;
 
-use App\Camp;
-
 use App\Jobs\CounselorReminder;
 
 use Illuminate\Console\Scheduling\Schedule;

@@ -15,12 +15,6 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 
-Route::get('/mailable', function () {
-    $r = App\User::first();
-
-    return new App\Mail\NewCamperReservationMail($user);
-});
-
 // Newsletter Subscribe
 Route::get('newsletter', 'NewsletterSubscriberController@create')->name('newsletter.create');
 Route::post('newsletter', 'NewsletterSubscriberController@store')->name('newsletter.store');
