@@ -37,7 +37,7 @@ class ReservationReminderMail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.payments.reminder')
+        return $this->markdown('emails.payments.reservation-reminder')
             ->with('user', $this->user)
             ->with('camp', $this->camp)
             ->with('url', $this->url);
