@@ -10,7 +10,7 @@
     <a href="/calendar">Here</a> To Register
   </div>
 
-@elseif(auth()->user()->invoices()->count() == 0)
+@elseif(!(Cart::content()->isEmpty()))
   <div class="alert alert-warning alert-subnav text-center">
     Pay To Reserve Your Camper's Dates 
     <a href="/checkout">Here</a>
