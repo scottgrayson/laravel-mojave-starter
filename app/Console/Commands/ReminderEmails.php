@@ -46,9 +46,9 @@ class ReminderEmails extends Command
     {
         $current = Camp::current();
 
-        if (Carbon::today()->diffInDays($current->camp_start) === 60) {
+        if (Carbon::today()->diffInDays($current->camp_start) === 90) {
             ReservationReminder::dispatch();
-        } elseif (Carbon::today()->diffInDays($current->camp_start) === 30) {
+        } elseif (Carbon::today()->diffInDays($current->camp_start) === 60) {
             ReservationReminder::dispatch();
         } elseif (Carbon::now()->month === 5 && Carbon::now()->dayOfWeek == Carbon::MONDAY) {
             ReservationReminder::dispatch();
