@@ -54,6 +54,6 @@ class ReminderEmails extends Command
             ReservationReminder::dispatch();
         }
 
-        NewCamperRegistration::dispatch();
+        NewCamperReminder::dispatch();
     }
 }
