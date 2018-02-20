@@ -71,6 +71,10 @@ $wording = [
 
   <br>
 
+  @if($currentStep == 3)
+    @include('partials.allergy-info')
+  @endif
+
   @if($currentStep < 4)
     {{ Form::submit('Next', ['class' => 'btn btn-primary mr-2']) }}
   @else
@@ -81,4 +85,25 @@ $wording = [
 
   <br>
 
+@endsection
+
+@section('scripts')
+<script>
+var currentStep = {!!$currentStep!!};
+if (currentStep == 3) {
+  var allergies = $("label:contains('Allergies')");
+  var allergyText = $("textarea#allergies");
+  allergyText.attr('disabled', true);
+  allergies.append("<input type='radio' class='m-2' id='allergic'>Yes</input>");
+  allergies.append("<input type='radio' class='m-2' id='notAllergic'>No</input>");
+  $('#allergic').click(function () {
+    $("input#notAllergic").prop('checked', false);
+    $("textarea#allergies").attr('disabled', false);
+  });
+  $('#notAllergic').click(function () {
+    $("input#allergic").prop('checked', false);
+    $("textarea#allergies").attr('disabled', true);
+  });
+}
+</script>
 @endsection
