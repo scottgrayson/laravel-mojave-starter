@@ -29,7 +29,7 @@ class NewCamperReminder implements ShouldQueue
     {
         $users = User::whereHas('campers', function ($query) {
             $query->whereBetween('created_at', [Carbon::now()->subHours(24), Carbon::now()]);
-        })->get();
+        })->whereDoesntHave('reservations');
 
         $this->users = $users;
     }
