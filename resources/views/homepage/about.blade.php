@@ -66,8 +66,12 @@
                 Route 113 (between Yellow Springs and Pikeland Road)
                 <br>
                 Chester Springs, PA 19425
+                <hr>
+                <b>Proudly serving the community on land conserved by: </b>
                 <br>
                 <a href="https://frenchandpickering.org/">French And Pickering Creeks Conservation Trust</a>
+                <br>
+                <img height="75px" src="{{ asset('img/pickering.png') }}"/>
               </p>
               <strong>
                 Join Our Newsletter
