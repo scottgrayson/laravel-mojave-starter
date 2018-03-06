@@ -72,7 +72,7 @@
                 for holding the Easement on the property.
                 <br>
                 <br>
-                <img height="75px" src="{{ asset('img/pickering.png') }}"/>
+                <img height="75" src="{{ asset('img/pickering.png') }}"/>
               </p>
               <strong>
                 Join Our Newsletter
