@@ -66,8 +66,13 @@
                 Route 113 (between Yellow Springs and Pikeland Road)
                 <br>
                 Chester Springs, PA 19425
-                <br>
+                <hr>
+                Miss Betty’s Camp is grateful to West Pikeland Township for leasing us the Pickering Grove Park to us and to
                 <a href="https://frenchandpickering.org/">French And Pickering Creeks Conservation Trust</a>
+                for holding the Easement on the property.
+                <br>
+                <br>
+                <img height="75" src="{{ asset('img/pickering.png') }}"/>
               </p>
               <strong>
                 Join Our Newsletter
