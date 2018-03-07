@@ -67,7 +67,7 @@
                 <br>
                 Chester Springs, PA 19425
                 <hr>
-                Miss Betty’s Camp is grateful to West Pikeland Township for leasing us the Pickering Grove Park to us and to
+                Miss Betty’s Camp is grateful to West Pikeland Township for leasing us the Pickering Grove Park and to
                 <a href="https://frenchandpickering.org/">French And Pickering Creeks Conservation Trust</a>
                 for holding the Easement on the property.
                 <br>
