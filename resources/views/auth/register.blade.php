@@ -2,11 +2,7 @@
 
 @section('content')
   @component('components.focused')
-    <div class="card mt-4">
-      <div class="card-header">
         <h1 class="h4">Register</h1>
-      </div>
-      <div class="card-body">
 
         {{ Form::open(['route' => 'register']) }}
 
@@ -19,7 +15,5 @@
         {{ link_to_route('login', 'Have an account? Login here.') }}
 
         {{ Form::close() }}
-      </div>
-    </div>
   @endcomponent
 @endsection
