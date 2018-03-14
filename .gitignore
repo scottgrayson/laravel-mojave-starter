@@ -16,3 +16,4 @@ yarn-error.log
 package-lock.json
 yarn.lock
 public/sitemap.xml
+/.ac-php-conf.json
