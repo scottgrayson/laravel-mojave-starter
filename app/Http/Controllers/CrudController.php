@@ -121,7 +121,11 @@ class CrudController extends Controller
                         $class = '\\App\\'.studly_case($k);
                         $q->whereHas(
                             camel_case($k),
-                            function ($q) use ($class, $v) {
+                            function ($q) use ($k, $class, $v) {
+                                if ($k == 'camper') {
+                                    return $q->whereRaw('concat(campers.first_name, " ", campers.last_name) like ?', [$v.'%']);
+                                }
+
                                 $q->where($class::label(), 'like', $v.'%');
                             }
                         );
