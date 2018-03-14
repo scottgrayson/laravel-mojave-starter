@@ -55,8 +55,8 @@ Route::middleware('auth')->group(function () {
     ]);
 
     Route::resource('checkout', 'CheckoutController', [
-        'only' => ['index', 'store']
-    ]);
+        'only' => ['index']
+    ])->middleware('cart-campers-completed');
 
     Route::impersonate();
 });
