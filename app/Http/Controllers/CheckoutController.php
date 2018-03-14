@@ -24,6 +24,23 @@ class CheckoutController extends Controller
             return redirect(route('cart.index'));
         }
 
+        $incompleteCampers = request()->user()->campers
+            ->filter(function ($camper) {
+                $inCart = Cart::content()->contains(function ($item)  use ($camper) {
+                    return isset($item->options['camper_id']) && $item->options['camper_id'] == $camper->id;
+                });
+
+                return $inCart && $camper->registration_complete;
+            });
+
+        if ($incompleteCampers) {
+            flash('Please complete registration for the following campers: ' . $incompleteCampers->implode('name', ', '))
+                ->important()
+                ->error();
+
+            return redirect(route('campers.index'));
+        }
+
         if ($outOfStock = CartHelper::outOfStock()) {
             $removedString = $this->outOfStockString($outOfStock);
             flash("<b>The following days are not available and have been removed from your cart</b>${removedString}")
