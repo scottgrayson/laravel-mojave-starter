@@ -37,7 +37,7 @@ class PaymentController extends Controller
             try {
                 request()->user()->setPaymentMethod(request('nonce'));
             } catch (\Exception $e) {
-                \Log::error($e);
+                // \Log::error($e);
                 abort(400, 'Error setting payment method.');
             }
         }
@@ -61,7 +61,7 @@ class PaymentController extends Controller
                 $registration = $payment;
             } else {
                 // Handle errors
-                \Log::error($result);
+                // \Log::error($result);
                 abort(400, 'Failed charging for registration fee');
             }
         }
@@ -81,7 +81,7 @@ class PaymentController extends Controller
             ]);
         } else {
             // Handle errors
-            \Log::error($result);
+            // \Log::error($result);
             abort(400, 'Failed charging for reservations');
         }
 
