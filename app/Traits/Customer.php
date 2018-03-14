@@ -69,11 +69,8 @@ trait Customer
             ]
         );
 
-        if ($result->success) {
-            return $result;
-        } else {
-            \Log::error($result);
-            throw new \Exception('Failed charging braintree customer');
-        }
+        // return result whether it passes or fails.
+        // let method caller decide what to do
+        return $result;
     }
 }
