@@ -21,6 +21,10 @@ class CreateInvoiceTest extends TestCase
 {
     public function testCreatingInvoice()
     {
+        $this->withoutMiddleware([
+            \App\Http\Middleware\CartCampersCompleted::class
+        ]);
+
         Mail::fake();
 
         $product = factory(Product::class)->create(['slug' => 'day']);

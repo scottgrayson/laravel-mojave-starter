@@ -106,6 +106,10 @@ class PayAndReserveTest extends TestCase
 
     public function testRegistrationFee()
     {
+        $this->withoutMiddleware([
+            \App\Http\Middleware\CartCampersCompleted::class
+        ]);
+
         $product = factory(Product::class)->create(['slug' => 'day']);
         $registrationFee = factory(Product::class)->create(['slug' => 'registration-fee']);
         $tent = factory(Tent::class)->create();
@@ -148,6 +152,10 @@ class PayAndReserveTest extends TestCase
 
     public function testAlreadyPaidRegistrationFee()
     {
+        $this->withoutMiddleware([
+            \App\Http\Middleware\CartCampersCompleted::class
+        ]);
+
         $product = factory(Product::class)->create(['slug' => 'day']);
         $registrationFee = factory(Product::class)->create(['slug' => 'registration-fee']);
         $tent = factory(Tent::class)->create();
@@ -198,6 +206,10 @@ class PayAndReserveTest extends TestCase
 
     public function testPaidRegistrationFeeForPreviousYear()
     {
+        $this->withoutMiddleware([
+            \App\Http\Middleware\CartCampersCompleted::class
+        ]);
+
         $product = factory(Product::class)->create(['slug' => 'day']);
         $registrationFee = factory(Product::class)->create(['slug' => 'registration-fee']);
         $tent = factory(Tent::class)->create();

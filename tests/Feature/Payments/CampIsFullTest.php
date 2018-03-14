@@ -19,6 +19,10 @@ class CampIsFullTest extends TestCase
 {
     public function testCampIsFullDuringCheckout()
     {
+        $this->withoutMiddleware([
+            \App\Http\Middleware\CartCampersCompleted::class
+        ]);
+
         $product = factory(Product::class)->create(['slug' => 'day']);
         $registrationFee = factory(Product::class)->create(['slug' => 'registration-fee']);
         $tent = factory(Tent::class)->create(['camper_limit' => 0]);
@@ -61,6 +65,10 @@ class CampIsFullTest extends TestCase
 
     public function testCampIsFullDuringPayment()
     {
+        $this->withoutMiddleware([
+            \App\Http\Middleware\CartCampersCompleted::class
+        ]);
+
         $product = factory(Product::class)->create(['slug' => 'day']);
         $registrationFee = factory(Product::class)->create(['slug' => 'registration-fee']);
         $tent = factory(Tent::class)->create();
