@@ -15,10 +15,14 @@ use Carbon\Carbon;
 
 class PayAndReserveTest extends TestCase
 {
-    use WithoutMiddleware;
+    // use WithoutMiddleware;
 
     public function testPayingAndReservingCamperDays()
     {
+        $this->withoutMiddleware([
+            \App\Http\Middleware\CartCampersCompleted::class
+        ]);
+
         $product = factory(Product::class)->create(['slug' => 'day']);
         $registrationFee = factory(Product::class)->create(['slug' => 'registration-fee']);
         $tent = factory(Tent::class)->create();
@@ -28,8 +32,6 @@ class PayAndReserveTest extends TestCase
             'tent_id' => $tent->id,
             'user_id' => $user->id,
         ]);
-
-        $this->assertTrue($camper->registration_complete);
 
         $this->be($user);
 
@@ -92,21 +94,14 @@ class PayAndReserveTest extends TestCase
 
         $r->assertStatus(302);
 
-        $r = $this->post(route('api.payments.store'), [
+        $r = $this->json('post', route('api.payments.store'), [
             'nonce' => 'fake-valid-nonce',
         ]);
 
         //$this->feedback($r);
-        $r->assertStatus(403);
+        $r->assertStatus(400);
 
-        $this->assertEquals($user->reservations->count(), 3);
-
-        // Assert work party fee NOT paid
-        $registrationPayment = Payment::where('user_id', $user->id)
-            ->where('type', 'registration_fee')
-            ->count();
-
-        $this->assertEquals($registrationPayment, 0);
+        $this->assertEquals($user->reservations->count(), 0);
     }
 
     public function testRegistrationFee()

@@ -114,4 +114,16 @@ class CartHelper
 
         return count($outOfStock) ? $outOfStock : false;
     }
+
+    public static function incompleteCampers()
+    {
+        return request()->user()->campers
+            ->filter(function ($camper) {
+                $inCart = Cart::content()->contains(function ($item)  use ($camper) {
+                    return isset($item->options['camper_id']) && $item->options['camper_id'] == $camper->id;
+                });
+
+                return $inCart && $camper->registration_complete;
+            });
+    }
 }
