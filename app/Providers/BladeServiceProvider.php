@@ -29,6 +29,17 @@ class BladeServiceProvider extends ServiceProvider
         );
 
         \Form::component(
+            'datepicker',
+            'form.inputs.datepicker',
+            [
+            'name',
+            'value' => null,
+            'attributes' => [],
+            'item' => null,
+            ]
+        );
+
+        \Form::component(
             'relation',
             'form.inputs.relation',
             [

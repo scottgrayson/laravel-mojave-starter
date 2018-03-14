@@ -29,6 +29,8 @@ $steps = [
 ];
 
 $wording = [
+  'first_name' => ['label' => "Camper's First Name"],
+  'last_name' => ['label' => "Camper's Last Name"],
   'tent_id' => ['help' => 'Choose the grade your child attended as of January of this year.'],
   'photo_consent' => [
     'label' => "Miss Betty's Day Camp may use photos of " . $item->name,
