@@ -66,32 +66,31 @@
                 Route 113 (between Yellow Springs and Pikeland Road)
                 <br>
                 Chester Springs, PA 19425
-                <hr>
-                Miss Betty’s Camp is grateful to West Pikeland Township for leasing us the Pickering Grove Park and to
-                <a href="https://frenchandpickering.org/">French And Pickering Creeks Conservation Trust</a>
-                for holding the Easement on the property.
-                <br>
-                <br>
-                <img height="75" src="{{ asset('img/pickering.png') }}"/>
               </p>
               <strong>
                 Join Our Newsletter
               </strong>
               @include('newsletter.create-form')
+              <hr style="border: 1px solid lightgrey;">
+              Miss Betty’s Camp is grateful to West Pikeland Township for leasing us the Pickering Grove Park and to
+              <a href="https://frenchandpickering.org/">French And Pickering Creeks Conservation Trust</a>
+              for holding the Easement on the property.
+              <br>
+              <img height="75" src="{{ asset('img/pickering.png') }}"/>
             </div>
           </div>
         </div>
       </div>
       <div class="col pb-4">
-          <div class="card">
-            <div class="embed-responsive embed-responsive-1by1">
-              <iframe
-                width="400"
-                height="400"
-                frameborder="0" style="border:0"
-                src="https://www.google.com/maps/embed/v1/place?key={{ config('services.google.maps_key') }}&q=pickering+grove+park&zoom=11" allowfullscreen>
-              </iframe>
-            </div>
+        <div class="card">
+          <div class="embed-responsive embed-responsive-1by1">
+            <iframe
+              width="400"
+              height="400"
+              frameborder="0" style="border:0"
+              src="https://www.google.com/maps/embed/v1/place?key={{ config('services.google.maps_key') }}&q=pickering+grove+park&zoom=11" allowfullscreen>
+            </iframe>
+          </div>
         </div>
       </div>
     </div>
