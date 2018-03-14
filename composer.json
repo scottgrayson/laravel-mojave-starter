@@ -38,7 +38,7 @@
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.0",
-        "codedungeon/phpunit-result-printer": "^0.4.4",
+        "codedungeon/phpunit-result-printer": "^0.6.1",
         "filp/whoops": "~2.0",
         "laravel/dusk": "^3.0",
         "mockery/mockery": "0.9.*",

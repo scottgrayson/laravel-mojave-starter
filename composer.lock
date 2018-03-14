@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "bf35453b6ab93dc934a18b5c7f91638d",
+    "content-hash": "57254d5619bfbfbdcf5debb27dceff23",
     "packages": [
         {
             "name": "artesaos/seotools",
@@ -4925,21 +4925,22 @@
         },
         {
             "name": "codedungeon/phpunit-result-printer",
-            "version": "0.4.4",
+            "version": "0.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mikeerickson/phpunit-pretty-result-printer.git",
-                "reference": "1f41a61732ad267af9fe9ab6b5eefae029c616d0"
+                "reference": "e4cbf937b422bd2ce5ff9929e77592eb8188dbe6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mikeerickson/phpunit-pretty-result-printer/zipball/1f41a61732ad267af9fe9ab6b5eefae029c616d0",
-                "reference": "1f41a61732ad267af9fe9ab6b5eefae029c616d0",
+                "url": "https://api.github.com/repos/mikeerickson/phpunit-pretty-result-printer/zipball/e4cbf937b422bd2ce5ff9929e77592eb8188dbe6",
+                "reference": "e4cbf937b422bd2ce5ff9929e77592eb8188dbe6",
                 "shasum": ""
             },
             "require": {
                 "hassankhan/config": "^0.10.0",
-                "symfony/yaml": "^3.3|^4.0"
+                "php": "^7.1",
+                "symfony/yaml": "^2.7|^3.0|^4.0"
             },
             "require-dev": {
                 "phpunit/phpunit": ">=5.2",
@@ -4969,7 +4970,7 @@
                 "printer",
                 "result-printer"
             ],
-            "time": "2017-12-22T18:50:24+00:00"
+            "time": "2018-03-02T23:02:03+00:00"
         },
         {
             "name": "doctrine/instantiator",
