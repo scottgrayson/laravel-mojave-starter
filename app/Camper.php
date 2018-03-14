@@ -37,7 +37,8 @@ class Camper extends Model
         return in_array(null, $requiredValues);
     }
 
-    public function getStatusAttribute() {
+    public function getStatusAttribute()
+    {
         if ($this->registration_complete) {
             return 'Registration Incomplete';
         } elseif ($this->reservations->isEmpty()) {

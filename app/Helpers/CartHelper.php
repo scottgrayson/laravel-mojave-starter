@@ -119,7 +119,7 @@ class CartHelper
     {
         return request()->user()->campers
             ->filter(function ($camper) {
-                $inCart = Cart::content()->contains(function ($item)  use ($camper) {
+                $inCart = Cart::content()->contains(function ($item) use ($camper) {
                     return isset($item->options['camper_id']) && $item->options['camper_id'] == $camper->id;
                 });
 
