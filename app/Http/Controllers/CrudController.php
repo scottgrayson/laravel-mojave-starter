@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use SEO;
+use DB;
 
 class CrudController extends Controller
 {
@@ -84,6 +85,9 @@ class CrudController extends Controller
             $sortTable = str_plural($sort);
             $sortColumn = $sortRelation::label();
             $sortSql = $sortTable . '.' . $sortColumn;
+            if ($sortSql === 'campers.name') {
+                $sortSql = 'camper_full_name';
+            }
         } else {
             $sortSql = $sort;
         }
@@ -97,7 +101,12 @@ class CrudController extends Controller
                 } else {
                     $q->leftJoin($sortTable, $this->table.'.'.str_singular($sortTable).'_id', '=', $sortTable.'.id');
                 }
-                $q->addSelect($this->table.'.*', $sortSql);
+
+                if ($sortSql === 'camper_full_name') {
+                    $q->addSelect($this->table.'.*', DB::raw('concat(campers.first_name, " ", campers.last_name) as camper_full_name'));
+                } else {
+                    $q->addSelect($this->table.'.*', $sortSql);
+                }
             })
             ->where(function ($q) use ($request, $relations, $cols) {
                 $wheres = collect($request->query())
