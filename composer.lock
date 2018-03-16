@@ -74,16 +74,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.52.25",
+            "version": "3.52.27",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "c1ce16adeeb9a47270f6ba8fb7aef5e1d62fa7d0"
+                "reference": "2ff982460d5c5eb0a57b7c38bd9ad4e9c2f05c86"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/c1ce16adeeb9a47270f6ba8fb7aef5e1d62fa7d0",
-                "reference": "c1ce16adeeb9a47270f6ba8fb7aef5e1d62fa7d0",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/2ff982460d5c5eb0a57b7c38bd9ad4e9c2f05c86",
+                "reference": "2ff982460d5c5eb0a57b7c38bd9ad4e9c2f05c86",
                 "shasum": ""
             },
             "require": {
@@ -150,7 +150,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2018-03-13T19:14:00+00:00"
+            "time": "2018-03-15T19:43:26+00:00"
         },
         {
             "name": "braintree/braintree_php",
@@ -3548,16 +3548,16 @@
         },
         {
             "name": "spatie/laravel-backup",
-            "version": "5.4.1",
+            "version": "5.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-backup.git",
-                "reference": "1ce782a0eaeeb68629379b892333316bc4703dff"
+                "reference": "126c5be3044ceb55084adfe704cc4639a025fd6e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-backup/zipball/1ce782a0eaeeb68629379b892333316bc4703dff",
-                "reference": "1ce782a0eaeeb68629379b892333316bc4703dff",
+                "url": "https://api.github.com/repos/spatie/laravel-backup/zipball/126c5be3044ceb55084adfe704cc4639a025fd6e",
+                "reference": "126c5be3044ceb55084adfe704cc4639a025fd6e",
                 "shasum": ""
             },
             "require": {
@@ -3617,7 +3617,7 @@
                 "laravel-backup",
                 "spatie"
             ],
-            "time": "2018-03-04T13:12:49+00:00"
+            "time": "2018-03-14T19:26:48+00:00"
         },
         {
             "name": "spatie/laravel-permission",
