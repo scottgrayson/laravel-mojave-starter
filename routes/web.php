@@ -15,9 +15,6 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 
-Route::get('image/{path}', 'ImageController@show')
-    ->where(['path' => '.*']);
-
 // Newsletter Subscribe
 Route::get('newsletter', 'NewsletterSubscriberController@create')->name('newsletter.create');
 Route::post('newsletter', 'NewsletterSubscriberController@store')->name('newsletter.store');
