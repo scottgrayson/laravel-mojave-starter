@@ -14,6 +14,8 @@
       'fields' => $fields,
       'model' => $model,
       'wording' => [
+        'first_name' => ['label' => "Camper's First Name"],
+        'last_name' => ['label' => "Camper's Last Name"],
         'tent_id' => ['help' => 'Choose the grade that the camper has completed. Not the grade for the upcoming year.'],
       ],
     ])

@@ -15,10 +15,14 @@ use Carbon\Carbon;
 
 class PayAndReserveTest extends TestCase
 {
-    use WithoutMiddleware;
+    // use WithoutMiddleware;
 
     public function testPayingAndReservingCamperDays()
     {
+        $this->withoutMiddleware([
+            \App\Http\Middleware\CartCampersCompleted::class
+        ]);
+
         $product = factory(Product::class)->create(['slug' => 'day']);
         $registrationFee = factory(Product::class)->create(['slug' => 'registration-fee']);
         $tent = factory(Tent::class)->create();
@@ -57,8 +61,55 @@ class PayAndReserveTest extends TestCase
         $this->assertEquals($registrationPayment, 0);
     }
 
+    public function testCannotPayForIncompleteCampers()
+    {
+        $product = factory(Product::class)->create(['slug' => 'day']);
+        $registrationFee = factory(Product::class)->create(['slug' => 'registration-fee']);
+        $tent = factory(Tent::class)->create();
+        $user = factory(User::class)->create();
+        $camp = factory(Camp::class)->create();
+        $incompleteCamper = factory(Camper::class)->create([
+            'tent_id' => $tent->id,
+            'user_id' => $user->id,
+        ]);
+        $camper = factory(Camper::class, 3)->create([
+            'tent_id' => $tent->id,
+            'user_id' => $user->id,
+        ]);
+
+        $this->assertFalse($incompleteCamper->registration_complete);
+
+        $this->be($user);
+
+        foreach ($camper as $c) {
+            Cart::add($product, 1, [
+                'camper_id' => $c->id,
+                'tent_id' => $tent->id,
+                'product' => $product->slug,
+                'date' => $camp->camp_start->toDateString(),
+            ]);
+        }
+
+        $r = $this->get(route('checkout.index'));
+
+        $r->assertStatus(302);
+
+        $r = $this->json('post', route('api.payments.store'), [
+            'nonce' => 'fake-valid-nonce',
+        ]);
+
+        //$this->feedback($r);
+        $r->assertStatus(400);
+
+        $this->assertEquals($user->reservations->count(), 0);
+    }
+
     public function testRegistrationFee()
     {
+        $this->withoutMiddleware([
+            \App\Http\Middleware\CartCampersCompleted::class
+        ]);
+
         $product = factory(Product::class)->create(['slug' => 'day']);
         $registrationFee = factory(Product::class)->create(['slug' => 'registration-fee']);
         $tent = factory(Tent::class)->create();
@@ -101,6 +152,10 @@ class PayAndReserveTest extends TestCase
 
     public function testAlreadyPaidRegistrationFee()
     {
+        $this->withoutMiddleware([
+            \App\Http\Middleware\CartCampersCompleted::class
+        ]);
+
         $product = factory(Product::class)->create(['slug' => 'day']);
         $registrationFee = factory(Product::class)->create(['slug' => 'registration-fee']);
         $tent = factory(Tent::class)->create();
@@ -151,6 +206,10 @@ class PayAndReserveTest extends TestCase
 
     public function testPaidRegistrationFeeForPreviousYear()
     {
+        $this->withoutMiddleware([
+            \App\Http\Middleware\CartCampersCompleted::class
+        ]);
+
         $product = factory(Product::class)->create(['slug' => 'day']);
         $registrationFee = factory(Product::class)->create(['slug' => 'registration-fee']);
         $tent = factory(Tent::class)->create();

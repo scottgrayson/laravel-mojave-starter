@@ -28,18 +28,23 @@ class Camper extends Model
         return "{$this->first_name} {$this->last_name}";
     }
 
-    public function getStatusAttribute()
+    public function getRegistrationCompleteAttribute()
     {
         $rules = (new \App\Http\Requests\CamperRequest)->editRules();
         $requiredFields = $rules;
         $requiredValues = array_intersect_key($this->toArray(), $requiredFields);
 
-        if (in_array(null, $requiredValues)) {
+        return in_array(null, $requiredValues);
+    }
+
+    public function getStatusAttribute()
+    {
+        if ($this->registration_complete) {
             return 'Registration Incomplete';
         } elseif ($this->reservations->isEmpty()) {
             return 'No Reservations';
-        } else {
-            return 'Camp Dates Reserved';
         }
+
+        return 'Camp Dates Reserved';
     }
 }

@@ -17,6 +17,8 @@ require('bootstrap')
 
 window.select2 = require('select2')
 
+window.datepicker = require('../../../node_modules/@fengyuanchen/datepicker/dist/datepicker.min.js')
+
 window.CodeMirror = require('codemirror')
 
 window.fullCalendar = require('fullcalendar')

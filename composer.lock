@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "198c9fdb0f08aa04e33c5524e41d670c",
+    "content-hash": "88d71b1750e99392c84f0238a72f5194",
     "packages": [
         {
             "name": "artesaos/seotools",
@@ -3340,16 +3340,16 @@
         },
         {
             "name": "spatie/crawler",
-            "version": "3.2.1",
+            "version": "4.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/crawler.git",
-                "reference": "f40aacc5f3c444bad74235c908a79400b4461a6b"
+                "reference": "bdee79cf26652581a425a4fa2acbd5dc00ff9af6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/crawler/zipball/f40aacc5f3c444bad74235c908a79400b4461a6b",
-                "reference": "f40aacc5f3c444bad74235c908a79400b4461a6b",
+                "url": "https://api.github.com/repos/spatie/crawler/zipball/bdee79cf26652581a425a4fa2acbd5dc00ff9af6",
+                "reference": "bdee79cf26652581a425a4fa2acbd5dc00ff9af6",
                 "shasum": ""
             },
             "require": {
@@ -3359,11 +3359,11 @@
                 "php": "^7.1",
                 "spatie/browsershot": "^3.14",
                 "symfony/dom-crawler": "^4.0",
-                "tightenco/collect": "^5.3"
+                "tightenco/collect": "^5.6"
             },
             "require-dev": {
                 "larapack/dd": "^1.1",
-                "phpunit/phpunit": "^6.4"
+                "phpunit/phpunit": "^7.0"
             },
             "type": "library",
             "extra": {
@@ -3394,7 +3394,7 @@
                 "spatie",
                 "website"
             ],
-            "time": "2018-02-21T21:11:50+00:00"
+            "time": "2018-03-02T09:17:14+00:00"
         },
         {
             "name": "spatie/db-dumper",
@@ -3685,23 +3685,23 @@
         },
         {
             "name": "spatie/laravel-sitemap",
-            "version": "4.0",
+            "version": "5.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-sitemap.git",
-                "reference": "a6300ab9fc36ccb59e5637e0d0cf88e179981c2f"
+                "reference": "d132d2df58f730e8a8062b802bd192be0560f63d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-sitemap/zipball/a6300ab9fc36ccb59e5637e0d0cf88e179981c2f",
-                "reference": "a6300ab9fc36ccb59e5637e0d0cf88e179981c2f",
+                "url": "https://api.github.com/repos/spatie/laravel-sitemap/zipball/d132d2df58f730e8a8062b802bd192be0560f63d",
+                "reference": "d132d2df58f730e8a8062b802bd192be0560f63d",
                 "shasum": ""
             },
             "require": {
                 "illuminate/support": "~5.5.0|~5.6.0",
                 "nesbot/carbon": "^1.21",
                 "php": "^7.1",
-                "spatie/crawler": "^3.0",
+                "spatie/crawler": "^4.0.3",
                 "spatie/temporary-directory": "^1.1"
             },
             "require-dev": {
@@ -3741,7 +3741,7 @@
                 "laravel-sitemap",
                 "spatie"
             ],
-            "time": "2018-02-08T09:16:23+00:00"
+            "time": "2018-03-02T14:01:34+00:00"
         },
         {
             "name": "spatie/temporary-directory",
@@ -4925,21 +4925,22 @@
         },
         {
             "name": "codedungeon/phpunit-result-printer",
-            "version": "0.4.4",
+            "version": "0.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mikeerickson/phpunit-pretty-result-printer.git",
-                "reference": "1f41a61732ad267af9fe9ab6b5eefae029c616d0"
+                "reference": "e4cbf937b422bd2ce5ff9929e77592eb8188dbe6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mikeerickson/phpunit-pretty-result-printer/zipball/1f41a61732ad267af9fe9ab6b5eefae029c616d0",
-                "reference": "1f41a61732ad267af9fe9ab6b5eefae029c616d0",
+                "url": "https://api.github.com/repos/mikeerickson/phpunit-pretty-result-printer/zipball/e4cbf937b422bd2ce5ff9929e77592eb8188dbe6",
+                "reference": "e4cbf937b422bd2ce5ff9929e77592eb8188dbe6",
                 "shasum": ""
             },
             "require": {
                 "hassankhan/config": "^0.10.0",
-                "symfony/yaml": "^3.3|^4.0"
+                "php": "^7.1",
+                "symfony/yaml": "^2.7|^3.0|^4.0"
             },
             "require-dev": {
                 "phpunit/phpunit": ">=5.2",
@@ -4969,7 +4970,7 @@
                 "printer",
                 "result-printer"
             ],
-            "time": "2017-12-22T18:50:24+00:00"
+            "time": "2018-03-02T23:02:03+00:00"
         },
         {
             "name": "doctrine/instantiator",

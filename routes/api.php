@@ -25,4 +25,4 @@ Route::resource('events', 'EventController', ['only' => ['index']]);
 
 Route::resource('cart-items', 'CartItemController', ['only' => ['index', 'store', 'destroy']]);
 
-Route::post('payments', 'PaymentController@store')->name('payments.store');
+Route::post('payments', 'PaymentController@store')->name('payments.store')->middleware('cart-campers-completed');
