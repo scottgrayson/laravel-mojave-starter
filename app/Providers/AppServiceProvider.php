@@ -17,10 +17,6 @@ class AppServiceProvider extends ServiceProvider
         // https://laravel-news.com/laravel-5-4-key-too-long-error
         Schema::defaultStringLength(191);
 
-        if ($this->app->environment('production', 'staging')) {
-            $this->app->register(\Rollbar\Laravel\RollbarServiceProvider::class);
-        }
-
         \App\Newsletter::observe(\App\Observers\NewsletterObserver::class);
     }
 
@@ -31,6 +27,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        if ($this->app->environment('production', 'staging')) {
+            $this->app->register(\Rollbar\Laravel\RollbarServiceProvider::class);
+        }
     }
 }

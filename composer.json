@@ -37,7 +37,7 @@
         "spatie/laravel-sitemap": "^5.0"
     },
     "require-dev": {
-        "barryvdh/laravel-debugbar": "^3.0",
+        "barryvdh/laravel-debugbar": "^3.1",
         "codedungeon/phpunit-result-printer": "^0.6.1",
         "filp/whoops": "~2.0",
         "laravel/dusk": "^3.0",
