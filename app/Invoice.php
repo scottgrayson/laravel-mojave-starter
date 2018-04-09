@@ -5,7 +5,7 @@ namespace App;
 class Invoice extends Model
 {
     protected $dates = [
-        'createad_at'
+        'created_at'
     ];
 
     public function user()

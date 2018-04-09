@@ -25,23 +25,23 @@ class CreateInvoiceTest extends TestCase
             \App\Http\Middleware\CartCampersCompleted::class
         ]);
 
-        Mail::fake();
+        //Mail::fake();
 
         $product = factory(Product::class)->create(['slug' => 'day']);
         $registrationFee = factory(Product::class)->create(['slug' => 'registration-fee']);
         $tent = factory(Tent::class)->create();
         $user = factory(User::class)->create();
         $camp = factory(Camp::class)->create();
-        $camper = factory(Camper::class, 3)->create([
+        $campers = factory(Camper::class, 3)->create([
             'tent_id' => $tent->id,
             'user_id' => $user->id,
         ]);
 
         $this->be($user);
 
-        foreach ($camper as $c) {
+        foreach ($campers as $camper) {
             Cart::add($product, 1, [
-                'camper_id' => $c->id,
+                'camper_id' => $camper->id,
                 'tent_id' => $tent->id,
                 'product' => $product->slug,
                 'date' => $camp->camp_start->toDateString(),
