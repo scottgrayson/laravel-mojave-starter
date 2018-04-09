@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Camper;
+
 class Invoice extends Model
 {
     protected $dates = [
@@ -21,5 +23,15 @@ class Invoice extends Model
             'invoice_id',
             'reservation_id'
         )->withTimestamps();
+    }
+
+    public function campers()
+    {
+        $campers = Camper::whereHas('reservations', function($query) {
+            return \DB::table('invoice_reservation')
+                ->where('invoice_id', $this->id);
+        })->get(); 
+
+        return $campers;
     }
 }

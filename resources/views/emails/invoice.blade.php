@@ -3,17 +3,13 @@
 
   Dear {{$user->name}},  
 
-  Thank you for your {{str_plural('reservation', $invoice->reservations->count())}}
-
-  @foreach($invoice->reservations as $reservation)
+  @foreach ($invoice->campers as $camper)
     @php
-      dd($reservation->count());
+      $count = $invoice->reservations->where('camper_id', $camper->id)->count();
     @endphp
-
-    - You reserved {{$reservation->camper->first_name}} for: {{$reservation->count()}}
-    {{str_plural('day', $reservation->count())}}
-
+    - You reserved {{$camper->first_name}} for: {{$count}} {{str_plural('day', $count)}}
   @endforeach
+  Thank you for your {{str_plural('reservation', $invoice->reservations->count())}}
 
 ${{$invoice->total}} will be charged to {{$user->name."'s"}} card.
 @if($invoice->registration_fee)

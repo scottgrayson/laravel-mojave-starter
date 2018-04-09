@@ -44,7 +44,7 @@ class CreateInvoiceTest extends TestCase
                 'camper_id' => $camper->id,
                 'tent_id' => $tent->id,
                 'product' => $product->slug,
-                'date' => $camp->camp_start->toDateString(),
+                'date' => $camp->camp_start,
             ]);
         }
 
