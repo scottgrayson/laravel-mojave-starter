@@ -44,7 +44,7 @@ class CreateInvoiceTest extends TestCase
                 'camper_id' => $camper->id,
                 'tent_id' => $tent->id,
                 'product' => $product->slug,
-                'date' => $camp->camp_start,
+                'date' => $camp->camp_start->toDateString(),
             ]);
         }
 
@@ -58,6 +58,8 @@ class CreateInvoiceTest extends TestCase
         $this->assertEquals($user->invoices->count(), 1);
 
         $invoice = $user->invoices->first();
+
+        dd($invoice->campers->count());
 
         Mail::assertSent(InvoiceEmail::class, function ($mail) use ($invoice, $user) {
             return $mail->invoice->id === $invoice->id &&

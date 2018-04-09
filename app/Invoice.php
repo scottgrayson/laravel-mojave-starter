@@ -27,11 +27,11 @@ class Invoice extends Model
 
     public function campers()
     {
-        $campers = Camper::whereHas('reservations', function($query) {
-            return \DB::table('invoice_reservation')
-                ->where('invoice_id', $this->id);
-        })->get(); 
-
-        return $campers;
+        return $this->hasManyThrough(
+            \App\Camper::class,
+            \App\Reservation::class,
+            'camper_id',
+            'id'
+        );
     }
 }
