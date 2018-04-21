@@ -24,8 +24,13 @@ class AddCampIdColumnToReservations extends Migration
         $thisYear = Carbon::now()->format('Y');
         $currentCamp = Camp::whereYear('camp_start', $thisYear)->first();
         if ($currentCamp) {
-            Reservation::update(['camp_id' => $currentCamp->id]);
+            Reservation::whereYear('date', $thisYear)
+                ->update(['camp_id' => $currentCamp->id]);
         }
+
+        Schema::table('reservations', function (Blueprint $table) {
+            $table->integer('camp_id')->unsigned()->nullable(false)->change();
+        });
     }
 
     /**
