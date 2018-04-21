@@ -81,6 +81,7 @@ class CartHelper
             return [
                 'user_id' => auth()->user()->id,
                 'camper_id' => $i->options->camper_id,
+                'camp_id' => $i->options->camp_id,
                 'tent_id' => $i->options->tent_id,
                 'date' => $i->options->date,
             ];

@@ -10,6 +10,11 @@ class Reservation extends Model
 
     public function camper()
     {
+        return $this->belongsTo(\App\Camp::class);
+    }
+
+    public function camper()
+    {
         return $this->belongsTo(\App\Camper::class);
     }
 
