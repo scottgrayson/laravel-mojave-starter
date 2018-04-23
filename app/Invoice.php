@@ -7,7 +7,11 @@ use App\Camper;
 class Invoice extends Model
 {
     protected $dates = [
-        'created_at'
+        'created_at',
+    ];
+
+    protected $appends = [
+        'totalUSD',
     ];
 
     public function user()
@@ -33,5 +37,10 @@ class Invoice extends Model
             'camper_id',
             'id'
         );
+    }
+
+    public function getTotalUSDAttribute()
+    {
+        return number_format($this->total, 2);
     }
 }
