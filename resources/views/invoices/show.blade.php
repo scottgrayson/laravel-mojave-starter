@@ -35,9 +35,13 @@
     <div class="col-md-6 col-sm-12 text-center text-md-left">
       <ul class="px-0 list-unstyled">
         <li class="text-bold-800">{{ $invoice->user->name }}</li>
-        <li>{{-- TODO Get Camper Address --}}</li>
-        <li></li>
-        <li></li>
+        <li><hr></li>
+        @foreach ($invoice->campers() as $camper)
+        <li>{{ $camper->name }}</li>
+        <li>{{ $camper->address }}</li>
+        <li>{{ $camper->city }}, {{ $camper->state }} {{ $camper->zip }}</li>
+        <li><hr></li>
+        @endforeach
       </ul>
     </div>
     <div class="col-md-6 col-sm-12 text-center text-md-right">
@@ -61,22 +65,23 @@
             <tr>
               <th>#</th>
               <th>Item &amp; Description</th>
-              <th class="text-right">Rate</th>
-              <th class="text-right">Hours</th>
+              <th class="text-right">Days</th>
               <th class="text-right">Amount</th>
             </tr>
           </thead>
           <tbody>
+            @foreach ($invoice->lineItems() as $item)
             <tr>
-              <th scope="row">1</th>
+              <th scope="row">{{ $loop->iteration }}</th>
               <td>
-                <p>Create PSD for mobile APP</p>
-                <p class="text-muted">Simply dummy text of the printing and typesetting industry.</p>
+                <p>
+                  {{ $item->camper->name }} - {{ $item->tent->name }}
+                </p>
               </td>
-              <td class="text-right">$ 20.00/hr</td>
-              <td class="text-right">120</td>
-              <td class="text-right">$ 2400.00</td>
+              <td class="text-right">{{ $item->day_count }}</td>
+              <td class="text-right">$ {{ number_format($invoice->total/count($invoice->lineItems()), 2) }}</td>
             </tr>
+            @endforeach
           </tbody>
         </table>
       </div>
@@ -131,30 +136,25 @@
   </div> --}}
   <!--/ Invoice Footer -->
 </div>
-
-  <div>
-    <div class="card col-lg-4 mx-auto">
-      <h5 class="card-title text-center pt-2 my-auto">
-        {{$invoice->reservations->first()->camper->first_name}}
-        {{$invoice->reservations->first()->camper->last_name}}
-      </h5>
-      <hr>
-      <p class="text-center">
-        Total: ${{$invoice->total}}
-      </p>
-      <p class="text-center">
-        {{$invoice->reservations->count()}} {{str_plural('Reservation', $invoice->reservations->count())}}
-      </p>
-      <ul class="list-group py-2">
-        @foreach($invoice->reservations as $reservation)
-          <li class="list-group-item text-center">
-            {{$reservation->date->toFormattedDateString()}}
-          </li>
-        @endforeach
-      </ul>
-      <p class="text-center lead">
-        EIN: 20-1292071
-      </p>
-    </div>
-  </div>
+<hr>
+<div class="col-lg-12 mx-auto">
+  <table class="table">
+    <thead class="thead-light">
+      <tr>
+        <th>Camper</th>
+        <th>Tent</th>
+        <th>Day</th>
+      </tr>
+    </thead>
+    <tbody>
+    @foreach ($invoice->reservations as $reservation)
+      <tr>
+        <td>{{ $reservation->camper->name }}</td>
+        <td>{{ $reservation->tent->name }}</td>
+        <td>{{ $reservation->date->format('m/d/Y') }}</td>
+      </tr>
+    @endforeach
+    </tbody>
+  </table>
+</div>
 @endsection

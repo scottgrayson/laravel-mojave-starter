@@ -2,6 +2,7 @@
 
 namespace App;
 
+use DB;
 use App\Camper;
 
 class Invoice extends Model
@@ -31,12 +32,27 @@ class Invoice extends Model
 
     public function campers()
     {
-        return $this->hasManyThrough(
-            \App\Camper::class,
-            \App\Reservation::class,
-            'camper_id',
-            'id'
-        );
+        return $this->reservations()
+            ->with('camper')
+            ->groupBy('reservations.camper_id')
+            ->get()
+            ->pluck('camper');
+    }
+
+    public function lineItems()
+    {
+        $reservationIds = $this->reservations()
+            ->pluck('reservations.id');
+
+        return Reservation::with(['camper', 'payment', 'tent'])
+            ->whereIn('id', $reservationIds)
+            ->select([
+                'camper_id',
+                'tent_id',
+                DB::raw('COUNT(reservations.id) as day_count'),
+            ])
+            ->groupBy('camper_id')
+            ->get();
     }
 
     public function getTotalUSDAttribute()

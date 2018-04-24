@@ -9,7 +9,10 @@ class InvoiceController extends Controller
 {
     public function index(Request $request)
     {
-        $invoices = $request->user()->invoices()->paginate(15);
+        $invoices = $request->user()
+            ->invoices()
+            ->with('reservations')
+            ->paginate(15);
 
         return view('invoices.index', ['invoices' => $invoices]);
     }
@@ -17,6 +20,8 @@ class InvoiceController extends Controller
     public function show($id)
     {
         $invoice = Invoice::find($id);
+
+        $invoice->load('reservations');
 
         return view('invoices.show', ['invoice' => $invoice]);
     }
