@@ -1,9 +1,9 @@
 @component('mail::message')
   # Invoice
 
-  Dear {{$user->name}},  
+  Dear {{$user->name}},
 
-  @foreach ($invoice->campers as $camper)
+  @foreach ($invoice->campers() as $camper)
     @php
       $count = $invoice->reservations->where('camper_id', $camper->id)->count();
     @endphp
@@ -14,7 +14,7 @@
 ${{$invoice->total}} will be charged to {{$user->name."'s"}} card.
 @if($invoice->registration_fee)
   # Registration Fee
-  A registration fee of ${{$registration}} will be charged.  
+  A registration fee of ${{$registration}} will be charged.
   * This fee will be refunded if you attend the work-party.
 @endif
 
