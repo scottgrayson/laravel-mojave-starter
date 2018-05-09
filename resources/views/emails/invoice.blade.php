@@ -5,7 +5,7 @@
   <div id="invoice-company-details" class="row">
     <div class="col-md-6 col-sm-12 text-center text-md-left">
       <div class="media">
-        <img src="{{ asset('img/logo.png') }}" alt="company logo" class="">
+        <img src="{{ asset('/img/logo.png') }}" alt="company logo" class="">
         <div class="media-body">
           <ul class="ml-2 px-0 list-unstyled">
             <li class="text-bold-800">Miss Betty's Day Camp</li>
@@ -34,11 +34,15 @@
     <div class="col-md-6 col-sm-12 text-center text-md-left">
       <ul class="px-0 list-unstyled">
         <li class="text-bold-800">{{ $invoice->user->name }}</li>
-        <li><hr></li>
+        <li>
+          <hr>
+          <b>Campers</b>
+          <hr>
+        </li>
         @foreach ($invoice->campers() as $camper)
           <li>{{ $camper->name }}</li>
           <li>{{ $camper->address }}</li>
-          <li>{{ $camper->city }}, {{ $camper->state }} {{ $camper->zip }}</li>
+          <li>{{ $camper->city }} {{ $camper->state }} {{ $camper->zip }}</li>
           <li><hr></li>
         @endforeach
       </ul>
