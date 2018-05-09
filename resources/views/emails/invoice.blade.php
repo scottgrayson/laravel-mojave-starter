@@ -5,7 +5,7 @@
   <div id="invoice-company-details" class="row">
     <div class="col-md-6 col-sm-12 text-center text-md-left">
       <div class="media">
-        <img src="{{ asset('/img/logo.png') }}" alt="company logo" class="">
+        <img src="{{ asset('img/logo.png') }}" alt="company logo" class="">
         <div class="media-body">
           <ul class="ml-2 px-0 list-unstyled">
             <li class="text-bold-800">Miss Betty's Day Camp</li>
