@@ -38,7 +38,6 @@ class PayAndReserveTest extends TestCase
         foreach ($camper as $c) {
             Cart::add($product, 1, [
                 'camper_id' => $c->id,
-                'camp_id' => $camp->id,
                 'tent_id' => $tent->id,
                 'product' => $product->slug,
                 'date' => $camp->camp_start->toDateString(),
@@ -85,7 +84,6 @@ class PayAndReserveTest extends TestCase
         foreach ($camper as $c) {
             Cart::add($product, 1, [
                 'camper_id' => $c->id,
-                'camp_id' => $camp->id,
                 'tent_id' => $tent->id,
                 'product' => $product->slug,
                 'date' => $camp->camp_start->toDateString(),
@@ -131,7 +129,6 @@ class PayAndReserveTest extends TestCase
 
             Cart::add($product, 1, [
                 'camper_id' => $camper->id,
-                'camp_id' => $camp->id,
                 'tent_id' => $tent->id,
                 'product' => $product->slug,
                 'date' => $d->toDateString(),
@@ -186,7 +183,6 @@ class PayAndReserveTest extends TestCase
 
             Cart::add($product, 1, [
                 'camper_id' => $camper->id,
-                'camp_id' => $camp->id,
                 'tent_id' => $tent->id,
                 'product' => $product->slug,
                 'date' => $d->toDateString(),
@@ -255,7 +251,6 @@ class PayAndReserveTest extends TestCase
 
             Cart::add($product, 1, [
                 'camper_id' => $camper->id,
-                'camp_id' => $camp->id,
                 'tent_id' => $tent->id,
                 'product' => $product->slug,
                 'date' => $d->toDateString(),

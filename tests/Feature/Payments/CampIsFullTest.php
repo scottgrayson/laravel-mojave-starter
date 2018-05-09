@@ -90,7 +90,6 @@ class CampIsFullTest extends TestCase
             'payment_id' => factory(\App\Payment::class)->create([
             'camp_id' => $camp->id,
             ])->id,
-            'camp_id' => $camp->id,
             'tent_id' => $tent->id,
             'user_id' => $user->id,
             'camper_id' => $otherCamper->id,

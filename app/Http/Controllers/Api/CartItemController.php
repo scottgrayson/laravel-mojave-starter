@@ -49,7 +49,6 @@ class CartItemController extends Controller
         foreach (request('dates') as $date) {
             Cart::add($product, 1, [
                 'camper_id' => request('camper_id'),
-                'camp_id' => request('camp_id'),
                 'tent_id' => request('tent_id'),
                 'date' => $date,
             ]);

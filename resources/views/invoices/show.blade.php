@@ -1,6 +1,3 @@
-@extends('layouts.app')
-
-@section('content')
 <div id="invoice-template" class="card-body">
   <!-- Invoice Company Details -->
   <div id="invoice-company-details" class="row">
@@ -157,4 +154,3 @@
     </tbody>
   </table>
 </div>
-@endsection
