@@ -25,7 +25,7 @@ class CreateInvoiceTest extends TestCase
             \App\Http\Middleware\CartCampersCompleted::class
         ]);
 
-        Mail::fake();
+        //Mail::fake();
 
         $product = factory(Product::class)->create(['slug' => 'day']);
         $registrationFee = factory(Product::class)->create(['slug' => 'registration-fee']);

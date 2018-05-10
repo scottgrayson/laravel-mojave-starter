@@ -49,7 +49,7 @@ class InvoiceEmail extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.invoice')
+        return $this->markdown('emails.invoice')
             ->with('registration', $this->registration)
             ->with('invoice', $this->invoice)
             ->with('user', $this->user)
