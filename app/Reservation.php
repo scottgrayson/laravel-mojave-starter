@@ -8,11 +8,6 @@ class Reservation extends Model
         'date'
     ];
 
-    public function camp()
-    {
-        return $this->belongsTo(\App\Camp::class);
-    }
-
     public function camper()
     {
         return $this->belongsTo(\App\Camper::class);
