@@ -45,7 +45,6 @@ class CampIsFullTest extends TestCase
             foreach ($camp->openDays() as $d) {
                 Cart::add($product, 1, [
                     'camper_id' => $c->id,
-                    'camp_id' => $camp->id,
                     'tent_id' => $c->tent_id,
                     'product' => $product->slug,
                     'date' => $d,
@@ -106,7 +105,6 @@ class CampIsFullTest extends TestCase
 
         Cart::add($product, 1, [
             'camper_id' => $camper->id,
-            'camp_id' => $camp->id,
             'tent_id' => $tent->id,
             'product' => $product->slug,
             'date' => $day,
