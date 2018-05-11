@@ -46,7 +46,7 @@
               {{ $payment->amount }}
               {{ $payment->type }}
               {{ $payment->created_at }}
-              <a href="/admin/users/{{$payment->id}}/edit">
+              <a href="/admin/payments/{{$payment->id}}">
                 View
               </a>
             </li>

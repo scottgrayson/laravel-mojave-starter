@@ -9,14 +9,23 @@ class InvoiceController extends Controller
 {
     public function index(Request $request)
     {
-        $invoices = $request->user()->invoices()->paginate(15);
+        $invoices = $request->user()
+            ->invoices()
+            ->with('reservations')
+            ->paginate(15);
 
         return view('invoices.index', ['invoices' => $invoices]);
     }
 
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $invoice = Invoice::find($id);
+        $invoice = Invoice::findOrFail($id);
+
+        if (! $request->user()->hasRole('admin') and $invoice->user_id != $request->user()->id) {
+            abort(401);
+        }
+
+        $invoice->load('reservations');
 
         return view('invoices.show', ['invoice' => $invoice]);
     }

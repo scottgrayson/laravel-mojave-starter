@@ -26,6 +26,10 @@
       {{ $payment->user->email }}
     </p>
     <p>
+      <b>Address:</b>
+      {!! $payment->user->address !!}
+    </p>
+    <p>
       <b>Paid At:</b>
       {{ $payment->created_at }}
     </p>
@@ -39,7 +43,7 @@
     </p>
 
     @if(!$reservations->isEmpty())
-      <h4>Reservations</h4>
+      <h4>Reservations <small><a href="{{ route('invoices.show', $reservations->first()->invoice->id) }}">View Invoice</a></small></h4>
 
       <table class="table">
         <thead>

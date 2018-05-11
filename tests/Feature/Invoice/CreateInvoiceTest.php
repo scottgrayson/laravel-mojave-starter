@@ -32,16 +32,16 @@ class CreateInvoiceTest extends TestCase
         $tent = factory(Tent::class)->create();
         $user = factory(User::class)->create();
         $camp = factory(Camp::class)->create();
-        $camper = factory(Camper::class, 3)->create([
+        $campers = factory(Camper::class, 3)->create([
             'tent_id' => $tent->id,
             'user_id' => $user->id,
         ]);
 
         $this->be($user);
 
-        foreach ($camper as $c) {
+        foreach ($campers as $camper) {
             Cart::add($product, 1, [
-                'camper_id' => $c->id,
+                'camper_id' => $camper->id,
                 'tent_id' => $tent->id,
                 'product' => $product->slug,
                 'date' => $camp->camp_start->toDateString(),
