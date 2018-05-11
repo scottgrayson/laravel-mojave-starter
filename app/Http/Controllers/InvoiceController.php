@@ -17,9 +17,13 @@ class InvoiceController extends Controller
         return view('invoices.index', ['invoices' => $invoices]);
     }
 
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $invoice = Invoice::find($id);
+        $invoice = Invoice::findOrFail($id);
+
+        if (! $request->user()->hasRole('admin') and $invoice->user_id != $request->user()->id) {
+            abort(401);
+        }
 
         $invoice->load('reservations');
 

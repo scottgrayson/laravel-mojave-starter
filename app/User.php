@@ -22,6 +22,10 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    protected $appends = [
+        'address',
+    ];
+
     public function reservations()
     {
         return $this->hasMany(\App\Reservation::class);
@@ -100,6 +104,16 @@ class User extends Authenticatable
     public function invoices()
     {
         return $this->hasMany(\App\Invoice::class);
+    }
+
+    public function getAddressAttribute()
+    {
+        $camper = $this->campers()->whereNotNull('address')
+            ->first();
+
+        if ($camper) {
+            return $camper->address.'<br>'.$camper->city.', ' .$camper->state.' '.$camper->zip;
+        }
     }
 
     public function canImpersonate()
