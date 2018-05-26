@@ -9,7 +9,11 @@ class CounselorController extends Controller
     //
     public function myTent()
     {
-        $x = auth()->user()->counselor->tent_id;
+        if (auth()->user()->counselor) {
+            $x = auth()->user()->counselor->tent_id;
+        } else {
+            return redirect('/')->withError('This is only available for counselors.');
+        }
 
         $tent = \App\Tent::find($x);
 
