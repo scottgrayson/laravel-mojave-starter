@@ -71,6 +71,10 @@ class MenuItemSeeder extends Seeder
                 'name' => 'admin sidebar',
                 'children' => [
                     [
+                        'name' => 'attendance',
+                        'link' => '/admin/attendance',
+                    ],
+                    [
                         'name' => 'users',
                         'link' => '/admin/users',
                     ],

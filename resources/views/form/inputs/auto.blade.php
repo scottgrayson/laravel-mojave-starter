@@ -6,8 +6,8 @@
   $inputClass = '';
   $options = [];
   $attributes = [];
-  $model = isset($model) ? $model : get_class($item);
   $item = isset($item) ? $item : null;
+  $model = isset($model) ? $model : ($item ? get_class($item) : '');
   $relation = '';
 
   $label = $wording && isset($wording['label']) ? $wording['label'] : $name;

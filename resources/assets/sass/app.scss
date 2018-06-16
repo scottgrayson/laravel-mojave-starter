@@ -159,3 +159,7 @@ input[type=date] {
   margin-bottom: -98px;
   z-index: 999;
 }
+
+.monospace {
+    font-family: $font-family-monospace !important;
+}

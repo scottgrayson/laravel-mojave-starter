@@ -13,4 +13,9 @@ class Tent extends Model
     {
         return $this->hasMany(\App\Counselor::class);
     }
+
+    public function reservations()
+    {
+        return $this->hasMany(\App\Reservation::class);
+    }
 }

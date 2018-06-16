@@ -34,3 +34,5 @@ Route::resource('newsletter-subscribers', 'NewsletterSubscriberController', [
     'except' => ['show'],
 ]);
 Route::resource('newsletters', 'NewsletterController');
+
+Route::get('attendance', 'AttendanceController@index');

@@ -14462,7 +14462,7 @@ return CodeMirror$1;
 
 
 var bind = __webpack_require__(157);
-var isBuffer = __webpack_require__(218);
+var isBuffer = __webpack_require__(219);
 
 /*global toString:true*/
 
@@ -14784,9 +14784,9 @@ module.exports = Promise;
 "use strict";
 
 
-var deferred = __webpack_require__(271);
-var once = __webpack_require__(272);
-var promiseOrCallback = __webpack_require__(273);
+var deferred = __webpack_require__(272);
+var once = __webpack_require__(273);
+var promiseOrCallback = __webpack_require__(274);
 
 function wrapPromise(fn) {
   return function () {
@@ -25675,7 +25675,7 @@ module.exports = {
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(5);
-var normalizeHeaderName = __webpack_require__(220);
+var normalizeHeaderName = __webpack_require__(221);
 
 var DEFAULT_CONTENT_TYPE = {
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -55316,7 +55316,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 
 (function(mod) {
   if (true) // CommonJS
-    mod(__webpack_require__(4), __webpack_require__(154), __webpack_require__(202));
+    mod(__webpack_require__(4), __webpack_require__(154), __webpack_require__(203));
   else if (typeof define == "function" && define.amd) // AMD
     define(["../../lib/codemirror", "../xml/xml", "../meta"], mod);
   else // Plain browser env
@@ -56681,7 +56681,7 @@ CodeMirror.overlayMode = function(base, overlay, combine) {
 /* 156 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(217);
+module.exports = __webpack_require__(218);
 
 /***/ }),
 /* 157 */
@@ -56709,12 +56709,12 @@ module.exports = function bind(fn, thisArg) {
 
 
 var utils = __webpack_require__(5);
-var settle = __webpack_require__(221);
-var buildURL = __webpack_require__(223);
-var parseHeaders = __webpack_require__(224);
-var isURLSameOrigin = __webpack_require__(225);
+var settle = __webpack_require__(222);
+var buildURL = __webpack_require__(224);
+var parseHeaders = __webpack_require__(225);
+var isURLSameOrigin = __webpack_require__(226);
 var createError = __webpack_require__(159);
-var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(226);
+var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(227);
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -56811,7 +56811,7 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(227);
+      var cookies = __webpack_require__(228);
 
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -56895,7 +56895,7 @@ module.exports = function xhrAdapter(config) {
 "use strict";
 
 
-var enhanceError = __webpack_require__(222);
+var enhanceError = __webpack_require__(223);
 
 /**
  * Create an Error with the specified message, config, error code, request and response.
@@ -56958,9 +56958,9 @@ module.exports = Cancel;
 var disposed = false
 var normalizeComponent = __webpack_require__(13)
 /* script */
-var __vue_script__ = __webpack_require__(244)
+var __vue_script__ = __webpack_require__(245)
 /* template */
-var __vue_template__ = __webpack_require__(245)
+var __vue_template__ = __webpack_require__(246)
 /* styles */
 var __vue_styles__ = null
 /* scopeId */
@@ -57048,8 +57048,8 @@ module.exports = {
 
 
 var BraintreeError = __webpack_require__(2);
-var Client = __webpack_require__(257);
-var getConfiguration = __webpack_require__(270).getConfiguration;
+var Client = __webpack_require__(258);
+var getConfiguration = __webpack_require__(271).getConfiguration;
 var VERSION = "3.26.0";
 var Promise = __webpack_require__(6);
 var wrapPromise = __webpack_require__(7);
@@ -57129,10 +57129,10 @@ module.exports = {
 
 var ajaxIsAvaliable;
 var once = __webpack_require__(24);
-var JSONPDriver = __webpack_require__(258);
-var AJAXDriver = __webpack_require__(259);
-var getUserAgent = __webpack_require__(265);
-var isHTTP = __webpack_require__(266);
+var JSONPDriver = __webpack_require__(259);
+var AJAXDriver = __webpack_require__(260);
+var getUserAgent = __webpack_require__(266);
+var isHTTP = __webpack_require__(267);
 
 function isAjaxAvailable() {
   if (ajaxIsAvaliable == null) {
@@ -57327,7 +57327,7 @@ module.exports = convertToBraintreeError;
 
 
 var createAuthorizationData = __webpack_require__(170);
-var jsonClone = __webpack_require__(268);
+var jsonClone = __webpack_require__(269);
 var constants = __webpack_require__(16);
 
 function addMetadata(configuration, data) {
@@ -57365,7 +57365,7 @@ module.exports = addMetadata;
 "use strict";
 
 
-var atob = __webpack_require__(267).atob;
+var atob = __webpack_require__(268).atob;
 
 var apiUrls = {
   production: 'https://api.braintreegateway.com:443',
@@ -57792,9 +57792,9 @@ module.exports = function (client) {
 "use strict";
 
 
-var setAttributes = __webpack_require__(284);
-var defaultAttributes = __webpack_require__(285);
-var assign = __webpack_require__(286);
+var setAttributes = __webpack_require__(285);
+var defaultAttributes = __webpack_require__(286);
+var assign = __webpack_require__(287);
 
 module.exports = function createFrame(options) {
   var iframe = document.createElement('iframe');
@@ -57822,9 +57822,9 @@ module.exports = function createFrame(options) {
 "use strict";
 
 
-var bus = __webpack_require__(287);
-var events = __webpack_require__(288);
-var checkOrigin = __webpack_require__(289).checkOrigin;
+var bus = __webpack_require__(288);
+var events = __webpack_require__(289);
+var checkOrigin = __webpack_require__(290).checkOrigin;
 var BraintreeError = __webpack_require__(2);
 
 function BraintreeBus(options) {
@@ -58009,7 +58009,7 @@ module.exports = function (instance, methodNames) {
 "use strict";
 
 
-var browserDetection = __webpack_require__(304);
+var browserDetection = __webpack_require__(305);
 
 function isHidden(element) {
   if (!element) { // no parentNode, so nothing containing the element is hidden
@@ -58053,7 +58053,7 @@ module.exports = {
 
 var assign = __webpack_require__(14).assign;
 var BaseView = __webpack_require__(9);
-var btPaypal = __webpack_require__(306);
+var btPaypal = __webpack_require__(307);
 var DropinError = __webpack_require__(8);
 
 var ASYNC_DEPENDENCY_TIMEOUT = 30000;
@@ -58259,7 +58259,7 @@ module.exports = {
 
 
 var BaseView = __webpack_require__(9);
-var PaymentMethodView = __webpack_require__(313);
+var PaymentMethodView = __webpack_require__(314);
 var DropinError = __webpack_require__(8);
 var classlist = __webpack_require__(18);
 var errors = __webpack_require__(3).errors;
@@ -58546,7 +58546,7 @@ module.exports = {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(190);
-module.exports = __webpack_require__(349);
+module.exports = __webpack_require__(350);
 
 
 /***/ }),
@@ -58555,7 +58555,7 @@ module.exports = __webpack_require__(349);
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__filters_index_js__ = __webpack_require__(236);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__filters_index_js__ = __webpack_require__(237);
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -58565,7 +58565,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 __webpack_require__(191);
 
-window.Vue = __webpack_require__(235);
+window.Vue = __webpack_require__(236);
 window.bus = new Vue();
 
 
@@ -58577,13 +58577,13 @@ Vue.filter('dateFormat', __WEBPACK_IMPORTED_MODULE_0__filters_index_js__["a" /* 
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-__webpack_require__(237);
+__webpack_require__(238);
 
 //Vue.component('vue-socket', require('./components/VueSocket.vue'))
-Vue.component('camp-calendar', __webpack_require__(238));
-Vue.component('cart-count', __webpack_require__(247));
-Vue.component('my-tent', __webpack_require__(250));
-Vue.component('checkout', __webpack_require__(253));
+Vue.component('camp-calendar', __webpack_require__(239));
+Vue.component('cart-count', __webpack_require__(248));
+Vue.component('my-tent', __webpack_require__(251));
+Vue.component('checkout', __webpack_require__(254));
 
 var app = new Vue({
   el: '#app'
@@ -58615,19 +58615,19 @@ __webpack_require__(196);
 
 window.select2 = __webpack_require__(197);
 
-window.datepicker = __webpack_require__(357);
+window.datepicker = __webpack_require__(198);
 
 window.CodeMirror = __webpack_require__(4);
 
 window.fullCalendar = __webpack_require__(152);
 
-window.SimpleMDE = __webpack_require__(198);
+window.SimpleMDE = __webpack_require__(199);
 
-window.Sortable = __webpack_require__(214);
-
-__webpack_require__(215);
+window.Sortable = __webpack_require__(215);
 
 __webpack_require__(216);
+
+__webpack_require__(217);
 
 /**
  * Next we will register the CSRF Token as a common header with Axios so that
@@ -68807,21 +68807,36 @@ S2.define('jquery.select2',[
 /* 198 */
 /***/ (function(module, exports, __webpack_require__) {
 
+/*!
+ * Datepicker v0.6.4
+ * https://github.com/fengyuanchen/datepicker
+ *
+ * Copyright (c) 2014-2017 Chen Fengyuan
+ * Released under the MIT license
+ *
+ * Date: 2017-11-24T14:38:23.820Z
+ */
+!function(e,t){ true?t(__webpack_require__(12)):"function"==typeof define&&define.amd?define(["jquery"],t):t(e.jQuery)}(this,function(e){"use strict";function t(e){return"string"==typeof e}function i(e){return"number"==typeof e&&!v(e)}function a(e){return void 0===e}function s(e){return"date"===function(e){return y.call(e).slice(8,-1).toLowerCase()}(e)}function n(e,t){for(var i=arguments.length,a=Array(i>2?i-2:0),s=2;s<i;s++)a[s-2]=arguments[s];return function(){for(var i=arguments.length,s=Array(i),n=0;n<i;n++)s[n]=arguments[n];return e.apply(t,a.concat(s))}}function r(e){return'[data-view="'+e+'"]'}function h(e,t){return[31,function(e){return e%4==0&&e%100!=0||e%400==0}(e)?29:28,31,30,31,30,31,31,30,31,30,31][t]}function o(e,t,i){return Math.min(i,h(e,t))}e=e&&e.hasOwnProperty("default")?e.default:e;var l={autoShow:!1,autoHide:!1,autoPick:!1,inline:!1,container:null,trigger:null,language:"",format:"mm/dd/yyyy",date:null,startDate:null,endDate:null,startView:0,weekStart:0,yearFirst:!1,yearSuffix:"",days:["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],daysShort:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],daysMin:["Su","Mo","Tu","We","Th","Fr","Sa"],months:["January","February","March","April","May","June","July","August","September","October","November","December"],monthsShort:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],itemTag:"li",mutedClass:"muted",pickedClass:"picked",disabledClass:"disabled",highlightedClass:"highlighted",template:'<div class="datepicker-container"><div class="datepicker-panel" data-view="years picker"><ul><li data-view="years prev">&lsaquo;</li><li data-view="years current"></li><li data-view="years next">&rsaquo;</li></ul><ul data-view="years"></ul></div><div class="datepicker-panel" data-view="months picker"><ul><li data-view="year prev">&lsaquo;</li><li data-view="year current"></li><li data-view="year next">&rsaquo;</li></ul><ul data-view="months"></ul></div><div class="datepicker-panel" data-view="days picker"><ul><li data-view="month prev">&lsaquo;</li><li data-view="month current"></li><li data-view="month next">&rsaquo;</li></ul><ul data-view="week"></ul><ul data-view="days"></ul></div></div>',offset:10,zIndex:1e3,filter:null,show:null,hide:null,pick:null},d="undefined"!=typeof window?window:{},u="datepicker",c="click.datepicker",p="datepicker-hide",f={},g={DAYS:0,MONTHS:1,YEARS:2},y=Object.prototype.toString,v=Number.isNaN||d.isNaN,m=/(y|m|d)+/g,w=/\d+/g,k={show:function(){this.built||this.build(),this.shown||this.trigger("show.datepicker").isDefaultPrevented()||(this.shown=!0,this.$picker.removeClass(p).on(c,e.proxy(this.click,this)),this.showView(this.options.startView),this.inline||(e(window).on("resize.datepicker",this.onResize=n(this.place,this)),e(document).on(c,this.onGlobalClick=n(this.globalClick,this)),e(document).on("keyup.datepicker",this.onGlobalKeyup=n(this.globalKeyup,this)),this.place()))},hide:function(){this.shown&&(this.trigger("hide.datepicker").isDefaultPrevented()||(this.shown=!1,this.$picker.addClass(p).off(c,this.click),this.inline||(e(window).off("resize.datepicker",this.onResize),e(document).off(c,this.onGlobalClick),e(document).off("keyup.datepicker",this.onGlobalKeyup))))},toggle:function(){this.shown?this.hide():this.show()},update:function(){var e=this.getValue();e!==this.oldValue&&(this.setDate(e,!0),this.oldValue=e)},pick:function(e){var t=this.$element,i=this.date;this.trigger("pick.datepicker",{view:e||"",date:i}).isDefaultPrevented()||(i=this.formatDate(this.date),this.setValue(i),this.isInput&&(t.trigger("input"),t.trigger("change")))},reset:function(){this.setDate(this.initialDate,!0),this.setValue(this.initialValue),this.shown&&this.showView(this.options.startView)},getMonthName:function(t,s){var n=this.options,r=n.monthsShort,h=n.months;return e.isNumeric(t)?t=Number(t):a(s)&&(s=t),!0===s&&(h=r),h[i(t)?t:this.date.getMonth()]},getDayName:function(t,s,n){var r=this.options,h=r.days;return e.isNumeric(t)?t=Number(t):(a(n)&&(n=s),a(s)&&(s=t)),n?h=r.daysMin:s&&(h=r.daysShort),h[i(t)?t:this.date.getDay()]},getDate:function(e){var t=this.date;return e?this.formatDate(t):new Date(t)},setDate:function(i,a){var n=this.options.filter;if(s(i)||t(i)){if(i=this.parseDate(i),e.isFunction(n)&&!1===n.call(this.$element,i))return;this.date=i,this.viewDate=new Date(i),a||this.pick(),this.built&&this.render()}},setStartDate:function(e){(s(e)||t(e))&&(this.startDate=this.parseDate(e),this.built&&this.render())},setEndDate:function(e){(s(e)||t(e))&&(this.endDate=this.parseDate(e),this.built&&this.render())},parseDate:function(i){var a=this.format,n=[];if(s(i))return new Date(i.getFullYear(),i.getMonth(),i.getDate());t(i)&&(n=i.match(w)||[]),i=new Date;var r=a.parts.length,h=i.getFullYear(),o=i.getDate(),l=i.getMonth();return n.length===r&&e.each(n,function(e,t){var i=parseInt(t,10)||1;switch(a.parts[e]){case"dd":case"d":o=i;break;case"mm":case"m":l=i-1;break;case"yy":h=2e3+i;break;case"yyyy":h=i}}),new Date(h,l,o)},formatDate:function(t){var i=this.format,a="";if(s(t)){var n=t.getFullYear(),r={d:t.getDate(),m:t.getMonth()+1,yy:n.toString().substring(2),yyyy:n};r.dd=(r.d<10?"0":"")+r.d,r.mm=(r.m<10?"0":"")+r.m,a=i.source,e.each(i.parts,function(e,t){a=a.replace(t,r[t])})}return a},destroy:function(){this.unbind(),this.unbuild(),this.$element.removeData(u)}},D={click:function(t){var i=e(t.target),a=this.options,s=this.viewDate,n=this.format;if(t.stopPropagation(),t.preventDefault(),!i.hasClass("disabled")){var r=i.data("view"),h=s.getFullYear(),l=s.getMonth(),d=s.getDate();switch(r){case"years prev":case"years next":h="years prev"===r?h-10:h+10,this.viewDate=new Date(h,l,o(h,l,d)),this.renderYears();break;case"year prev":case"year next":h="year prev"===r?h-1:h+1,this.viewDate=new Date(h,l,o(h,l,d)),this.renderMonths();break;case"year current":n.hasYear&&this.showView(g.YEARS);break;case"year picked":n.hasMonth?this.showView(g.MONTHS):(i.addClass(a.pickedClass).siblings().removeClass(a.pickedClass),this.hideView()),this.pick("year");break;case"year":h=parseInt(i.text(),10),this.date=new Date(h,l,o(h,l,d)),n.hasMonth?(this.viewDate=new Date(this.date),this.showView(g.MONTHS)):(i.addClass(a.pickedClass).siblings().removeClass(a.pickedClass),this.hideView()),this.pick("year");break;case"month prev":case"month next":(l="month prev"===r?l-1:l+1)<0?(h-=1,l+=12):l>11&&(h+=1,l-=12),this.viewDate=new Date(h,l,o(h,l,d)),this.renderDays();break;case"month current":n.hasMonth&&this.showView(g.MONTHS);break;case"month picked":n.hasDay?this.showView(g.DAYS):(i.addClass(a.pickedClass).siblings().removeClass(a.pickedClass),this.hideView()),this.pick("month");break;case"month":l=e.inArray(i.text(),a.monthsShort),this.date=new Date(h,l,o(h,l,d)),n.hasDay?(this.viewDate=new Date(h,l,o(h,l,d)),this.showView(g.DAYS)):(i.addClass(a.pickedClass).siblings().removeClass(a.pickedClass),this.hideView()),this.pick("month");break;case"day prev":case"day next":case"day":"day prev"===r?l-=1:"day next"===r&&(l+=1),d=parseInt(i.text(),10),this.date=new Date(h,l,d),this.viewDate=new Date(h,l,d),this.renderDays(),"day"===r&&this.hideView(),this.pick("day");break;case"day picked":this.hideView(),this.pick("day")}}},globalClick:function(e){for(var t=e.target,i=this.element,a=this.$trigger[0],s=!0;t!==document;){if(t===a||t===i){s=!1;break}t=t.parentNode}s&&this.hide()},keyup:function(){this.update()},globalKeyup:function(e){var t=e.target,i=e.key,a=e.keyCode;this.isInput&&t!==this.element&&this.shown&&("Tab"===i||9===a)&&this.hide()}},b={render:function(){this.renderYears(),this.renderMonths(),this.renderDays()},renderWeek:function(){var t=this,i=[],a=this.options,s=a.weekStart,n=a.daysMin;s=parseInt(s,10)%7,n=n.slice(s).concat(n.slice(0,s)),e.each(n,function(e,a){i.push(t.createItem({text:a}))}),this.$week.html(i.join(""))},renderYears:function(){var e=this.options,t=this.startDate,i=this.endDate,a=e.disabledClass,s=e.filter,n=e.yearSuffix,r=this.viewDate.getFullYear(),h=(new Date).getFullYear(),o=this.date.getFullYear(),l=[],d=!1,u=!1,c=void 0;for(c=-5;c<=6;c+=1){var p=new Date(r+c,1,1),f=!1;t&&(f=p.getFullYear()<t.getFullYear(),-5===c&&(d=f)),!f&&i&&(f=p.getFullYear()>i.getFullYear(),6===c&&(u=f)),!f&&s&&(f=!1===s.call(this.$element,p));var g=r+c===o,y=g?"year picked":"year";l.push(this.createItem({picked:g,disabled:f,muted:-5===c||6===c,text:r+c,view:f?"year disabled":y,highlighted:p.getFullYear()===h}))}this.$yearsPrev.toggleClass(a,d),this.$yearsNext.toggleClass(a,u),this.$yearsCurrent.toggleClass(a,!0).html(r+-5+n+" - "+(r+6)+n),this.$years.html(l.join(""))},renderMonths:function(){var t=this.options,i=this.startDate,a=this.endDate,s=this.viewDate,n=t.disabledClass||"",r=t.monthsShort,h=e.isFunction(t.filter)&&t.filter,o=s.getFullYear(),l=new Date,d=l.getFullYear(),u=l.getMonth(),c=this.date.getFullYear(),p=this.date.getMonth(),f=[],g=!1,y=!1,v=void 0;for(v=0;v<=11;v+=1){var m=new Date(o,v,1),w=!1;i&&(w=(g=m.getFullYear()===i.getFullYear())&&m.getMonth()<i.getMonth()),!w&&a&&(w=(y=m.getFullYear()===a.getFullYear())&&m.getMonth()>a.getMonth()),!w&&h&&(w=!1===h.call(this.$element,m));var k=o===c&&v===p,D=k?"month picked":"month";f.push(this.createItem({disabled:w,picked:k,highlighted:o===d&&m.getMonth()===u,index:v,text:r[v],view:w?"month disabled":D}))}this.$yearPrev.toggleClass(n,g),this.$yearNext.toggleClass(n,y),this.$yearCurrent.toggleClass(n,g&&y).html(o+t.yearSuffix||""),this.$months.html(f.join(""))},renderDays:function(){var e=this.$element,t=this.options,i=this.startDate,a=this.endDate,s=this.viewDate,n=this.date,r=t.disabledClass,o=t.filter,l=t.monthsShort,d=t.weekStart,u=t.yearSuffix,c=s.getFullYear(),p=s.getMonth(),f=new Date,g=f.getFullYear(),y=f.getMonth(),v=f.getDate(),m=n.getFullYear(),w=n.getMonth(),k=n.getDate(),D=void 0,b=void 0,C=void 0,$=[],x=c,M=p,S=!1;0===p?(x-=1,M=11):M-=1,D=h(x,M);var F=new Date(c,p,1);for((C=F.getDay()-parseInt(d,10)%7)<=0&&(C+=7),i&&(S=F.getTime()<=i.getTime()),b=D-(C-1);b<=D;b+=1){var Y=new Date(x,M,b),T=!1;i&&(T=Y.getTime()<i.getTime()),!T&&o&&(T=!1===o.call(e,Y)),$.push(this.createItem({disabled:T,highlighted:x===g&&M===y&&Y.getDate()===v,muted:!0,picked:x===m&&M===w&&b===k,text:b,view:"day prev"}))}var V=[],I=c,N=p,P=!1;11===p?(I+=1,N=0):N+=1,D=h(c,p),C=42-($.length+D);var A=new Date(c,p,D);for(a&&(P=A.getTime()>=a.getTime()),b=1;b<=C;b+=1){var j=new Date(I,N,b),O=I===m&&N===w&&b===k,H=!1;a&&(H=j.getTime()>a.getTime()),!H&&o&&(H=!1===o.call(e,j)),V.push(this.createItem({disabled:H,picked:O,highlighted:I===g&&N===y&&j.getDate()===v,muted:!0,text:b,view:"day next"}))}var q=[];for(b=1;b<=D;b+=1){var E=new Date(c,p,b),z=!1;i&&(z=E.getTime()<i.getTime()),!z&&a&&(z=E.getTime()>a.getTime()),!z&&o&&(z=!1===o.call(e,E));var W=c===m&&p===w&&b===k,J=W?"day picked":"day";q.push(this.createItem({disabled:z,picked:W,highlighted:c===g&&p===y&&E.getDate()===v,text:b,view:z?"day disabled":J}))}this.$monthPrev.toggleClass(r,S),this.$monthNext.toggleClass(r,P),this.$monthCurrent.toggleClass(r,S&&P).html(t.yearFirst?c+u+" "+l[p]:l[p]+" "+c+u),this.$days.html($.join("")+q.join("")+V.join(""))}},C=function(){function e(e,t){for(var i=0;i<t.length;i++){var a=t[i];a.enumerable=a.enumerable||!1,a.configurable=!0,"value"in a&&(a.writable=!0),Object.defineProperty(e,a.key,a)}}return function(t,i,a){return i&&e(t.prototype,i),a&&e(t,a),t}}(),$="datepicker-top-left",x="datepicker-bottom-left",M=[$,"datepicker-top-right",x,"datepicker-bottom-right"].join(" "),S=function(){function t(i){var a=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{};!function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,t),this.$element=e(i),this.element=i,this.options=e.extend({},l,f[a.language],a),this.built=!1,this.shown=!1,this.isInput=!1,this.inline=!1,this.initialValue="",this.initialDate=null,this.startDate=null,this.endDate=null,this.init()}return C(t,[{key:"init",value:function(){var t=this.$element,i=this.options,a=i.startDate,s=i.endDate,n=i.date;this.$trigger=e(i.trigger),this.isInput=t.is("input")||t.is("textarea"),this.inline=i.inline&&(i.container||!this.isInput),this.format=function(t){var i=String(t).toLowerCase(),a=i.match(m);if(!a||0===a.length)throw new Error("Invalid date format.");return t={source:i,parts:a},e.each(a,function(e,i){switch(i){case"dd":case"d":t.hasDay=!0;break;case"mm":case"m":t.hasMonth=!0;break;case"yyyy":case"yy":t.hasYear=!0}}),t}(i.format);var r=this.getValue();this.initialValue=r,this.oldValue=r,n=this.parseDate(n||r),a&&(a=this.parseDate(a),n.getTime()<a.getTime()&&(n=new Date(a)),this.startDate=a),s&&(s=this.parseDate(s),a&&s.getTime()<a.getTime()&&(s=new Date(a)),n.getTime()>s.getTime()&&(n=new Date(s)),this.endDate=s),this.date=n,this.viewDate=new Date(n),this.initialDate=new Date(this.date),this.bind(),(i.autoShow||this.inline)&&this.show(),i.autoPick&&this.pick()}},{key:"build",value:function(){if(!this.built){this.built=!0;var t=this.$element,i=this.options,a=e(i.template);this.$picker=a,this.$week=a.find(r("week")),this.$yearsPicker=a.find(r("years picker")),this.$yearsPrev=a.find(r("years prev")),this.$yearsNext=a.find(r("years next")),this.$yearsCurrent=a.find(r("years current")),this.$years=a.find(r("years")),this.$monthsPicker=a.find(r("months picker")),this.$yearPrev=a.find(r("year prev")),this.$yearNext=a.find(r("year next")),this.$yearCurrent=a.find(r("year current")),this.$months=a.find(r("months")),this.$daysPicker=a.find(r("days picker")),this.$monthPrev=a.find(r("month prev")),this.$monthNext=a.find(r("month next")),this.$monthCurrent=a.find(r("month current")),this.$days=a.find(r("days")),this.inline?e(i.container||t).append(a.addClass("datepicker-inline")):(e(document.body).append(a.addClass("datepicker-dropdown")),a.addClass(p)),this.renderWeek()}}},{key:"unbuild",value:function(){this.built&&(this.built=!1,this.$picker.remove())}},{key:"bind",value:function(){var t=this.options,i=this.$element;e.isFunction(t.show)&&i.on("show.datepicker",t.show),e.isFunction(t.hide)&&i.on("hide.datepicker",t.hide),e.isFunction(t.pick)&&i.on("pick.datepicker",t.pick),this.isInput&&i.on("keyup.datepicker",e.proxy(this.keyup,this)),this.inline||(t.trigger?this.$trigger.on(c,e.proxy(this.toggle,this)):this.isInput?i.on("focus.datepicker",e.proxy(this.show,this)):i.on(c,e.proxy(this.show,this)))}},{key:"unbind",value:function(){var t=this.$element,i=this.options;e.isFunction(i.show)&&t.off("show.datepicker",i.show),e.isFunction(i.hide)&&t.off("hide.datepicker",i.hide),e.isFunction(i.pick)&&t.off("pick.datepicker",i.pick),this.isInput&&t.off("keyup.datepicker",this.keyup),this.inline||(i.trigger?this.$trigger.off(c,this.toggle):this.isInput?t.off("focus.datepicker",this.show):t.off(c,this.show))}},{key:"showView",value:function(e){var t=this.$yearsPicker,i=this.$monthsPicker,a=this.$daysPicker,s=this.format;if(s.hasYear||s.hasMonth||s.hasDay)switch(Number(e)){case g.YEARS:i.addClass(p),a.addClass(p),s.hasYear?(this.renderYears(),t.removeClass(p),this.place()):this.showView(g.DAYS);break;case g.MONTHS:t.addClass(p),a.addClass(p),s.hasMonth?(this.renderMonths(),i.removeClass(p),this.place()):this.showView(g.YEARS);break;default:t.addClass(p),i.addClass(p),s.hasDay?(this.renderDays(),a.removeClass(p),this.place()):this.showView(g.MONTHS)}}},{key:"hideView",value:function(){!this.inline&&this.options.autoHide&&this.hide()}},{key:"place",value:function(){if(!this.inline){var t=this.$element,i=this.options,a=this.$picker,s=e(document).outerWidth(),n=e(document).outerHeight(),r=t.outerWidth(),h=t.outerHeight(),o=a.width(),l=a.height(),d=t.offset(),u=d.left,c=d.top,p=parseFloat(i.offset),f=$;v(p)&&(p=10),c>l&&c+h+l>n?(c-=l+p,f=x):c+=h+p,u+o>s&&(u+=r-o,f=f.replace("left","right")),a.removeClass(M).addClass(f).css({top:c,left:u,zIndex:parseInt(i.zIndex,10)})}}},{key:"trigger",value:function(t,i){var a=e.Event(t,i);return this.$element.trigger(a),a}},{key:"createItem",value:function(t){var i=this.options,a=i.itemTag,s={text:"",view:"",muted:!1,picked:!1,disabled:!1,highlighted:!1},n=[];return e.extend(s,t),s.muted&&n.push(i.mutedClass),s.highlighted&&n.push(i.highlightedClass),s.picked&&n.push(i.pickedClass),s.disabled&&n.push(i.disabledClass),"<"+a+' class="'+n.join(" ")+'" data-view="'+s.view+'">'+s.text+"</"+a+">"}},{key:"getValue",value:function(){var e=this.$element;return this.isInput?e.val():e.text()}},{key:"setValue",value:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:"",t=this.$element;this.isInput?t.val(e):t.text(e)}}],[{key:"setDefaults",value:function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{};e.extend(l,f[t.language],t)}}]),t}();if(e.extend&&e.extend(S.prototype,b,D,k),e.fn){var F=e.fn.datepicker;e.fn.datepicker=function(i){for(var s=arguments.length,n=Array(s>1?s-1:0),r=1;r<s;r++)n[r-1]=arguments[r];var h=void 0;return this.each(function(a,s){var r=e(s),o=r.data(u);if(!o){if(/destroy/.test(i))return;var l=e.extend({},r.data(),e.isPlainObject(i)&&i);o=new S(s,l),r.data(u,o)}if(t(i)){var d=o[i];e.isFunction(d)&&(h=d.apply(o,n))}}),a(h)?this:h},e.fn.datepicker.Constructor=S,e.fn.datepicker.languages=f,e.fn.datepicker.setDefaults=S.setDefaults,e.fn.datepicker.noConflict=function(){return e.fn.datepicker=F,this}}});
+
+/***/ }),
+/* 199 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 /*global require,module*/
 
 var CodeMirror = __webpack_require__(4);
-__webpack_require__(199);
 __webpack_require__(200);
 __webpack_require__(201);
+__webpack_require__(202);
 __webpack_require__(153);
 __webpack_require__(155);
-__webpack_require__(203);
 __webpack_require__(204);
 __webpack_require__(205);
+__webpack_require__(206);
 __webpack_require__(154);
-var CodeMirrorSpellChecker = __webpack_require__(206);
-var marked = __webpack_require__(213);
+var CodeMirrorSpellChecker = __webpack_require__(207);
+var marked = __webpack_require__(214);
 
 
 // Some variables
@@ -70838,7 +70853,7 @@ SimpleMDE.prototype.toTextArea = function() {
 module.exports = SimpleMDE;
 
 /***/ }),
-/* 199 */
+/* 200 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
@@ -70933,7 +70948,7 @@ module.exports = SimpleMDE;
 
 
 /***/ }),
-/* 200 */
+/* 201 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
@@ -70983,7 +70998,7 @@ CodeMirror.commands.shiftTabAndUnindentMarkdownList = function (cm) {
 
 
 /***/ }),
-/* 201 */
+/* 202 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
@@ -71030,7 +71045,7 @@ CodeMirror.commands.shiftTabAndUnindentMarkdownList = function (cm) {
 
 
 /***/ }),
-/* 202 */
+/* 203 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
@@ -71252,7 +71267,7 @@ CodeMirror.commands.shiftTabAndUnindentMarkdownList = function (cm) {
 
 
 /***/ }),
-/* 203 */
+/* 204 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
@@ -71320,7 +71335,7 @@ CodeMirror.commands.shiftTabAndUnindentMarkdownList = function (cm) {
 
 
 /***/ }),
-/* 204 */
+/* 205 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
@@ -71445,7 +71460,7 @@ CodeMirror.commands.shiftTabAndUnindentMarkdownList = function (cm) {
 
 
 /***/ }),
-/* 205 */
+/* 206 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
@@ -71580,7 +71595,7 @@ CodeMirror.defineMode("gfm", function(config, modeConfig) {
 
 
 /***/ }),
-/* 206 */
+/* 207 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -71589,7 +71604,7 @@ CodeMirror.defineMode("gfm", function(config, modeConfig) {
 
 
 // Requires
-var Typo = __webpack_require__(207);
+var Typo = __webpack_require__(208);
 
 
 // Create function
@@ -71705,7 +71720,7 @@ CodeMirrorSpellChecker.typo;
 module.exports = CodeMirrorSpellChecker;
 
 /***/ }),
-/* 207 */
+/* 208 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(__dirname, Buffer) {/* globals chrome: false */
@@ -71968,7 +71983,7 @@ Typo.prototype = {
 		}
 		else if (true) {
 			// Node.js
-			var fs = __webpack_require__(212);
+			var fs = __webpack_require__(213);
 			
 			try {
 				if (fs.existsSync(path)) {
@@ -72639,10 +72654,10 @@ Typo.prototype = {
 if (true) {
 	module.exports = Typo;
 }
-/* WEBPACK VAR INJECTION */}.call(exports, "/", __webpack_require__(208).Buffer))
+/* WEBPACK VAR INJECTION */}.call(exports, "/", __webpack_require__(209).Buffer))
 
 /***/ }),
-/* 208 */
+/* 209 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -72656,9 +72671,9 @@ if (true) {
 
 
 
-var base64 = __webpack_require__(209)
-var ieee754 = __webpack_require__(210)
-var isArray = __webpack_require__(211)
+var base64 = __webpack_require__(210)
+var ieee754 = __webpack_require__(211)
+var isArray = __webpack_require__(212)
 
 exports.Buffer = Buffer
 exports.SlowBuffer = SlowBuffer
@@ -74439,7 +74454,7 @@ function isnan (val) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 209 */
+/* 210 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -74560,7 +74575,7 @@ function fromByteArray (uint8) {
 
 
 /***/ }),
-/* 210 */
+/* 211 */
 /***/ (function(module, exports) {
 
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
@@ -74650,7 +74665,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 
 
 /***/ }),
-/* 211 */
+/* 212 */
 /***/ (function(module, exports) {
 
 var toString = {}.toString;
@@ -74661,13 +74676,13 @@ module.exports = Array.isArray || function (arr) {
 
 
 /***/ }),
-/* 212 */
+/* 213 */
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
-/* 213 */
+/* 214 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -75960,7 +75975,7 @@ if (true) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 214 */
+/* 215 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**!
@@ -77510,7 +77525,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**!
 
 
 /***/ }),
-/* 215 */
+/* 216 */
 /***/ (function(module, exports) {
 
 /*
@@ -77589,7 +77604,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**!
 })();
 
 /***/ }),
-/* 216 */
+/* 217 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/*!
@@ -79302,7 +79317,7 @@ document = window.document || {};
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 217 */
+/* 218 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -79310,7 +79325,7 @@ document = window.document || {};
 
 var utils = __webpack_require__(5);
 var bind = __webpack_require__(157);
-var Axios = __webpack_require__(219);
+var Axios = __webpack_require__(220);
 var defaults = __webpack_require__(23);
 
 /**
@@ -79345,14 +79360,14 @@ axios.create = function create(instanceConfig) {
 
 // Expose Cancel & CancelToken
 axios.Cancel = __webpack_require__(161);
-axios.CancelToken = __webpack_require__(233);
+axios.CancelToken = __webpack_require__(234);
 axios.isCancel = __webpack_require__(160);
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __webpack_require__(234);
+axios.spread = __webpack_require__(235);
 
 module.exports = axios;
 
@@ -79361,7 +79376,7 @@ module.exports.default = axios;
 
 
 /***/ }),
-/* 218 */
+/* 219 */
 /***/ (function(module, exports) {
 
 /*!
@@ -79388,7 +79403,7 @@ function isSlowBuffer (obj) {
 
 
 /***/ }),
-/* 219 */
+/* 220 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -79396,10 +79411,10 @@ function isSlowBuffer (obj) {
 
 var defaults = __webpack_require__(23);
 var utils = __webpack_require__(5);
-var InterceptorManager = __webpack_require__(228);
-var dispatchRequest = __webpack_require__(229);
-var isAbsoluteURL = __webpack_require__(231);
-var combineURLs = __webpack_require__(232);
+var InterceptorManager = __webpack_require__(229);
+var dispatchRequest = __webpack_require__(230);
+var isAbsoluteURL = __webpack_require__(232);
+var combineURLs = __webpack_require__(233);
 
 /**
  * Create a new instance of Axios
@@ -79481,7 +79496,7 @@ module.exports = Axios;
 
 
 /***/ }),
-/* 220 */
+/* 221 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -79500,7 +79515,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 
 
 /***/ }),
-/* 221 */
+/* 222 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -79533,7 +79548,7 @@ module.exports = function settle(resolve, reject, response) {
 
 
 /***/ }),
-/* 222 */
+/* 223 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -79561,7 +79576,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
 
 
 /***/ }),
-/* 223 */
+/* 224 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -79636,7 +79651,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 
 
 /***/ }),
-/* 224 */
+/* 225 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -79680,7 +79695,7 @@ module.exports = function parseHeaders(headers) {
 
 
 /***/ }),
-/* 225 */
+/* 226 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -79755,7 +79770,7 @@ module.exports = (
 
 
 /***/ }),
-/* 226 */
+/* 227 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -79798,7 +79813,7 @@ module.exports = btoa;
 
 
 /***/ }),
-/* 227 */
+/* 228 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -79858,7 +79873,7 @@ module.exports = (
 
 
 /***/ }),
-/* 228 */
+/* 229 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -79917,14 +79932,14 @@ module.exports = InterceptorManager;
 
 
 /***/ }),
-/* 229 */
+/* 230 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(5);
-var transformData = __webpack_require__(230);
+var transformData = __webpack_require__(231);
 var isCancel = __webpack_require__(160);
 var defaults = __webpack_require__(23);
 
@@ -80003,7 +80018,7 @@ module.exports = function dispatchRequest(config) {
 
 
 /***/ }),
-/* 230 */
+/* 231 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -80030,7 +80045,7 @@ module.exports = function transformData(data, headers, fns) {
 
 
 /***/ }),
-/* 231 */
+/* 232 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -80051,7 +80066,7 @@ module.exports = function isAbsoluteURL(url) {
 
 
 /***/ }),
-/* 232 */
+/* 233 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -80072,7 +80087,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 
 
 /***/ }),
-/* 233 */
+/* 234 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -80136,7 +80151,7 @@ module.exports = CancelToken;
 
 
 /***/ }),
-/* 234 */
+/* 235 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -80170,7 +80185,7 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 235 */
+/* 236 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -90987,7 +91002,7 @@ module.exports = Vue$3;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(19).setImmediate))
 
 /***/ }),
-/* 236 */
+/* 237 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -91016,7 +91031,7 @@ function dateFormat(value) {
 }
 
 /***/ }),
-/* 237 */
+/* 238 */
 /***/ (function(module, exports) {
 
 $().ready(function () {
@@ -91041,15 +91056,15 @@ $().ready(function () {
 });
 
 /***/ }),
-/* 238 */
+/* 239 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(13)
 /* script */
-var __vue_script__ = __webpack_require__(239)
+var __vue_script__ = __webpack_require__(240)
 /* template */
-var __vue_template__ = __webpack_require__(246)
+var __vue_template__ = __webpack_require__(247)
 /* styles */
 var __vue_styles__ = null
 /* scopeId */
@@ -91087,12 +91102,12 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 239 */
+/* 240 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_query__ = __webpack_require__(240);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_query__ = __webpack_require__(241);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tent_camper_select__ = __webpack_require__(162);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tent_camper_select___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__tent_camper_select__);
 //
@@ -91573,11 +91588,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 240 */
+/* 241 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_query_string__ = __webpack_require__(241);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_query_string__ = __webpack_require__(242);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_query_string___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_query_string__);
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
@@ -91665,13 +91680,13 @@ var Query = function () {
 /* harmony default export */ __webpack_exports__["a"] = (Query);
 
 /***/ }),
-/* 241 */
+/* 242 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var strictUriEncode = __webpack_require__(242);
-var objectAssign = __webpack_require__(243);
+var strictUriEncode = __webpack_require__(243);
+var objectAssign = __webpack_require__(244);
 
 function encoderForArrayFormat(opts) {
 	switch (opts.arrayFormat) {
@@ -91877,7 +91892,7 @@ exports.stringify = function (obj, opts) {
 
 
 /***/ }),
-/* 242 */
+/* 243 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -91890,7 +91905,7 @@ module.exports = function (str) {
 
 
 /***/ }),
-/* 243 */
+/* 244 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -91987,7 +92002,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 
 /***/ }),
-/* 244 */
+/* 245 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -92070,7 +92085,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 245 */
+/* 246 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -92145,7 +92160,7 @@ if (false) {
 }
 
 /***/ }),
-/* 246 */
+/* 247 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -92355,15 +92370,15 @@ if (false) {
 }
 
 /***/ }),
-/* 247 */
+/* 248 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(13)
 /* script */
-var __vue_script__ = __webpack_require__(248)
+var __vue_script__ = __webpack_require__(249)
 /* template */
-var __vue_template__ = __webpack_require__(249)
+var __vue_template__ = __webpack_require__(250)
 /* styles */
 var __vue_styles__ = null
 /* scopeId */
@@ -92401,7 +92416,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 248 */
+/* 249 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -92433,7 +92448,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 249 */
+/* 250 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -92466,15 +92481,15 @@ if (false) {
 }
 
 /***/ }),
-/* 250 */
+/* 251 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(13)
 /* script */
-var __vue_script__ = __webpack_require__(251)
+var __vue_script__ = __webpack_require__(252)
 /* template */
-var __vue_template__ = __webpack_require__(252)
+var __vue_template__ = __webpack_require__(253)
 /* styles */
 var __vue_styles__ = null
 /* scopeId */
@@ -92512,7 +92527,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 251 */
+/* 252 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -92736,7 +92751,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 252 */
+/* 253 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -92950,15 +92965,15 @@ if (false) {
 }
 
 /***/ }),
-/* 253 */
+/* 254 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(13)
 /* script */
-var __vue_script__ = __webpack_require__(254)
+var __vue_script__ = __webpack_require__(255)
 /* template */
-var __vue_template__ = __webpack_require__(348)
+var __vue_template__ = __webpack_require__(349)
 /* styles */
 var __vue_styles__ = null
 /* scopeId */
@@ -92996,7 +93011,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 254 */
+/* 255 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -93061,7 +93076,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     var button = document.querySelector('#submit-button');
 
-    var dropin = __webpack_require__(255);
+    var dropin = __webpack_require__(256);
 
     dropin.create({
       authorization: this.authorization,
@@ -93134,7 +93149,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 255 */
+/* 256 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -93243,9 +93258,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
  * </form>
  */
 
-var Dropin = __webpack_require__(256);
+var Dropin = __webpack_require__(257);
 var client = __webpack_require__(164);
-var createFromScriptTag = __webpack_require__(345);
+var createFromScriptTag = __webpack_require__(346);
 var constants = __webpack_require__(3);
 var analytics = __webpack_require__(15);
 var DropinError = __webpack_require__(8);
@@ -93641,7 +93656,7 @@ module.exports = {
 
 
 /***/ }),
-/* 256 */
+/* 257 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -93651,18 +93666,18 @@ var assign = __webpack_require__(14).assign;
 var analytics = __webpack_require__(15);
 var constants = __webpack_require__(3);
 var DropinError = __webpack_require__(8);
-var DropinModel = __webpack_require__(274);
+var DropinModel = __webpack_require__(275);
 var EventEmitter = __webpack_require__(174);
 var isGuestCheckout = __webpack_require__(175);
 
-var MainView = __webpack_require__(276);
+var MainView = __webpack_require__(277);
 var paymentMethodsViewID = __webpack_require__(185).ID;
 var paymentOptionsViewID = __webpack_require__(186).ID;
 var paymentOptionIDs = constants.paymentOptionIDs;
-var translations = __webpack_require__(315);
+var translations = __webpack_require__(316);
 var uuid = __webpack_require__(187);
 var Promise = __webpack_require__(10);
-var ThreeDSecure = __webpack_require__(339);
+var ThreeDSecure = __webpack_require__(340);
 var wrapPrototype = __webpack_require__(7).wrapPrototype;
 
 var mainHTML = "<div class=\"braintree-dropin\">\n  <div data-braintree-id=\"methods-label\" class=\"braintree-heading\">&nbsp;</div>\n  <div data-braintree-id=\"choose-a-way-to-pay\" class=\"braintree-heading\">{{chooseAWayToPay}}</div>\n  <div class=\"braintree-placeholder\">&nbsp;</div>\n\n  <div data-braintree-id=\"upper-container\" class=\"braintree-upper-container\">\n    <div data-braintree-id=\"loading-container\" class=\"braintree-loader__container\">\n      <div data-braintree-id=\"loading-indicator\" class=\"braintree-loader__indicator\">\n        <svg width=\"14\" height=\"16\" class=\"braintree-loader__lock\">\n          <use xlink:href=\"#iconLockLoader\"></use>\n        </svg>\n      </div>\n    </div>\n\n    <div data-braintree-id=\"methods\" class=\"braintree-methods braintree-methods-initial\">\n      <div data-braintree-id=\"methods-container\"></div>\n    </div>\n\n    <div data-braintree-id=\"options\" class=\"braintree-test-class braintree-options braintree-options-initial\">\n      <div data-braintree-id=\"payment-options-container\" class=\"braintree-options-list\"></div>\n    </div>\n\n    <div data-braintree-id=\"sheet-container\" class=\"braintree-sheet__container\">\n      <div data-braintree-id=\"paypal\" class=\"braintree-paypal braintree-sheet\">\n        <div data-braintree-id=\"paypal-sheet-header\" class=\"braintree-sheet__header\">\n          <div class=\"braintree-sheet__header-label\">\n            <div class=\"braintree-sheet__logo--header\">\n              <svg width=\"40\" height=\"24\">\n                <use xlink:href=\"#logoPayPal\"></use>\n              </svg>\n            </div>\n            <div class=\"braintree-sheet__label\">{{PayPal}}</div>\n          </div>\n        </div>\n        <div class=\"braintree-sheet__content braintree-sheet__content--button\">\n          <div data-braintree-id=\"paypal-button\" class=\"braintree-sheet__button--paypal\"></div>\n        </div>\n      </div>\n      <div data-braintree-id=\"paypalCredit\" class=\"braintree-paypalCredit braintree-sheet\">\n        <div data-braintree-id=\"paypal-credit-sheet-header\" class=\"braintree-sheet__header\">\n          <div class=\"braintree-sheet__header-label\">\n            <div class=\"braintree-sheet__logo--header\">\n              <svg width=\"40\" height=\"24\">\n                <use xlink:href=\"#logoPayPalCredit\"></use>\n              </svg>\n            </div>\n            <div class=\"braintree-sheet__label\">{{PayPal Credit}}</div>\n          </div>\n        </div>\n        <div class=\"braintree-sheet__content braintree-sheet__content--button\">\n          <div data-braintree-id=\"paypal-credit-button\" class=\"braintree-sheet__button--paypal\"></div>\n        </div>\n      </div>\n      <div data-braintree-id=\"applePay\" class=\"braintree-applePay braintree-sheet\">\n        <div data-braintree-id=\"apple-pay-sheet-header\" class=\"braintree-sheet__header\">\n          <div class=\"braintree-sheet__header-label\">\n            <div class=\"braintree-sheet__logo--header\">\n              <svg height=\"24\" width=\"40\">\n              <use xlink:href=\"#logoApplePay\"></use>\n              </svg>\n            </div>\n            <div class=\"braintree-sheet__label\">{{Apple Pay}}</div>\n          </div>\n        </div>\n        <div class=\"braintree-sheet__content braintree-sheet__content--button\">\n          <div data-braintree-id=\"apple-pay-button\" class=\"braintree-sheet__button--apple-pay apple-pay-button\"></div>\n        </div>\n      </div>\n      <div data-braintree-id=\"card\" class=\"braintree-card braintree-form braintree-sheet\">\n        <div data-braintree-id=\"card-sheet-header\" class=\"braintree-sheet__header\">\n          <div class=\"braintree-sheet__header-label\">\n            <div class=\"braintree-sheet__logo--header\">\n              <svg width=\"40\" height=\"24\" class=\"braintree-icon--bordered\">\n                <use xlink:href=\"#iconCardFront\"></use>\n              </svg>\n            </div>\n            <div class=\"braintree-sheet__text\">{{payWithCard}}</div>\n          </div>\n          <div data-braintree-id=\"card-view-icons\" class=\"braintree-sheet__icons\"></div>\n        </div>\n        <div class=\"braintree-sheet__content braintree-sheet__content--form\">\n          <div data-braintree-id=\"cardholder-name-field-group\" class=\"braintree-form__field-group\">\n            <div class=\"braintree-form__label\">{{cardholderNameLabel}}</div>\n            <div class=\"braintree-form__field\">\n              <div class=\"braintree-form-cardholder-name braintree-form__hosted-field\">\n                <input id=\"braintree__card-view-input__cardholder-name\" type=\"text\" placeholder=\"{{cardholderNamePlaceholder}}\"/>\n              </div>\n              <div class=\"braintree-form__icon-container\">\n                <div class=\"braintree-form__icon braintree-form__field-error-icon\">\n                  <svg width=\"24\" height=\"24\">\n                    <use xlink:href=\"#iconError\"></use>\n                  </svg>\n                </div>\n              </div>\n            </div>\n            <div data-braintree-id=\"cardholder-name-field-error\" class=\"braintree-form__field-error\"></div>\n          </div>\n          <div data-braintree-id=\"number-field-group\" class=\"braintree-form__field-group\">\n            <div class=\"braintree-form__label\">{{cardNumberLabel}}</div>\n            <div class=\"braintree-form__field\">\n              <label>\n                <div class=\"braintree-form-number braintree-form__hosted-field\"></div>\n              </label>\n              <div class=\"braintree-form__icon-container\">\n                <div data-braintree-id=\"card-number-icon\" class=\"braintree-form__icon braintree-form__field-secondary-icon\">\n                  <svg width=\"40\" height=\"24\" class=\"braintree-icon--bordered\">\n                  <use data-braintree-id=\"card-number-icon-svg\" xlink:href=\"#iconCardFront\"></use>\n                  </svg>\n                </div>\n                <div class=\"braintree-form__icon braintree-form__field-error-icon\">\n                  <svg width=\"24\" height=\"24\">\n                    <use xlink:href=\"#iconError\"></use>\n                  </svg>\n                </div>\n              </div>\n            </div>\n            <div data-braintree-id=\"number-field-error\" class=\"braintree-form__field-error\"></div>\n          </div>\n\n          <div class=\"braintree-form__flexible-fields\">\n            <div data-braintree-id=\"expiration-date-field-group\" class=\"braintree-form__field-group\">\n              <div class=\"braintree-form__label\">{{expirationDateLabel}}\n                <span class=\"braintree-form__descriptor\">{{expirationDateLabelSubheading}}</span>\n              </div>\n              <div class=\"braintree-form__field\">\n                <label>\n                  <div class=\"braintree-form__hosted-field braintree-form-expiration\"></div>\n                </label>\n                <div class=\"braintree-form__icon-container\">\n                  <div class=\"braintree-form__icon braintree-form__field-error-icon\">\n                    <svg width=\"24\" height=\"24\">\n                      <use xlink:href=\"#iconError\"></use>\n                    </svg>\n                  </div>\n                </div>\n              </div>\n\n              <div data-braintree-id=\"expiration-date-field-error\" class=\"braintree-form__field-error\"></div>\n            </div>\n\n            <div data-braintree-id=\"cvv-field-group\" class=\"braintree-form__field-group\">\n              <div class=\"braintree-form__label\">{{cvvLabel}}\n                <span data-braintree-id=\"cvv-label-descriptor\" class=\"braintree-form__descriptor\">{{cvvThreeDigitLabelSubheading}}</span>\n              </div>\n              <div class=\"braintree-form__field\">\n                <label>\n                  <div class=\"braintree-form__hosted-field braintree-form-cvv\"></div>\n                </label>\n                <div class=\"braintree-form__icon-container\">\n                  <div data-braintree-id=\"cvv-icon\" class=\"braintree-form__icon braintree-form__field-secondary-icon\">\n                    <svg width=\"40\" height=\"24\" class=\"braintree-icon--bordered\">\n                    <use data-braintree-id=\"cvv-icon-svg\" xlink:href=\"#iconCVVBack\"></use>\n                    </svg>\n                  </div>\n                  <div class=\"braintree-form__icon braintree-form__field-error-icon\">\n                    <svg width=\"24\" height=\"24\">\n                      <use xlink:href=\"#iconError\"></use>\n                    </svg>\n                  </div>\n                </div>\n              </div>\n              <div data-braintree-id=\"cvv-field-error\" class=\"braintree-form__field-error\"></div>\n            </div>\n\n            <div data-braintree-id=\"postal-code-field-group\" class=\"braintree-form__field-group\">\n              <div class=\"braintree-form__label\">{{postalCodeLabel}}</div>\n              <div class=\"braintree-form__field\">\n                <label>\n                  <div class=\"braintree-form__hosted-field braintree-form-postal-code\"></div>\n                </label>\n                <div class=\"braintree-form__icon-container\">\n                  <div class=\"braintree-form__icon braintree-form__field-error-icon\">\n                    <svg width=\"24\" height=\"24\">\n                      <use xlink:href=\"#iconError\"></use>\n                    </svg>\n                  </div>\n                </div>\n              </div>\n              <div data-braintree-id=\"postal-code-field-error\" class=\"braintree-form__field-error\"></div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <div data-braintree-id=\"sheet-error\" class=\"braintree-sheet__error\">\n        <div class=\"braintree-form__icon braintree-sheet__error-icon\">\n          <svg width=\"24\" height=\"24\">\n            <use xlink:href=\"#iconError\"></use>\n          </svg>\n        </div>\n        <div data-braintree-id=\"sheet-error-text\" class=\"braintree-sheet__error-text\"></div>\n      </div>\n    </div>\n  </div>\n\n  <div data-braintree-id=\"lower-container\" class=\"braintree-test-class braintree-options braintree-hidden\">\n    <div data-braintree-id=\"other-ways-to-pay\" class=\"braintree-heading\">{{otherWaysToPay}}</div>\n  </div>\n\n  <div data-braintree-id=\"toggle\" class=\"braintree-toggle braintree-hidden\" tabindex=\"0\">\n    <span>{{chooseAnotherWayToPay}}</span>\n  </div>\n</div>\n";
@@ -94435,7 +94450,7 @@ module.exports = wrapPrototype(Dropin);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 257 */
+/* 258 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -94450,7 +94465,7 @@ var Promise = __webpack_require__(6);
 var once = __webpack_require__(24);
 var deferred = __webpack_require__(172);
 var assign = __webpack_require__(25).assign;
-var constants = __webpack_require__(269);
+var constants = __webpack_require__(270);
 var errors = __webpack_require__(173);
 var sharedErrors = __webpack_require__(17);
 var VERSION = __webpack_require__(16).VERSION;
@@ -94764,7 +94779,7 @@ module.exports = Client;
 
 
 /***/ }),
-/* 258 */
+/* 259 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -94880,17 +94895,17 @@ module.exports = {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 259 */
+/* 260 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {
 
 var querystring = __webpack_require__(166);
-var browserDetection = __webpack_require__(260);
+var browserDetection = __webpack_require__(261);
 var assign = __webpack_require__(25).assign;
-var prepBody = __webpack_require__(263);
-var parseBody = __webpack_require__(264);
+var prepBody = __webpack_require__(264);
+var parseBody = __webpack_require__(265);
 var isXHRAvailable = global.XMLHttpRequest && 'withCredentials' in new global.XMLHttpRequest();
 
 var MAX_TCP_RETRYCOUNT = 1;
@@ -94988,13 +95003,13 @@ module.exports = {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 260 */
+/* 261 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var isIe = __webpack_require__(261);
+var isIe = __webpack_require__(262);
 
 module.exports = {
   isIe: isIe
@@ -95002,13 +95017,13 @@ module.exports = {
 
 
 /***/ }),
-/* 261 */
+/* 262 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {
 
-var isIE11 = __webpack_require__(262);
+var isIE11 = __webpack_require__(263);
 
 module.exports = function isIE(ua) {
   ua = ua || global.navigator.userAgent;
@@ -95018,7 +95033,7 @@ module.exports = function isIE(ua) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 262 */
+/* 263 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -95031,7 +95046,7 @@ module.exports = function isIe11(ua) {
 
 
 /***/ }),
-/* 263 */
+/* 264 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -95051,7 +95066,7 @@ module.exports = function (method, body) {
 
 
 /***/ }),
-/* 264 */
+/* 265 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -95067,7 +95082,7 @@ module.exports = function (body) {
 
 
 /***/ }),
-/* 265 */
+/* 266 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -95080,7 +95095,7 @@ module.exports = function getUserAgent() {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 266 */
+/* 267 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -95093,7 +95108,7 @@ module.exports = function () {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 267 */
+/* 268 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -95138,7 +95153,7 @@ module.exports = {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 268 */
+/* 269 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -95150,7 +95165,7 @@ module.exports = function (value) {
 
 
 /***/ }),
-/* 269 */
+/* 270 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -95162,7 +95177,7 @@ module.exports = {
 
 
 /***/ }),
-/* 270 */
+/* 271 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -95250,7 +95265,7 @@ module.exports = {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 271 */
+/* 272 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -95271,7 +95286,7 @@ module.exports = deferred;
 
 
 /***/ }),
-/* 272 */
+/* 273 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -95292,7 +95307,7 @@ module.exports = once;
 
 
 /***/ }),
-/* 273 */
+/* 274 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -95316,7 +95331,7 @@ module.exports = promiseOrCallback;
 
 
 /***/ }),
-/* 274 */
+/* 275 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -95328,7 +95343,7 @@ var constants = __webpack_require__(3);
 var paymentMethodTypes = constants.paymentMethodTypes;
 var paymentOptionIDs = constants.paymentOptionIDs;
 var isGuestCheckout = __webpack_require__(175);
-var isHTTPS = __webpack_require__(275);
+var isHTTPS = __webpack_require__(276);
 
 function DropinModel(options) {
   this.componentID = options.componentID;
@@ -95550,7 +95565,7 @@ module.exports = DropinModel;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 275 */
+/* 276 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -95567,7 +95582,7 @@ module.exports = {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 276 */
+/* 277 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -95577,12 +95592,12 @@ var analytics = __webpack_require__(15);
 var analyticsKinds = __webpack_require__(3).analyticsKinds;
 var BaseView = __webpack_require__(9);
 var classlist = __webpack_require__(18);
-var sheetViews = __webpack_require__(277);
+var sheetViews = __webpack_require__(278);
 var PaymentMethodsView = __webpack_require__(185);
 var PaymentOptionsView = __webpack_require__(186);
 var addSelectionEventHandler = __webpack_require__(30);
 var Promise = __webpack_require__(10);
-var supportsFlexbox = __webpack_require__(314);
+var supportsFlexbox = __webpack_require__(315);
 var transitionHelper = __webpack_require__(181);
 
 var CHANGE_ACTIVE_PAYMENT_METHOD_TIMEOUT = __webpack_require__(3).CHANGE_ACTIVE_PAYMENT_METHOD_TIMEOUT;
@@ -95876,7 +95891,7 @@ module.exports = MainView;
 
 
 /***/ }),
-/* 277 */
+/* 278 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -95886,16 +95901,16 @@ var paymentOptionIDs = __webpack_require__(3).paymentOptionIDs;
 
 var result = {};
 
-result[paymentOptionIDs.card] = __webpack_require__(278);
-result[paymentOptionIDs.paypal] = __webpack_require__(305);
-result[paymentOptionIDs.paypalCredit] = __webpack_require__(309);
-result[paymentOptionIDs.applePay] = __webpack_require__(310);
+result[paymentOptionIDs.card] = __webpack_require__(279);
+result[paymentOptionIDs.paypal] = __webpack_require__(306);
+result[paymentOptionIDs.paypalCredit] = __webpack_require__(310);
+result[paymentOptionIDs.applePay] = __webpack_require__(311);
 
 module.exports = result;
 
 
 /***/ }),
-/* 278 */
+/* 279 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -95907,7 +95922,7 @@ var BaseView = __webpack_require__(9);
 var classlist = __webpack_require__(18);
 var constants = __webpack_require__(3);
 var DropinError = __webpack_require__(8);
-var hostedFields = __webpack_require__(279);
+var hostedFields = __webpack_require__(280);
 var transitionHelper = __webpack_require__(181);
 var Promise = __webpack_require__(10);
 
@@ -96519,16 +96534,16 @@ module.exports = CardView;
 
 
 /***/ }),
-/* 279 */
+/* 280 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 /** @module braintree-web/hosted-fields */
 
-var HostedFields = __webpack_require__(280);
+var HostedFields = __webpack_require__(281);
 var basicComponentVerification = __webpack_require__(22);
-var supportsInputFormatting = __webpack_require__(298);
+var supportsInputFormatting = __webpack_require__(299);
 var wrapPromise = __webpack_require__(7);
 var Promise = __webpack_require__(6);
 var VERSION = "3.26.0";
@@ -96752,34 +96767,34 @@ module.exports = {
 
 
 /***/ }),
-/* 280 */
+/* 281 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {
 
-var Destructor = __webpack_require__(281);
-var classlist = __webpack_require__(283);
+var Destructor = __webpack_require__(282);
+var classlist = __webpack_require__(284);
 var iFramer = __webpack_require__(176);
 var Bus = __webpack_require__(177);
 var BraintreeError = __webpack_require__(2);
-var composeUrl = __webpack_require__(290);
+var composeUrl = __webpack_require__(291);
 var constants = __webpack_require__(26);
 var errors = __webpack_require__(27);
 var INTEGRATION_TIMEOUT_MS = __webpack_require__(16).INTEGRATION_TIMEOUT_MS;
 var uuid = __webpack_require__(21);
-var findParentTags = __webpack_require__(291);
-var browserDetection = __webpack_require__(292);
+var findParentTags = __webpack_require__(292);
+var browserDetection = __webpack_require__(293);
 var events = constants.events;
-var EventEmitter = __webpack_require__(294);
-var injectFrame = __webpack_require__(295);
+var EventEmitter = __webpack_require__(295);
+var injectFrame = __webpack_require__(296);
 var analytics = __webpack_require__(11);
 var whitelistedFields = constants.whitelistedFields;
 var methods = __webpack_require__(179);
 var convertMethodsToError = __webpack_require__(180);
 var sharedErrors = __webpack_require__(17);
-var getCardTypes = __webpack_require__(296);
-var attributeValidationError = __webpack_require__(297);
+var getCardTypes = __webpack_require__(297);
+var attributeValidationError = __webpack_require__(298);
 var Promise = __webpack_require__(6);
 var wrapPromise = __webpack_require__(7);
 
@@ -97818,13 +97833,13 @@ module.exports = wrapPromise.wrapPrototype(HostedFields);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 281 */
+/* 282 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var batchExecuteFunctions = __webpack_require__(282);
+var batchExecuteFunctions = __webpack_require__(283);
 
 function Destructor() {
   this._teardownRegistry = [];
@@ -97861,7 +97876,7 @@ module.exports = Destructor;
 
 
 /***/ }),
-/* 282 */
+/* 283 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -97912,7 +97927,7 @@ module.exports = function (functions, cb) {
 
 
 /***/ }),
-/* 283 */
+/* 284 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -97956,7 +97971,7 @@ module.exports = {
 
 
 /***/ }),
-/* 284 */
+/* 285 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -97980,7 +97995,7 @@ module.exports = function setAttributes(element, attributes) {
 
 
 /***/ }),
-/* 285 */
+/* 286 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -97995,7 +98010,7 @@ module.exports = {
 
 
 /***/ }),
-/* 286 */
+/* 287 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -98017,7 +98032,7 @@ module.exports = function assign(target) {
 
 
 /***/ }),
-/* 287 */
+/* 288 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -98299,7 +98314,7 @@ module.exports = function assign(target) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 288 */
+/* 289 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -98313,7 +98328,7 @@ module.exports = enumerate([
 
 
 /***/ }),
-/* 289 */
+/* 290 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -98350,7 +98365,7 @@ module.exports = {
 
 
 /***/ }),
-/* 290 */
+/* 291 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -98369,7 +98384,7 @@ module.exports = function composeUrl(assetsUrl, componentId, isDebug) {
 
 
 /***/ }),
-/* 291 */
+/* 292 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -98394,7 +98409,7 @@ module.exports = findParentTags;
 
 
 /***/ }),
-/* 292 */
+/* 293 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -98403,12 +98418,12 @@ module.exports = findParentTags;
 module.exports = {
   isIe9: __webpack_require__(28),
   isIos: __webpack_require__(29),
-  isIosWebview: __webpack_require__(293)
+  isIosWebview: __webpack_require__(294)
 };
 
 
 /***/ }),
-/* 293 */
+/* 294 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -98435,7 +98450,7 @@ module.exports = function isIosWebview(ua) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 294 */
+/* 295 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -98470,7 +98485,7 @@ module.exports = EventEmitter;
 
 
 /***/ }),
-/* 295 */
+/* 296 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -98492,7 +98507,7 @@ module.exports = function injectFrame(frame, container) {
 
 
 /***/ }),
-/* 296 */
+/* 297 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -98686,7 +98701,7 @@ module.exports = creditCardType;
 
 
 /***/ }),
-/* 297 */
+/* 298 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -98730,13 +98745,13 @@ module.exports = attributeValidationError;
 
 
 /***/ }),
-/* 298 */
+/* 299 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var device = __webpack_require__(299);
+var device = __webpack_require__(300);
 
 module.exports = function () {
   // Digits get dropped in samsung browser
@@ -98745,7 +98760,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 299 */
+/* 300 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -98753,8 +98768,8 @@ module.exports = function () {
 
 var UA = global.navigator && global.navigator.userAgent;
 
-var isAndroid = __webpack_require__(300);
-var isChrome = __webpack_require__(301);
+var isAndroid = __webpack_require__(301);
+var isChrome = __webpack_require__(302);
 var isIos = __webpack_require__(29);
 var isIE9 = __webpack_require__(28);
 
@@ -98794,7 +98809,7 @@ module.exports = {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 300 */
+/* 301 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -98808,14 +98823,14 @@ module.exports = function isAndroid(ua) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 301 */
+/* 302 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var isEdge = __webpack_require__(302);
-var isSamsung = __webpack_require__(303);
+var isEdge = __webpack_require__(303);
+var isSamsung = __webpack_require__(304);
 
 module.exports = function isChrome(ua) {
   ua = ua || navigator.userAgent;
@@ -98824,7 +98839,7 @@ module.exports = function isChrome(ua) {
 
 
 /***/ }),
-/* 302 */
+/* 303 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -98837,7 +98852,7 @@ module.exports = function isEdge(ua) {
 
 
 /***/ }),
-/* 303 */
+/* 304 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -98851,7 +98866,7 @@ module.exports = function isSamsungBrowser(ua) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 304 */
+/* 305 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -98865,7 +98880,7 @@ module.exports = {
 
 
 /***/ }),
-/* 305 */
+/* 306 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -98886,7 +98901,7 @@ module.exports = PayPalView;
 
 
 /***/ }),
-/* 306 */
+/* 307 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -98902,7 +98917,7 @@ var basicComponentVerification = __webpack_require__(22);
 var errors = __webpack_require__(183);
 var Promise = __webpack_require__(6);
 var wrapPromise = __webpack_require__(7);
-var PayPalCheckout = __webpack_require__(307);
+var PayPalCheckout = __webpack_require__(308);
 var VERSION = "3.26.0";
 
 /**
@@ -99003,7 +99018,7 @@ module.exports = {
 
 
 /***/ }),
-/* 307 */
+/* 308 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -99015,7 +99030,7 @@ var wrapPromise = __webpack_require__(7);
 var BraintreeError = __webpack_require__(2);
 var convertToBraintreeError = __webpack_require__(168);
 var errors = __webpack_require__(183);
-var constants = __webpack_require__(308);
+var constants = __webpack_require__(309);
 
 /**
  * PayPal Checkout tokenized payload. Returned in {@link PayPalCheckout#tokenizePayment}'s callback as the second argument, `data`.
@@ -99350,7 +99365,7 @@ module.exports = wrapPromise.wrapPrototype(PayPalCheckout);
 
 
 /***/ }),
-/* 308 */
+/* 309 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -99366,7 +99381,7 @@ module.exports = {
 
 
 /***/ }),
-/* 309 */
+/* 310 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -99389,7 +99404,7 @@ module.exports = PayPalCreditView;
 
 
 /***/ }),
-/* 310 */
+/* 311 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -99397,7 +99412,7 @@ module.exports = PayPalCreditView;
 
 var assign = __webpack_require__(14).assign;
 var BaseView = __webpack_require__(9);
-var btApplePay = __webpack_require__(311);
+var btApplePay = __webpack_require__(312);
 var DropinError = __webpack_require__(8);
 var paymentOptionIDs = __webpack_require__(3).paymentOptionIDs;
 
@@ -99488,7 +99503,7 @@ module.exports = ApplePayView;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 311 */
+/* 312 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -99500,7 +99515,7 @@ module.exports = ApplePayView;
  */
 
 var BraintreeError = __webpack_require__(2);
-var ApplePay = __webpack_require__(312);
+var ApplePay = __webpack_require__(313);
 var analytics = __webpack_require__(11);
 var basicComponentVerification = __webpack_require__(22);
 var errors = __webpack_require__(184);
@@ -99542,7 +99557,7 @@ module.exports = {
 
 
 /***/ }),
-/* 312 */
+/* 313 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -99839,7 +99854,7 @@ module.exports = wrapPromise.wrapPrototype(ApplePay);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 313 */
+/* 314 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -99916,7 +99931,7 @@ module.exports = PaymentMethodView;
 
 
 /***/ }),
-/* 314 */
+/* 315 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -99942,7 +99957,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 315 */
+/* 316 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -99950,35 +99965,35 @@ module.exports = function () {
 
 
 module.exports = {
-  da: __webpack_require__(316),
-  de: __webpack_require__(317),
-  en: __webpack_require__(318),
-  en_AU: __webpack_require__(319),
-  en_GB: __webpack_require__(320),
-  es: __webpack_require__(321),
-  fr_CA: __webpack_require__(322),
-  fr: __webpack_require__(323),
-  id: __webpack_require__(324),
-  it: __webpack_require__(325),
-  ja: __webpack_require__(326),
-  ko: __webpack_require__(327),
-  nl: __webpack_require__(328),
-  no: __webpack_require__(329),
-  pl: __webpack_require__(330),
-  pt_BR: __webpack_require__(331),
-  pt: __webpack_require__(332),
-  ru: __webpack_require__(333),
-  sv: __webpack_require__(334),
-  th: __webpack_require__(335),
-  zh: __webpack_require__(336),
-  zh_HK: __webpack_require__(337),
-  zh_TW: __webpack_require__(338)
+  da: __webpack_require__(317),
+  de: __webpack_require__(318),
+  en: __webpack_require__(319),
+  en_AU: __webpack_require__(320),
+  en_GB: __webpack_require__(321),
+  es: __webpack_require__(322),
+  fr_CA: __webpack_require__(323),
+  fr: __webpack_require__(324),
+  id: __webpack_require__(325),
+  it: __webpack_require__(326),
+  ja: __webpack_require__(327),
+  ko: __webpack_require__(328),
+  nl: __webpack_require__(329),
+  no: __webpack_require__(330),
+  pl: __webpack_require__(331),
+  pt_BR: __webpack_require__(332),
+  pt: __webpack_require__(333),
+  ru: __webpack_require__(334),
+  sv: __webpack_require__(335),
+  th: __webpack_require__(336),
+  zh: __webpack_require__(337),
+  zh_HK: __webpack_require__(338),
+  zh_TW: __webpack_require__(339)
 };
 /* eslint-enable camelcase */
 
 
 /***/ }),
-/* 316 */
+/* 317 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -100039,7 +100054,7 @@ module.exports = {
 
 
 /***/ }),
-/* 317 */
+/* 318 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -100100,7 +100115,7 @@ module.exports = {
 
 
 /***/ }),
-/* 318 */
+/* 319 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -100164,7 +100179,7 @@ module.exports = {
 
 
 /***/ }),
-/* 319 */
+/* 320 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -100225,7 +100240,7 @@ module.exports = {
 
 
 /***/ }),
-/* 320 */
+/* 321 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -100286,7 +100301,7 @@ module.exports = {
 
 
 /***/ }),
-/* 321 */
+/* 322 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -100347,7 +100362,7 @@ module.exports = {
 
 
 /***/ }),
-/* 322 */
+/* 323 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -100408,7 +100423,7 @@ module.exports = {
 
 
 /***/ }),
-/* 323 */
+/* 324 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -100469,7 +100484,7 @@ module.exports = {
 
 
 /***/ }),
-/* 324 */
+/* 325 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -100530,7 +100545,7 @@ module.exports = {
 
 
 /***/ }),
-/* 325 */
+/* 326 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -100591,7 +100606,7 @@ module.exports = {
 
 
 /***/ }),
-/* 326 */
+/* 327 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -100652,7 +100667,7 @@ module.exports = {
 
 
 /***/ }),
-/* 327 */
+/* 328 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -100713,7 +100728,7 @@ module.exports = {
 
 
 /***/ }),
-/* 328 */
+/* 329 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -100774,7 +100789,7 @@ module.exports = {
 
 
 /***/ }),
-/* 329 */
+/* 330 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -100835,7 +100850,7 @@ module.exports = {
 
 
 /***/ }),
-/* 330 */
+/* 331 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -100896,7 +100911,7 @@ module.exports = {
 
 
 /***/ }),
-/* 331 */
+/* 332 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -100957,7 +100972,7 @@ module.exports = {
 
 
 /***/ }),
-/* 332 */
+/* 333 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -101018,7 +101033,7 @@ module.exports = {
 
 
 /***/ }),
-/* 333 */
+/* 334 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -101079,7 +101094,7 @@ module.exports = {
 
 
 /***/ }),
-/* 334 */
+/* 335 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -101140,7 +101155,7 @@ module.exports = {
 
 
 /***/ }),
-/* 335 */
+/* 336 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -101201,7 +101216,7 @@ module.exports = {
 
 
 /***/ }),
-/* 336 */
+/* 337 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -101262,7 +101277,7 @@ module.exports = {
 
 
 /***/ }),
-/* 337 */
+/* 338 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -101323,7 +101338,7 @@ module.exports = {
 
 
 /***/ }),
-/* 338 */
+/* 339 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -101384,7 +101399,7 @@ module.exports = {
 
 
 /***/ }),
-/* 339 */
+/* 340 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -101392,7 +101407,7 @@ module.exports = {
 
 
 var classlist = __webpack_require__(18);
-var threeDSecure = __webpack_require__(340);
+var threeDSecure = __webpack_require__(341);
 var Promise = __webpack_require__(10);
 
 function ThreeDSecure(client, merchantConfiguration, cardVerificationString) {
@@ -101530,15 +101545,15 @@ module.exports = ThreeDSecure;
 
 
 /***/ }),
-/* 340 */
+/* 341 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 /** @module braintree-web/three-d-secure */
 
-var ThreeDSecure = __webpack_require__(341);
-var isHTTPS = __webpack_require__(344).isHTTPS;
+var ThreeDSecure = __webpack_require__(342);
+var isHTTPS = __webpack_require__(345).isHTTPS;
 var basicComponentVerification = __webpack_require__(22);
 var BraintreeError = __webpack_require__(2);
 var analytics = __webpack_require__(11);
@@ -101598,7 +101613,7 @@ module.exports = {
 
 
 /***/ }),
-/* 341 */
+/* 342 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -101609,13 +101624,13 @@ var analytics = __webpack_require__(11);
 var assign = __webpack_require__(25).assign;
 var methods = __webpack_require__(179);
 var convertMethodsToError = __webpack_require__(180);
-var constants = __webpack_require__(342);
+var constants = __webpack_require__(343);
 var useMin = __webpack_require__(178);
 var Bus = __webpack_require__(177);
 var uuid = __webpack_require__(21);
 var deferred = __webpack_require__(172);
 var errors = __webpack_require__(188);
-var events = __webpack_require__(343);
+var events = __webpack_require__(344);
 var VERSION = "3.26.0";
 var iFramer = __webpack_require__(176);
 var Promise = __webpack_require__(6);
@@ -101949,7 +101964,7 @@ module.exports = wrapPromise.wrapPrototype(ThreeDSecure);
 
 
 /***/ }),
-/* 342 */
+/* 343 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -101961,7 +101976,7 @@ module.exports = {
 
 
 /***/ }),
-/* 343 */
+/* 344 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -101975,7 +101990,7 @@ module.exports = enumerate([
 
 
 /***/ }),
-/* 344 */
+/* 345 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -101994,17 +102009,17 @@ module.exports = {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 345 */
+/* 346 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var analytics = __webpack_require__(15);
-var find = __webpack_require__(346);
+var find = __webpack_require__(347);
 var uuid = __webpack_require__(187);
 var DropinError = __webpack_require__(8);
-var kebabCaseToCamelCase = __webpack_require__(347);
+var kebabCaseToCamelCase = __webpack_require__(348);
 var WHITELISTED_DATA_ATTRIBUTES = [
   'locale',
   'payment-option-priority',
@@ -102129,7 +102144,7 @@ module.exports = createFromScriptTag;
 
 
 /***/ }),
-/* 346 */
+/* 347 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -102151,7 +102166,7 @@ module.exports = {
 
 
 /***/ }),
-/* 347 */
+/* 348 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -102171,7 +102186,7 @@ module.exports = kebabCaseToCamelCase;
 
 
 /***/ }),
-/* 348 */
+/* 349 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -102245,32 +102260,10 @@ if (false) {
 }
 
 /***/ }),
-/* 349 */
+/* 350 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 350 */,
-/* 351 */,
-/* 352 */,
-/* 353 */,
-/* 354 */,
-/* 355 */,
-/* 356 */,
-/* 357 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/*!
- * Datepicker v0.6.4
- * https://github.com/fengyuanchen/datepicker
- *
- * Copyright (c) 2014-2017 Chen Fengyuan
- * Released under the MIT license
- *
- * Date: 2017-11-24T14:38:23.820Z
- */
-!function(e,t){ true?t(__webpack_require__(12)):"function"==typeof define&&define.amd?define(["jquery"],t):t(e.jQuery)}(this,function(e){"use strict";function t(e){return"string"==typeof e}function i(e){return"number"==typeof e&&!v(e)}function a(e){return void 0===e}function s(e){return"date"===function(e){return y.call(e).slice(8,-1).toLowerCase()}(e)}function n(e,t){for(var i=arguments.length,a=Array(i>2?i-2:0),s=2;s<i;s++)a[s-2]=arguments[s];return function(){for(var i=arguments.length,s=Array(i),n=0;n<i;n++)s[n]=arguments[n];return e.apply(t,a.concat(s))}}function r(e){return'[data-view="'+e+'"]'}function h(e,t){return[31,function(e){return e%4==0&&e%100!=0||e%400==0}(e)?29:28,31,30,31,30,31,31,30,31,30,31][t]}function o(e,t,i){return Math.min(i,h(e,t))}e=e&&e.hasOwnProperty("default")?e.default:e;var l={autoShow:!1,autoHide:!1,autoPick:!1,inline:!1,container:null,trigger:null,language:"",format:"mm/dd/yyyy",date:null,startDate:null,endDate:null,startView:0,weekStart:0,yearFirst:!1,yearSuffix:"",days:["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],daysShort:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],daysMin:["Su","Mo","Tu","We","Th","Fr","Sa"],months:["January","February","March","April","May","June","July","August","September","October","November","December"],monthsShort:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],itemTag:"li",mutedClass:"muted",pickedClass:"picked",disabledClass:"disabled",highlightedClass:"highlighted",template:'<div class="datepicker-container"><div class="datepicker-panel" data-view="years picker"><ul><li data-view="years prev">&lsaquo;</li><li data-view="years current"></li><li data-view="years next">&rsaquo;</li></ul><ul data-view="years"></ul></div><div class="datepicker-panel" data-view="months picker"><ul><li data-view="year prev">&lsaquo;</li><li data-view="year current"></li><li data-view="year next">&rsaquo;</li></ul><ul data-view="months"></ul></div><div class="datepicker-panel" data-view="days picker"><ul><li data-view="month prev">&lsaquo;</li><li data-view="month current"></li><li data-view="month next">&rsaquo;</li></ul><ul data-view="week"></ul><ul data-view="days"></ul></div></div>',offset:10,zIndex:1e3,filter:null,show:null,hide:null,pick:null},d="undefined"!=typeof window?window:{},u="datepicker",c="click.datepicker",p="datepicker-hide",f={},g={DAYS:0,MONTHS:1,YEARS:2},y=Object.prototype.toString,v=Number.isNaN||d.isNaN,m=/(y|m|d)+/g,w=/\d+/g,k={show:function(){this.built||this.build(),this.shown||this.trigger("show.datepicker").isDefaultPrevented()||(this.shown=!0,this.$picker.removeClass(p).on(c,e.proxy(this.click,this)),this.showView(this.options.startView),this.inline||(e(window).on("resize.datepicker",this.onResize=n(this.place,this)),e(document).on(c,this.onGlobalClick=n(this.globalClick,this)),e(document).on("keyup.datepicker",this.onGlobalKeyup=n(this.globalKeyup,this)),this.place()))},hide:function(){this.shown&&(this.trigger("hide.datepicker").isDefaultPrevented()||(this.shown=!1,this.$picker.addClass(p).off(c,this.click),this.inline||(e(window).off("resize.datepicker",this.onResize),e(document).off(c,this.onGlobalClick),e(document).off("keyup.datepicker",this.onGlobalKeyup))))},toggle:function(){this.shown?this.hide():this.show()},update:function(){var e=this.getValue();e!==this.oldValue&&(this.setDate(e,!0),this.oldValue=e)},pick:function(e){var t=this.$element,i=this.date;this.trigger("pick.datepicker",{view:e||"",date:i}).isDefaultPrevented()||(i=this.formatDate(this.date),this.setValue(i),this.isInput&&(t.trigger("input"),t.trigger("change")))},reset:function(){this.setDate(this.initialDate,!0),this.setValue(this.initialValue),this.shown&&this.showView(this.options.startView)},getMonthName:function(t,s){var n=this.options,r=n.monthsShort,h=n.months;return e.isNumeric(t)?t=Number(t):a(s)&&(s=t),!0===s&&(h=r),h[i(t)?t:this.date.getMonth()]},getDayName:function(t,s,n){var r=this.options,h=r.days;return e.isNumeric(t)?t=Number(t):(a(n)&&(n=s),a(s)&&(s=t)),n?h=r.daysMin:s&&(h=r.daysShort),h[i(t)?t:this.date.getDay()]},getDate:function(e){var t=this.date;return e?this.formatDate(t):new Date(t)},setDate:function(i,a){var n=this.options.filter;if(s(i)||t(i)){if(i=this.parseDate(i),e.isFunction(n)&&!1===n.call(this.$element,i))return;this.date=i,this.viewDate=new Date(i),a||this.pick(),this.built&&this.render()}},setStartDate:function(e){(s(e)||t(e))&&(this.startDate=this.parseDate(e),this.built&&this.render())},setEndDate:function(e){(s(e)||t(e))&&(this.endDate=this.parseDate(e),this.built&&this.render())},parseDate:function(i){var a=this.format,n=[];if(s(i))return new Date(i.getFullYear(),i.getMonth(),i.getDate());t(i)&&(n=i.match(w)||[]),i=new Date;var r=a.parts.length,h=i.getFullYear(),o=i.getDate(),l=i.getMonth();return n.length===r&&e.each(n,function(e,t){var i=parseInt(t,10)||1;switch(a.parts[e]){case"dd":case"d":o=i;break;case"mm":case"m":l=i-1;break;case"yy":h=2e3+i;break;case"yyyy":h=i}}),new Date(h,l,o)},formatDate:function(t){var i=this.format,a="";if(s(t)){var n=t.getFullYear(),r={d:t.getDate(),m:t.getMonth()+1,yy:n.toString().substring(2),yyyy:n};r.dd=(r.d<10?"0":"")+r.d,r.mm=(r.m<10?"0":"")+r.m,a=i.source,e.each(i.parts,function(e,t){a=a.replace(t,r[t])})}return a},destroy:function(){this.unbind(),this.unbuild(),this.$element.removeData(u)}},D={click:function(t){var i=e(t.target),a=this.options,s=this.viewDate,n=this.format;if(t.stopPropagation(),t.preventDefault(),!i.hasClass("disabled")){var r=i.data("view"),h=s.getFullYear(),l=s.getMonth(),d=s.getDate();switch(r){case"years prev":case"years next":h="years prev"===r?h-10:h+10,this.viewDate=new Date(h,l,o(h,l,d)),this.renderYears();break;case"year prev":case"year next":h="year prev"===r?h-1:h+1,this.viewDate=new Date(h,l,o(h,l,d)),this.renderMonths();break;case"year current":n.hasYear&&this.showView(g.YEARS);break;case"year picked":n.hasMonth?this.showView(g.MONTHS):(i.addClass(a.pickedClass).siblings().removeClass(a.pickedClass),this.hideView()),this.pick("year");break;case"year":h=parseInt(i.text(),10),this.date=new Date(h,l,o(h,l,d)),n.hasMonth?(this.viewDate=new Date(this.date),this.showView(g.MONTHS)):(i.addClass(a.pickedClass).siblings().removeClass(a.pickedClass),this.hideView()),this.pick("year");break;case"month prev":case"month next":(l="month prev"===r?l-1:l+1)<0?(h-=1,l+=12):l>11&&(h+=1,l-=12),this.viewDate=new Date(h,l,o(h,l,d)),this.renderDays();break;case"month current":n.hasMonth&&this.showView(g.MONTHS);break;case"month picked":n.hasDay?this.showView(g.DAYS):(i.addClass(a.pickedClass).siblings().removeClass(a.pickedClass),this.hideView()),this.pick("month");break;case"month":l=e.inArray(i.text(),a.monthsShort),this.date=new Date(h,l,o(h,l,d)),n.hasDay?(this.viewDate=new Date(h,l,o(h,l,d)),this.showView(g.DAYS)):(i.addClass(a.pickedClass).siblings().removeClass(a.pickedClass),this.hideView()),this.pick("month");break;case"day prev":case"day next":case"day":"day prev"===r?l-=1:"day next"===r&&(l+=1),d=parseInt(i.text(),10),this.date=new Date(h,l,d),this.viewDate=new Date(h,l,d),this.renderDays(),"day"===r&&this.hideView(),this.pick("day");break;case"day picked":this.hideView(),this.pick("day")}}},globalClick:function(e){for(var t=e.target,i=this.element,a=this.$trigger[0],s=!0;t!==document;){if(t===a||t===i){s=!1;break}t=t.parentNode}s&&this.hide()},keyup:function(){this.update()},globalKeyup:function(e){var t=e.target,i=e.key,a=e.keyCode;this.isInput&&t!==this.element&&this.shown&&("Tab"===i||9===a)&&this.hide()}},b={render:function(){this.renderYears(),this.renderMonths(),this.renderDays()},renderWeek:function(){var t=this,i=[],a=this.options,s=a.weekStart,n=a.daysMin;s=parseInt(s,10)%7,n=n.slice(s).concat(n.slice(0,s)),e.each(n,function(e,a){i.push(t.createItem({text:a}))}),this.$week.html(i.join(""))},renderYears:function(){var e=this.options,t=this.startDate,i=this.endDate,a=e.disabledClass,s=e.filter,n=e.yearSuffix,r=this.viewDate.getFullYear(),h=(new Date).getFullYear(),o=this.date.getFullYear(),l=[],d=!1,u=!1,c=void 0;for(c=-5;c<=6;c+=1){var p=new Date(r+c,1,1),f=!1;t&&(f=p.getFullYear()<t.getFullYear(),-5===c&&(d=f)),!f&&i&&(f=p.getFullYear()>i.getFullYear(),6===c&&(u=f)),!f&&s&&(f=!1===s.call(this.$element,p));var g=r+c===o,y=g?"year picked":"year";l.push(this.createItem({picked:g,disabled:f,muted:-5===c||6===c,text:r+c,view:f?"year disabled":y,highlighted:p.getFullYear()===h}))}this.$yearsPrev.toggleClass(a,d),this.$yearsNext.toggleClass(a,u),this.$yearsCurrent.toggleClass(a,!0).html(r+-5+n+" - "+(r+6)+n),this.$years.html(l.join(""))},renderMonths:function(){var t=this.options,i=this.startDate,a=this.endDate,s=this.viewDate,n=t.disabledClass||"",r=t.monthsShort,h=e.isFunction(t.filter)&&t.filter,o=s.getFullYear(),l=new Date,d=l.getFullYear(),u=l.getMonth(),c=this.date.getFullYear(),p=this.date.getMonth(),f=[],g=!1,y=!1,v=void 0;for(v=0;v<=11;v+=1){var m=new Date(o,v,1),w=!1;i&&(w=(g=m.getFullYear()===i.getFullYear())&&m.getMonth()<i.getMonth()),!w&&a&&(w=(y=m.getFullYear()===a.getFullYear())&&m.getMonth()>a.getMonth()),!w&&h&&(w=!1===h.call(this.$element,m));var k=o===c&&v===p,D=k?"month picked":"month";f.push(this.createItem({disabled:w,picked:k,highlighted:o===d&&m.getMonth()===u,index:v,text:r[v],view:w?"month disabled":D}))}this.$yearPrev.toggleClass(n,g),this.$yearNext.toggleClass(n,y),this.$yearCurrent.toggleClass(n,g&&y).html(o+t.yearSuffix||""),this.$months.html(f.join(""))},renderDays:function(){var e=this.$element,t=this.options,i=this.startDate,a=this.endDate,s=this.viewDate,n=this.date,r=t.disabledClass,o=t.filter,l=t.monthsShort,d=t.weekStart,u=t.yearSuffix,c=s.getFullYear(),p=s.getMonth(),f=new Date,g=f.getFullYear(),y=f.getMonth(),v=f.getDate(),m=n.getFullYear(),w=n.getMonth(),k=n.getDate(),D=void 0,b=void 0,C=void 0,$=[],x=c,M=p,S=!1;0===p?(x-=1,M=11):M-=1,D=h(x,M);var F=new Date(c,p,1);for((C=F.getDay()-parseInt(d,10)%7)<=0&&(C+=7),i&&(S=F.getTime()<=i.getTime()),b=D-(C-1);b<=D;b+=1){var Y=new Date(x,M,b),T=!1;i&&(T=Y.getTime()<i.getTime()),!T&&o&&(T=!1===o.call(e,Y)),$.push(this.createItem({disabled:T,highlighted:x===g&&M===y&&Y.getDate()===v,muted:!0,picked:x===m&&M===w&&b===k,text:b,view:"day prev"}))}var V=[],I=c,N=p,P=!1;11===p?(I+=1,N=0):N+=1,D=h(c,p),C=42-($.length+D);var A=new Date(c,p,D);for(a&&(P=A.getTime()>=a.getTime()),b=1;b<=C;b+=1){var j=new Date(I,N,b),O=I===m&&N===w&&b===k,H=!1;a&&(H=j.getTime()>a.getTime()),!H&&o&&(H=!1===o.call(e,j)),V.push(this.createItem({disabled:H,picked:O,highlighted:I===g&&N===y&&j.getDate()===v,muted:!0,text:b,view:"day next"}))}var q=[];for(b=1;b<=D;b+=1){var E=new Date(c,p,b),z=!1;i&&(z=E.getTime()<i.getTime()),!z&&a&&(z=E.getTime()>a.getTime()),!z&&o&&(z=!1===o.call(e,E));var W=c===m&&p===w&&b===k,J=W?"day picked":"day";q.push(this.createItem({disabled:z,picked:W,highlighted:c===g&&p===y&&E.getDate()===v,text:b,view:z?"day disabled":J}))}this.$monthPrev.toggleClass(r,S),this.$monthNext.toggleClass(r,P),this.$monthCurrent.toggleClass(r,S&&P).html(t.yearFirst?c+u+" "+l[p]:l[p]+" "+c+u),this.$days.html($.join("")+q.join("")+V.join(""))}},C=function(){function e(e,t){for(var i=0;i<t.length;i++){var a=t[i];a.enumerable=a.enumerable||!1,a.configurable=!0,"value"in a&&(a.writable=!0),Object.defineProperty(e,a.key,a)}}return function(t,i,a){return i&&e(t.prototype,i),a&&e(t,a),t}}(),$="datepicker-top-left",x="datepicker-bottom-left",M=[$,"datepicker-top-right",x,"datepicker-bottom-right"].join(" "),S=function(){function t(i){var a=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{};!function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,t),this.$element=e(i),this.element=i,this.options=e.extend({},l,f[a.language],a),this.built=!1,this.shown=!1,this.isInput=!1,this.inline=!1,this.initialValue="",this.initialDate=null,this.startDate=null,this.endDate=null,this.init()}return C(t,[{key:"init",value:function(){var t=this.$element,i=this.options,a=i.startDate,s=i.endDate,n=i.date;this.$trigger=e(i.trigger),this.isInput=t.is("input")||t.is("textarea"),this.inline=i.inline&&(i.container||!this.isInput),this.format=function(t){var i=String(t).toLowerCase(),a=i.match(m);if(!a||0===a.length)throw new Error("Invalid date format.");return t={source:i,parts:a},e.each(a,function(e,i){switch(i){case"dd":case"d":t.hasDay=!0;break;case"mm":case"m":t.hasMonth=!0;break;case"yyyy":case"yy":t.hasYear=!0}}),t}(i.format);var r=this.getValue();this.initialValue=r,this.oldValue=r,n=this.parseDate(n||r),a&&(a=this.parseDate(a),n.getTime()<a.getTime()&&(n=new Date(a)),this.startDate=a),s&&(s=this.parseDate(s),a&&s.getTime()<a.getTime()&&(s=new Date(a)),n.getTime()>s.getTime()&&(n=new Date(s)),this.endDate=s),this.date=n,this.viewDate=new Date(n),this.initialDate=new Date(this.date),this.bind(),(i.autoShow||this.inline)&&this.show(),i.autoPick&&this.pick()}},{key:"build",value:function(){if(!this.built){this.built=!0;var t=this.$element,i=this.options,a=e(i.template);this.$picker=a,this.$week=a.find(r("week")),this.$yearsPicker=a.find(r("years picker")),this.$yearsPrev=a.find(r("years prev")),this.$yearsNext=a.find(r("years next")),this.$yearsCurrent=a.find(r("years current")),this.$years=a.find(r("years")),this.$monthsPicker=a.find(r("months picker")),this.$yearPrev=a.find(r("year prev")),this.$yearNext=a.find(r("year next")),this.$yearCurrent=a.find(r("year current")),this.$months=a.find(r("months")),this.$daysPicker=a.find(r("days picker")),this.$monthPrev=a.find(r("month prev")),this.$monthNext=a.find(r("month next")),this.$monthCurrent=a.find(r("month current")),this.$days=a.find(r("days")),this.inline?e(i.container||t).append(a.addClass("datepicker-inline")):(e(document.body).append(a.addClass("datepicker-dropdown")),a.addClass(p)),this.renderWeek()}}},{key:"unbuild",value:function(){this.built&&(this.built=!1,this.$picker.remove())}},{key:"bind",value:function(){var t=this.options,i=this.$element;e.isFunction(t.show)&&i.on("show.datepicker",t.show),e.isFunction(t.hide)&&i.on("hide.datepicker",t.hide),e.isFunction(t.pick)&&i.on("pick.datepicker",t.pick),this.isInput&&i.on("keyup.datepicker",e.proxy(this.keyup,this)),this.inline||(t.trigger?this.$trigger.on(c,e.proxy(this.toggle,this)):this.isInput?i.on("focus.datepicker",e.proxy(this.show,this)):i.on(c,e.proxy(this.show,this)))}},{key:"unbind",value:function(){var t=this.$element,i=this.options;e.isFunction(i.show)&&t.off("show.datepicker",i.show),e.isFunction(i.hide)&&t.off("hide.datepicker",i.hide),e.isFunction(i.pick)&&t.off("pick.datepicker",i.pick),this.isInput&&t.off("keyup.datepicker",this.keyup),this.inline||(i.trigger?this.$trigger.off(c,this.toggle):this.isInput?t.off("focus.datepicker",this.show):t.off(c,this.show))}},{key:"showView",value:function(e){var t=this.$yearsPicker,i=this.$monthsPicker,a=this.$daysPicker,s=this.format;if(s.hasYear||s.hasMonth||s.hasDay)switch(Number(e)){case g.YEARS:i.addClass(p),a.addClass(p),s.hasYear?(this.renderYears(),t.removeClass(p),this.place()):this.showView(g.DAYS);break;case g.MONTHS:t.addClass(p),a.addClass(p),s.hasMonth?(this.renderMonths(),i.removeClass(p),this.place()):this.showView(g.YEARS);break;default:t.addClass(p),i.addClass(p),s.hasDay?(this.renderDays(),a.removeClass(p),this.place()):this.showView(g.MONTHS)}}},{key:"hideView",value:function(){!this.inline&&this.options.autoHide&&this.hide()}},{key:"place",value:function(){if(!this.inline){var t=this.$element,i=this.options,a=this.$picker,s=e(document).outerWidth(),n=e(document).outerHeight(),r=t.outerWidth(),h=t.outerHeight(),o=a.width(),l=a.height(),d=t.offset(),u=d.left,c=d.top,p=parseFloat(i.offset),f=$;v(p)&&(p=10),c>l&&c+h+l>n?(c-=l+p,f=x):c+=h+p,u+o>s&&(u+=r-o,f=f.replace("left","right")),a.removeClass(M).addClass(f).css({top:c,left:u,zIndex:parseInt(i.zIndex,10)})}}},{key:"trigger",value:function(t,i){var a=e.Event(t,i);return this.$element.trigger(a),a}},{key:"createItem",value:function(t){var i=this.options,a=i.itemTag,s={text:"",view:"",muted:!1,picked:!1,disabled:!1,highlighted:!1},n=[];return e.extend(s,t),s.muted&&n.push(i.mutedClass),s.highlighted&&n.push(i.highlightedClass),s.picked&&n.push(i.pickedClass),s.disabled&&n.push(i.disabledClass),"<"+a+' class="'+n.join(" ")+'" data-view="'+s.view+'">'+s.text+"</"+a+">"}},{key:"getValue",value:function(){var e=this.$element;return this.isInput?e.val():e.text()}},{key:"setValue",value:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:"",t=this.$element;this.isInput?t.val(e):t.text(e)}}],[{key:"setDefaults",value:function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{};e.extend(l,f[t.language],t)}}]),t}();if(e.extend&&e.extend(S.prototype,b,D,k),e.fn){var F=e.fn.datepicker;e.fn.datepicker=function(i){for(var s=arguments.length,n=Array(s>1?s-1:0),r=1;r<s;r++)n[r-1]=arguments[r];var h=void 0;return this.each(function(a,s){var r=e(s),o=r.data(u);if(!o){if(/destroy/.test(i))return;var l=e.extend({},r.data(),e.isPlainObject(i)&&i);o=new S(s,l),r.data(u,o)}if(t(i)){var d=o[i];e.isFunction(d)&&(h=d.apply(o,n))}}),a(h)?this:h},e.fn.datepicker.Constructor=S,e.fn.datepicker.languages=f,e.fn.datepicker.setDefaults=S.setDefaults,e.fn.datepicker.noConflict=function(){return e.fn.datepicker=F,this}}});
 
 /***/ })
 /******/ ]);
