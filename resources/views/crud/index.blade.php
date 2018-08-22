@@ -49,8 +49,7 @@
     No Results
   </div>
 @else
-  <table class="table table-responsive">
-
+  <table class="table table-responsive-md">
     <thead>
       <tr>
         @foreach ($cols as $c)
